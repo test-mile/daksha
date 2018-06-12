@@ -27,33 +27,33 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.lib.base.BaseUiElementProxy;
 import daksha.core.leaping.selenium.interfaces.SeleniumElementProxy;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.SeleniumUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.SeleniumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements SeleniumElementProxy{
 	
-	private SeleniumUiDriver uiDriver = null;
+	private SeleniumGuiAutomator uiDriver = null;
 	private WebElement toolElement = null;
 	private Select selectElement = null;
 	private List<WebElement> toolElements = null;
 	private List<By> toolFindByQueue = null;
 	
-	public DefaultSeleniumElementProxy(SeleniumUiDriver uiDriver, UiElement uiElement){
+	public DefaultSeleniumElementProxy(SeleniumGuiAutomator uiDriver, GuiElement uiElement){
 		super(uiElement);
 		this.setSeleniumUiDriver(uiDriver);
 	}
 
 	@Override
-	public SeleniumUiDriver getSeleniumUiDriver() {
+	public SeleniumGuiAutomator getSeleniumUiDriver() {
 		return uiDriver;
 	}
 
 	@Override
-	public void setSeleniumUiDriver(SeleniumUiDriver uiDriver) {
+	public void setSeleniumUiDriver(SeleniumGuiAutomator uiDriver) {
 		this.uiDriver = uiDriver;
 	}
 
@@ -162,13 +162,13 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	}
 
 	@Override
-	public UiElement getUiElementWrapperForToolElement(WebElement toolElement) throws Exception {
+	public GuiElement getUiElementWrapperForToolElement(WebElement toolElement) throws Exception {
 		return getElementWrapper(this.getUiElement().getMetaData(), toolElement, this.getUiElement().getLoaderType());
 	}
 
 	@Override
-	public UiElement getElementWrapper(ElementMetaData elementMetaData, WebElement toolElement, ElementLoaderType loaderType) throws Exception {
-		UiElement childUiElement = this.getSeleniumUiDriver().declareElement(elementMetaData);
+	public GuiElement getElementWrapper(UiElementIdentifier elementMetaData, WebElement toolElement, ElementLoaderType loaderType) throws Exception {
+		GuiElement childUiElement = this.getSeleniumUiDriver().declareElement(elementMetaData);
 	
 		// Set properties
 		childUiElement.setName(this.getUiElement().getName() + " (instance)");
@@ -197,7 +197,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	}
 
 	@Override
-	public void setElementForChildUiElement(UiElement childUiElement, WebElement toolElement) throws Exception {
+	public void setElementForChildUiElement(GuiElement childUiElement, WebElement toolElement) throws Exception {
 		childUiElement.setElement(toolElement);
 		childUiElement.switchOffCompositeFlag();
 		childUiElement.getProxy().setRawToolElement(toolElement);
@@ -205,15 +205,15 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	}
 
 	@Override
-	public void setElementsForChildUiElement(UiElement childUiElement, List<WebElement> toolElements) throws Exception {
+	public void setElementsForChildUiElement(GuiElement childUiElement, List<WebElement> toolElements) throws Exception {
 		childUiElement.setElements(toolElements);
 		childUiElement.switchOnCompositeFlag();
 		childUiElement.getProxy().setRawToolElements(toolElements);
 	}
 
 	@Override
-	public void decorateSingleUiElement(UiElement uiElement, WebElement toolElement) throws Exception {
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+	public void decorateSingleUiElement(GuiElement uiElement, WebElement toolElement) throws Exception {
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		switch (automator.getElementType(toolElement)){
 		case DROPDOWN: 
 			Select select = automator.convertToSelectElement(toolElement);
@@ -246,7 +246,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 
 	@Override
 	public void identify() throws Exception {
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		WebElement wdElement  = null;
 		for (By by: getToolFindersQueue()){
 			try{
@@ -264,7 +264,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 
 	@Override
 	public void identifyAll() throws Exception {
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		List<WebElement> wdElements  = null;
 		for (By by: getToolFindersQueue()){
 			try{
@@ -292,14 +292,14 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	}
 
 	@Override
-	public UiElement getInstanceAtIndex(int index) throws Exception {
+	public GuiElement getInstanceAtIndex(int index) throws Exception {
 		identifyAllIfNull();
 		WebElement toolElement = this.getToolElements().get(index);
 		return this.getUiElementWrapperForToolElement(toolElement);
 	}
 
 	@Override
-	public UiElement getInstanceByText(String text) throws Exception {
+	public GuiElement getInstanceByText(String text) throws Exception {
 		identifyAllIfNull();
 		for (WebElement element: this.getToolElements()){
 			if (element.getText().equals(text)){
@@ -310,7 +310,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	}
 
 	@Override
-	public UiElement getInstanceByTextContent(String text) throws Exception {
+	public GuiElement getInstanceByTextContent(String text) throws Exception {
 		identifyAllIfNull();
 		for (WebElement element: this.getToolElements()){
 			if (element.getText().contains(text)){
@@ -321,9 +321,9 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	}
 
 	@Override
-	public List<UiElement> getAllInstances() throws Exception {
+	public List<GuiElement> getAllInstances() throws Exception {
 		identifyAllIfNull();
-		List<UiElement> uiElements = new ArrayList<UiElement>();
+		List<GuiElement> uiElements = new ArrayList<GuiElement>();
 		for (WebElement toolElement: this.getToolElements()){
 			uiElements.add(this.getUiElementWrapperForToolElement(toolElement));
 		}
@@ -364,7 +364,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	@Override
 	public boolean isPresent() throws Exception {
 		boolean present = false;
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementPresent(by);
@@ -380,7 +380,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	@Override
 	public boolean isAbsent() throws Exception {
 		boolean present = false;
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementAbsent(by);
@@ -396,7 +396,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	@Override
 	public boolean isVisible() throws Exception {
 		boolean present = false;
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementVisible(by);
@@ -412,7 +412,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	@Override
 	public boolean isInvisible() throws Exception {
 		boolean present = false;
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementInvisible(by);
@@ -434,7 +434,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 
 	@Override
 	public void waitForPresence() throws Exception {
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				automator.waitForElementPresence(by);
@@ -458,7 +458,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	
 	@Override
 	public void waitForVisibility() throws Exception {
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				automator.waitForElementVisibility(by);
@@ -472,7 +472,7 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 	
 	@Override
 	public void waitForInvisibility() throws Exception {
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				automator.waitForElementInvisibility(by);
@@ -688,9 +688,9 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 
 
 	@Override
-	public void hoverAndClickElement(UiElement uiElement) throws Exception{
+	public void hoverAndClickElement(GuiElement uiElement) throws Exception{
 		boolean success = false;
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for (By by1: this.getToolFindersQueue()){
 			for(By by2: (List<By>) uiElement.getProxy().getToolFindersQueueObject()){
 				try{
@@ -714,9 +714,9 @@ public class DefaultSeleniumElementProxy extends BaseUiElementProxy implements S
 
 
 	@Override
-	public void rightClickAndClickElement(UiElement uiElement) throws Exception {
+	public void rightClickAndClickElement(GuiElement uiElement) throws Exception {
 		boolean success = false;
-		SeleniumUiDriver automator = getSeleniumUiDriver();
+		SeleniumGuiAutomator automator = getSeleniumUiDriver();
 		for (By by1: this.getToolFindersQueue()){
 			for(By by2: (List<By>) uiElement.getProxy().getToolFindersQueueObject()){
 				try{

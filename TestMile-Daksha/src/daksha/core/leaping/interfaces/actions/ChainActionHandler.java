@@ -18,13 +18,13 @@
  ******************************************************************************/
 package daksha.core.leaping.interfaces.actions;
 
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface ChainActionHandler {
 	void hover() throws Exception;
 	void hoverAndClick() throws Exception;
 	void rightClick()  throws Exception;
 	
-	void hoverAndClickElement(UiElement uiElement) throws Exception;
-	void rightClickAndClickElement(UiElement uiElement)  throws Exception;
+	void hoverAndClickElement(GuiElement uiElement) throws Exception;
+	void rightClickAndClickElement(GuiElement uiElement)  throws Exception;
 }

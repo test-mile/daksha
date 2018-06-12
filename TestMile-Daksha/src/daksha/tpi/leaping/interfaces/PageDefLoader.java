@@ -16,22 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.core.leaping.interfaces;
+package daksha.tpi.leaping.interfaces;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import daksha.tpi.leaping.interfaces.PageMapper;
-
-public interface CentralPageMap {
-
-	boolean isRawMapPresent(String uiFullName);
-
-	Map<String, HashMap<String, String>> populateRawPageMap(String uiFullName, PageMapper mapper)
-			throws Exception;
-
-	Map<String, HashMap<String, String>> getRawMap(String uiFullName) throws Exception;
-
-	Map<String, HashMap<String, HashMap<String, String>>> getRawMap();
-
+public interface PageDefLoader {
+	Map<String, HashMap<String, String>>  getPageDef() throws Exception;
 }

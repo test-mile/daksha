@@ -23,7 +23,7 @@ import java.util.Map;
 
 import daksha.tpi.leaping.enums.UiAutomationContext;
 
-public interface ElementMetaData {
+public interface UiElementIdentifier {
 
 	boolean isRelevantForPage();
 
@@ -33,13 +33,13 @@ public interface ElementMetaData {
 
 	Map<String, String> getAllProperties();
 
-	void addIdentifier(String key, String value);
+	void addLocator(String key, String value);
 
 	void process(UiAutomationContext identificationContext) throws Exception;
 
-	List<String> getAllowedIdentifiers() throws Exception;
+	List<String> getAllowedLocators() throws Exception;
 
-	List<Identifier> getIdentifiers();
+	List<Locator> getLocators();
 
 	void processStrictly(UiAutomationContext automationContext) throws Exception;
 

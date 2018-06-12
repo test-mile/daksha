@@ -32,8 +32,8 @@ import daksha.core.leaping.enums.MobileWebIdentifyBy;
 import daksha.core.leaping.enums.NativeIdentifyBy;
 import daksha.core.leaping.enums.ScreenIdentifyBy;
 import daksha.core.leaping.enums.WebIdentifyBy;
-import daksha.core.leaping.interfaces.CentralPageMap;
-import daksha.core.leaping.lib.DefaultCentralUiMap;
+import daksha.core.leaping.interfaces.CentralPageDefMap;
+import daksha.core.leaping.lib.DefaultCentralPageDefMap;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.UiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
@@ -41,7 +41,7 @@ import daksha.tpi.sysauto.utils.DataUtils;
 public enum UiAutomatorSingleton {
 	INSTANCE;
 
-	CentralPageMap uicentralMap = new DefaultCentralUiMap();
+	CentralPageDefMap uicentralMap = new DefaultCentralPageDefMap();
 	// UI Automator
 	private static List<String> allowedGenericIdentifiers = null;
 	private static List<String> allowedWebIdentifiers = null;
@@ -199,7 +199,7 @@ public enum UiAutomatorSingleton {
 		return DataUtils.toTitleCase(rawName);
 	}
 
-	public CentralPageMap getCentralMap() {
+	public CentralPageDefMap getCentralMap() {
 		return this.uicentralMap;
 	}
 

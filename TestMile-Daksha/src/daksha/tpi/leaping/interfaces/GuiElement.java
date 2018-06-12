@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.tpi.leaping.interfaces;
 
-import daksha.core.leaping.interfaces.ACElement;
+import daksha.core.leaping.interfaces.ManagedElement;
 import daksha.core.leaping.interfaces.actions.AttributesInquirer;
 import daksha.core.leaping.interfaces.actions.BasicActionHandler;
 import daksha.core.leaping.interfaces.actions.ChainActionHandler;
@@ -30,7 +30,7 @@ import daksha.core.leaping.interfaces.actions.InstanceGetter;
 import daksha.core.leaping.interfaces.actions.SelectAndRadioActionHandler;
 import daksha.core.leaping.interfaces.actions.WebActionHandler;
 
-public interface UiElement extends 		ACElement,
+public interface GuiElement extends 		ManagedElement,
 											ImageBasedActionHandler,
 											BasicActionHandler,
 											AttributesInquirer,

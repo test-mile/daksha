@@ -18,12 +18,20 @@
  ******************************************************************************/
 package daksha.core.leaping.interfaces;
 
-public class Identifier {
-	public String NAME = null;
-	public String VALUE = null;
-	
-	public Identifier(String id, String value){
-		this.NAME = id;
-		this.VALUE = value;
-	}
+import java.util.HashMap;
+import java.util.Map;
+
+import daksha.tpi.leaping.interfaces.PageDefLoader;
+
+public interface CentralPageDefMap {
+
+	boolean isRawPageDefPresent(String uiFullName);
+
+	Map<String, HashMap<String, String>> populateRawPageDef(String uiFullName, PageDefLoader loader)
+			throws Exception;
+
+	Map<String, HashMap<String, String>> getRawPageDef(String uiFullName) throws Exception;
+
+	Map<String, HashMap<String, HashMap<String, String>>> getRawPageDefMap();
+
 }

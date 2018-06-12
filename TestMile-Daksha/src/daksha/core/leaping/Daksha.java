@@ -24,7 +24,7 @@ import daksha.core.leaping.enums.AppiumMobilePlatformType;
 import daksha.core.leaping.lib.config.UiAutomatorSingleton;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 
-public class UiAutomator {
+public class Daksha {
 	
 	public static final boolean displayPageElementProcessing = false;
 	

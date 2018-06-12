@@ -30,7 +30,7 @@ import daksha.core.leaping.interfaces.actions.InstanceGetter;
 import daksha.core.leaping.interfaces.actions.SelectAndRadioActionHandler;
 import daksha.core.leaping.interfaces.actions.WebActionHandler;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface UiElementProxy extends 	AttributesInquirer,
 									BasicActionHandler,
@@ -60,6 +60,6 @@ public interface UiElementProxy extends 	AttributesInquirer,
 	boolean isSingularElementIdentified() throws Exception;
 	int getElementCountForCompositeElement() throws Exception;
 	void assignElementAtIndexFromMatches(int index) throws Exception;
-	UiElement getInstanceAtIndex(int index) throws Exception;
+	GuiElement getInstanceAtIndex(int index) throws Exception;
 	UiElementType getElementType();
 }

@@ -8,7 +8,7 @@ public interface SeleniumBuilder {
 
 	void capabilities(DesiredCapabilities caps);
 
-	UiDriver build() throws Exception;
+	GuiAutomator build() throws Exception;
 
 	void browser(Browser browser);
 

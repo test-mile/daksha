@@ -24,13 +24,13 @@ import org.apache.commons.io.FilenameUtils;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.factories.PageMapperFactory;
 import daksha.tpi.leaping.interfaces.App;
 import daksha.tpi.leaping.interfaces.Page;
-import daksha.tpi.leaping.interfaces.PageMapper;
-import daksha.tpi.leaping.interfaces.UiDriver;
+import daksha.tpi.leaping.interfaces.PageDefLoader;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
 import daksha.tpi.leaping.pageobject.BaseApp;
 import daksha.tpi.leaping.pageobject.BasePage;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
@@ -43,13 +43,13 @@ public class PageFactory {
 //		return page;
 //	}
 
-	private static Page getPage(UiDriver uiDriver, PageMapper mapper) throws Exception{
+	private static Page getPage(GuiAutomator uiDriver, PageDefLoader mapper) throws Exception{
 		Page page = new BasePage(uiDriver);
 		page.populate(mapper);
 		return page;
 	}
 	
-	public static App getSimpleApp(String name, UiDriver uiDriver, String appMapsRootDir) throws Exception{
+	public static App getSimpleApp(String name, GuiAutomator uiDriver, String appMapsRootDir) throws Exception{
 		App app = new BaseApp(name);
 		String consideredPath = appMapsRootDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
@@ -59,8 +59,8 @@ public class PageFactory {
 						"UI Automator", 
 						"Page Mapper", 
 						"getFileMapper", 
-						UiAutomator.problem.APP_MAP_DIR_NOT_A_DIR, 
-						Batteries.getProblemText(UiAutomator.problem.APP_MAP_DIR_NOT_A_DIR, consideredPath)
+						Daksha.problem.APP_MAP_DIR_NOT_A_DIR, 
+						Batteries.getProblemText(Daksha.problem.APP_MAP_DIR_NOT_A_DIR, consideredPath)
 					);				
 			} 
 		}
@@ -72,7 +72,7 @@ public class PageFactory {
 		return app;
 	}
 
-	public static Page getPage(UiDriver uiDriver, String mapPath) throws Exception {
+	public static Page getPage(GuiAutomator uiDriver, String mapPath) throws Exception {
 		return getPage(uiDriver, PageMapperFactory.getFileMapper(mapPath));
 	}
 }

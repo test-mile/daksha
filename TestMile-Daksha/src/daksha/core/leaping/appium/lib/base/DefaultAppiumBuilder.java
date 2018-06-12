@@ -5,15 +5,15 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.appium.AppiumNativeUiDriver;
 import daksha.core.leaping.appium.AppiumWebUiDriver;
 import daksha.core.leaping.enums.AppiumMobilePlatformType;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.interfaces.AppiumBuilder;
-import daksha.tpi.leaping.interfaces.AppiumUiDriver;
-import daksha.tpi.leaping.interfaces.UiDriver;
+import daksha.tpi.leaping.interfaces.AppiumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class DefaultAppiumBuilder implements AppiumBuilder {
@@ -31,7 +31,7 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 		default: waitTime = Batteries.value(UiAutomatorPropertyType.APP_MOBILE_MAXWAIT).asInt();
 		}
 		String platform = Batteries.value(UiAutomatorPropertyType.MOBILE_PLATFORM_NAME).asString();
-		if (!UiAutomator.isAllowedAppiumPlatform(platform)){
+		if (!Daksha.isAllowedAppiumPlatform(platform)){
 			throwUnsupportedPlatformException("constructor", platform);
 		}
 		platformType = AppiumMobilePlatformType.valueOf(platform.toUpperCase());
@@ -79,9 +79,9 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 	}
 	
 	@Override
-	public UiDriver build() throws Exception{
+	public GuiAutomator build() throws Exception{
 		populateDefaultCapabilities(platformType, defaultCaps);
-		AppiumUiDriver appium = null;
+		AppiumGuiAutomator appium = null;
 		switch (this.context){
 		case MOBILE_NATIVE:
 			appium = new AppiumNativeUiDriver();
@@ -101,15 +101,15 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 		return appium;
 	}
 	
-	public UiDriver throwUnsupportedAutomationContextException(UiAutomationContext context) throws Exception{
+	public GuiAutomator throwUnsupportedAutomationContextException(UiAutomationContext context) throws Exception{
 		throw new Problem(
 				Batteries.getComponentName("UI_AUTOMATOR"),
 				"Appium Builder",
 				"build",
-				UiAutomator.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
+				Daksha.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
 				Batteries.getProblemText(
-						UiAutomator.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
-						UiAutomator.getAutomationContextName(context))
+						Daksha.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
+						Daksha.getAutomationContextName(context))
 			);		
 	}
 	
@@ -137,7 +137,7 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 	}
 	
 	private void setMobileNativeCapabilities(AppiumMobilePlatformType platform, DesiredCapabilities capabilities) throws Exception {		
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, UiAutomator.getAppiumPlatformString(platform));
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Daksha.getAppiumPlatformString(platform));
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, Batteries.value(UiAutomatorPropertyType.MOBILE_PLATFORM_VERSION).asString());
 		capabilities.setCapability(MobileCapabilityType.APP, this.getAppPath());
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, Batteries.value(UiAutomatorPropertyType.MOBILE_DEVICE_NAME).asString());
@@ -148,12 +148,12 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 
 	private void setMobileWebCapabilities(AppiumMobilePlatformType platform, DesiredCapabilities capabilities) throws Exception {
 		String browser = Batteries.value(UiAutomatorPropertyType.BROWSER_MOBILE_DEFAULT).asString();
-		if (!UiAutomator.isAllowedAppiumBrowser(platform, browser)){
+		if (!Daksha.isAllowedAppiumBrowser(platform, browser)){
 			throwUnsupportedBrowserException("setMobileCapabilities", platform, browser);
 		}
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, UiAutomator.getAppiumPlatformString(platform));
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Daksha.getAppiumPlatformString(platform));
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,  Batteries.value(UiAutomatorPropertyType.MOBILE_PLATFORM_VERSION).asString());
-		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, UiAutomator.getAppiumBrowserString(browser));
+		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, Daksha.getAppiumBrowserString(browser));
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, Batteries.value(UiAutomatorPropertyType.MOBILE_DEVICE_NAME).asString());
 		if (!Batteries.value(UiAutomatorPropertyType.MOBILE_DEVICE_UDID).isNull()){
 			capabilities.setCapability(MobileCapabilityType.UDID, Batteries.value(UiAutomatorPropertyType.MOBILE_DEVICE_UDID).asString());
@@ -177,9 +177,9 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 	protected void throwUnsupportedPlatformException(String methodName, String platform) throws Exception {
 		throwAppiumAutomatorException(
 				methodName,
-				UiAutomator.problem.APPIUM_UNSUPPORTED_PLATFORM,
+				Daksha.problem.APPIUM_UNSUPPORTED_PLATFORM,
 				Batteries.getProblemText(
-						UiAutomator.problem.APPIUM_UNSUPPORTED_PLATFORM,
+						Daksha.problem.APPIUM_UNSUPPORTED_PLATFORM,
 						platform
 						)
 				);
@@ -188,11 +188,11 @@ public class DefaultAppiumBuilder implements AppiumBuilder {
 	protected void throwUnsupportedBrowserException(String methodName, AppiumMobilePlatformType platform, String browser) throws Exception {
 		throwAppiumAutomatorException(
 				methodName,
-				UiAutomator.problem.APPIUM_UNSUPPORTED_BROWSER,
+				Daksha.problem.APPIUM_UNSUPPORTED_BROWSER,
 				Batteries.getProblemText(
-						UiAutomator.problem.APPIUM_UNSUPPORTED_BROWSER,
+						Daksha.problem.APPIUM_UNSUPPORTED_BROWSER,
 						browser,
-						UiAutomator.getAppiumPlatformString(platform)
+						Daksha.getAppiumPlatformString(platform)
 						)
 				);
 	}

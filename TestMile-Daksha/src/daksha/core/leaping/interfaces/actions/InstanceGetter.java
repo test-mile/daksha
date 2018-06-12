@@ -20,19 +20,19 @@ package daksha.core.leaping.interfaces.actions;
 
 import java.util.List;
 
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface InstanceGetter {	
 	// Get wrapped object from raw object, already identified ones
-	UiElement getInstanceAtIndex(int index) throws Exception;
-	UiElement get(int index) throws Exception;
-	UiElement get() throws Exception;
-	UiElement getInstanceAtOrdinal(int ordinal) throws Exception;
-	UiElement getRandomInstance() throws Exception;
-	UiElement getFirstInstance() throws Exception;
-	UiElement getLastInstance() throws Exception;
-	List<UiElement> getAllInstances() throws Exception;
+	GuiElement getInstanceAtIndex(int index) throws Exception;
+	GuiElement get(int index) throws Exception;
+	GuiElement get() throws Exception;
+	GuiElement getInstanceAtOrdinal(int ordinal) throws Exception;
+	GuiElement getRandomInstance() throws Exception;
+	GuiElement getFirstInstance() throws Exception;
+	GuiElement getLastInstance() throws Exception;
+	List<GuiElement> getAllInstances() throws Exception;
 	
-	UiElement getInstanceByText(String text) throws Exception;
-	UiElement getInstanceByTextContent(String text) throws Exception;
+	GuiElement getInstanceByText(String text) throws Exception;
+	GuiElement getInstanceByTextContent(String text) throws Exception;
 }

@@ -22,17 +22,17 @@ import org.apache.log4j.Logger;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
-import daksha.core.leaping.lib.IniFilePageMapper;
+import daksha.core.leaping.lib.IniPageDefLoader;
 import daksha.tpi.enums.FileFormat;
-import daksha.tpi.leaping.interfaces.PageMapper;
+import daksha.tpi.leaping.interfaces.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class PageMapperFactory {
 	private static Logger sLogger = Logger.getLogger(Batteries.getCentralLogName());
 	
-	public static PageMapper getFileMapper(String mapPath) throws Exception{
+	public static PageDefLoader getFileMapper(String mapPath) throws Exception{
 		String ext = FileSystemUtils.getExtension(mapPath).toUpperCase();
 		FileFormat format = null;
 		String consideredPath = mapPath;
@@ -43,8 +43,8 @@ public class PageMapperFactory {
 					"UI Automator", 
 					"Page Mapper", 
 					"getFileMapper", 
-					UiAutomator.problem.UNSUPPORTED_MAP_FILE_FORMAT, 
-					Batteries.getProblemText(UiAutomator.problem.UNSUPPORTED_MAP_FILE_FORMAT, ext)
+					Daksha.problem.UNSUPPORTED_MAP_FILE_FORMAT, 
+					Batteries.getProblemText(Daksha.problem.UNSUPPORTED_MAP_FILE_FORMAT, ext)
 				);			
 		}
 		
@@ -55,22 +55,22 @@ public class PageMapperFactory {
 						"UI Automator", 
 						"Page Mapper", 
 						"getFileMapper", 
-						UiAutomator.problem.MAPFILE_NOTAFILE, 
-						Batteries.getProblemText(UiAutomator.problem.MAPFILE_NOTAFILE, consideredPath)
+						Daksha.problem.MAPFILE_NOTAFILE, 
+						Batteries.getProblemText(Daksha.problem.MAPFILE_NOTAFILE, consideredPath)
 					);				
 			} else if (!FileSystemUtils.isFile(consideredPath)){
 				throw new Problem(
 						"UI Automator", 
 						"Page Mapper", 
 						"getFileMapper", 
-						UiAutomator.problem.MAPFILE_NOT_FOUND, 
-						Batteries.getProblemText(UiAutomator.problem.MAPFILE_NOT_FOUND, consideredPath)
+						Daksha.problem.MAPFILE_NOT_FOUND, 
+						Batteries.getProblemText(Daksha.problem.MAPFILE_NOT_FOUND, consideredPath)
 					);				
 			}
 		}
 
 		switch(format){
-		case INI : return new IniFilePageMapper(consideredPath);
+		case INI : return new IniPageDefLoader(consideredPath);
 		default: return null;
 		}
 	}

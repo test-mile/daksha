@@ -24,10 +24,10 @@ import java.util.List;
 import org.sikuli.script.Match;
 
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.interfaces.UiElementProxy;
-import daksha.tpi.leaping.interfaces.SikuliUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.SikuliGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface SikuliElementProxy extends UiElementProxy{
 
@@ -35,9 +35,9 @@ public interface SikuliElementProxy extends UiElementProxy{
 
 	void setImagePath(String imagePath) throws Exception;
 
-	SikuliUiDriver getSikuliUiDriver();
+	SikuliGuiAutomator getSikuliUiDriver();
 
-	void setSikuliUiDriver(SikuliUiDriver uiDriver);
+	void setSikuliUiDriver(SikuliGuiAutomator uiDriver);
 
 	Match getToolElement() throws Exception;
 
@@ -79,19 +79,19 @@ public interface SikuliElementProxy extends UiElementProxy{
 
 	File takeScreenshot() throws Exception;
 
-	UiElement getUiElementWrapperForToolElement(Match toolElement) throws Exception;
+	GuiElement getUiElementWrapperForToolElement(Match toolElement) throws Exception;
 
 	// While returning element from a Composite UI Element, this method is used to create the wrapper
-	UiElement getElementWrapper(ElementMetaData elementMetaData, Match toolElement, ElementLoaderType type)
+	GuiElement getElementWrapper(UiElementIdentifier elementMetaData, Match toolElement, ElementLoaderType type)
 			throws Exception;
 
 	void setElementForUiElement(Match toolElement) throws Exception;
 
 	void setElementsForUiElement(List<Match> toolElements) throws Exception;
 
-	void setElementForChildUiElement(UiElement childUiElement, Match toolElement) throws Exception;
+	void setElementForChildUiElement(GuiElement childUiElement, Match toolElement) throws Exception;
 
-	void setElementsForChildUiElement(UiElement childUiElement, List<Match> toolElements) throws Exception;
+	void setElementsForChildUiElement(GuiElement childUiElement, List<Match> toolElements) throws Exception;
 
 	void identify() throws Exception;
 
@@ -101,12 +101,12 @@ public interface SikuliElementProxy extends UiElementProxy{
 
 	void identifyAtIndex(int index) throws Exception;
 
-	UiElement getInstanceAtIndex(int index) throws Exception;
+	GuiElement getInstanceAtIndex(int index) throws Exception;
 
-	List<UiElement> getAllInstances() throws Exception;
+	List<GuiElement> getAllInstances() throws Exception;
 
-	void hoverAndClickElement(UiElement uiElement) throws Exception;
+	void hoverAndClickElement(GuiElement uiElement) throws Exception;
 
-	void rightClickAndClickElement(UiElement uiElement) throws Exception;
+	void rightClickAndClickElement(GuiElement uiElement) throws Exception;
 
 }

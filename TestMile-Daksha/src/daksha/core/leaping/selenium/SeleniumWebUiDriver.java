@@ -51,20 +51,20 @@ import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.core.leaping.enums.WebIdentifyBy;
-import daksha.core.leaping.interfaces.ElementMetaData;
-import daksha.core.leaping.interfaces.Identifier;
-import daksha.core.leaping.lib.DefaultUiDriver;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
+import daksha.core.leaping.interfaces.Locator;
+import daksha.core.leaping.lib.DefaultUiAutomator;
 import daksha.core.leaping.lib.DefaultUiElement;
 import daksha.core.leaping.selenium.interfaces.SeleniumElementProxy;
 import daksha.core.leaping.selenium.lib.base.DefaultSeleniumElementProxy;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.SeleniumUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.SeleniumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDriver {
+public class SeleniumWebUiDriver extends DefaultUiAutomator implements SeleniumGuiAutomator {
 	
 	private WebDriver driver = null;
 	private WebDriverWait waiter = null;
@@ -189,10 +189,10 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 	/**********************************************************************************/
 
 	@Override
-	public UiElement declareElement(ElementMetaData elementMetaData) throws Exception {
-		UiElement uiElement = createDefaultElementSkeleton(elementMetaData);
+	public GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception {
+		GuiElement uiElement = createDefaultElementSkeleton(elementMetaData);
 		List<By> finderQueue = new ArrayList<By>();
-		for (Identifier id: elementMetaData.getIdentifiers()){
+		for (Locator id: elementMetaData.getLocators()){
 				finderQueue.add(getFinderType(id.NAME, id.VALUE));
 		}
 		
@@ -716,11 +716,11 @@ public class SeleniumWebUiDriver extends DefaultUiDriver implements SeleniumUiDr
 		click(findElement(finder2));
 	}
 
-	private SeleniumElementProxy createProxy(UiElement element) throws Exception {
+	private SeleniumElementProxy createProxy(GuiElement element) throws Exception {
 		return new DefaultSeleniumElementProxy(this, element);
 	}
 	
-	private UiElement createDefaultElementSkeleton(ElementMetaData elementMetaData) throws Exception {
+	private GuiElement createDefaultElementSkeleton(UiElementIdentifier elementMetaData) throws Exception {
 		return new DefaultUiElement(elementMetaData);
 	}
 	

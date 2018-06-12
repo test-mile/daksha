@@ -19,20 +19,20 @@
 package daksha.core.leaping.interfaces.appactions;
 
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface ElementCreationHandler {
-	UiElement elementWithId(String id) throws Exception;
-	UiElement elementWithName(String name) throws Exception;
-	UiElement elementWithClass(String klass) throws Exception;
-	UiElement elementWithCss(String cssSelector) throws Exception;
-	UiElement elementWithLinkText(String text) throws Exception;
-	UiElement elementWithPartialLinkText(String textContent) throws Exception;
-	UiElement elementWithXPath(String xpath) throws Exception;
-	UiElement elementWithXText(String text) throws Exception;
-	UiElement elementWithXPartialText(String textContent) throws Exception;
-	UiElement elementWithXValue(String value) throws Exception;
-	UiElement elementWithXImageSource(String path) throws Exception;
-	UiElement elementOfXType(UiElementType type) throws Exception;
-	UiElement elementBasedOnImage(String imagePath) throws Exception;
+	GuiElement elementWithId(String id) throws Exception;
+	GuiElement elementWithName(String name) throws Exception;
+	GuiElement elementWithClass(String klass) throws Exception;
+	GuiElement elementWithCss(String cssSelector) throws Exception;
+	GuiElement elementWithLinkText(String text) throws Exception;
+	GuiElement elementWithPartialLinkText(String textContent) throws Exception;
+	GuiElement elementWithXPath(String xpath) throws Exception;
+	GuiElement elementWithXText(String text) throws Exception;
+	GuiElement elementWithXPartialText(String textContent) throws Exception;
+	GuiElement elementWithXValue(String value) throws Exception;
+	GuiElement elementWithXImageSource(String path) throws Exception;
+	GuiElement elementOfXType(UiElementType type) throws Exception;
+	GuiElement elementBasedOnImage(String imagePath) throws Exception;
 }

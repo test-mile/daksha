@@ -27,42 +27,42 @@ import org.apache.log4j.Logger;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.core.leaping.exceptions.IgnoreElementException;
 import daksha.core.leaping.factories.PageMapperFactory;
-import daksha.core.leaping.interfaces.CentralPageMap;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.CentralPageDefMap;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.lib.DefaultElementMetaData;
 import daksha.core.leaping.lib.config.UiAutomatorSingleton;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.UiElementType;
 import daksha.tpi.leaping.interfaces.Page;
-import daksha.tpi.leaping.interfaces.PageMapper;
-import daksha.tpi.leaping.interfaces.UiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.PageDefLoader;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 import daksha.tpi.sysauto.utils.DataUtils;
 
 public class BasePage implements Page{
 	private Logger logger = Logger.getLogger(Batteries.getCentralLogName());
-	private UiDriver automator = null;
-	private Map<String, UiElement> uiElementMap = new HashMap<String, UiElement>();
+	private GuiAutomator automator = null;
+	private Map<String, GuiElement> uiElementMap = new HashMap<String, GuiElement>();
 	private UiAutomationContext context = null;
 	private String label;
 	private Page parent = null;
 	private ElementLoaderType loaderType = null;
 	private String imagesDirectory =  null;
 	private String name = null;
-	private CentralPageMap uiMap = null;
+	private CentralPageDefMap uiMap = null;
 	
 //	private Map<String, Object> childUiEntities = new  HashMap<String, Object>();
 	
 	public BasePage(){
 	}
 	
-	public CentralPageMap getUiMap(){
+	public CentralPageDefMap getUiMap(){
 		return uiMap;
 	}
 	
@@ -83,7 +83,7 @@ public class BasePage implements Page{
 	
 	public BasePage(
 			String uiLabel,
-			UiDriver automator) throws Exception{
+			GuiAutomator automator) throws Exception{
 		this(uiLabel);
 		this.setContext(automator.getContext());
 		this.setElementLoaderType(ElementLoaderType.PAGE);
@@ -93,14 +93,14 @@ public class BasePage implements Page{
 	}
 	
 	public BasePage(
-			UiDriver automator) throws Exception{
+			GuiAutomator automator) throws Exception{
 		this("Default Page", automator);
 	}
 
 	public BasePage(
 			String uiLabel, 
 			Page parent, 
-			UiDriver automator) throws Exception {
+			GuiAutomator automator) throws Exception {
 		this(uiLabel, automator);
 		this.setParent(parent);
 		this.setName(parent.getName() + "." + this.getName());
@@ -111,7 +111,7 @@ public class BasePage implements Page{
 	public BasePage(
 			String uiLabel, 
 			Page parent,
-			UiDriver automator, 
+			GuiAutomator automator, 
 			String mapPath) throws Exception {
 		this(uiLabel, parent, automator);
 		this.populate(PageMapperFactory.getFileMapper(mapPath));
@@ -177,12 +177,12 @@ public class BasePage implements Page{
 	}
 
 	@Override
-	public UiDriver getUiDriver() throws Exception {
+	public GuiAutomator getUiDriver() throws Exception {
 		return this.automator;
 	}
 
 	@Override
-	public void setUiDriver(UiDriver automator) throws Exception {
+	public void setUiDriver(GuiAutomator automator) throws Exception {
 		if (automator != null){
 			this.automator = automator;
 		} else {
@@ -215,13 +215,13 @@ public class BasePage implements Page{
 		
 	}
 
-	public UiElement element(String name) throws Exception {
+	public GuiElement element(String name) throws Exception {
 		return getElement(name);
 	}
 
-	public void populate(PageMapper uiMapper) throws Exception {
-		getUiMap().populateRawPageMap(this.getName(), uiMapper);
-		Map<String, HashMap<String,String>> rawMap = getUiMap().getRawMap(this.getName());
+	public void populate(PageDefLoader uiMapper) throws Exception {
+		getUiMap().populateRawPageDef(this.getName(), uiMapper);
+		Map<String, HashMap<String,String>> rawMap = getUiMap().getRawPageDef(this.getName());
 		for (String uiElementName: rawMap.keySet()){
 			Map<String,String> elemMap = rawMap.get(uiElementName);
 			try{
@@ -239,32 +239,32 @@ public class BasePage implements Page{
 		this.populate(PageMapperFactory.getFileMapper(mapPath));
 	}
 
-	public UiElement getElement(String elementName) throws Exception {
+	public GuiElement getElement(String elementName) throws Exception {
 		if (elementName == null){
-			return (UiElement) throwNullElementException("element", elementName);
+			return (GuiElement) throwNullElementException("element", elementName);
 		} else if (!uiElementMap.containsKey(elementName)) {
-			return (UiElement) throwUndefinedElementException("element", elementName);		
+			return (GuiElement) throwUndefinedElementException("element", elementName);		
 		} else {
 			return uiElementMap.get(elementName);
 		}
 	}
 
-	private UiElement registerElement(String elementName, ElementMetaData elementMap) throws Exception {
-		if (UiAutomator.displayPageElementProcessing){
+	private GuiElement registerElement(String elementName, UiElementIdentifier elementMap) throws Exception {
+		if (Daksha.displayPageElementProcessing){
 			logger.debug("Declaring element");
 		}
-		UiElement uiElement = getUiDriver().declareElement(elementMap);
-		if (UiAutomator.displayPageElementProcessing){
+		GuiElement uiElement = getUiDriver().declareElement(elementMap);
+		if (Daksha.displayPageElementProcessing){
 		logger.debug("Set element name as " + elementName);
 		}
 		uiElement.setName(elementName);
 		if (this.getParent() != null){
-			if (UiAutomator.displayPageElementProcessing){
+			if (Daksha.displayPageElementProcessing){
 				logger.debug("Set element entity as " + this.getParent().getName());
 			}
 			uiElement.setCompositePageName(this.getParent().getName());
 		}
-		if (UiAutomator.displayPageElementProcessing){
+		if (Daksha.displayPageElementProcessing){
 			logger.debug("Verifying entity: " + uiElement.getCompositePageName());
 		}
 		uiElementMap.put(elementName, uiElement);
@@ -272,11 +272,11 @@ public class BasePage implements Page{
 	}
 
 	public void addElement(String elementName, Map<String, String> elementMap) throws Exception {
-		ElementMetaData elementMetaData = new DefaultElementMetaData(elementMap);
+		UiElementIdentifier elementMetaData = new DefaultElementMetaData(elementMap);
 		elementMetaData.process(this.getContext());
 		if (elementMetaData.isRelevantForPage()){
 			if (this.isAutomatorPresent()){
-				UiElement element = this.registerElement(elementName, elementMetaData);
+				GuiElement element = this.registerElement(elementName, elementMetaData);
 				element.setPageLabel(this.getLabel());
 				element.setMetaData(elementMetaData);
 			}			
@@ -290,7 +290,7 @@ public class BasePage implements Page{
 
 	protected Object throwDefaultUiException(String action, String code, String message) throws Exception {
 		throw new Problem(
-				UiAutomator.getComponentName(),
+				Daksha.getComponentName(),
 				this.getName(),
 				action,
 				code,
@@ -301,10 +301,10 @@ public class BasePage implements Page{
 	public Object throwNullAutomatorException(String methodName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				UiAutomator.problem.PAGE_NULL_AUTOMATOR,
+				Daksha.problem.PAGE_NULL_AUTOMATOR,
 				Batteries.getProblemText(
-						UiAutomator.problem.PAGE_NULL_AUTOMATOR,
-						UiAutomator.getAutomationContextName(this.getContext())
+						Daksha.problem.PAGE_NULL_AUTOMATOR,
+						Daksha.getAutomationContextName(this.getContext())
 						)
 				);
 	}
@@ -312,9 +312,9 @@ public class BasePage implements Page{
 	public Object throwUndefinedElementException(String methodName, String elementName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				UiAutomator.problem.PAGE_UNDEFINED_ELEMENT,
+				Daksha.problem.PAGE_UNDEFINED_ELEMENT,
 				Batteries.getProblemText(
-						UiAutomator.problem.PAGE_UNDEFINED_ELEMENT,
+						Daksha.problem.PAGE_UNDEFINED_ELEMENT,
 						elementName,
 						DataUtils.toTitleCase(this.getContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
@@ -326,9 +326,9 @@ public class BasePage implements Page{
 	public Object throwNullElementException(String methodName, String elementName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				UiAutomator.problem.UI_NULL_ELEMENT,
+				Daksha.problem.UI_NULL_ELEMENT,
 				Batteries.getProblemText(
-						UiAutomator.problem.UI_NULL_ELEMENT,
+						Daksha.problem.UI_NULL_ELEMENT,
 						DataUtils.toTitleCase(this.getContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
 						//						Batteries.toTitleCase(getAutomationType().toString())
@@ -342,67 +342,67 @@ public class BasePage implements Page{
 	}
 
 	@Override
-	public UiElement elementWithId(String id) throws Exception {
+	public GuiElement elementWithId(String id) throws Exception {
 		return this.getUiDriver().elementWithId(id);
 	}
 
 	@Override
-	public UiElement elementWithName(String name) throws Exception {
+	public GuiElement elementWithName(String name) throws Exception {
 		return this.getUiDriver().elementWithName(name);
 	}
 
 	@Override
-	public UiElement elementWithClass(String klass) throws Exception {
+	public GuiElement elementWithClass(String klass) throws Exception {
 		return this.getUiDriver().elementWithClass(klass);
 	}
 
 	@Override
-	public UiElement elementWithCss(String cssSelector) throws Exception {
+	public GuiElement elementWithCss(String cssSelector) throws Exception {
 		return this.getUiDriver().elementWithCss(cssSelector);
 	}
 
 	@Override
-	public UiElement elementWithLinkText(String text) throws Exception {
+	public GuiElement elementWithLinkText(String text) throws Exception {
 		return this.getUiDriver().elementWithLinkText(text);
 	}
 
 	@Override
-	public UiElement elementWithPartialLinkText(String textContent) throws Exception {
+	public GuiElement elementWithPartialLinkText(String textContent) throws Exception {
 		return this.getUiDriver().elementWithPartialLinkText(textContent);
 	}
 
 	@Override
-	public UiElement elementWithXPath(String xpath) throws Exception {
+	public GuiElement elementWithXPath(String xpath) throws Exception {
 		return this.getUiDriver().elementWithXPath(xpath);
 	}
 
 	@Override
-	public UiElement elementWithXText(String text) throws Exception {
+	public GuiElement elementWithXText(String text) throws Exception {
 		return this.getUiDriver().elementWithXText(text);
 	}
 
 	@Override
-	public UiElement elementWithXPartialText(String textContent) throws Exception {
+	public GuiElement elementWithXPartialText(String textContent) throws Exception {
 		return this.getUiDriver().elementWithXPartialText(textContent);
 	}
 
 	@Override
-	public UiElement elementWithXValue(String value) throws Exception {
+	public GuiElement elementWithXValue(String value) throws Exception {
 		return this.getUiDriver().elementWithXValue(value);
 	}
 
 	@Override
-	public UiElement elementWithXImageSource(String path) throws Exception {
+	public GuiElement elementWithXImageSource(String path) throws Exception {
 		return this.getUiDriver().elementWithXImageSource(path);
 	}
 
 	@Override
-	public UiElement elementOfXType(UiElementType type) throws Exception {
+	public GuiElement elementOfXType(UiElementType type) throws Exception {
 		return this.getUiDriver().elementOfXType(type);
 	}
 
 	@Override
-	public UiElement elementBasedOnImage(String imagePath) throws Exception {
+	public GuiElement elementBasedOnImage(String imagePath) throws Exception {
 		return this.getUiDriver().elementBasedOnImage(imagePath);
 	}
 

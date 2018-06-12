@@ -40,29 +40,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
 import daksha.core.enums.BatteriesPropertyType;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.appium.interfaces.AppiumElementProxy;
 import daksha.core.leaping.enums.AppiumMobilePlatformType;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.MobileWebIdentifyBy;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.interfaces.ElementMetaData;
-import daksha.core.leaping.interfaces.Identifier;
-import daksha.core.leaping.lib.DefaultUiDriver;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
+import daksha.core.leaping.interfaces.Locator;
+import daksha.core.leaping.lib.DefaultUiAutomator;
 import daksha.core.leaping.lib.DefaultUiElement;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.AppiumUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.AppiumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 
-public abstract class AbstractAppiumUiDriver extends DefaultUiDriver implements AppiumUiDriver {
+public abstract class AbstractAppiumUiDriver extends DefaultUiAutomator implements AppiumGuiAutomator {
 
 	private AppiumDriver<MobileElement> driver = null;
 	private WebDriverWait waiter = null;
@@ -92,11 +92,11 @@ public abstract class AbstractAppiumUiDriver extends DefaultUiDriver implements 
 //		super(context, loaderType);
 //	}
 	
-	private AppiumElementProxy createProxy(UiElement element) throws Exception {
+	private AppiumElementProxy createProxy(GuiElement element) throws Exception {
 		return new DefaultAppiumElementProxy(this, element);
 	}
 	
-	private UiElement createDefaultElementSkeleton(ElementMetaData elementMetaData) throws Exception {
+	private GuiElement createDefaultElementSkeleton(UiElementIdentifier elementMetaData) throws Exception {
 		return new DefaultUiElement(elementMetaData);
 	}
 	
@@ -201,10 +201,10 @@ public abstract class AbstractAppiumUiDriver extends DefaultUiDriver implements 
 	/**********************************************************************************/
 
 	@Override
-	public UiElement declareElement(ElementMetaData elementMetaData) throws Exception {
-		UiElement uiElement = createDefaultElementSkeleton(elementMetaData);
+	public GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception {
+		GuiElement uiElement = createDefaultElementSkeleton(elementMetaData);
 		List<By> finderQueue = new ArrayList<By>();
-		for (Identifier id: elementMetaData.getIdentifiers()){
+		for (Locator id: elementMetaData.getLocators()){
 			finderQueue.add(getFinderType(id.NAME, id.VALUE));
 		}
 
@@ -260,8 +260,8 @@ public abstract class AbstractAppiumUiDriver extends DefaultUiDriver implements 
 				Batteries.getComponentName("UI_AUTOMATOR"),
 				this.getName(),
 				"Constructor",
-				UiAutomator.problem.APPIUM_UNREACHABLE_BROWSER,
-				Batteries.getProblemText(UiAutomator.problem.APPIUM_UNREACHABLE_BROWSER, UiAutomator.getAppiumPlatformString(platformType)),
+				Daksha.problem.APPIUM_UNREACHABLE_BROWSER,
+				Batteries.getProblemText(Daksha.problem.APPIUM_UNREACHABLE_BROWSER, Daksha.getAppiumPlatformString(platformType)),
 				e
 				);
 	}

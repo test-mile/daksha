@@ -25,10 +25,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.tpi.leaping.enums.UiElementType;
 
-public interface SeleniumUiDriver {
+public interface SeleniumGuiAutomator {
 
 	void focus(WebElement WebElement) throws Exception;
 	void enterText(WebElement WebElement, String text)throws Exception;
@@ -67,7 +67,7 @@ public interface SeleniumUiDriver {
 	void rightClickAndClick(By by1, By by2) throws Exception;
 	WebElement findElement(By by) throws Exception;
 	void hoverAndClick(By by1, By by2) throws Exception;
-	UiElement declareElement(ElementMetaData elementMetaData) throws Exception;
+	GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception;
 	void rightClick(WebElement wdElement)  throws Exception;
 	void hoverAndClick(WebElement wdElement) throws Exception;
 	Select convertToSelectElement(WebElement toolElement) throws Exception;

@@ -21,23 +21,23 @@ package daksha.core.leaping.lib;
 import java.util.HashMap;
 import java.util.Map;
 
-import daksha.core.leaping.interfaces.CentralPageMap;
-import daksha.tpi.leaping.interfaces.PageMapper;
+import daksha.core.leaping.interfaces.CentralPageDefMap;
+import daksha.tpi.leaping.interfaces.PageDefLoader;
 
-public class DefaultCentralUiMap implements CentralPageMap {
+public class DefaultCentralPageDefMap implements CentralPageDefMap {
 
 	private Map<String, HashMap<String, HashMap<String,String>>> rawMap =  new HashMap<String, HashMap<String, HashMap<String,String>>>();
 	
 
 	@Override
-	public boolean isRawMapPresent(String uiFullName){
+	public boolean isRawPageDefPresent(String uiFullName){
 		return rawMap.containsKey(uiFullName);
 	}
 	
 	@Override
-	public Map<String, HashMap<String,String>> populateRawPageMap(String uiFullName, PageMapper mapper) throws Exception{
+	public Map<String, HashMap<String,String>> populateRawPageDef(String uiFullName, PageDefLoader mapper) throws Exception{
 		if(!rawMap.containsKey(uiFullName)){
-			Map<String, HashMap<String,String>> pMap = mapper.getPageMap();
+			Map<String, HashMap<String,String>> pMap = mapper.getPageDef();
 			rawMap.put(uiFullName, (HashMap<String, HashMap<String,String>>) pMap);
 		}
 		return rawMap.get(uiFullName);
@@ -45,13 +45,13 @@ public class DefaultCentralUiMap implements CentralPageMap {
 	
 
 	@Override
-	public Map<String, HashMap<String,String>> getRawMap(String uiFullName) throws Exception{
+	public Map<String, HashMap<String,String>> getRawPageDef(String uiFullName) throws Exception{
 		return rawMap.get(uiFullName);
 	}
 
 
 	@Override
-	public Map<String, HashMap<String, HashMap<String,String>>> getRawMap() {
+	public Map<String, HashMap<String, HashMap<String,String>>> getRawPageDefMap() {
 		return this.rawMap;
 	}
 	

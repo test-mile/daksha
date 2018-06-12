@@ -16,44 +16,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.core.leaping.lib;
+package daksha.core.leaping.interfaces;
 
-import java.util.Map;
-
-import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.lib.base.BaseUiDriver;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-
-public class DefaultUiDriver extends BaseUiDriver{
-
-	public DefaultUiDriver(UiAutomationContext context) {
-		super(context);
-	}
+public class Locator {
+	public String NAME = null;
+	public String VALUE = null;
 	
-	public DefaultUiDriver(UiAutomationContext context, ElementLoaderType loaderType) {
-		super(context, loaderType);
+	public Locator(String id, String value){
+		this.NAME = id;
+		this.VALUE = value;
 	}
-
-	public DefaultUiDriver() {
-		super();
-	}
-
-	@Override
-	public void load() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setCapabilities(Map<String, ?> caps) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void init() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

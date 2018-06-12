@@ -25,20 +25,20 @@ import java.util.List;
 import org.sikuli.script.Match;
 
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.lib.base.BaseUiScreenProxy;
 import daksha.core.leaping.sikuli.interfaces.SikuliElementProxy;
-import daksha.tpi.leaping.interfaces.SikuliUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.SikuliGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements SikuliElementProxy{
 
-	private SikuliUiDriver uiDriver = null;
+	private SikuliGuiAutomator uiDriver = null;
 	private Match toolElement = null;
 	private List<Match> toolElements = null;
 	String imagePath = null;
 
-	public DefaultSikuliElementProxy(SikuliUiDriver uiDriver, UiElement uiElement) throws Exception {
+	public DefaultSikuliElementProxy(SikuliGuiAutomator uiDriver, GuiElement uiElement) throws Exception {
 		super(uiElement);
 		this.setSikuliUiDriver(uiDriver);
 		this.setImagePath(uiElement.getImagePath());
@@ -55,12 +55,12 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 	}
 
 	@Override
-	public SikuliUiDriver getSikuliUiDriver() {
+	public SikuliGuiAutomator getSikuliUiDriver() {
 		return uiDriver;
 	}
 
 	@Override
-	public void setSikuliUiDriver(SikuliUiDriver uiDriver) {
+	public void setSikuliUiDriver(SikuliGuiAutomator uiDriver) {
 		this.uiDriver = uiDriver;
 	}
 
@@ -129,13 +129,13 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 	}
 
 	@Override
-	public UiElement getUiElementWrapperForToolElement(Match toolElement) throws Exception {
+	public GuiElement getUiElementWrapperForToolElement(Match toolElement) throws Exception {
 		return getElementWrapper(this.getUiElement().getMetaData(), toolElement, this.getUiElement().getLoaderType());		
 	}
 
 	@Override
-	public UiElement getElementWrapper(ElementMetaData elementMetaData, Match toolElement, ElementLoaderType type) throws Exception {
-		UiElement childUiElement = this.getSikuliUiDriver().declareElement(elementMetaData);
+	public GuiElement getElementWrapper(UiElementIdentifier elementMetaData, Match toolElement, ElementLoaderType type) throws Exception {
+		GuiElement childUiElement = this.getSikuliUiDriver().declareElement(elementMetaData);
 		
 		// Set properties
 		childUiElement.setName(this.getUiElement().getName() + " (instance)");
@@ -161,14 +161,14 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 	}
 
 	@Override
-	public void setElementForChildUiElement(UiElement childUiElement, Match toolElement) throws Exception {
+	public void setElementForChildUiElement(GuiElement childUiElement, Match toolElement) throws Exception {
 		childUiElement.setElement(toolElement);
 		childUiElement.switchOffCompositeFlag();
 		childUiElement.getProxy().setRawToolElement(toolElement);
 	}
 
 	@Override
-	public void setElementsForChildUiElement(UiElement childUiElement, List<Match> toolElements) throws Exception {
+	public void setElementsForChildUiElement(GuiElement childUiElement, List<Match> toolElements) throws Exception {
 		childUiElement.setElements(toolElements);
 		childUiElement.switchOnCompositeFlag();
 		childUiElement.getProxy().setRawToolElements(toolElements);
@@ -176,7 +176,7 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 
 	@Override
 	public void identify() throws Exception {
-		SikuliUiDriver automator = this.getSikuliUiDriver();
+		SikuliGuiAutomator automator = this.getSikuliUiDriver();
 		Match sikuliElement = null;
 		try{
 			sikuliElement = automator.findElement(getImagePath());
@@ -192,7 +192,7 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 
 	@Override
 	public void identifyAll() throws Exception {
-		SikuliUiDriver automator = this.getSikuliUiDriver();
+		SikuliGuiAutomator automator = this.getSikuliUiDriver();
 		List<Match> sikuliElements = null;
 		try{
 			sikuliElements = automator.findElements(getImagePath());
@@ -218,16 +218,16 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 	}
 
 	@Override
-	public UiElement getInstanceAtIndex(int index) throws Exception {
+	public GuiElement getInstanceAtIndex(int index) throws Exception {
 		identifyAllIfNull();
 		Match toolElement = this.getToolElements().get(index);
 		return this.getUiElementWrapperForToolElement(toolElement);
 	}
 
 	@Override
-	public List<UiElement> getAllInstances() throws Exception {
+	public List<GuiElement> getAllInstances() throws Exception {
 		identifyAllIfNull();
-		List<UiElement> uiElements = new ArrayList<UiElement>();
+		List<GuiElement> uiElements = new ArrayList<GuiElement>();
 		for (Match toolElement: this.getToolElements()){
 			uiElements.add(this.getUiElementWrapperForToolElement(toolElement));
 		}
@@ -309,13 +309,13 @@ public class DefaultSikuliElementProxy extends BaseUiScreenProxy implements Siku
 	
 
 	@Override
-	public void hoverAndClickElement(UiElement uiElement) throws Exception{
+	public void hoverAndClickElement(GuiElement uiElement) throws Exception{
 		this.getSikuliUiDriver().hoverAndClickElement(this.getImagePath(), uiElement.getProxy().getImagePath());
 	}
 
 
 	@Override
-	public void rightClickAndClickElement(UiElement uiElement) throws Exception {
+	public void rightClickAndClickElement(GuiElement uiElement) throws Exception {
 		this.getSikuliUiDriver().rightClickAndClickElement(this.getImagePath(), uiElement.getProxy().getImagePath());
 	}
 }

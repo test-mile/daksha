@@ -25,16 +25,16 @@ import java.util.Map;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.IdentifyBy;
-import daksha.core.leaping.interfaces.ElementMetaData;
-import daksha.core.leaping.interfaces.Identifier;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
+import daksha.core.leaping.interfaces.Locator;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.UiElementType;
 
-public class DefaultElementMetaData implements ElementMetaData {
+public class DefaultElementMetaData implements UiElementIdentifier {
 	private Map<String, String> metaData = new HashMap<String, String>();
-	List<Identifier> identifiers = new ArrayList<Identifier>();
+	List<Locator> identifiers = new ArrayList<Locator>();
 	// private List<String> identificationOrder = new ArrayList<String>();
 	private boolean relevant = false;
 	//private boolean multiId = false;
@@ -108,8 +108,8 @@ public class DefaultElementMetaData implements ElementMetaData {
 	
 
 	@Override
-	public List<String> getAllowedIdentifiers() throws Exception{
-		return UiAutomator.getAllowedIdentifiers(identificationContext);
+	public List<String> getAllowedLocators() throws Exception{
+		return Daksha.getAllowedIdentifiers(identificationContext);
 	}
 	
 	public void process(UiAutomationContext identificationContext) throws Exception{
@@ -118,63 +118,63 @@ public class DefaultElementMetaData implements ElementMetaData {
 			String upProperty = property.toUpperCase();
 			String value = get(property);
 			// Is it an identifier?
-			if(getAllowedIdentifiers().contains(upProperty)){
+			if(getAllowedLocators().contains(upProperty)){
 				switch(IdentifyBy.valueOf(upProperty)){
-				case ID: addIdentifier(upProperty, value);break;
-				case NAME: addIdentifier(upProperty, value);break;
-				case CLASS: addIdentifier(upProperty, value);break;
-				case LINK_TEXT: addIdentifier(upProperty, value);break;
-				case PARTIAL_LINK_TEXT: addIdentifier(upProperty, value);break;
-				case XPATH: addIdentifier(upProperty, value);break;
-				case CSS: addIdentifier(upProperty, value); break;
-				case TAG: addIdentifier(upProperty, value);break;
-				case IMAGE: addIdentifier(upProperty, value);break;
+				case ID: addLocator(upProperty, value);break;
+				case NAME: addLocator(upProperty, value);break;
+				case CLASS: addLocator(upProperty, value);break;
+				case LINK_TEXT: addLocator(upProperty, value);break;
+				case PARTIAL_LINK_TEXT: addLocator(upProperty, value);break;
+				case XPATH: addLocator(upProperty, value);break;
+				case CSS: addLocator(upProperty, value); break;
+				case TAG: addLocator(upProperty, value);break;
+				case IMAGE: addLocator(upProperty, value);break;
 				case X_TEXT:
-					addIdentifier("XPATH", String.format("//*[text()='%s']", value));
+					addLocator("XPATH", String.format("//*[text()='%s']", value));
 					break;
 				case X_PARTIAL_TEXT: 
-					addIdentifier("XPATH", String.format("//*[contains(text(),'%s')]", value));
+					addLocator("XPATH", String.format("//*[contains(text(),'%s')]", value));
 					break;
 				case X_VALUE:
-					addIdentifier("XPATH", String.format("//*[@value='%s']", value));
+					addLocator("XPATH", String.format("//*[@value='%s']", value));
 					break;					
 				case X_TITLE: 
-					addIdentifier("XPATH", String.format("//*[@title='%s']", value));
+					addLocator("XPATH", String.format("//*[@title='%s']", value));
 					break;
 				case X_IMAGE_SRC:
-					addIdentifier("XPATH", String.format("//img[@src='%s']", value));
+					addLocator("XPATH", String.format("//img[@src='%s']", value));
 					break;
 				case X_TYPE:
 					String upValue = value.toUpperCase();
-					if (UiAutomator.getAllAllowedUiElementTypes().contains(upValue)){
+					if (Daksha.getAllAllowedUiElementTypes().contains(upValue)){
 						UiElementType elementType = UiElementType.valueOf(upValue);
 						switch(elementType){
 						case TEXTBOX:
-							addIdentifier("XPATH", String.format("//input[@type='text']", value));
+							addLocator("XPATH", String.format("//input[@type='text']", value));
 							break;	
 						case PASSWORD:
-							addIdentifier("XPATH", String.format("//input[@type='password']", value));
+							addLocator("XPATH", String.format("//input[@type='password']", value));
 							break;	
 						case LINK: 
-							addIdentifier("XPATH", String.format("//a", value));
+							addLocator("XPATH", String.format("//a", value));
 							break;	
 						case BUTTON: 
-							addIdentifier("XPATH", String.format("//input[@type='button']", value));
+							addLocator("XPATH", String.format("//input[@type='button']", value));
 							break;	
 						case SUBMIT_BUTTON: 
-							addIdentifier("XPATH", String.format("//input[@type='submit']", value));
+							addLocator("XPATH", String.format("//input[@type='submit']", value));
 							break;	
 						case DROPDOWN: 
-							addIdentifier("XPATH", String.format("//select", value));
+							addLocator("XPATH", String.format("//select", value));
 							break;	
 						case CHECKBOX: 
-							addIdentifier("XPATH", String.format("//input[@type='checkbox']", value));
+							addLocator("XPATH", String.format("//input[@type='checkbox']", value));
 							break;	
 						case RADIO: 
-							addIdentifier("XPATH", String.format("//input[@type='radio']", value));
+							addLocator("XPATH", String.format("//input[@type='radio']", value));
 							break;
 						case IMAGE: 
-							addIdentifier("XPATH", String.format("//img", value));
+							addLocator("XPATH", String.format("//img", value));
 							break;	
 						}
 					} else {
@@ -198,10 +198,10 @@ public class DefaultElementMetaData implements ElementMetaData {
 					Batteries.getComponentName("UI_AUTOMATOR"),
 					"Element Meta Data",
 					"processStrictly",
-					UiAutomator.problem.UI_ELEMENT_INVALID_METADATA,
+					Daksha.problem.UI_ELEMENT_INVALID_METADATA,
 					Batteries.getProblemText(
-							UiAutomator.problem.UI_ELEMENT_INVALID_METADATA, 
-							UiAutomator.getAutomationContextName(context),
+							Daksha.problem.UI_ELEMENT_INVALID_METADATA, 
+							Daksha.getAutomationContextName(context),
 							metaData.toString())
 							
 				);
@@ -216,13 +216,13 @@ public class DefaultElementMetaData implements ElementMetaData {
 	
 
 	@Override
-	public List<Identifier> getIdentifiers(){
+	public List<Locator> getLocators(){
 		return identifiers;
 	}
 
 	@Override
-	public void addIdentifier(String key, String value) {
-		identifiers.add(new Identifier(key, value));
+	public void addLocator(String key, String value) {
+		identifiers.add(new Locator(key, value));
 	}
 	
 }

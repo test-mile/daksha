@@ -20,16 +20,16 @@ package daksha.tpi.leaping.factories;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.appium.lib.base.DefaultAppiumBuilder;
 import daksha.core.leaping.selenium.lib.base.DefaultSeleniumBuilder;
 import daksha.core.leaping.sikuli.SikuliScreenUiDriver;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.interfaces.AppiumBuilder;
 import daksha.tpi.leaping.interfaces.SeleniumBuilder;
-import daksha.tpi.leaping.interfaces.UiDriver;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
 
-public class UiDriverFactory {
+public class GuiAutomatorFactory {
 	
 	public static AppiumBuilder getAppiumBuilder() throws Exception{
 		return new DefaultAppiumBuilder();
@@ -39,63 +39,63 @@ public class UiDriverFactory {
 		return new DefaultSeleniumBuilder();
 	}
 	
-	public static UiDriver getSelenium() throws Exception{
+	public static GuiAutomator getSelenium() throws Exception{
 		SeleniumBuilder builder = new DefaultSeleniumBuilder();
 		return builder.build();
 	}
 	
-	private static UiDriver getAppiumWeb() throws Exception{
+	private static GuiAutomator getAppiumWeb() throws Exception{
 		AppiumBuilder builder = new DefaultAppiumBuilder();
 		builder.context(UiAutomationContext.MOBILE_WEB);
 		return builder.build();
 	}
 	
-	private static UiDriver getAppiumNative() throws Exception{
+	private static GuiAutomator getAppiumNative() throws Exception{
 		AppiumBuilder builder = new DefaultAppiumBuilder();
 		builder.context(UiAutomationContext.MOBILE_NATIVE);
 		return builder.build();
 	}
 	
-	private static UiDriver getAppiumNative(String appPath) throws Exception{
+	private static GuiAutomator getAppiumNative(String appPath) throws Exception{
 		AppiumBuilder builder = new DefaultAppiumBuilder();
 		builder.context(UiAutomationContext.MOBILE_NATIVE);
 		builder.appPath(appPath);
 		return builder.build();
 	}
 	
-	private static UiDriver getSikuli() throws Exception{
+	private static GuiAutomator getSikuli() throws Exception{
 		return new SikuliScreenUiDriver();
 	}
 	
-	public static UiDriver getWebUiDriver() throws Exception{
+	public static GuiAutomator getWebUiDriver() throws Exception{
 		return getSelenium();
 	}
 	
-	public static UiDriver getMobileWebUiDriver() throws Exception{
+	public static GuiAutomator getMobileWebUiDriver() throws Exception{
 		return getAppiumWeb();
 	}
 
-	public static UiDriver getMobileNativeUiDriver() throws Exception{
+	public static GuiAutomator getMobileNativeUiDriver() throws Exception{
 		return getAppiumNative();
 	}
 	
-	public static UiDriver getMobileNativeUiDriver(String appPath) throws Exception{
+	public static GuiAutomator getMobileNativeUiDriver(String appPath) throws Exception{
 		if (appPath == null){
 			throw new Problem(
 					Batteries.getComponentName("UI_AUTOMATOR"),
 					"UiDriver Factory",
 					"getMobileNativeAutomator",
-					UiAutomator.problem.FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH,
-					Batteries.getProblemText(UiAutomator.problem.FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH));
+					Daksha.problem.FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH,
+					Batteries.getProblemText(Daksha.problem.FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH));
 			}
 		return getAppiumNative(appPath);
 	}
 	
-	public static UiDriver getScreenUiDriver() throws Exception{
+	public static GuiAutomator getScreenUiDriver() throws Exception{
 		return getSikuli();
 	}
 
-	public static UiDriver getUiDriver(UiAutomationContext context) throws Exception {
+	public static GuiAutomator getUiDriver(UiAutomationContext context) throws Exception {
 		switch(context){
 		case PC_WEB: return getSelenium();
 		case MOBILE_WEB: return getAppiumWeb();
@@ -106,7 +106,7 @@ public class UiDriverFactory {
 		}
 	}
 	
-	public static UiDriver getUiDriver(UiAutomationContext context, String appPath) throws Exception {
+	public static GuiAutomator getUiDriver(UiAutomationContext context, String appPath) throws Exception {
 		switch(context){
 		case PC_WEB: throwAppPathFactoryMethodWronglyUsed(context);
 		case MOBILE_WEB: throwAppPathFactoryMethodWronglyUsed(context);
@@ -116,27 +116,27 @@ public class UiDriverFactory {
 		}
 	}
 	
-	public static UiDriver throwAppPathFactoryMethodWronglyUsed(UiAutomationContext context) throws Exception{
+	public static GuiAutomator throwAppPathFactoryMethodWronglyUsed(UiAutomationContext context) throws Exception{
 		throw new Problem(
 				Batteries.getComponentName("UI_AUTOMATOR"),
 				"UiDriver Factory",
 				"getUiDriver",
-				UiAutomator.problem.FACTORY_METHOD_APPPATH_NOT_APPLICABLE,
+				Daksha.problem.FACTORY_METHOD_APPPATH_NOT_APPLICABLE,
 				Batteries.getProblemText(
-						UiAutomator.problem.FACTORY_METHOD_APPPATH_NOT_APPLICABLE,
-						UiAutomator.getAutomationContextName(context))
+						Daksha.problem.FACTORY_METHOD_APPPATH_NOT_APPLICABLE,
+						Daksha.getAutomationContextName(context))
 			);		
 	}
 	
-	public static UiDriver throwUnsupportedAutomationContextException(UiAutomationContext context) throws Exception{
+	public static GuiAutomator throwUnsupportedAutomationContextException(UiAutomationContext context) throws Exception{
 		throw new Problem(
 				Batteries.getComponentName("UI_AUTOMATOR"),
 				"UiDriver Factory",
 				"getUiDriver",
-				UiAutomator.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
+				Daksha.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
 				Batteries.getProblemText(
-						UiAutomator.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
-						UiAutomator.getAutomationContextName(context))
+						Daksha.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
+						Daksha.getAutomationContextName(context))
 			);		
 	}
 }

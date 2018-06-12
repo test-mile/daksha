@@ -18,31 +18,42 @@
  ******************************************************************************/
 package daksha.core.leaping.lib;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import daksha.tpi.sysauto.file.IniFileReader;
+import daksha.core.leaping.enums.ElementLoaderType;
+import daksha.core.leaping.lib.base.BaseGuiAutomator;
+import daksha.tpi.leaping.enums.UiAutomationContext;
 
-public class IniFilePageMapper extends FileBasedPageMapper{
-	private IniFileReader reader = null;
+public class DefaultUiAutomator extends BaseGuiAutomator{
 
-	public IniFilePageMapper(String mapFilePath) throws Exception{
-		super(mapFilePath);
+	public DefaultUiAutomator(UiAutomationContext context) {
+		super(context);
 	}
 	
-	public Map<String, HashMap<String,String>> getPageMap() throws Exception{
-		reader = new IniFileReader(getMapFilePath());
-		Set<String> elements = reader.getAllSections();
+	public DefaultUiAutomator(UiAutomationContext context, ElementLoaderType loaderType) {
+		super(context, loaderType);
+	}
+
+	public DefaultUiAutomator() {
+		super();
+	}
+
+	@Override
+	public void load() throws Exception {
+		// TODO Auto-generated method stub
 		
-		Map<String, HashMap<String,String>> elementHM =  new HashMap<String, HashMap<String,String>>();
-		for (String element: elements){
-			elementHM.put(element, (HashMap<String,String>) reader.getSectionData(element));
-		}
-		return elementHM;		
 	}
-	
-	public String getName(){
-		return "Ini File Ui Mapper";
+
+	@Override
+	public void setCapabilities(Map<String, ?> caps) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void init() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

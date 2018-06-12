@@ -35,23 +35,23 @@ import org.sikuli.script.Screen;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.ScreenIdentifyBy;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
-import daksha.core.leaping.interfaces.ElementMetaData;
-import daksha.core.leaping.interfaces.Identifier;
-import daksha.core.leaping.lib.DefaultUiDriver;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
+import daksha.core.leaping.interfaces.Locator;
+import daksha.core.leaping.lib.DefaultUiAutomator;
 import daksha.core.leaping.lib.DefaultUiElement;
 import daksha.core.leaping.sikuli.interfaces.SikuliElementProxy;
 import daksha.core.leaping.sikuli.lib.base.DefaultSikuliElementProxy;
 import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.interfaces.SikuliUiDriver;
-import daksha.tpi.leaping.interfaces.UiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.SikuliGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public class SikuliScreenUiDriver extends DefaultUiDriver implements UiDriver, SikuliUiDriver{
+public class SikuliScreenUiDriver extends DefaultUiAutomator implements GuiAutomator, SikuliGuiAutomator{
 	
 	public SikuliScreenUiDriver(){
 		super(UiAutomationContext.SCREEN);
@@ -61,7 +61,7 @@ public class SikuliScreenUiDriver extends DefaultUiDriver implements UiDriver, S
 		super(UiAutomationContext.SCREEN, loaderType);
 	}
 	
-	private SikuliElementProxy createProxy(UiElement element) throws Exception {
+	private SikuliElementProxy createProxy(GuiElement element) throws Exception {
 		return new DefaultSikuliElementProxy(this, element);
 	}
 
@@ -158,9 +158,9 @@ public class SikuliScreenUiDriver extends DefaultUiDriver implements UiDriver, S
 	public void throwImageNotFoundException(String methodName, String whichSide, String filePath) throws Exception {
 		throwScreenAutomatorException(
 				methodName,
-				UiAutomator.problem.COMPARISON_IMAGE_NOT_FOUND,
+				Daksha.problem.COMPARISON_IMAGE_NOT_FOUND,
 				Batteries.getProblemText(
-						UiAutomator.problem.COMPARISON_IMAGE_NOT_FOUND,
+						Daksha.problem.COMPARISON_IMAGE_NOT_FOUND,
 						whichSide,
 						filePath
 				)
@@ -171,9 +171,9 @@ public class SikuliScreenUiDriver extends DefaultUiDriver implements UiDriver, S
 	public void throwImagesNotComparableException(String methodName, String leftImagePath, String rightImagePath) throws Exception {
 		throwScreenAutomatorException(
 				methodName,
-				UiAutomator.problem.COMPARISON_NOT_POSSIBLE,
+				Daksha.problem.COMPARISON_NOT_POSSIBLE,
 				Batteries.getProblemText(
-						UiAutomator.problem.COMPARISON_NOT_POSSIBLE,
+						Daksha.problem.COMPARISON_NOT_POSSIBLE,
 						FileSystemUtils.getCanonicalPath(leftImagePath),
 						FileSystemUtils.getCanonicalPath(rightImagePath)
 				)
@@ -181,11 +181,11 @@ public class SikuliScreenUiDriver extends DefaultUiDriver implements UiDriver, S
 	}
 
 	@Override
-	public UiElement declareElement(ElementMetaData  elementMetaData) throws Exception {
-		UiElement uiElement = createDefaultElementSkeleton(elementMetaData);
+	public GuiElement declareElement(UiElementIdentifier  elementMetaData) throws Exception {
+		GuiElement uiElement = createDefaultElementSkeleton(elementMetaData);
 		// This needs to be done in a better way for image recognition based libraries.
 		// Some equivalent of By needs to be coded for consistency.
-		for (Identifier id: elementMetaData.getIdentifiers()){
+		for (Locator id: elementMetaData.getLocators()){
 			if (id.NAME.equals("IMAGE")){
 				uiElement.setImagePath(
 						FileSystemUtils.getCanonicalPath(Batteries.value(UiAutomatorPropertyType.DIRECTORY_PROJECT_UI_IMAGES).asString() + "/" + id.VALUE));
@@ -454,7 +454,7 @@ public class SikuliScreenUiDriver extends DefaultUiDriver implements UiDriver, S
 		this.setText(imagePath, "");
 	}
 
-	private UiElement createDefaultElementSkeleton(ElementMetaData elementMetaData) throws Exception {
+	private GuiElement createDefaultElementSkeleton(UiElementIdentifier elementMetaData) throws Exception {
 		return new DefaultUiElement(elementMetaData);
 	}
 

@@ -16,11 +16,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.tpi.leaping.interfaces;
+package daksha.core.leaping.lib;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-public interface PageMapper {
-	Map<String, HashMap<String, String>>  getPageMap() throws Exception;
+import daksha.tpi.sysauto.file.IniFileReader;
+
+public class IniPageDefLoader extends FileBasedPageMapper{
+	private IniFileReader reader = null;
+
+	public IniPageDefLoader(String mapFilePath) throws Exception{
+		super(mapFilePath);
+	}
+	
+	public Map<String, HashMap<String,String>> getPageDef() throws Exception{
+		reader = new IniFileReader(getMapFilePath());
+		Set<String> elements = reader.getAllSections();
+		
+		Map<String, HashMap<String,String>> elementHM =  new HashMap<String, HashMap<String,String>>();
+		for (String element: elements){
+			elementHM.put(element, (HashMap<String,String>) reader.getSectionData(element));
+		}
+		return elementHM;		
+	}
+	
+	public String getName(){
+		return "Ini File Ui Mapper";
+	}
 }

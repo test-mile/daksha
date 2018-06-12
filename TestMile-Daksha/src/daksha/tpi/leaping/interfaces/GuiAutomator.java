@@ -22,16 +22,16 @@ import java.util.Map;
 
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.interfaces.BaseUiDriver;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.interfaces.appactions.BrowserActionHandler;
 import daksha.core.leaping.interfaces.appactions.ElementCreationHandler;
 import daksha.core.leaping.interfaces.appactions.ImageComparator;
 import daksha.core.leaping.interfaces.appactions.NativeWindowActionHandler;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 
-public interface UiDriver extends BaseUiDriver, NativeWindowActionHandler, ElementCreationHandler, BrowserActionHandler, ImageComparator{
+public interface GuiAutomator extends BaseUiDriver, NativeWindowActionHandler, ElementCreationHandler, BrowserActionHandler, ImageComparator{
 	
-	UiElement declareElement(ElementMetaData elementMetaData) throws Exception;
+	GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception;
 
 	void setContext(UiAutomationContext screen);
 

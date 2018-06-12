@@ -14,7 +14,7 @@ import daksha.core.batteries.ds.NamesContainer;
 import daksha.core.batteries.hocon.HoconReader;
 import daksha.core.batteries.hocon.HoconResourceReader;
 import daksha.core.batteries.integration.AbstractComponentConfigurator;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.property.ConfigProperty;
 import daksha.core.property.ConfigPropertyBatteries;
@@ -202,7 +202,7 @@ public class UiAutomatorConfigurator extends AbstractComponentConfigurator{
 	}
 
 	public void processDefaults() throws Exception {
-		UiAutomator.init();
+		Daksha.init();
 		HoconReader reader = new HoconResourceReader(this.getClass().getResourceAsStream("/com/testmile/pvt/text/uiautomator.conf"));
 		super.processDefaults(reader);
 	}
@@ -219,179 +219,179 @@ public class UiAutomatorConfigurator extends AbstractComponentConfigurator{
 
 		MessagesContainer problemMessages = new MessagesContainer("PROBLEM_MESSAGES");
 		problemMessages.add(new Message(	
-					UiAutomator.problem.APPIUM_UNSUPPORTED_PLATFORM,
+					Daksha.problem.APPIUM_UNSUPPORTED_PLATFORM,
 					"Unsupported platform: %s"
 		));
 				
 		problemMessages.add(new Message(
-				UiAutomator.problem.APPIUM_UNSUPPORTED_BROWSER,
+				Daksha.problem.APPIUM_UNSUPPORTED_BROWSER,
 					"Unsupported browser %s for platform: %s"
 		));
 		
 		problemMessages.add(new Message(
-				UiAutomator.problem.APPIUM_UNREACHABLE_BROWSER,
+				Daksha.problem.APPIUM_UNREACHABLE_BROWSER,
 				"Not able to reach Appium Server for %s automation."
 				));
 		containers.add(problemMessages);	
 		
 		problemMessages.add(new Message(	
-				UiAutomator.problem.COMPARISON_IMAGE_NOT_FOUND,
+				Daksha.problem.COMPARISON_IMAGE_NOT_FOUND,
 				"Image file not found at path: %s"
 			));
 			
 	problemMessages.add(new Message(
-			UiAutomator.problem.COMPARISON_NOT_POSSIBLE,
+			Daksha.problem.COMPARISON_NOT_POSSIBLE,
 				"Image files are not comparable. Neither one seems to contain the other (size-wise). Left Image: %s. Right Image: %s."
 	));
 	
 	/* UI Automator */
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_IDENTIFICATION_FAILURE,
+			Daksha.problem.ELEMENT_IDENTIFICATION_FAILURE,
 			"%s failed to %s with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_GET_INSTANCE_FAILURE,
+			Daksha.problem.ELEMENT_GET_INSTANCE_FAILURE,
 			"%s failed to %s of element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_WAIT_FAILURE,
+			Daksha.problem.ELEMENT_WAIT_FAILURE,
 			"%s waited for %s seconds, without success for %s element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_ACTION_FAILURE,
+			Daksha.problem.ELEMENT_ACTION_FAILURE,
 			"%s failed to %s element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_GET_ATTR_FAILURE,
+			Daksha.problem.ELEMENT_GET_ATTR_FAILURE,
 			"%s failed to get %s element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ACTION_MULTIELEMENT_FAILURE,
+			Daksha.problem.ACTION_MULTIELEMENT_FAILURE,
 			"%s failed to %s element with %sproperties %s and then %s element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_UNSUPPORTED_ACTION,
+			Daksha.problem.ELEMENT_UNSUPPORTED_ACTION,
 			"Unsupported action: %s for element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_INQUIRY_FAILURE,
+			Daksha.problem.ELEMENT_INQUIRY_FAILURE,
 			"%s was unable to check %s element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.PAGE_NULL_AUTOMATOR,
+			Daksha.problem.PAGE_NULL_AUTOMATOR,
 			"%s page was provided a null automator."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.PAGE_UNDEFINED_ELEMENT,
+			Daksha.problem.PAGE_UNDEFINED_ELEMENT,
 			"Element with name %s is not defined for %s page."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.COMPOSITE_PAGE_CONSTRUCTOR_NULL_AUTOMATOR,
+			Daksha.problem.COMPOSITE_PAGE_CONSTRUCTOR_NULL_AUTOMATOR,
 			"Composite Page was provided a null value for %s Automator."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.COMPOSITE_PAGE_GET_AUTOMATOR_NULL,
+			Daksha.problem.COMPOSITE_PAGE_GET_AUTOMATOR_NULL,
 			"%s Automator is not a valid automator for composite page. Allowed Type: %s Automator."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.MAPFILE_RELATIVE_PATH,
+			Daksha.problem.MAPFILE_RELATIVE_PATH,
 			"Page Mapper was provided a file with relative path: %s. Expected absolute path."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.MAPFILE_NOT_FOUND,
+			Daksha.problem.MAPFILE_NOT_FOUND,
 			"Page Mapper was not able to find the source map file: %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.MAPFILE_NOTAFILE,
+			Daksha.problem.MAPFILE_NOTAFILE,
 			"Page Mapper was provided a path which is not a file: %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UNSUPPORTED_IDENTIFIER,
+			Daksha.problem.UNSUPPORTED_IDENTIFIER,
 			"Unsupported identifier: %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UNSUPPORTED_MULTIPLE_IDENTIFIERS,
+			Daksha.problem.UNSUPPORTED_MULTIPLE_IDENTIFIERS,
 			"Multiple identifiers not supported: %s"
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.PROPERTY_DOES_NOT_EXIST,
+			Daksha.problem.PROPERTY_DOES_NOT_EXIST,
 			"Property with the name %s does not exist in Property Manager."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UNSUPPORTED_MAP_FILE_FORMAT,
+			Daksha.problem.UNSUPPORTED_MAP_FILE_FORMAT,
 			"Unsupported map file format: %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.AUTOMATOR_UNSUPPORTED_ACTION,
+			Daksha.problem.AUTOMATOR_UNSUPPORTED_ACTION,
 			"Unsupported action for: %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.COMPOSITE_PAGE_NULL_AUTOMATOR,
+			Daksha.problem.COMPOSITE_PAGE_NULL_AUTOMATOR,
 			"Null Automator provided to Composite Page for %s automation."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.COMPOSITE_PAGE_NONEXISTING_LABEL,
+			Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL,
 			"A page fragment with the label %s does not exist in %s composite page."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.COMPOSITE_PAGE_NULL_LABEL,
+			Daksha.problem.COMPOSITE_PAGE_NULL_LABEL,
 			"Null was provided as the page fragment name for %s composite page."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UI_ELEMENT_INVALID_METADATA,
+			Daksha.problem.UI_ELEMENT_INVALID_METADATA,
 			"An invalid element definition was provided for %s context with meta-data: %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UI_NULL_ELEMENT,
+			Daksha.problem.UI_NULL_ELEMENT,
 			"Null was provided as element name for %s UI."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH,
+			Daksha.problem.FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH,
 			"Null value provided for mobile app path."
 			));	
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
+			Daksha.problem.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
 			"%s automation context is not supported by Automator Factory."
 			));	
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.FACTORY_METHOD_APPPATH_NOT_APPLICABLE,
+			Daksha.problem.FACTORY_METHOD_APPPATH_NOT_APPLICABLE,
 			"Wrong factory method used for %s automation context. Use getAutomator(AutomationContext context)."
 			));	
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UIAUTO_CONTEXT_HANDLER_NO_AUTO_FOR_LABEL,
+			Daksha.problem.UIAUTO_CONTEXT_HANDLER_NO_AUTO_FOR_LABEL,
 			"No automator present with label: %s"
 			));	
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.UIAUTO_CONTEXT_HANDLER_NULL_AUTOMATOR,
+			Daksha.problem.UIAUTO_CONTEXT_HANDLER_NULL_AUTOMATOR,
 			"Null automator provided."
 			));
 	//		
@@ -401,22 +401,22 @@ public class UiAutomatorConfigurator extends AbstractComponentConfigurator{
 	//));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_NEGATIVE_INEDX,
+			Daksha.problem.ELEMENT_NEGATIVE_INEDX,
 			"Negative index used for index based instance retieval for element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_ZERO_ORDINAL,
+			Daksha.problem.ELEMENT_ZERO_ORDINAL,
 			"Ordinal should be >= 1 in ordinal based instance retrieval for element with %sproperties %s."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_EMPTY_QUEUE,
+			Daksha.problem.ELEMENT_EMPTY_QUEUE,
 			"Exception in instance retrieval for element with %sproperties %s. The element instance queue is empty. Try calling element.identifyAll() explicitly."
 			));
 
 	problemMessages.add(new Message(
-			UiAutomator.problem.ELEMENT_UNSUPPORTED_SELECT_ACTION,
+			Daksha.problem.ELEMENT_UNSUPPORTED_SELECT_ACTION,
 			"%s method works only for Drop downs and radio buttons. Not supported for element with %sproperties %s."
 			));
 

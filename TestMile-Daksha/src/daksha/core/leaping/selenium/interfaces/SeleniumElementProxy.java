@@ -26,16 +26,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.interfaces.UiElementProxy;
-import daksha.tpi.leaping.interfaces.SeleniumUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.SeleniumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface SeleniumElementProxy extends UiElementProxy{
 
-	SeleniumUiDriver getSeleniumUiDriver();
+	SeleniumGuiAutomator getSeleniumUiDriver();
 
-	void setSeleniumUiDriver(SeleniumUiDriver uiDriver);
+	void setSeleniumUiDriver(SeleniumGuiAutomator uiDriver);
 
 	WebElement getToolElement() throws Exception;
 
@@ -144,21 +144,21 @@ public interface SeleniumElementProxy extends UiElementProxy{
 
 	int getRadioOptionCount() throws Exception;
 
-	UiElement getUiElementWrapperForToolElement(WebElement toolElement) throws Exception;
+	GuiElement getUiElementWrapperForToolElement(WebElement toolElement) throws Exception;
 
 	// While returning element from a Composite UI Element, this method is used to create the wrapper
-	UiElement getElementWrapper(ElementMetaData elementMetaData, WebElement toolElement,
+	GuiElement getElementWrapper(UiElementIdentifier elementMetaData, WebElement toolElement,
 			ElementLoaderType loaderType) throws Exception;
 
 	void setElementForUiElement(WebElement toolElement) throws Exception;
 
 	void setElementsForUiElement(List<WebElement> toolElements) throws Exception;
 
-	void setElementForChildUiElement(UiElement childUiElement, WebElement toolElement) throws Exception;
+	void setElementForChildUiElement(GuiElement childUiElement, WebElement toolElement) throws Exception;
 
-	void setElementsForChildUiElement(UiElement childUiElement, List<WebElement> toolElements) throws Exception;
+	void setElementsForChildUiElement(GuiElement childUiElement, List<WebElement> toolElements) throws Exception;
 
-	void decorateSingleUiElement(UiElement uiElement, WebElement toolElement) throws Exception;
+	void decorateSingleUiElement(GuiElement uiElement, WebElement toolElement) throws Exception;
 
 	void identify() throws Exception;
 
@@ -168,16 +168,16 @@ public interface SeleniumElementProxy extends UiElementProxy{
 
 	void assignElementAtIndexFromMatches(int index) throws Exception;
 
-	UiElement getInstanceAtIndex(int index) throws Exception;
+	GuiElement getInstanceAtIndex(int index) throws Exception;
 
-	UiElement getInstanceByText(String text) throws Exception;
+	GuiElement getInstanceByText(String text) throws Exception;
 
-	UiElement getInstanceByTextContent(String text) throws Exception;
+	GuiElement getInstanceByTextContent(String text) throws Exception;
 
-	List<UiElement> getAllInstances() throws Exception;
+	List<GuiElement> getAllInstances() throws Exception;
 
-	void hoverAndClickElement(UiElement uiElement) throws Exception;
+	void hoverAndClickElement(GuiElement uiElement) throws Exception;
 
-	void rightClickAndClickElement(UiElement uiElement) throws Exception;
+	void rightClickAndClickElement(GuiElement uiElement) throws Exception;
 
 }

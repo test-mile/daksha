@@ -25,9 +25,9 @@ import java.util.Map;
 import org.sikuli.script.Match;
 
 import daksha.core.leaping.enums.ScreenIdentifyBy;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 
-public interface SikuliUiDriver {
+public interface SikuliGuiAutomator {
 	void focusOnApp() throws Exception;
 	Object getIdentifierType(Map<ScreenIdentifyBy, String> map) throws Exception;
 	void click(String imagePath) throws Exception;
@@ -68,5 +68,5 @@ public interface SikuliUiDriver {
 	int getWaitTime() throws Exception;
 	File takeScreenshot() throws Exception;
 	void clearText(String imagePath) throws Exception;
-	UiElement declareElement(ElementMetaData elementMetaData) throws Exception;
+	GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception;
 }

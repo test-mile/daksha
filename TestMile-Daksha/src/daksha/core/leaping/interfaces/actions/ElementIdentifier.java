@@ -18,9 +18,9 @@
  ******************************************************************************/
 package daksha.core.leaping.interfaces.actions;
 
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public interface ElementIdentifier {	
-	UiElement identify() throws Exception;
-	UiElement identifyAll() throws Exception;
+	GuiElement identify() throws Exception;
+	GuiElement identifyAll() throws Exception;
 }

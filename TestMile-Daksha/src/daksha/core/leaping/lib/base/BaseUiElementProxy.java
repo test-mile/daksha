@@ -22,16 +22,16 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.interfaces.UiElementProxy;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
 public abstract class BaseUiElementProxy extends BaseUiScreenProxy implements UiElementProxy{
 	
 	private String automatorName = null;
-	private UiElement uiElement = null;
-	private ElementMetaData elementMetaData = null;
+	private GuiElement uiElement = null;
+	private UiElementIdentifier elementMetaData = null;
 	private UiElementType elementType = null;
 	private boolean bComposite = false;
 
@@ -39,20 +39,20 @@ public abstract class BaseUiElementProxy extends BaseUiScreenProxy implements Ui
 		super();
 	}
 
-	public BaseUiElementProxy(UiElement uiElement) {
+	public BaseUiElementProxy(GuiElement uiElement) {
 		this.uiElement = uiElement;
 		this.elementMetaData = uiElement.getMetaData();
 	}
 	
-	public ElementMetaData getElementMetaData() {
+	public UiElementIdentifier getElementMetaData() {
 		return elementMetaData;
 	}
 
-	public UiElement getUiElement() {
+	public GuiElement getUiElement() {
 		return this.uiElement;
 	}
 
-	public void setUiElement(UiElement element) {
+	public void setUiElement(GuiElement element) {
 		this.uiElement = element;
 	}
 
@@ -137,12 +137,12 @@ public abstract class BaseUiElementProxy extends BaseUiScreenProxy implements Ui
 		return retValue;
 	}
 
-	public UiElement get(int index) throws Exception {
+	public GuiElement get(int index) throws Exception {
 		this.verifyIndex(index);
 		return getInstanceAtIndex(index);
 	}
 
-	public UiElement get() throws Exception {
+	public GuiElement get() throws Exception {
 		if (!this.getUiElement().isComposite()){
 			identifyAllIfNull();
 			return this.getUiElement();
@@ -151,20 +151,20 @@ public abstract class BaseUiElementProxy extends BaseUiScreenProxy implements Ui
 		}
 	}
 
-	public UiElement getInstanceAtOrdinal(int ordinal) throws Exception {
+	public GuiElement getInstanceAtOrdinal(int ordinal) throws Exception {
 		this.verifyOrdinal(ordinal);
 		return getInstanceAtIndex(ordinal - 1);
 	}
 
-	public UiElement getRandomInstance() throws Exception {
+	public GuiElement getRandomInstance() throws Exception {
 		return getInstanceAtIndex(getRandomElementIndex());
 	}
 
-	public UiElement getFirstInstance() throws Exception {
+	public GuiElement getFirstInstance() throws Exception {
 		return getInstanceAtIndex(0);
 	}
 
-	public UiElement getLastInstance() throws Exception {
+	public GuiElement getLastInstance() throws Exception {
 		return getInstanceAtIndex(getLastIndex());
 	}
 
@@ -283,20 +283,20 @@ public abstract class BaseUiElementProxy extends BaseUiScreenProxy implements Ui
 		this.getUiElement().throwUnsupportedActionException("identifyAll");
 	}
 
-	public void hoverAndClickElement(UiElement uiElement) throws Exception {
+	public void hoverAndClickElement(GuiElement uiElement) throws Exception {
 		this.getUiElement().throwUnsupportedActionException("hoverAndClickElement");
 	}
 
-	public void rightClickAndClickElement(UiElement uiElement) throws Exception {
+	public void rightClickAndClickElement(GuiElement uiElement) throws Exception {
 		this.getUiElement().throwUnsupportedActionException("rightClickAndClickElement");
 	}
 
-	public UiElement getInstanceByText(String text) throws Exception {
-		return (UiElement) this.getUiElement().throwUnsupportedActionException("getInstanceByText");
+	public GuiElement getInstanceByText(String text) throws Exception {
+		return (GuiElement) this.getUiElement().throwUnsupportedActionException("getInstanceByText");
 	}
 
-	public UiElement getInstanceByTextContent(String text) throws Exception {
-		return (UiElement) this.getUiElement().throwUnsupportedActionException("getInstanceByTextContent");
+	public GuiElement getInstanceByTextContent(String text) throws Exception {
+		return (GuiElement) this.getUiElement().throwUnsupportedActionException("getInstanceByTextContent");
 	}
 	
 	protected abstract void selectDropDownLabel(String label) throws Exception;

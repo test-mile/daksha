@@ -23,13 +23,13 @@ import java.util.Map;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.factories.PageMapperFactory;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.interfaces.App;
 import daksha.tpi.leaping.interfaces.Page;
-import daksha.tpi.leaping.interfaces.PageMapper;
-import daksha.tpi.leaping.interfaces.UiDriver;
+import daksha.tpi.leaping.interfaces.PageDefLoader;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
 
 public class BaseApp implements App{
 	private String name = null;
@@ -39,7 +39,7 @@ public class BaseApp implements App{
 		this.setName(templateName);
 	}
 
-	public void registerPage(String uiLabel, UiDriver uiDriver, String mapPath) throws Exception {
+	public void registerPage(String uiLabel, GuiAutomator uiDriver, String mapPath) throws Exception {
 		if (uiDriver != null){
 			Page ui = new BasePage(uiLabel, uiDriver);
 			ui.populate(PageMapperFactory.getFileMapper(mapPath));
@@ -49,7 +49,7 @@ public class BaseApp implements App{
 		}		
 	}
 	
-	public void registerPage(String uiLabel, UiDriver uiDriver, PageMapper mapper) throws Exception {
+	public void registerPage(String uiLabel, GuiAutomator uiDriver, PageDefLoader mapper) throws Exception {
 		if (uiDriver != null){
 			Page ui = new BasePage(uiLabel, uiDriver);
 			ui.populate(mapper);
@@ -65,8 +65,8 @@ public class BaseApp implements App{
 				Batteries.getComponentName("UI_AUTOMATOR"),
 			this.getName(),
 			method,
-			UiAutomator.problem.COMPOSITE_PAGE_NULL_AUTOMATOR,
-			Batteries.getProblemText(UiAutomator.problem.COMPOSITE_PAGE_NULL_AUTOMATOR, UiAutomator.getAutomationContextName(context) )
+			Daksha.problem.COMPOSITE_PAGE_NULL_AUTOMATOR,
+			Batteries.getProblemText(Daksha.problem.COMPOSITE_PAGE_NULL_AUTOMATOR, Daksha.getAutomationContextName(context) )
 		);
 	}
 	
@@ -75,8 +75,8 @@ public class BaseApp implements App{
 				Batteries.getComponentName("UI_AUTOMATOR"),
 			this.getName(),
 			method,
-			UiAutomator.problem.COMPOSITE_PAGE_NONEXISTING_LABEL,
-			Batteries.getProblemText(UiAutomator.problem.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
+			Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL,
+			Batteries.getProblemText(Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
 		);
 	}
 	
@@ -85,8 +85,8 @@ public class BaseApp implements App{
 				Batteries.getComponentName("UI_AUTOMATOR"),
 			this.getName(),
 			method,
-			UiAutomator.problem.COMPOSITE_PAGE_NULL_LABEL,
-			Batteries.getProblemText(UiAutomator.problem.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
+			Daksha.problem.COMPOSITE_PAGE_NULL_LABEL,
+			Batteries.getProblemText(Daksha.problem.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
 		);
 	}
 

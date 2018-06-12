@@ -24,34 +24,34 @@ import java.util.Map;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
+import daksha.core.leaping.Daksha;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.lib.DefaultElementMetaData;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.UiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 
-public abstract class BaseUiDriver implements UiDriver{
+public abstract class BaseGuiAutomator implements GuiAutomator{
 	UiDriverEngine uiAutomatorEngineName = null;
 	private UiAutomationContext context = null;
 	String appTitle = null;
 	private ElementLoaderType loaderType = ElementLoaderType.AUTOMATOR;
 	
-	public BaseUiDriver(UiAutomationContext context){
+	public BaseGuiAutomator(UiAutomationContext context){
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
 		this.setContext(context);
 	}
 	
-	public BaseUiDriver(UiAutomationContext context, ElementLoaderType loaderType){
+	public BaseGuiAutomator(UiAutomationContext context, ElementLoaderType loaderType){
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
 		this.setContext(context);
 		this.setElementLoaderType(loaderType);
 	}
 
-	public BaseUiDriver() {
+	public BaseGuiAutomator() {
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
 	}
 	
@@ -78,9 +78,9 @@ public abstract class BaseUiDriver implements UiDriver{
 		throwGenericUiAutomatorException(
 				componentName,
 				methodName,
-				UiAutomator.problem.UNSUPPORTED_IDENTIFIER,
+				Daksha.problem.UNSUPPORTED_IDENTIFIER,
 				Batteries.getProblemText(
-						UiAutomator.problem.UNSUPPORTED_IDENTIFIER,
+						Daksha.problem.UNSUPPORTED_IDENTIFIER,
 						idString
 				)
 		);
@@ -127,85 +127,85 @@ public abstract class BaseUiDriver implements UiDriver{
 				Batteries.getComponentName("UI_AUTOMATOR"),
 				"Default Automator",
 				action,
-				UiAutomator.problem.AUTOMATOR_UNSUPPORTED_ACTION,
-				Batteries.getProblemText(UiAutomator.problem.AUTOMATOR_UNSUPPORTED_ACTION, this.getClass().getSimpleName())
+				Daksha.problem.AUTOMATOR_UNSUPPORTED_ACTION,
+				Batteries.getProblemText(Daksha.problem.AUTOMATOR_UNSUPPORTED_ACTION, this.getClass().getSimpleName())
 			);		
 	}
 
 	@Override
-	public UiElement declareElement(ElementMetaData elementMetaData) throws Exception {
-	return (UiElement) throwUnsupportedActionException("declareElement");}
+	public GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception {
+	return (GuiElement) throwUnsupportedActionException("declareElement");}
 
-	private ElementMetaData createMetaDataObject(String idType, String idValue) throws Exception {
+	private UiElementIdentifier createMetaDataObject(String idType, String idValue) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put(idType, idValue);
-		ElementMetaData metaData = new DefaultElementMetaData(map);
+		UiElementIdentifier metaData = new DefaultElementMetaData(map);
 		metaData.processStrictly(this.getContext());
 		return metaData;
 	}
 
 	@Override
-	public UiElement elementWithId(String id) throws Exception {
+	public GuiElement elementWithId(String id) throws Exception {
 		return this.declareElement(createMetaDataObject("ID", id));
 	}
 
 	@Override
-	public UiElement elementWithName(String name) throws Exception {
+	public GuiElement elementWithName(String name) throws Exception {
 		return this.declareElement(createMetaDataObject("NAME", name));
 	}
 
 	@Override
-	public UiElement elementWithClass(String klass) throws Exception {
+	public GuiElement elementWithClass(String klass) throws Exception {
 		return this.declareElement(createMetaDataObject("CLASS", klass));
 	}
 
 	@Override
-	public UiElement elementWithCss(String cssSelector) throws Exception {
+	public GuiElement elementWithCss(String cssSelector) throws Exception {
 		return this.declareElement(createMetaDataObject("CSS", cssSelector));
 	}
 
 	@Override
-	public UiElement elementWithLinkText(String text) throws Exception {
+	public GuiElement elementWithLinkText(String text) throws Exception {
 		return this.declareElement(createMetaDataObject("LINK_TEXT", text));
 	}
 
 	@Override
-	public UiElement elementWithPartialLinkText(String textContent) throws Exception {
+	public GuiElement elementWithPartialLinkText(String textContent) throws Exception {
 		return this.declareElement(createMetaDataObject("PARTIAL_LINK_TEXT", textContent));
 	}
 
 	@Override
-	public UiElement elementWithXPath(String xpath) throws Exception {
+	public GuiElement elementWithXPath(String xpath) throws Exception {
 		return this.declareElement(createMetaDataObject("XPATH", xpath));
 	}
 
 	@Override
-	public UiElement elementWithXText(String text) throws Exception {
+	public GuiElement elementWithXText(String text) throws Exception {
 		return this.declareElement(createMetaDataObject("X_TEXT", text));
 	}
 
 	@Override
-	public UiElement elementWithXPartialText(String textContent) throws Exception {
+	public GuiElement elementWithXPartialText(String textContent) throws Exception {
 		return this.declareElement(createMetaDataObject("X_PARTIAL_TEXT", textContent));
 	}
 
 	@Override
-	public UiElement elementWithXValue(String value) throws Exception {
+	public GuiElement elementWithXValue(String value) throws Exception {
 		return this.declareElement(createMetaDataObject("X_VALUE", value));
 	}
 
 	@Override
-	public UiElement elementWithXImageSource(String path) throws Exception {
+	public GuiElement elementWithXImageSource(String path) throws Exception {
 		return this.declareElement(createMetaDataObject("X_IMAGE_SRC", path));
 	}
 
 	@Override
-	public UiElement elementOfXType(UiElementType type) throws Exception {
+	public GuiElement elementOfXType(UiElementType type) throws Exception {
 		return this.declareElement(createMetaDataObject("X_TYPE", type.toString()));
 	}
 
 	@Override
-	public UiElement elementBasedOnImage(String imagePath) throws Exception {
+	public GuiElement elementBasedOnImage(String imagePath) throws Exception {
 		return this.declareElement(createMetaDataObject("IMAGE", imagePath));
 	}
 	

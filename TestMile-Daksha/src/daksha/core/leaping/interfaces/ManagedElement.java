@@ -22,14 +22,13 @@ import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.interfaces.actions.BasicActionHandler;
 import daksha.tpi.leaping.enums.UiElementType;
 
-public interface ACElement extends BasicActionHandler{
+public interface ManagedElement extends BasicActionHandler{
 	String getName();
 	void setName(String name);
 	String getCompositePageName();
 	void setCompositePageName(String name);
 	UiElementType getType();
 	boolean isComposite();
-//	Map<String,String> getRawMetaData();
 	String property(String propName);
 	String getProperty(String propName);
 	void setProperty(String propName, String value);
@@ -47,8 +46,8 @@ public interface ACElement extends BasicActionHandler{
 	UiElementProxy getProxy();
 	void setProxy(UiElementProxy proxy) throws Exception;
 	
-	ElementMetaData getMetaData();
-	void setMetaData(ElementMetaData map);
+	UiElementIdentifier getMetaData();
+	void setMetaData(UiElementIdentifier map);
 	
 	void setLoaderType(ElementLoaderType type);
 	ElementLoaderType getLoaderType();

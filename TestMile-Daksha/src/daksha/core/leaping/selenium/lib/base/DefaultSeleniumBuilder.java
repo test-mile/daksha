@@ -10,7 +10,7 @@ import daksha.core.leaping.selenium.SeleniumWebUiDriver;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.interfaces.SeleniumBuilder;
-import daksha.tpi.leaping.interfaces.UiDriver;
+import daksha.tpi.leaping.interfaces.GuiAutomator;
 import daksha.tpi.sysauto.utils.SystemUtils;
 
 public class DefaultSeleniumBuilder implements SeleniumBuilder {
@@ -35,7 +35,7 @@ public class DefaultSeleniumBuilder implements SeleniumBuilder {
 	}
 	
 	@Override
-	public UiDriver build() throws Exception{
+	public GuiAutomator build() throws Exception{
 		SeleniumWebUiDriver selenium = new SeleniumWebUiDriver();
 		selenium.setBrowser(browser);
 		selenium.init();

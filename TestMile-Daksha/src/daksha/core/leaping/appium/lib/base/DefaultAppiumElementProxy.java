@@ -27,33 +27,33 @@ import org.openqa.selenium.support.ui.Select;
 
 import daksha.core.leaping.appium.interfaces.AppiumElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.lib.base.BaseUiElementProxy;
 import daksha.tpi.leaping.enums.UiElementType;
-import daksha.tpi.leaping.interfaces.AppiumUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.AppiumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 import io.appium.java_client.MobileElement;
 
 public class DefaultAppiumElementProxy extends BaseUiElementProxy implements AppiumElementProxy {
 
-	private AppiumUiDriver uiDriver = null;
+	private AppiumGuiAutomator uiDriver = null;
 	public MobileElement toolElement = null;
 	private Select selectElement = null;
 	private List<MobileElement> toolElements = null;
 	private List<By> toolFindByQueue = null;
 	
-	public DefaultAppiumElementProxy(UiElement uiElement) {
+	public DefaultAppiumElementProxy(GuiElement uiElement) {
 		super(uiElement);
 	}
 	
-	public DefaultAppiumElementProxy(AppiumUiDriver uiDriver, UiElement uiElement) {
+	public DefaultAppiumElementProxy(AppiumGuiAutomator uiDriver, GuiElement uiElement) {
 		this(uiElement);
 		this.uiDriver = uiDriver;
 		this.setAutomatorName(uiDriver.getName());
 	}
 	
 	@Override
-	public AppiumUiDriver getAppiumUiDriver() {
+	public AppiumGuiAutomator getAppiumUiDriver() {
 		return uiDriver;
 	}
 
@@ -162,13 +162,13 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public UiElement getUiElementWrapperForToolElement(MobileElement toolElement) throws Exception {
+	public GuiElement getUiElementWrapperForToolElement(MobileElement toolElement) throws Exception {
 		return getElementWrapper(this.getUiElement().getMetaData(), toolElement, this.getUiElement().getLoaderType());	
 	}
 
 	@Override
-	public UiElement getElementWrapper(ElementMetaData elementMetaData, MobileElement toolElement, ElementLoaderType elementLoaderType) throws Exception {
-			UiElement childUiElement = getAppiumUiDriver().declareElement(elementMetaData);
+	public GuiElement getElementWrapper(UiElementIdentifier elementMetaData, MobileElement toolElement, ElementLoaderType elementLoaderType) throws Exception {
+			GuiElement childUiElement = getAppiumUiDriver().declareElement(elementMetaData);
 			// Set properties
 			childUiElement.setName(this.getUiElement().getName() + " (instance)");
 	//		childUiElement.setMetaData(this.getUiElement().getMetaData());
@@ -195,7 +195,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public void setElementForChildUiElement(UiElement childUiElement, MobileElement toolElement) throws Exception {
+	public void setElementForChildUiElement(GuiElement childUiElement, MobileElement toolElement) throws Exception {
 		childUiElement.setElement(toolElement);
 		childUiElement.switchOffCompositeFlag();
 		childUiElement.getProxy().setRawToolElement(toolElement);
@@ -203,15 +203,15 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public void setElementsForChildUiElement(UiElement childUiElement, List<MobileElement> toolElements) throws Exception {
+	public void setElementsForChildUiElement(GuiElement childUiElement, List<MobileElement> toolElements) throws Exception {
 		childUiElement.setElements(toolElements);
 		childUiElement.switchOnCompositeFlag();
 		childUiElement.getProxy().setRawToolElements(toolElements);
 	}
 
 	@Override
-	public void decorateSingleUiElement(UiElement uiElement, MobileElement toolElement) throws Exception {
-		AppiumUiDriver automator = getAppiumUiDriver();
+	public void decorateSingleUiElement(GuiElement uiElement, MobileElement toolElement) throws Exception {
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		switch (automator.getElementType(toolElement)){
 		case DROPDOWN: 
 			Select select = automator.convertToSelectElement(toolElement);
@@ -244,7 +244,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 
 	@Override
 	public void identify() throws Exception {
-		AppiumUiDriver automator = this.getAppiumUiDriver();
+		AppiumGuiAutomator automator = this.getAppiumUiDriver();
 		MobileElement toolElement  = null;
 		for (By by: getToolFindersQueue()){
 			try{
@@ -262,7 +262,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 
 	@Override
 	public void identifyAll() throws Exception {
-		AppiumUiDriver automator = this.getAppiumUiDriver();
+		AppiumGuiAutomator automator = this.getAppiumUiDriver();
 		List<MobileElement> toolElements  = null;
 		for (By by: getToolFindersQueue()){
 			try{
@@ -290,14 +290,14 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public UiElement getInstanceAtIndex(int index) throws Exception {
+	public GuiElement getInstanceAtIndex(int index) throws Exception {
 		identifyAllIfNull();
 		MobileElement appiumElement = this.getToolElements().get(index);
 		return this.getUiElementWrapperForToolElement(appiumElement);
 	}
 
 	@Override
-	public UiElement getInstanceByText(String text) throws Exception {
+	public GuiElement getInstanceByText(String text) throws Exception {
 		identifyAllIfNull();
 		for (MobileElement element: this.getToolElements()){
 			if (element.getText().equals(text)){
@@ -308,7 +308,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public UiElement getInstanceByTextContent(String text) throws Exception {
+	public GuiElement getInstanceByTextContent(String text) throws Exception {
 		identifyAllIfNull();
 		for (MobileElement element: this.getToolElements()){
 			if (element.getText().contains(text)){
@@ -319,9 +319,9 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public List<UiElement> getAllInstances() throws Exception {
+	public List<GuiElement> getAllInstances() throws Exception {
 		identifyAllIfNull();
-		List<UiElement> uiElements = new ArrayList<UiElement>();
+		List<GuiElement> uiElements = new ArrayList<GuiElement>();
 		for (MobileElement appiumElement: this.getToolElements()){
 			uiElements.add(this.getUiElementWrapperForToolElement(appiumElement));
 		}
@@ -329,7 +329,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	}
 
 	@Override
-	public void setAppiumUiDriver(AppiumUiDriver automator) {
+	public void setAppiumUiDriver(AppiumGuiAutomator automator) {
 		this.uiDriver = automator;
 	}
 	
@@ -361,7 +361,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	@Override
 	public boolean isPresent() throws Exception {
 		boolean present = false;
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementPresent(by);
@@ -377,7 +377,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	@Override
 	public boolean isAbsent() throws Exception {
 		boolean present = false;
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementAbsent(by);
@@ -393,7 +393,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	@Override
 	public boolean isVisible() throws Exception {
 		boolean present = false;
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementVisible(by);
@@ -409,7 +409,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	@Override
 	public boolean isInvisible() throws Exception {
 		boolean present = false;
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				present = automator.isElementInvisible(by);
@@ -424,7 +424,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	
 	@Override
 	public void waitForPresence() throws Exception {
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				automator.waitForElementPresence(by);
@@ -448,7 +448,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	
 	@Override
 	public void waitForVisibility() throws Exception {
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				automator.waitForElementVisibility(by);
@@ -462,7 +462,7 @@ public class DefaultAppiumElementProxy extends BaseUiElementProxy implements App
 	
 	@Override
 	public void waitForInvisibility() throws Exception {
-		AppiumUiDriver automator = getAppiumUiDriver();
+		AppiumGuiAutomator automator = getAppiumUiDriver();
 		for(By by: this.getToolFindersQueue()){
 			try{
 				automator.waitForElementInvisibility(by);

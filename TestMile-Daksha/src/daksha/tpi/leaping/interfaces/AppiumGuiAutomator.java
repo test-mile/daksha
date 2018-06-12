@@ -25,11 +25,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import daksha.core.leaping.enums.AppiumMobilePlatformType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.tpi.leaping.enums.UiElementType;
 import io.appium.java_client.MobileElement;
 
-public interface AppiumUiDriver extends UiDriver{
+public interface AppiumGuiAutomator extends GuiAutomator{
 
 	void focus(MobileElement appiumElement) throws Exception;
 	void enterText(MobileElement appiumElement, String text)throws Exception;
@@ -71,7 +71,7 @@ public interface AppiumUiDriver extends UiDriver{
 	void switchToWebContext() throws Exception;
 	void switchToNativeContext() throws Exception;
 	void switchToFrame(MobileElement appiumElement) throws Exception;
-	UiElement declareElement(ElementMetaData elementMetaData) throws Exception;
+	GuiElement declareElement(UiElementIdentifier elementMetaData) throws Exception;
 	void waitForElementAbsence(By findBy) throws Exception;
 	void waitForElementVisibility(By findBy) throws Exception;
 	void waitForElementInvisibility(By findBy) throws Exception;

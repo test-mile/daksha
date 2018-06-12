@@ -25,15 +25,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.interfaces.ElementMetaData;
+import daksha.core.leaping.interfaces.UiElementIdentifier;
 import daksha.core.leaping.interfaces.UiElementProxy;
-import daksha.tpi.leaping.interfaces.AppiumUiDriver;
-import daksha.tpi.leaping.interfaces.UiElement;
+import daksha.tpi.leaping.interfaces.AppiumGuiAutomator;
+import daksha.tpi.leaping.interfaces.GuiElement;
 import io.appium.java_client.MobileElement;
 
 public interface AppiumElementProxy extends UiElementProxy{
 
-	AppiumUiDriver getAppiumUiDriver();
+	AppiumGuiAutomator getAppiumUiDriver();
 
 	MobileElement getToolElement() throws Exception;
 
@@ -132,22 +132,22 @@ public interface AppiumElementProxy extends UiElementProxy{
 
 	int getRadioOptionCount() throws Exception;
 
-	UiElement getUiElementWrapperForToolElement(MobileElement toolElement) throws Exception;
+	GuiElement getUiElementWrapperForToolElement(MobileElement toolElement) throws Exception;
 
 	// While returning element from a Composite UI Element, this method is used to create the wrapper
-	UiElement getElementWrapper(ElementMetaData elementMetaData, MobileElement toolElement,
+	GuiElement getElementWrapper(UiElementIdentifier elementMetaData, MobileElement toolElement,
 			ElementLoaderType elementLoaderType) throws Exception;
 
 	void setElementForUiElement(MobileElement toolElement) throws Exception;
 
 	void setElementsForUiElement(List<MobileElement> toolElements) throws Exception;
 
-	void setElementForChildUiElement(UiElement childUiElement, MobileElement toolElement) throws Exception;
+	void setElementForChildUiElement(GuiElement childUiElement, MobileElement toolElement) throws Exception;
 
-	void setElementsForChildUiElement(UiElement childUiElement, List<MobileElement> toolElements)
+	void setElementsForChildUiElement(GuiElement childUiElement, List<MobileElement> toolElements)
 			throws Exception;
 
-	void decorateSingleUiElement(UiElement uiElement, MobileElement toolElement) throws Exception;
+	void decorateSingleUiElement(GuiElement uiElement, MobileElement toolElement) throws Exception;
 
 	void identify() throws Exception;
 
@@ -157,14 +157,14 @@ public interface AppiumElementProxy extends UiElementProxy{
 
 	void assignElementAtIndexFromMatches(int index) throws Exception;
 
-	UiElement getInstanceAtIndex(int index) throws Exception;
+	GuiElement getInstanceAtIndex(int index) throws Exception;
 
-	UiElement getInstanceByText(String text) throws Exception;
+	GuiElement getInstanceByText(String text) throws Exception;
 
-	UiElement getInstanceByTextContent(String text) throws Exception;
+	GuiElement getInstanceByTextContent(String text) throws Exception;
 
-	List<UiElement> getAllInstances() throws Exception;
+	List<GuiElement> getAllInstances() throws Exception;
 
-	void setAppiumUiDriver (AppiumUiDriver uiDriver);
+	void setAppiumUiDriver (AppiumGuiAutomator uiDriver);
 
 }

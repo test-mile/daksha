@@ -21,7 +21,7 @@ package daksha.tpi.leaping.interfaces;
 import java.util.Map;
 
 import daksha.core.leaping.interfaces.BaseUiDriver;
-import daksha.core.leaping.interfaces.CentralPageMap;
+import daksha.core.leaping.interfaces.CentralPageDefMap;
 import daksha.core.leaping.interfaces.appactions.BrowserActionHandler;
 import daksha.core.leaping.interfaces.appactions.ElementCreationHandler;
 import daksha.core.leaping.interfaces.appactions.ImageComparator;
@@ -30,12 +30,12 @@ import daksha.tpi.leaping.enums.UiAutomationContext;
 
 public interface Page extends BaseUiDriver, ElementCreationHandler, 
 ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
-	CentralPageMap getUiMap();
+	CentralPageDefMap getUiMap();
 	
 	String getName();
 	void setName(String name);
 	
-	void populate(PageMapper mapper) throws Exception;
+	void populate(PageDefLoader mapper) throws Exception;
 	void addElement(String uiElementName, Map<String, String> elemMap) throws Exception;
 //	void processUiProperties(String elementName, Map<String,String> properties) throws Exception;
 	
@@ -51,10 +51,10 @@ ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
 	void setLabel(String label)  throws Exception;
 	
 	//IDefaultElement declareElement(IElementMetaData elementMetaData, ElementLoaderType loaderType) throws Exception;
-	UiElement element(String name) throws Exception;
-	UiDriver getUiDriver() throws Exception;
+	GuiElement element(String name) throws Exception;
+	GuiAutomator getUiDriver() throws Exception;
 	
-	void setUiDriver(UiDriver automator) throws Exception;
+	void setUiDriver(GuiAutomator automator) throws Exception;
 	void setContext(UiAutomationContext context) throws Exception;
 	
 	public void switchToWebContext() throws Exception;

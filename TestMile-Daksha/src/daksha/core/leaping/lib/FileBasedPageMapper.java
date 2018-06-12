@@ -20,7 +20,7 @@ package daksha.core.leaping.lib;
 
 import java.io.File;
 
-abstract public class FileBasedPageMapper extends BasePageMapper{
+abstract public class FileBasedPageMapper extends BasePageDefLoader{
 	private File mapFile= null;
 	private String mapPath = null;
 

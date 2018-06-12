@@ -20,6 +20,6 @@ public interface AppiumBuilder {
 
 	void capabilities(DesiredCapabilities caps);
 
-	UiDriver build() throws Exception;
+	GuiAutomator build() throws Exception;
 
 }

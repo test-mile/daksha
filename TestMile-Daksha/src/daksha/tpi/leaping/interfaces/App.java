@@ -28,7 +28,7 @@ public interface App{
 	void addElement(String uiElementName, Map<String, String> elemMap) throws Exception;
 	void addElement(String uiLabel, String uiElementName, Map<String, String> elemMap) throws Exception;
 
-	void registerPage(String uiLabel, UiDriver uiDriver, String mapPath) throws Exception;
+	void registerPage(String uiLabel, GuiAutomator uiDriver, String mapPath) throws Exception;
 	//void registerPage(String uiLabel, UiDriver uiDriver, PageMapper mapper) throws Exception;
 
 	Page page(String name) throws Exception;

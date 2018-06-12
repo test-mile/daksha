@@ -20,11 +20,11 @@ package daksha.core.leaping.lib;
 
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.UiAutomator;
-import daksha.tpi.leaping.interfaces.PageMapper;
+import daksha.core.leaping.Daksha;
+import daksha.tpi.leaping.interfaces.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public abstract class BasePageMapper implements PageMapper{
+public abstract class BasePageDefLoader implements PageDefLoader{
 	private String mapName = null;
 	
 	public abstract String getName();
@@ -46,9 +46,9 @@ public abstract class BasePageMapper implements PageMapper{
 	public Object throwNotAFileException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				UiAutomator.problem.MAPFILE_NOTAFILE,
+				Daksha.problem.MAPFILE_NOTAFILE,
 				Batteries.getProblemText(
-						UiAutomator.problem.MAPFILE_NOTAFILE,
+						Daksha.problem.MAPFILE_NOTAFILE,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
 		);
@@ -57,9 +57,9 @@ public abstract class BasePageMapper implements PageMapper{
 	public Object throwFileNotFoundException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				UiAutomator.problem.MAPFILE_NOT_FOUND,
+				Daksha.problem.MAPFILE_NOT_FOUND,
 				Batteries.getProblemText(
-						UiAutomator.problem.MAPFILE_NOT_FOUND,
+						Daksha.problem.MAPFILE_NOT_FOUND,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
 		);
@@ -68,9 +68,9 @@ public abstract class BasePageMapper implements PageMapper{
 	public Object throwRelativePathException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				UiAutomator.problem.MAPFILE_RELATIVE_PATH,
+				Daksha.problem.MAPFILE_RELATIVE_PATH,
 				Batteries.getProblemText(
-						UiAutomator.problem.MAPFILE_RELATIVE_PATH,
+						Daksha.problem.MAPFILE_RELATIVE_PATH,
 						filePath
 				)
 		);
