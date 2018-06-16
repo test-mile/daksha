@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.rits.cloning.Cloner;
 
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.ValueType;
 
 public class AnyRefValue extends AbstractValue {

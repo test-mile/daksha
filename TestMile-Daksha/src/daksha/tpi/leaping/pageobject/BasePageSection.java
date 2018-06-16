@@ -18,16 +18,14 @@
  ******************************************************************************/
 package daksha.tpi.leaping.pageobject;
 
-import daksha.tpi.leaping.interfaces.Page;
-import daksha.tpi.leaping.interfaces.PageSection;
-import daksha.tpi.leaping.interfaces.GuiAutomator;
+import daksha.tpi.leaping.automator.GuiAutomator;
 
 public class BasePageSection extends BasePage implements PageSection{
 
 	public BasePageSection(
 			String uiLabel, 
 			Page parent, 
-			GuiAutomator automator) throws Exception {
+			GuiAutomator<?,?> automator) throws Exception {
 		super(uiLabel, parent, automator);
 	}
 	

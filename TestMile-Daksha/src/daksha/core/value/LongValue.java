@@ -1,6 +1,6 @@
 package daksha.core.value;
 
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.ValueType;
 
 public class LongValue extends NumberValue {

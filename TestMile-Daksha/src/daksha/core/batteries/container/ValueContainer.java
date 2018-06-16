@@ -2,7 +2,7 @@ package daksha.core.batteries.container;
 
 import java.util.Map;
 
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 
 public interface ValueContainer<T> extends ReadWriteContainer<T, Value>, Cloneable {
 

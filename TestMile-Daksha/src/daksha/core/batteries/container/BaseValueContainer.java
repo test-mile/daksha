@@ -16,7 +16,7 @@ import daksha.core.value.NumberListValue;
 import daksha.core.value.NumberValue;
 import daksha.core.value.StringListValue;
 import daksha.core.value.StringValue;
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.ValueType;
 
 public abstract class BaseValueContainer<T> extends BaseContainer<T, Value> implements ValueContainer<T> {

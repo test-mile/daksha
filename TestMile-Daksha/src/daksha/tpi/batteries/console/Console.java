@@ -1,15 +1,15 @@
 package daksha.tpi.batteries.console;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
-import daksha.core.utils.ExceptionBatteries;
-import daksha.tpi.batteries.config.RunConfig;
+import daksha.core.batteries.utils.ExceptionBatteries;
 import daksha.tpi.sysauto.utils.SystemUtils;
 
 public class Console {
+	private static Logger logger = Logger.getRootLogger();
 	private static boolean done = false;
 	private static String separator = null;
-	private static Level centralLogLevel = null;
 
 	public synchronized static void init() {
 		if (done)
@@ -19,15 +19,8 @@ public class Console {
 	}
 
 	private synchronized static boolean logToCentralLog(String message) {
-		if (centralLogLevel == null) {
-			return true;
-		} else if (centralLogLevel == Level.DEBUG) {
-			RunConfig.logger().debug(message);
-			return false;
-		} else {
-			RunConfig.logger().debug(message);
-			return true;
-		}
+		logger.debug(message);
+		return true;
 	}
 
 	public synchronized static void display(String message) {
@@ -118,10 +111,6 @@ public class Console {
 		}
 		Console.displayPaddedKeyValueExceptionTrace("Exception Trace", ExceptionBatteries.getStackTraceAsString(e), 30);
 		Console.markerError(80);
-	}
-
-	public static void setCentralLogLevel(Level level) {
-		centralLogLevel = level;
 	}
 
 	public synchronized static void displayPaddedKeyValueExceptionTrace(String key, String value, int leftPadding) {

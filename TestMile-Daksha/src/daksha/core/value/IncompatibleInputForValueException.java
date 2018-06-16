@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.core.value;
 
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 
 public class IncompatibleInputForValueException extends Exception {
 

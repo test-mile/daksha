@@ -3,7 +3,7 @@ package daksha.core.value;
 import daksha.core.batteries.container.BaseValueContainer;
 import daksha.core.batteries.container.ValueContainer;
 import daksha.tpi.batteries.console.Console;
-import daksha.tpi.batteries.interfaces.StringKeyValueContainer;
+import daksha.tpi.batteries.container.StringKeyValueContainer;
 import daksha.tpi.enums.ValueType;
 
 public class DefaultStringKeyValueContainer extends BaseValueContainer<String> implements ValueContainer<String>, StringKeyValueContainer{

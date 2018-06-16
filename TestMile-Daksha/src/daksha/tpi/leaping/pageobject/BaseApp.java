@@ -21,15 +21,13 @@ package daksha.tpi.leaping.pageobject;
 import java.util.HashMap;
 import java.util.Map;
 
+import daksha.Daksha;
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.Daksha;
-import daksha.core.leaping.factories.PageMapperFactory;
+import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.interfaces.App;
-import daksha.tpi.leaping.interfaces.Page;
-import daksha.tpi.leaping.interfaces.PageDefLoader;
-import daksha.tpi.leaping.interfaces.GuiAutomator;
+import daksha.tpi.leaping.generator.PageDefLoaderFactory;
+import daksha.tpi.leaping.loader.PageDefLoader;
 
 public class BaseApp implements App{
 	private String name = null;
@@ -42,7 +40,7 @@ public class BaseApp implements App{
 	public void registerPage(String uiLabel, GuiAutomator uiDriver, String mapPath) throws Exception {
 		if (uiDriver != null){
 			Page ui = new BasePage(uiLabel, uiDriver);
-			ui.populate(PageMapperFactory.getFileMapper(mapPath));
+			ui.populate(PageDefLoaderFactory.getFileMapper(mapPath));
 			getPageMap().put(uiLabel.toUpperCase(), ui); // to provide case insensitive access	
 		} else {
 			throwNullAutomatorException("registerUi", UiAutomationContext.GENERIC);

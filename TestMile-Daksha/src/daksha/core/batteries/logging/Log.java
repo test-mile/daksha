@@ -46,7 +46,6 @@ public class Log {
 		console.setThreshold(level);
 		console.activateOptions();
 		Logger.getLogger(logName).addAppender(console);
-		Console.setCentralLogLevel(level);
 	}
 
 	private void setFileLogger(Level level, String logName, String path) {

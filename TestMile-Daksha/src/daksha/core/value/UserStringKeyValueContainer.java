@@ -1,7 +1,7 @@
 package daksha.core.value;
 
 import daksha.tpi.batteries.console.Console;
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.exceptions.StringKeyValueContainerLookUpException;
 
 public class UserStringKeyValueContainer extends DefaultStringKeyValueContainer{

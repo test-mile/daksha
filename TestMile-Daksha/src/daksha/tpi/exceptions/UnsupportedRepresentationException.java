@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.tpi.exceptions;
 
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 
 public class UnsupportedRepresentationException extends Exception {
 

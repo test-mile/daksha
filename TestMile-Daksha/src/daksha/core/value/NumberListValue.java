@@ -2,7 +2,7 @@ package daksha.core.value;
 
 import java.util.List;
 
-import daksha.tpi.batteries.interfaces.Value;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.ValueType;
 
 public class NumberListValue<T extends Number> extends AbstractValue {
