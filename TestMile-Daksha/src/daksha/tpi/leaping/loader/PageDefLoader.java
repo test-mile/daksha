@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import daksha.core.leaping.identifier.GuiElementMetaData;
+import daksha.core.leaping.loader.PageDefinition;
 
 public interface PageDefLoader {
-	Map<String, HashMap<String, String>>  getPageDef() throws Exception;
-
-	GuiElementMetaData getMetaData(String name);
+	PageDefinition  getPageDef() throws Exception;
+	void load() throws Exception;
 }

@@ -22,27 +22,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import daksha.core.leaping.identifier.DefaultElementMetaData;
+import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.sysauto.file.IniFileReader;
 
-public class IniPageDefLoader extends FileBasedPageMapper{
+public class IniPageDefLoader extends FileBasedPageLoader{
 	private IniFileReader reader = null;
 
 	public IniPageDefLoader(String mapFilePath) throws Exception{
-		super(mapFilePath);
+		super("Ini File Page Loader", mapFilePath);
 	}
 	
-	public Map<String, HashMap<String,String>> getPageDef() throws Exception{
+	@Override
+	public void load() throws Exception{
 		reader = new IniFileReader(getMapFilePath());
 		Set<String> elements = reader.getAllSections();
 		
 		Map<String, HashMap<String,String>> elementHM =  new HashMap<String, HashMap<String,String>>();
 		for (String element: elements){
-			elementHM.put(element, (HashMap<String,String>) reader.getSectionData(element));
-		}
-		return elementHM;		
-	}
-	
-	public String getName(){
-		return "Ini File Ui Mapper";
+			addElementMetaData(element, (Map<String,String>) reader.getSectionData(element));
+		}		
 	}
 }

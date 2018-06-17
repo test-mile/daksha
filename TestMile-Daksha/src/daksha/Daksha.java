@@ -35,8 +35,8 @@ public class Daksha {
 		return UiAutomatorSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
-	public static List<String> getAllowedIdentifiers(UiAutomationContext identificationContext) throws Exception {
-		return UiAutomatorSingleton.INSTANCE.getAllowedIdentifiers(identificationContext) ;
+	public static List<String> getAllowedIdentifiers() throws Exception {
+		return UiAutomatorSingleton.INSTANCE.getAllowedIdentifiers() ;
 	}
 
 	public static List<String> getAllAllowedUiElementTypes() {

@@ -21,37 +21,33 @@ package daksha.core.leaping.loader;
 import java.util.HashMap;
 import java.util.Map;
 
+import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.leaping.loader.PageDefLoader;
 
-public class DefaultCentralPageDefMap implements CentralPageDefMap {
+public enum PageDefRepository{
+	INSTANCE;
 
-	private Map<String, HashMap<String, HashMap<String,String>>> rawMap =  new HashMap<String, HashMap<String, HashMap<String,String>>>();
-	
+	private Map<String, PageDefinition> pageDefMap =  new HashMap<String, PageDefinition>();
 
-	@Override
-	public boolean isRawPageDefPresent(String uiFullName){
-		return rawMap.containsKey(uiFullName);
+	public synchronized boolean isPageDefLoaded(String name){
+		return pageDefMap.containsKey(name);
+	}
+
+	public boolean hasPageDef(String name) {
+		return pageDefMap.containsKey(name.toLowerCase());
 	}
 	
-	@Override
-	public Map<String, HashMap<String,String>> populateRawPageDef(String uiFullName, PageDefLoader mapper) throws Exception{
-		if(!rawMap.containsKey(uiFullName)){
-			Map<String, HashMap<String,String>> pMap = mapper.getPageDef();
-			rawMap.put(uiFullName, (HashMap<String, HashMap<String,String>>) pMap);
+	public PageDefinition loadPageDef(String page, PageDefLoader loader) throws Exception{
+		if(!hasPageDef(page)){
+			loader.load();
+			this.pageDefMap.put(page.toLowerCase(), loader.getPageDef());
 		}
-		return rawMap.get(uiFullName);
+		return pageDefMap.get(page.toLowerCase());
 	}
 	
 
-	@Override
-	public Map<String, HashMap<String,String>> getRawPageDef(String uiFullName) throws Exception{
-		return rawMap.get(uiFullName);
+	public synchronized PageDefinition getPageDef(String page) throws Exception{
+		return pageDefMap.get(page.toLowerCase());
 	}
 
-
-	@Override
-	public Map<String, HashMap<String, HashMap<String,String>>> getRawPageDefMap() {
-		return this.rawMap;
-	}
-	
 }

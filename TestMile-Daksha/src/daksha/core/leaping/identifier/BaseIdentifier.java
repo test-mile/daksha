@@ -37,7 +37,6 @@ public abstract class BaseIdentifier<D,E> implements Identifier<D,E>{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put(idType, idValue);
 		GuiElementMetaData metaData = new DefaultElementMetaData(map);
-		metaData.processStrictly(this.automator.getContext());
 		return metaData;
 	}
 	

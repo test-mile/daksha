@@ -33,7 +33,7 @@ import daksha.core.leaping.enums.NativeIdentifyBy;
 import daksha.core.leaping.enums.ScreenIdentifyBy;
 import daksha.core.leaping.enums.WebIdentifyBy;
 import daksha.core.leaping.loader.CentralPageDefMap;
-import daksha.core.leaping.loader.DefaultCentralPageDefMap;
+import daksha.core.leaping.loader.PageDefRepository;
 import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
@@ -41,7 +41,7 @@ import daksha.tpi.sysauto.utils.DataUtils;
 public enum UiAutomatorSingleton {
 	INSTANCE;
 
-	CentralPageDefMap uicentralMap = new DefaultCentralPageDefMap();
+	CentralPageDefMap uicentralMap = new PageDefRepository();
 	// UI Automator
 	private static List<String> allowedGenericIdentifiers = null;
 	private static List<String> allowedWebIdentifiers = null;
@@ -151,16 +151,17 @@ public enum UiAutomatorSingleton {
 		return allowedMobileWebIdentifiers;
 	}
 
-	public List<String> getAllowedIdentifiers(UiAutomationContext context) throws Exception{
-		switch(context){
-		case PC_WEB: return getAllowedWebIdentifiers();
-		case PC_NATIVE: return getAllowedNativeIdentifiers();
-		case MOBILE_WEB: return getAllowedMobileWebIdentifiers();
-		case MOBILE_NATIVE: return getAllowedMobileNativeIdentifiers();
-		case SCREEN: return getAllowedScreenIdentifiers();
-		case GENERIC: return getAllowedGenericIdentifiers();
-		default: throw new Exception("Unknown id context.");
-		}
+	public List<String> getAllowedIdentifiers() throws Exception{
+		return getAllowedWebIdentifiers();
+//		switch(context){
+//		case PC_WEB: return getAllowedWebIdentifiers();
+//		case PC_NATIVE: return getAllowedNativeIdentifiers();
+//		case MOBILE_WEB: return getAllowedMobileWebIdentifiers();
+//		case MOBILE_NATIVE: return getAllowedMobileNativeIdentifiers();
+//		case SCREEN: return getAllowedScreenIdentifiers();
+//		case GENERIC: return getAllowedGenericIdentifiers();
+//		default: throw new Exception("Unknown id context.");
+//		}
 	}
 	
 	/*

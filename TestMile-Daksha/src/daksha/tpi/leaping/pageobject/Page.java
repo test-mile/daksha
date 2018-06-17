@@ -27,7 +27,6 @@ import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
-import daksha.core.leaping.loader.CentralPageDefMap;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.UiAutomationContext;
@@ -35,38 +34,15 @@ import daksha.tpi.leaping.loader.PageDefLoader;
 
 public interface Page extends ManagedGuiAutomator, ElementCreationHandler, 
 ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
-	CentralPageDefMap getUiMap();
 	
 	String getName();
-	void setName(String name);
-	
-	void populate(PageDefLoader mapper) throws Exception;
-	void addElement(String uiElementName, Map<String, String> elemMap) throws Exception;
-//	void processUiProperties(String elementName, Map<String,String> properties) throws Exception;
-	
-//	String getImagesDirectory();
-	
 	UiAutomationContext getContext() throws Exception;
-	boolean isAutomatorPresent() throws Exception;
-	
 	Page getParent() throws Exception;;
-	void setParent(Page page) throws Exception;
 	
 	String getLabel() throws Exception;
-	void setLabel(String label)  throws Exception;
-	
-	//IDefaultElement declareElement(IElementMetaData elementMetaData, ElementLoaderType loaderType) throws Exception;
+
 	GuiElementProxy dropdown(String name) throws Exception;
 	GuiElementProxy element(String name) throws Exception;
 	MultiGuiElementProxy elements(String name) throws Exception;
 	GuiAutomator<?,?> getGuiAutomator() throws Exception;
-	
-	void setUiDriver(GuiAutomator<?,?> automator) throws Exception;
-	void setContext(UiAutomationContext context) throws Exception;
-
-	void processElementProperties(String elementName, Map<String, String> properties) throws Exception;
-//	void processElementPropertiesForLabel(String uiName, String elementName, Map<String, String> properties)
-//			throws Exception;
-
-	PageDefLoader getLoader();
 }

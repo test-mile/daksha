@@ -29,106 +29,48 @@ import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.generator.PageDefLoaderFactory;
 import daksha.tpi.leaping.loader.PageDefLoader;
 
-public class BaseApp implements App{
+public class BaseApp extends BasePage implements App{
 	private String name = null;
 	private Map<String, Page> pageMap = new HashMap<String, Page>();
 
-	public BaseApp(String templateName){
-		this.setName(templateName);
+	public BaseApp(String name, GuiAutomator<?,?> automator, String homeMapPath) throws Exception{
+		super(name, automator, homeMapPath);
 	}
 
-	public void registerPage(String uiLabel, GuiAutomator uiDriver, String mapPath) throws Exception {
-		if (uiDriver != null){
-			Page ui = new BasePage(uiLabel, uiDriver);
-			ui.populate(PageDefLoaderFactory.getFileMapper(mapPath));
-			getPageMap().put(uiLabel.toUpperCase(), ui); // to provide case insensitive access	
-		} else {
-			throwNullAutomatorException("registerUi", UiAutomationContext.GENERIC);
-		}		
-	}
-	
-	public void registerPage(String uiLabel, GuiAutomator uiDriver, PageDefLoader mapper) throws Exception {
-		if (uiDriver != null){
-			Page ui = new BasePage(uiLabel, uiDriver);
-			ui.populate(mapper);
-			this.getPageMap().put(uiLabel.toUpperCase(), ui); // to provide case insensitive access	
-		} else {
-			throwNullAutomatorException("registerUi", UiAutomationContext.GENERIC);
-		}		
-	}
-
-
-	protected void throwNullAutomatorException(String method, UiAutomationContext context) throws Exception{
-		throw new Problem(
-				Batteries.getComponentName("UI_AUTOMATOR"),
-			this.getName(),
-			method,
-			Daksha.problem.COMPOSITE_PAGE_NULL_AUTOMATOR,
-			Batteries.getProblemText(Daksha.problem.COMPOSITE_PAGE_NULL_AUTOMATOR, Daksha.getAutomationContextName(context) )
-		);
+	public void registerPage(String name, String mapPath) throws Exception {
+		Page page = new BasePage(name, this.getGuiAutomator(), mapPath);
+		getPageMap().put(name.toLowerCase(), page);		
 	}
 	
 	protected Page throwUndefinedUiException(String method, String uiLabel) throws Exception{
 		throw new Problem(
-				Batteries.getComponentName("UI_AUTOMATOR"),
+			"Page Object Component",
 			this.getName(),
 			method,
 			Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL,
-			Batteries.getProblemText(Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
+			String.format(Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
 		);
 	}
 	
 	protected Page throwNullUiException(String method) throws Exception{
 		throw new Problem(
-				Batteries.getComponentName("UI_AUTOMATOR"),
+			"Page Object Component",
 			this.getName(),
 			method,
 			Daksha.problem.COMPOSITE_PAGE_NULL_LABEL,
-			Batteries.getProblemText(Daksha.problem.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
+			String.format(Daksha.problem.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
 		);
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-
-	@Override
-	public void addElement(String elementName, Map<String,String> elementProps) throws Exception {
-		for (String name: getPageMap().keySet()){
-			getPageMap().get(name.toUpperCase()).addElement(elementName, elementProps);
-		}
-	}
-
-	@Override
-	public void addElement(String uiLabel, String elementName, Map<String, String> elemMap) throws Exception {
-		if (uiLabel == null){
-			throwNullUiException("addElement");
-		}
-		
-		if (getPageMap().containsKey(uiLabel.toUpperCase())){
-			getPageMap().get(uiLabel.toUpperCase()).addElement(elementName, elemMap);
-		} else{
-			throwUndefinedUiException("addElement", uiLabel);
-		}
 	}
 	
 	public Page page(String uiName) throws Exception {
 		if (uiName != null){
-			if (getPageMap().containsKey(uiName.toUpperCase())){
-				return getPageMap().get(uiName.toUpperCase());
+			if (getPageMap().containsKey(uiName.toLowerCase())){
+				return getPageMap().get(uiName.toLowerCase());
 			} else{
-				return throwUndefinedUiException("ui", uiName);
+				return throwUndefinedUiException("page", uiName);
 			}
 		} else {
-			return throwNullUiException("ui");
+			return throwNullUiException("page");
 		}
 	}
 

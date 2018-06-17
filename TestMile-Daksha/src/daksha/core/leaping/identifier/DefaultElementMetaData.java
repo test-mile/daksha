@@ -33,35 +33,12 @@ import daksha.tpi.leaping.enums.GuiElementType;
 public class DefaultElementMetaData implements GuiElementMetaData {
 	private Map<String, String> metaData = new HashMap<String, String>();
 	List<Locator> identifiers = new ArrayList<Locator>();
-	// private List<String> identificationOrder = new ArrayList<String>();
-	private boolean relevant = false;
-	//private boolean multiId = false;
-	private UiAutomationContext identificationContext = null;
 	
 	public DefaultElementMetaData(Map<String, String> map) {
 		for (String key: map.keySet()){
 			set(key, map.get(key));
 		}
 	}
-	
-//	/* (non-Javadoc)
-//	 * @see com.autocognite.uiautomator.base.metadata.IElementMetaData#getIdentificationOrder()
-//	 */
-//	@Override
-//	public List<String> getIdentificationOrder(){
-//		return this.identificationOrder;
-//	}
-	
-
-	@Override
-	public boolean isRelevantForPage(){
-		return relevant;
-	}
-
-	protected void setRelevance(boolean flag){
-		this.relevant = flag;
-	}
-	
 
 	@Override
 	public void set(String propName, String value) {
@@ -74,44 +51,16 @@ public class DefaultElementMetaData implements GuiElementMetaData {
 		return metaData.get(propName.toUpperCase());
 	}
 
-//	/* (non-Javadoc)
-//	 * @see com.autocognite.uiautomator.base.metadata.IElementMetaData#keys()
-//	 */
-//	@Override
-//	public Set<String> keys() {
-//		return metaData.keySet();
-//	}
-	
-
 	@Override
 	public Map<String, String> getAllProperties() {
 		return metaData;
 	}
-//	
-//	/* (non-Javadoc)
-//	 * @see com.autocognite.uiautomator.base.metadata.IElementMetaData#setMultiIdentification()
-//	 */
-//	@Override
-//	public void setMultiIdentification(){
-//		this.multiId = true;
-//	}
-	
-//	/* (non-Javadoc)
-//	 * @see com.autocognite.uiautomator.base.metadata.IElementMetaData#hasMultiIdentification()
-//	 */
-//	@Override
-//	public boolean hasMultiIdentification(){
-//		return multiId;
-//	}
-	
 
-	@Override
-	public List<String> getAllowedLocators() throws Exception{
-		return Daksha.getAllowedIdentifiers(identificationContext);
+	private List<String> getAllowedLocators() throws Exception{
+		return Daksha.getAllowedIdentifiers();
 	}
 	
-	public void process(UiAutomationContext identificationContext) throws Exception{
-		this.identificationContext = identificationContext;
+	public void process() throws Exception{
 		for (String property: getAllProperties().keySet()){
 			String upProperty = property.toUpperCase();
 			String value = get(property);
@@ -185,30 +134,7 @@ public class DefaultElementMetaData implements GuiElementMetaData {
 			
 		}
 
-	
-		calculateRelevance();
 	}
-	
-	public void processStrictly(UiAutomationContext context) throws Exception{
-		this.process(context);
-		if (!this.isRelevantForPage()){
-			throw new Problem(
-					"Identifier",
-					"Element Meta Data",
-					"processStrictly",
-					Daksha.problem.UI_ELEMENT_INVALID_METADATA,
-					"Invalid meta data"
-							
-				);
-		}
-	}
-
-	protected void calculateRelevance(){
-		if (identifiers.size() > 0){
-			setRelevance(true);
-		}		
-	}
-	
 
 	@Override
 	public List<Locator> getLocators(){

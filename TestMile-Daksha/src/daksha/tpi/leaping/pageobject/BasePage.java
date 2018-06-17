@@ -30,13 +30,13 @@ import daksha.UiAutomatorSingleton;
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
+import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.core.leaping.exceptions.IgnoreElementException;
 import daksha.core.leaping.identifier.DefaultElementMetaData;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.loader.CentralPageDefMap;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.UiAutomationContext;
@@ -44,10 +44,13 @@ import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.generator.PageDefLoaderFactory;
 import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.sysauto.utils.DataUtils;
+import daksha.core.leaping.loader.PageDefRepository;
+import daksha.core.leaping.loader.PageDefinition;
 
 public class BasePage implements Page{
-	private Logger logger = Logger.getLogger(Batteries.getCentralLogName());
+	private Logger logger = Logger.getRootLogger();
 	private GuiAutomator<?,?> automator = null;
+	private PageDefinition pageDef = null;
 	private Map<String, GuiElement> uiElementMap = new HashMap<String, GuiElement>();
 	private UiAutomationContext context = null;
 	private String label;
@@ -55,85 +58,51 @@ public class BasePage implements Page{
 	private ElementLoaderType loaderType = null;
 	private String imagesDirectory =  null;
 	private String name = null;
-	private CentralPageDefMap uiMap = null;
 	
-//	private Map<String, Object> childUiEntities = new  HashMap<String, Object>();
-	
-	public BasePage(){
-	}
-	
-	public CentralPageDefMap getUiMap(){
-		return uiMap;
-	}
-	
-	public BasePage(String uiLabel) throws Exception{
-		this();
-		imagesDirectory = Batteries.value(UiAutomatorPropertyType.DIRECTORY_PROJECT_UI_IMAGES).asString();
-		Random rn = new Random();
-		java.util.Date date= new java.util.Date();
-		long millis = date.getTime();
-		this.name = String.format(
-									"%s (OIC:%d.%d)",
-									uiLabel, // This is entity_name.ui_label
-									rn.nextInt(10000),
-									millis
-								);
-		loadMap();
+	public BasePage(
+			String name,
+			GuiAutomator<?,?> automator,
+			String mapPath) throws Exception{
+		populateSinglePage(name, automator);
+		loadPageDef(mapPath);
 	}
 	
 	public BasePage(
-			String uiLabel,
-			GuiAutomator<?,?> automator) throws Exception{
-		this(uiLabel);
-		this.setContext(automator.getContext());
-		this.setElementLoaderType(ElementLoaderType.PAGE);
-		automator.setElementLoaderType(ElementLoaderType.PAGE);
-		this.setUiDriver(automator);
-		this.setLabel(uiLabel);
-	}
-	
-	public BasePage(
-			GuiAutomator<?,?> automator) throws Exception{
-		this("Default Page", automator);
-	}
-
-	public BasePage(
-			String uiLabel, 
-			Page parent, 
-			GuiAutomator<?,?> automator) throws Exception {
-		this(uiLabel, automator);
-		this.setParent(parent);
-		this.setName(parent.getName() + "." + this.getName());
-		this.setElementLoaderType(ElementLoaderType.COMPOSITE_PAGE);
-		automator.setElementLoaderType(ElementLoaderType.COMPOSITE_PAGE);
-	}
-	
-	public BasePage(
-			String uiLabel, 
 			Page parent,
+			String uiLabel, 
 			GuiAutomator<?,?> automator, 
 			String mapPath) throws Exception {
-		this(uiLabel, parent, automator);
-		this.populate(PageDefLoaderFactory.getFileMapper(mapPath));
+		populateSinglePage(name, automator);
+		populteCompositePage(parent);
+		loadPageDef(mapPath);
 	}
 	
-	protected void loadMap(){
-		this.uiMap = UiAutomatorSingleton.INSTANCE.getCentralMap();		
+	private void populateSinglePage(String name, GuiAutomator<?,?> automator) throws Exception {
+		this.setName(name);
+		this.setLabel(name);
+		this.setContext(automator.getContext());
+		this.setElementLoaderType(ElementLoaderType.PAGE);
+		this.setGuiAutomator(automator);	
 	}
 	
-//	public String getImagesDirectory(){
-//		return this.imagesDirectory;
-//	}
-//	
-//	protected void setImagesDirectory(String imageDirectory){
-//		this.imagesDirectory = imageDirectory;
-//	}
+	private void populteCompositePage(Page parent) {
+		this.setParent(parent);
+		this.setName(parent.getName() + "." + this.getLabel());
+		this.setElementLoaderType(ElementLoaderType.COMPOSITE_PAGE);		
+	}
+	
+	private void loadPageDef(String mapPath) throws Exception {
+		if (!PageDefRepository.INSTANCE.hasPageDef(this.getLabel())) {
+			this.pageDef = PageDefRepository.INSTANCE.loadPageDef(this.getLabel(), PageDefLoaderFactory.getFileMapper(mapPath));
+		}
+		
+	}	
 	
 	public String getName() {
 		return name;
 	}
 	
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
 
@@ -142,7 +111,7 @@ public class BasePage implements Page{
 		return this.loaderType;
 	}
 
-	public void setElementLoaderType(ElementLoaderType type) {
+	private void setElementLoaderType(ElementLoaderType type) {
 		this.loaderType = type;
 	}
 
@@ -151,8 +120,7 @@ public class BasePage implements Page{
 		return this.label;
 	}
 
-	@Override
-	public void setLabel(String label) {
+	private void setLabel(String label) {
 		this.label = label;
 	}
 
@@ -161,8 +129,7 @@ public class BasePage implements Page{
 		return context;
 	}
 
-	@Override
-	public void setContext(UiAutomationContext context) throws Exception {
+	private void setContext(UiAutomationContext context) throws Exception {
 		this.context = context;
 	}
 
@@ -171,9 +138,8 @@ public class BasePage implements Page{
 		return parent;
 	}
 
-	@Override
-	public void setParent(Page entity) {
-		this.parent = entity;
+	private void setParent(Page parent) {
+		this.parent = parent;
 	}
 
 	@Override
@@ -181,8 +147,7 @@ public class BasePage implements Page{
 		return this.automator;
 	}
 
-	@Override
-	public void setUiDriver(GuiAutomator<?,?> automator) throws Exception {
+	private void setGuiAutomator(GuiAutomator<?,?> automator) throws Exception {
 		if (automator != null){
 			this.automator = automator;
 		} else {
@@ -190,102 +155,31 @@ public class BasePage implements Page{
 		}
 	}
 
-	protected void processUiProperties(String elementName, Map<String, String> properties) throws Exception {
-//		if (this.getParent() != null){
-//			this.processElementProperties(elementName, properties);
-//			if (properties != null){
-//				this.processElementPropertiesForLabel(this.getLabel(), elementName, properties);
-//			}
-//		}
-		
-		this.processElementProperties(elementName, properties);
-//		if (properties != null){
-//			this.processElementPropertiesForLabel(this.getLabel(), elementName, properties);
-//		}
-	}
-	
-	@Override
-	public void processElementProperties(String elementName, Map<String, String> properties) throws Exception  {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void processElementPropertiesForLabel(String uiName, String elementName, Map<String, String> properties) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void populate(PageDefLoader uiMapper) throws Exception {
-		getUiMap().populateRawPageDef(this.getName(), uiMapper);
-		Map<String, HashMap<String,String>> rawMap = getUiMap().getRawPageDef(this.getName());
-		for (String uiElementName: rawMap.keySet()){
-			Map<String,String> elemMap = rawMap.get(uiElementName);
-			try{
-				processUiProperties(uiElementName, elemMap);
-			} catch (IgnoreElementException e){
-				continue;
-			}
-			if (elemMap != null){
-				addElement(uiElementName, elemMap);
-			}
-		}
-	}
-	
-	public void populate(String mapPath) throws Exception{
-		this.populate(PageDefLoaderFactory.getFileMapper(mapPath));
-	}
-
 	public GuiElementProxy getElement(String elementName) throws Exception {
 		if (elementName == null){
-			return (GuiElement) throwNullElementException("element", elementName);
+			return (GuiElementProxy) throwNullElementException("element", elementName);
 		} else if (!uiElementMap.containsKey(elementName)) {
-			return (GuiElement) throwUndefinedElementException("element", elementName);		
+			return (GuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			return uiElementMap.get(elementName);
+			GuiElementProxy proxy = this.getGuiAutomator().getIdentifier().createProxy(this, this.pageDef.getMetaData(elementName));
+			return proxy;
 		}
 	}
 	
 	public GuiElementProxy element(String name) throws Exception {
 		return getElement(name);
 	}
-
-	private GuiElementProxy registerElement(String elementName, GuiElementMetaData elementMap) throws Exception {
-		if (Daksha.displayPageElementProcessing){
-			logger.debug("Declaring element");
-		}
-		GuiElementProxy uiElement = getGuiAutomator().declareElement(elementMap);
-		if (Daksha.displayPageElementProcessing){
-		logger.debug("Set element name as " + elementName);
-		}
-		uiElement.setName(elementName);
-		if (this.getParent() != null){
-			if (Daksha.displayPageElementProcessing){
-				logger.debug("Set element entity as " + this.getParent().getName());
-			}
-			uiElement.setCompositePageName(this.getParent().getName());
-		}
-		if (Daksha.displayPageElementProcessing){
-			logger.debug("Verifying entity: " + uiElement.getCompositePageName());
-		}
-		uiElementMap.put(elementName, uiElement);
-		return uiElement;
-	}
-
-	public void addElement(String elementName, Map<String, String> elementMap) throws Exception {
-		GuiElementMetaData elementMetaData = new DefaultElementMetaData(elementMap);
-		elementMetaData.process(this.getContext());
-		if (elementMetaData.isRelevantForPage()){
-			if (this.isAutomatorPresent()){
-				GuiElementProxy element = this.registerElement(elementName, elementMetaData);
-				element.setPageLabel(this.getLabel());
-				element.setMetaData(elementMetaData);
-			}			
-		}
+	
+	@Override
+	public GuiElementProxy dropdown(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public boolean isAutomatorPresent() throws Exception {
-		return this.automator != null;
+	public MultiGuiElementProxy elements(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected Object throwDefaultUiException(String action, String code, String message) throws Exception {
@@ -302,7 +196,7 @@ public class BasePage implements Page{
 		return throwDefaultUiException(
 				methodName,
 				Daksha.problem.PAGE_NULL_AUTOMATOR,
-				Batteries.getProblemText(
+				String.format(
 						Daksha.problem.PAGE_NULL_AUTOMATOR,
 						Daksha.getAutomationContextName(this.getContext())
 						)
@@ -313,7 +207,7 @@ public class BasePage implements Page{
 		return throwDefaultUiException(
 				methodName,
 				Daksha.problem.PAGE_UNDEFINED_ELEMENT,
-				Batteries.getProblemText(
+				String.format(
 						Daksha.problem.PAGE_UNDEFINED_ELEMENT,
 						elementName,
 						DataUtils.toTitleCase(this.getContext().toString())
@@ -327,7 +221,7 @@ public class BasePage implements Page{
 		return throwDefaultUiException(
 				methodName,
 				Daksha.problem.UI_NULL_ELEMENT,
-				Batteries.getProblemText(
+				String.format(
 						Daksha.problem.UI_NULL_ELEMENT,
 						DataUtils.toTitleCase(this.getContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
@@ -335,75 +229,76 @@ public class BasePage implements Page{
 						)
 				);
 	}
+
+	private GuiElementProxy wrapAutomatorElementProxy(GuiElementProxy proxy) {
+		proxy.setPage(this);
+		proxy.setLoaderType(this.getElementLoaderType());
+		return proxy;
+	}
 	
 	@Override
-	public Object getUnderlyingEngine() throws Exception {
-		return this.getGuiAutomator().getUnderlyingEngine();
-	}
-
-	@Override
 	public GuiElementProxy elementWithId(String id) throws Exception {
-		return this.getGuiAutomator().elementWithId(id);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithId(id));
 	}
 
 	@Override
 	public GuiElementProxy elementWithName(String name) throws Exception {
-		return this.getGuiAutomator().elementWithName(name);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithName(name));
 	}
 
 	@Override
 	public GuiElementProxy elementWithClass(String klass) throws Exception {
-		return this.getGuiAutomator().elementWithClass(klass);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithClass(klass));
 	}
 
 	@Override
 	public GuiElementProxy elementWithCss(String cssSelector) throws Exception {
-		return this.getGuiAutomator().elementWithCss(cssSelector);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithCss(cssSelector));
 	}
 
 	@Override
 	public GuiElementProxy elementWithLinkText(String text) throws Exception {
-		return this.getGuiAutomator().elementWithLinkText(text);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithLinkText(text));
 	}
 
 	@Override
 	public GuiElementProxy elementWithPartialLinkText(String textContent) throws Exception {
-		return this.getGuiAutomator().elementWithPartialLinkText(textContent);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithPartialLinkText(textContent));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXPath(String xpath) throws Exception {
-		return this.getGuiAutomator().elementWithXPath(xpath);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXPath(xpath));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXText(String text) throws Exception {
-		return this.getGuiAutomator().elementWithXText(text);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXText(text));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXPartialText(String textContent) throws Exception {
-		return this.getGuiAutomator().elementWithXPartialText(textContent);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXPartialText(textContent));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXValue(String value) throws Exception {
-		return this.getGuiAutomator().elementWithXValue(value);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXValue(value));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
-		return this.getGuiAutomator().elementWithXImageSource(path);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXImageSource(path));
 	}
 
 	@Override
 	public GuiElementProxy elementOfXType(GuiElementType type) throws Exception {
-		return this.getGuiAutomator().elementOfXType(type);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementOfXType(type));
 	}
 
 	@Override
 	public GuiElementProxy elementBasedOnImage(String imagePath) throws Exception {
-		return this.getGuiAutomator().elementBasedOnImage(imagePath);
+		return wrapAutomatorElementProxy(this.getGuiAutomator().elementBasedOnImage(imagePath));
 	}
 
 	@Override
@@ -531,6 +426,11 @@ public class BasePage implements Page{
 	@Override
 	public boolean areImagesSimilar(File leftImage, File rightImage) throws Exception {
 		return this.getGuiAutomator().areImagesSimilar(leftImage, rightImage);
+	}
+	
+	@Override
+	public void sendKeysToScreen(String text) throws Exception {
+		this.getGuiAutomator().sendKeysToScreen(text);
 	}
 
 }

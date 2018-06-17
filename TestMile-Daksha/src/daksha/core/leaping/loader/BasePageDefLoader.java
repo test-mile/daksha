@@ -18,16 +18,38 @@
  ******************************************************************************/
 package daksha.core.leaping.loader;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import daksha.Daksha;
 import daksha.core.batteries.config.Batteries;
 import daksha.core.batteries.exceptions.Problem;
+import daksha.core.leaping.identifier.DefaultElementMetaData;
+import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public abstract class BasePageDefLoader implements PageDefLoader{
-	private String mapName = null;
+	private String name;
+	private PageDefinition pageDef;
 	
-	public abstract String getName();
+	public BasePageDefLoader(String name) {
+		this.name = name;
+		this.pageDef = new PageDefinition();
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	protected synchronized void addElementMetaData(String name, Map<String,String> map) throws Exception {
+		this.pageDef.addElementMetaData(name, map);
+	}
+	
+	@Override
+	public synchronized PageDefinition getPageDef() {
+		return this.pageDef;
+	}
 	
 	protected Object throwGenericUiMapperException(
 			String action,
@@ -35,7 +57,7 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 			String message
 			) throws Exception{
 				throw new Problem(
-						Batteries.getConfiguredName("COMPONENT_NAMES", "UI_AUTOMATOR"),
+						"Loader",
 				this.getName(),
 				action,
 				code,
@@ -47,7 +69,7 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 		return throwGenericUiMapperException(
 				methodName,
 				Daksha.problem.MAPFILE_NOTAFILE,
-				Batteries.getProblemText(
+				String.format(
 						Daksha.problem.MAPFILE_NOTAFILE,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
@@ -58,7 +80,7 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 		return throwGenericUiMapperException(
 				methodName,
 				Daksha.problem.MAPFILE_NOT_FOUND,
-				Batteries.getProblemText(
+				String.format(
 						Daksha.problem.MAPFILE_NOT_FOUND,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
@@ -69,7 +91,7 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 		return throwGenericUiMapperException(
 				methodName,
 				Daksha.problem.MAPFILE_RELATIVE_PATH,
-				Batteries.getProblemText(
+				String.format(
 						Daksha.problem.MAPFILE_RELATIVE_PATH,
 						filePath
 				)

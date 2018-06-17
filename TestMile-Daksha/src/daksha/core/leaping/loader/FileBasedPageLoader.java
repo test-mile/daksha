@@ -18,20 +18,30 @@
  ******************************************************************************/
 package daksha.core.leaping.loader;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
-import daksha.tpi.leaping.loader.PageDefLoader;
+abstract public class FileBasedPageLoader extends BasePageDefLoader{
+	private File mapFile= null;
+	private String mapPath = null;
 
-public interface CentralPageDefMap {
+	public FileBasedPageLoader(String name, String mapFilePath) throws Exception {
+		super(name);
+		this.mapPath = mapFilePath;
+		this.mapFile = new File(mapFilePath);
+		if (!this.mapFile.isAbsolute()){
+			this.throwRelativePathException("constructor", mapFilePath);
+		} 
+		
+		if (!this.mapFile.exists()){
+			this.throwFileNotFoundException("constructor", mapFilePath);
+		} 
+		
+		if (!this.mapFile.isFile()){
+			this.throwNotAFileException("constructor", mapFilePath);
+		}
+	}
 
-	boolean isRawPageDefPresent(String uiFullName);
-
-	Map<String, HashMap<String, String>> populateRawPageDef(String uiFullName, PageDefLoader loader)
-			throws Exception;
-
-	Map<String, HashMap<String, String>> getRawPageDef(String uiFullName) throws Exception;
-
-	Map<String, HashMap<String, HashMap<String, String>>> getRawPageDefMap();
-
+	protected String getMapFilePath(){
+		return mapPath;
+	}
 }

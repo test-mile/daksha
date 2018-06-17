@@ -25,22 +25,15 @@ import daksha.tpi.leaping.enums.UiAutomationContext;
 
 public interface GuiElementMetaData {
 
-	boolean isRelevantForPage();
-
 	void set(String propName, String value);
 
 	String get(String propName);
 
 	Map<String, String> getAllProperties();
 
-	void addLocator(String key, String value);
-
-	void process(UiAutomationContext identificationContext) throws Exception;
-
-	List<String> getAllowedLocators() throws Exception;
+	void process() throws Exception;
 
 	List<Locator> getLocators();
 
-	void processStrictly(UiAutomationContext automationContext) throws Exception;
-
+	void addLocator(String key, String value);
 }
