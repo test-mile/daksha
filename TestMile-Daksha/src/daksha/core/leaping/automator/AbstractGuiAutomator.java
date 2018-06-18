@@ -21,14 +21,15 @@ package daksha.core.leaping.automator;
 import java.io.File;
 import java.util.Map;
 
-import daksha.ErrorType;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
+import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.identifier.Identifier;
+import daksha.core.leaping.identifier.GuiElementIdentifier;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
@@ -40,7 +41,8 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 	private GuiAutomationContext automatorContext = null;
 	String appTitle = null;
 	private ElementLoaderType loaderType = ElementLoaderType.AUTOMATOR;
-	private Identifier<D,E> identifier = null;
+	private GuiElementIdentifier<D,E> identifier = null;
+	private int waitTime = 10;
 	
 	public AbstractGuiAutomator(TestContext testContext) {
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
@@ -62,11 +64,11 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 		return uiAutomatorEngineName.toString();
 	}
 	
-	protected void setIdentifier(Identifier<D,E> identifier) {
+	protected void setIdentifier(GuiElementIdentifier<D,E> identifier) {
 		this.identifier = identifier;
 	}
 	
-	public Identifier<D,E> getIdentifier(){
+	public GuiElementIdentifier<D,E> getIdentifier(){
 		return this.identifier;
 	}
 	
@@ -81,6 +83,14 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 
 	public void setOSType(OSType os) {
 		this.os = os;
+	}
+	
+	public int getWaitTime() {
+		return this.waitTime;
+	}
+
+	public void setWaitTime(int waitTime) {
+		this.waitTime = waitTime;
 	}
 	
 	/*
@@ -166,6 +176,11 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 	public GuiElementProxy elementWithCss(String cssSelector) throws Exception {
 		return this.identifier.elementWithCss(cssSelector);
 	}
+	
+	@Override
+	public GuiElementProxy elementWithTagName(String tag) throws Exception {
+		return this.identifier.elementWithTagName(tag);
+	}
 
 	@Override
 	public GuiElementProxy elementWithLinkText(String text) throws Exception {
@@ -210,6 +225,76 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 	@Override
 	public GuiElementProxy elementBasedOnImage(String imagePath) throws Exception {
 		return this.identifier.elementBasedOnImage(imagePath);
+	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithId(String id) throws Exception {
+		return this.identifier.elementsWithId(id);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithName(String name) throws Exception {
+		return this.identifier.elementsWithName(name);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithClass(String klass) throws Exception {
+		return this.identifier.elementsWithClass(klass);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithCss(String cssSelector) throws Exception {
+		return this.identifier.elementsWithCss(cssSelector);
+	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithTagName(String tag) throws Exception {
+		return this.identifier.elementsWithTagName(tag);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithLinkText(String text) throws Exception {
+		return this.identifier.elementsWithLinkText(text);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithPartialLinkText(String textContent) throws Exception {
+		return this.identifier.elementsWithPartialLinkText(textContent);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXPath(String xpath) throws Exception {
+		return this.identifier.elementsWithXPath(xpath);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXText(String text) throws Exception {
+		return this.identifier.elementsWithXText(text);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXPartialText(String textContent) throws Exception {
+		return this.identifier.elementsWithXPartialText(textContent);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
+		return this.identifier.elementsWithXValue(value);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXImageSource(String path) throws Exception {
+		return this.identifier.elementsWithXImageSource(path);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsOfXType(GuiElementType type) throws Exception {
+		return this.identifier.elementsOfXType(type);
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsBasedOnImage(String imagePath) throws Exception {
+		return this.identifier.elementsBasedOnImage(imagePath);
 	}
 	
 	@Override

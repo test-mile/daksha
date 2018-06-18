@@ -11,6 +11,8 @@ public interface Configuration {
 	ValueContainer<DakshaOption> getAllOptions();
 
 	void add(String k, String v) throws Exception;
+	
+	void add(DakshaOption option, String v) throws Exception;
 
 	void add(Map<String, String> map) throws Exception;
 

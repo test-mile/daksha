@@ -1,5 +1,7 @@
 package daksha.tpi.leaping.generator.selenium;
 
+import java.io.File;
+
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +16,6 @@ import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.generator.AutomatorBuilder;
-import daksha.tpi.sysauto.utils.SystemUtils;
 
 public class SeleniumBuilder extends AutomatorBuilder{
 	private MutableCapabilities browserCaps = new MutableCapabilities();
@@ -25,7 +26,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 	
 	public SeleniumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
-		this.browser = this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_DEFAULT).asEnum(Browser.class);
+		this.browser = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DEFAULT_BROWSER).asEnum(Browser.class);
 	}
 	
 	
@@ -76,14 +77,16 @@ public class SeleniumBuilder extends AutomatorBuilder{
 	
 	private void setFirefoxCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.FIREFOX_WINDOWNAME).asString();
-		String os = SystemUtils.getOSName();
+		String os = this.getTestContext().getConfig().value(DakshaOption.OSTYPE).asString().toLowerCase();
 		String binaryName = null;
-		if (os.startsWith("Window")){
+		if (os.equals("windows")){
 			binaryName = "geckodriver.exe";
-		} else if (os.startsWith("Mac")) {
+		} else {
 			binaryName = "geckodriver";
 		}
-		System.setProperty("webdriver.gecko.driver", this.getTestContext().getConfig().value(DakshaOption.DIRECTORY_TOOLS_UIDRIVERS).asString() + "/" + binaryName);
+
+		String driversDir = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DRIVERS_DIR).asString();
+		System.setProperty("webdriver.gecko.driver",  driversDir + File.separator + os + File.separator + binaryName);
 
 		browserCaps = getFireFoxCapabilitiesSkeleton();
 		//driver = new FirefoxDriver(capabilities);
@@ -94,15 +97,16 @@ public class SeleniumBuilder extends AutomatorBuilder{
 
 	private void setChromeCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.CHROME_WINDOWNAME).asString();
-		String os = SystemUtils.getOSName();
-		String chromeDriverBinaryName = null;
-		if (os.startsWith("Window")){
-			chromeDriverBinaryName = "chromedriver.exe";
-		} else if (os.startsWith("Mac")) {
-			chromeDriverBinaryName = "chromedriver";
+		String os = this.getTestContext().getConfig().value(DakshaOption.OSTYPE).asString().toLowerCase();
+		String binaryName = null;
+		if (os.equals("windows")){
+			binaryName = "chromedriver.exe";
+		} else {
+			binaryName = "chromedriver";
 		}
 
-		System.setProperty("webdriver.chrome.driver", this.getTestContext().getConfig().value(DakshaOption.DIRECTORY_TOOLS_UIDRIVERS).asString() + "/" + chromeDriverBinaryName);
+		String driversDir = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DRIVERS_DIR).asString();
+		System.setProperty("webdriver.chrome.driver",  driversDir + File.separator + os + File.separator + binaryName);
 		browserCaps = getChromeCapabilitiesSkeleton();
 	}
 

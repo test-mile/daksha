@@ -18,19 +18,20 @@
  ******************************************************************************/
 package daksha.core.leaping.element;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
+import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.Identifier;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcreteGuiElement<D,E,MultiGuiElementProxy> implements ConcreteMultiGuiElement<D,E>{
 	private List<E> toolElements = null;
 	private GuiElementMetaData emd = null;
-	private Identifier<D,E> identifier = null;
+	private GuiElementIdentifier<D,E> identifier = null;
 
 	public BaseConcreteMultiGuiElement(Page page, GuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
 		super(page, automator, eProxy);
@@ -43,7 +44,7 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	}
 	
 	public void identify() throws Exception{
-		this.identifier.findAll(this.emd);
+		this.toolElements = this.identifier.findAll(this.emd);
 	}
 	
 	public void identifyIfNull() throws Exception {
@@ -52,7 +53,7 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 		}
 	}
 	
-	protected Identifier<D,E> getIdentifier(){
+	protected GuiElementIdentifier<D,E> getIdentifier(){
 		return this.identifier;
 	}
 
@@ -85,7 +86,18 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	protected abstract boolean doesTextContain(E element, String text) throws Exception;
 	
 	public GuiElementProxy getInstanceAtIndex(int index) throws Exception {
+		System.out.println(this.getIdentifier());
+		System.out.println(this.toolElements);
 		return this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), this.toolElements.get(index));
+	}
+	
+	@Override
+	public List<GuiElementProxy> getAllInstances() throws Exception {
+		List<GuiElementProxy> outList = new ArrayList<GuiElementProxy>();
+		for (E element: this.toolElements) {
+			outList.add(this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), element));
+		}
+		return outList;
 	}
 	
 	@Override

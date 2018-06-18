@@ -3,12 +3,12 @@ package daksha.core.leaping.element.proxy;
 import java.io.File;
 import java.io.IOException;
 
-import daksha.ErrorType;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.element.ManagedConcreteGuiElement;
 import daksha.core.leaping.element.ManagedElement;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.pageobject.Page;
 
@@ -20,7 +20,7 @@ public class BaseGuiElementProxy implements ManagedElement{
 	private ElementLoaderType loaderType = null;
 	private String uiLabel = null;
 	private GuiAutomationContext idType = null;
-	private ManagedConcreteGuiElement concreteFinder = null;
+	private ManagedConcreteGuiElement concreteElement = null;
 	private Page page = null;
 	
 	public BaseGuiElementProxy(Page page, GuiElementMetaData emd) {
@@ -41,11 +41,11 @@ public class BaseGuiElementProxy implements ManagedElement{
 	}
 	
 	protected void setConcreteFinder(ManagedConcreteGuiElement finder) {
-		this.concreteFinder = finder;
+		this.concreteElement = finder;
 	}
 	
 	protected ManagedConcreteGuiElement getFinder() {
-		return this.concreteFinder;
+		return this.concreteElement;
 	}
 	
 	public String getName(){
@@ -201,7 +201,7 @@ public class BaseGuiElementProxy implements ManagedElement{
 				action,
 				String.format(
 						code,
-						concreteFinder.getAutomatorName(),
+						concreteElement.getAutomatorName(),
 						filler,
 						getElementNameFillerForException(),
 						this.getMetaData().getAllProperties().toString()
@@ -263,4 +263,5 @@ public class BaseGuiElementProxy implements ManagedElement{
 	protected Object throwElementIdentificationException(Exception e, String action, String filler) throws Exception{
 		return throwBasicElementMessageException(e, ErrorType.ELEMENT_IDENTIFICATION_FAILURE, action, filler);		
 	}
+	
 }

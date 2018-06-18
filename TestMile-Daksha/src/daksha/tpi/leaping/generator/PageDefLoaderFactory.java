@@ -20,10 +20,10 @@ package daksha.tpi.leaping.generator;
 
 import org.apache.log4j.Logger;
 
-import daksha.ErrorType;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.loader.IniPageDefLoader;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.enums.FileFormat;
 import daksha.tpi.leaping.loader.PageDefLoader;

@@ -24,14 +24,14 @@ import org.openqa.selenium.WebElement;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.identifier.selenium.SeleniumIdentifier;
+import daksha.core.leaping.identifier.selenium.SeleniumGuiElementIdentifier;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class SeleniumWebUiDriver extends BaseSeleniumWebUiDriver<WebDriver,WebElement>{
 	
 	public SeleniumWebUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception{
 		super(testContext, UiDriverEngine.WEBDRIVER, GuiAutomationContext.PC_WEB, loaderType);
-		this.setIdentifier(new SeleniumIdentifier(this));
+		this.setIdentifier(new SeleniumGuiElementIdentifier(this));
 	}
 		
 	public SeleniumWebUiDriver(TestContext testContext) throws Exception{

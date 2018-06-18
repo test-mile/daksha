@@ -20,8 +20,8 @@ package daksha.core.leaping.loader;
 
 import java.util.Map;
 
-import daksha.ErrorType;
-import daksha.core.batteries.exceptions.Problem;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 

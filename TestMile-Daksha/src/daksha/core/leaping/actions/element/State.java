@@ -23,14 +23,10 @@ public interface State {
      boolean isAbsent()  throws Exception;
      boolean isVisible()  throws Exception;
      boolean isInvisible()  throws Exception;
-     void waitForPresence() throws Exception;
-     void waitForAbsence()  throws Exception;
-     void waitForVisibility()  throws Exception;
-     void waitForInvisibility()  throws Exception;
-	void waitUntilPresent() throws Exception;
-	void waitUntilAbsent() throws Exception;
+ 	boolean isClickable() throws Exception;
+     void waitUntilPresent() throws Exception;
+     void waitUntilAbsent()  throws Exception;
+     void waitUntilVisible()  throws Exception;
+     void waitUntilInvisible()  throws Exception;
 	void waitUntilClickable() throws Exception;
-	void waitUntilVisible() throws Exception;
-	void waitUntilInvisible() throws Exception;
-	boolean isClickable() throws Exception;
 }

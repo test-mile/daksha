@@ -31,7 +31,7 @@ public interface GuiElementMetaData {
 
 	void process() throws Exception;
 
-	List<Locator> getLocators();
+	List<GuiLocator> getLocators();
 
 	void addLocator(String key, String value);
 }

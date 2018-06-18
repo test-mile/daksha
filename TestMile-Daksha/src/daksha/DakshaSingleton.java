@@ -15,7 +15,9 @@ import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.loader.PageDefRepository;
+import daksha.tpi.enums.DakshaOption;
 
 public enum DakshaSingleton {
 	INSTANCE;
@@ -29,42 +31,64 @@ public enum DakshaSingleton {
 	private PageDefRepository pageRep = PageDefRepository.INSTANCE;
 	private static String defString = "default";
 	
+	public void init() throws Exception {
+		this.centralConf = new CentralConfiguration();
+		LeapingSingleton.INSTANCE.init();
+	}
+	
 	public void freezeCentralConfig() throws Exception {
 		this.centralConfFrozen = true;
 		this.centralConf.freeze();
 		this.registerContext(new TestContext(defString, new HashMap<String,String>()));
 	}
+	
+	private void validateNotFrozenCentralConfig() throws Exception {
+		if (centralConfFrozen) {
+			throw new Exception("You can not make central configuration changes after freezing it.");
+		}		
+	}
+	
+	public void setOSType(OSType osType) throws Exception {
+		validateNotFrozenCentralConfig();
+		this.centralConf.add(DakshaOption.OSTYPE, osType.toString());
+	}
 
-	public void registerContext(TestContext context) throws Exception {
+	private void validateFrozenCentralConfig(String suffix) throws Exception {
 		if (!centralConfFrozen) {
-			throw new Exception("You must freeze central configuration before registering a context.");
-		}
+			throw new Exception(String.format("You must freeze central configuration before %s.", suffix));
+		}		
+	}
+	
+	public void registerContext(TestContext context) throws Exception {
+		validateFrozenCentralConfig("registering context");
 		ContextConfiguration conf = new ContextConfiguration(this.centralConf, context.getAsMap());
 		context.setOptions(conf);
 		this.contexts.put(context.getName().toLowerCase(), context);
 	}
 	
-	public TestContext getTestContext(String name) {
+	public TestContext getTestContext(String name) throws Exception {
+		validateFrozenCentralConfig("getting context");
 		return this.contexts.get(name.toLowerCase());
 	}
 	
-	public TestContext getTestContext(ITestContext context) {
+	public TestContext getTestContext(ITestContext context) throws Exception {
 		return getTestContext(context.getName());
 	}
 	
-	public TestContext getDefaultTestContext() {
+	public TestContext getDefaultTestContext() throws Exception {
 		return getTestContext(defString);
 	}
 	
-	public Configuration getTestContextConfig(String name) {
+	public Configuration getTestContextConfig(String name) throws Exception {
+		validateFrozenCentralConfig("getting context config");
 		return this.getTestContext(name).getConfig();
 	}
 	
-	public Configuration getTestContextConfig(ITestContext context) {
+	public Configuration getTestContextConfig(ITestContext context) throws Exception {
 		return this.getTestContextConfig(context.getName());
 	}
 	
-	public Configuration getDefaultTestContextConfig() {
+	public Configuration getDefaultTestContextConfig() throws Exception {
 		return getTestContextConfig(defString);
 	}
 	 

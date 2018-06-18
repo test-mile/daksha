@@ -36,6 +36,11 @@ public class BaseConfiguration implements Configuration {
 	 }
 	 
 	@Override
+	public void add(DakshaOption option, String v) throws Exception {
+		 options.add(option, v); 
+	 } 
+	
+	@Override
 	public void add(String k, String v) throws Exception {
 		 options.add(convertPropertyToOption(k), v); 
 	 } 

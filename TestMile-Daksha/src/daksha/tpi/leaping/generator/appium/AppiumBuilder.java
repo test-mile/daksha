@@ -5,12 +5,12 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.Daksha;
-import daksha.ErrorType;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.automator.appium.AppiumNativeUiDriver;
 import daksha.core.leaping.automator.appium.AppiumWebUiDriver;
 import daksha.core.leaping.enums.OSType;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;

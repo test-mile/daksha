@@ -56,7 +56,6 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	private D driver = null;
 	private WebDriverWait waiter = null;
 	private Browser browser = null;
-	private int waitTime = -1;
 	protected Capabilities capabilities = null;
 	
 	public BaseSeleniumWebUiDriver(TestContext testContext, UiDriverEngine engine, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
@@ -66,7 +65,7 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	@Override
 	public void init() throws Exception{
 		//this.setBrowser(Browser.valueOf(this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_DEFAULT).asString().toUpperCase()));
-		this.setWaitTime(this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_MAXWAIT).asInt());
+		this.setWaitTime(this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAX_WAIT).asInt());
 		this.setUiTestEngineName(UiDriverEngine.WEBDRIVER);		
 	}
 	
@@ -129,14 +128,6 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 		this.waiter = waiter;
 	}
 
-	public int getWaitTime() {
-		return this.waitTime;
-	}
-
-	public void setWaitTime(int waitTime) {
-		this.waitTime = waitTime;
-	}
-
 	public void setBrowser(Browser browser) {
 		this.browser = browser;
 	}
@@ -185,6 +176,10 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	public void goTo(String url) throws Exception {
 		getUnderlyingEngine().get(url);
 		waitForBody();
+	}
+	
+	public void waitForBody() throws Exception {
+		this.getIdentifier().elementWithTagName("body").waitUntilPresent();
 	}
 	
 	public void refresh() throws Exception {
@@ -252,7 +247,7 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	public File takeScreenshot() throws Exception {
 		TakesScreenshot augDriver = getScreenshotAugmentedDriver();
         File srcFile = augDriver.getScreenshotAs(OutputType.FILE);
-        return FileSystemUtils.moveFiletoDir(srcFile, this.getTestContext().getConfig().value(DakshaOption.DIRECTORY_PROJECT_SCREENSHOTS).asString());
+        return FileSystemUtils.moveFiletoDir(srcFile, this.getTestContext().getConfig().value(DakshaOption.SCREENSHOTS_DIR).asString());
 	}
 	
 	public void focusOnApp() throws Exception{

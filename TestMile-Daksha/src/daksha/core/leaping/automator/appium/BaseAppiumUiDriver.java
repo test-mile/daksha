@@ -24,14 +24,14 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.Daksha;
-import daksha.ErrorType;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.automator.selenium.BaseSeleniumWebUiDriver;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.identifier.appium.AppiumIdentifier;
+import daksha.core.leaping.identifier.appium.AppiumGuiElementIdentifier;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import io.appium.java_client.AppiumDriver;
@@ -44,7 +44,7 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 	
 	public BaseAppiumUiDriver(TestContext testContext, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
 		super(testContext, UiDriverEngine.APPIUM, automatorContext, loaderType);
-		this.setIdentifier(new AppiumIdentifier(this));
+		this.setIdentifier(new AppiumGuiElementIdentifier(this));
 	}
 		
 	public BaseAppiumUiDriver(TestContext testContext, GuiAutomationContext automatorContext) throws Exception{

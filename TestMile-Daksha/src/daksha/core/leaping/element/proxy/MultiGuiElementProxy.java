@@ -18,24 +18,29 @@
  ******************************************************************************/
 package daksha.core.leaping.element.proxy;
 
+import java.util.List;
 import java.util.Random;
 
-import daksha.ErrorType;
 import daksha.core.leaping.element.ConcreteMultiGuiElement;
 import daksha.core.leaping.identifier.GuiElementMetaData;
+import daksha.core.problem.ErrorType;
+import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.element.MultiGuiElement;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGuiElement{
 	private ConcreteMultiGuiElement<?,?> concreteElement = null;
-	
-	public MultiGuiElementProxy(Page page, GuiElementMetaData emd) {
+	private GuiAutomator<?,?> automator = null;
+
+	public MultiGuiElementProxy(Page page, GuiAutomator<?,?> automator, GuiElementMetaData emd) {
 		super(page, emd);
+		this.automator = automator;
 	}
 	
-	public MultiGuiElementProxy(GuiElementMetaData emd) {
+	public MultiGuiElementProxy(GuiAutomator<?,?> automator, GuiElementMetaData emd) {
 		super(emd);
+		this.automator = automator;
 	}
 	
 	public MultiGuiElement identify() throws Exception {
@@ -88,10 +93,17 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 		verifyIndex(index);
 		identify();		
 	}
+	
+	@Override
+	public List<GuiElementProxy> getAllInstances() throws Exception {
+		this.getFinder().identifyIfNull();
+		return this.concreteElement.getAllInstances();
+	}
 
 	@Override
 	public GuiElement getInstanceAtIndex(int index) throws Exception {
 		try {
+			this.getFinder().identifyIfNull();
 			return this.concreteElement.getInstanceAtIndex(index);
 		} catch (Exception e){
 			return (GuiElement) throwElementGetInstanceException(e, "getInstanceAtIndex", String.format("get instance at index %d", index));
@@ -102,7 +114,7 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 	public GuiElement get(int index) throws Exception {
 		try {
 			this.verifyIndex(index);
-			return this.concreteElement.getInstanceAtIndex(index);
+			return this.getInstanceAtIndex(index);
 		} catch (Exception e){
 			return (GuiElement) throwElementGetInstanceException(e, "get (index)", String.format("get instance at index %d", index));
 		}
@@ -112,8 +124,10 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 	public GuiElement getInstanceAtOrdinal(int ordinal) throws Exception {
 		try {
 			this.verifyOrdinal(ordinal);
-			return this.concreteElement.getInstanceAtIndex(ordinal - 1);
+			return this.getInstanceAtIndex(ordinal - 1);
 		} catch (Exception e){
+			System.out.println(e);
+			e.printStackTrace();
 			return (GuiElement) throwElementGetInstanceException(e, "getInstanceAtOrdinal", String.format("get instance at ordinal %d", ordinal));
 		}
 	}
@@ -139,7 +153,7 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 	@Override
 	public GuiElement getRandomInstance() throws Exception {
 		try {
-			return getInstanceAtIndex(getRandomElementIndex());
+			return this.getInstanceAtIndex(getRandomElementIndex());
 		} catch (Exception e){
 			return (GuiElement) throwElementGetInstanceException(e, "getRandomInstance", "get random instance");
 		}
@@ -148,7 +162,7 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 	@Override
 	public GuiElement getFirstInstance() throws Exception {
 		try {
-			return getInstanceAtIndex(0);
+			return this.getInstanceAtIndex(0);
 		} catch (Exception e){
 			return (GuiElement) throwElementGetInstanceException(e, "getFirstInstance", "get first instance");
 		}
@@ -167,7 +181,7 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 	@Override
 	public GuiElement getLastInstance() throws Exception {
 		try {
-			return getInstanceAtIndex(getLastIndex());
+			return this.getInstanceAtIndex(getLastIndex());
 		} catch (Exception e){
 			return (GuiElement) throwElementGetInstanceException(e, "getLastInstance", "get last instance");
 		}

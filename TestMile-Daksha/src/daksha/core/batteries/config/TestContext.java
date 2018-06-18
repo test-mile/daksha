@@ -32,7 +32,7 @@ public class TestContext {
 	}
 
 	public GuiAutomationContext getAutomationContext() throws Exception {
-		return GuiAutomationContext.valueOf(this.config.value(DakshaOption.UIAUTO_RUNCONTEXT).asString());
+		return GuiAutomationContext.valueOf(this.config.value(DakshaOption.GUIAUTO_CONTEXT).asString());
 	}
 
 }

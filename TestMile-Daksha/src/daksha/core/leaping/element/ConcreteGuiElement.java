@@ -43,4 +43,5 @@ public interface ConcreteGuiElement<D,E> extends ManagedConcreteGuiElement,
 	
 	int getWaitTime() throws Exception;
 	GuiElementType getElementType();
+	
 }

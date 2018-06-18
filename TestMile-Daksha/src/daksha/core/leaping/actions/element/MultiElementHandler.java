@@ -18,6 +18,9 @@
  ******************************************************************************/
 package daksha.core.leaping.actions.element;
 
+import java.util.List;
+
+import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.tpi.leaping.element.GuiElement;
 
 public interface MultiElementHandler {	
@@ -31,4 +34,5 @@ public interface MultiElementHandler {
 	int getElementCount() throws Exception;
 	GuiElement getInstanceByText(String text) throws Exception;
 	GuiElement getInstanceByTextContent(String text) throws Exception;
+	List<GuiElementProxy> getAllInstances() throws Exception;
 }

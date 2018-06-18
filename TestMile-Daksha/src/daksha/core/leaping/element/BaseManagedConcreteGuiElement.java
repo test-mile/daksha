@@ -8,16 +8,15 @@ public abstract class BaseManagedConcreteGuiElement<D,E,P> {
 	private String automatorName = null;
 	private P proxy = null;
 	private Page page = null;
-
-	public BaseManagedConcreteGuiElement(Page page, GuiAutomator<D,E> automator, P proxy) {
-		this.page = page;
-		this.automator = automator;
-		this.proxy = proxy;
-	}
 	
 	public BaseManagedConcreteGuiElement(GuiAutomator<D,E> automator, P proxy) {
 		this.automator = automator;
 		this.proxy = proxy;
+	}
+	
+	public BaseManagedConcreteGuiElement(Page page, GuiAutomator<D,E> automator, P proxy) {
+		this(automator, proxy);
+		this.page = page;
 	}
 	
 	protected Page getPage() {

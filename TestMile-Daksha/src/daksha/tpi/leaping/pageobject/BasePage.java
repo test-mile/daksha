@@ -25,15 +25,16 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import daksha.Daksha;
-import daksha.ErrorType;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.batteries.exceptions.Problem;
+import daksha.core.leaping.element.proxy.BaseGuiElementProxy;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.core.leaping.loader.PageDefRepository;
 import daksha.core.leaping.loader.PageDefinition;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
@@ -235,75 +236,159 @@ public class BasePage implements Page{
 				);
 	}
 
-	private GuiElementProxy wrapAutomatorElementProxy(GuiElementProxy proxy) {
+	private void wrapProxy(BaseGuiElementProxy proxy) {
 		proxy.setPage(this);
-		proxy.setLoaderType(this.getElementLoaderType());
+		proxy.setLoaderType(this.getElementLoaderType());		
+	}
+	
+	private GuiElementProxy updateGuiElementProxy(GuiElementProxy proxy) {
+		wrapProxy(proxy);
+		return proxy;
+	}
+	
+	private MultiGuiElementProxy updateGuiElementProxy(MultiGuiElementProxy proxy) {
+		wrapProxy(proxy);
 		return proxy;
 	}
 	
 	@Override
 	public GuiElementProxy elementWithId(String id) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithId(id));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithId(id));
 	}
 
 	@Override
 	public GuiElementProxy elementWithName(String name) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithName(name));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithName(name));
 	}
 
 	@Override
 	public GuiElementProxy elementWithClass(String klass) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithClass(klass));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithClass(klass));
 	}
 
 	@Override
 	public GuiElementProxy elementWithCss(String cssSelector) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithCss(cssSelector));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithCss(cssSelector));
 	}
 
 	@Override
+	public GuiElementProxy elementWithTagName(String tag) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithTagName(tag));
+	}
+	
+	@Override
 	public GuiElementProxy elementWithLinkText(String text) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithLinkText(text));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithLinkText(text));
 	}
 
 	@Override
 	public GuiElementProxy elementWithPartialLinkText(String textContent) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithPartialLinkText(textContent));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithPartialLinkText(textContent));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXPath(String xpath) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXPath(xpath));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithXPath(xpath));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXText(String text) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXText(text));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithXText(text));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXPartialText(String textContent) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXPartialText(textContent));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithXPartialText(textContent));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXValue(String value) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXValue(value));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithXValue(value));
 	}
 
 	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementWithXImageSource(path));
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithXImageSource(path));
 	}
 
 	@Override
 	public GuiElementProxy elementOfXType(GuiElementType type) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementOfXType(type));
+		return updateGuiElementProxy(this.getGuiAutomator().elementOfXType(type));
 	}
 
 	@Override
 	public GuiElementProxy elementBasedOnImage(String imagePath) throws Exception {
-		return wrapAutomatorElementProxy(this.getGuiAutomator().elementBasedOnImage(imagePath));
+		return updateGuiElementProxy(this.getGuiAutomator().elementBasedOnImage(imagePath));
+	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithId(String id) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithId(id));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithName(String name) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithName(name));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithClass(String klass) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithClass(klass));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithCss(String cssSelector) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithCss(cssSelector));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithTagName(String tag) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithTagName(tag));
+	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithLinkText(String text) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithLinkText(text));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithPartialLinkText(String textContent) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithPartialLinkText(textContent));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXPath(String xpath) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXPath(xpath));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXText(String text) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXText(text));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXPartialText(String textContent) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXPartialText(textContent));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXValue(value));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsWithXImageSource(String path) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXImageSource(path));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsOfXType(GuiElementType type) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsOfXType(type));
+	}
+
+	@Override
+	public MultiGuiElementProxy elementsBasedOnImage(String imagePath) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsBasedOnImage(imagePath));
 	}
 
 	@Override

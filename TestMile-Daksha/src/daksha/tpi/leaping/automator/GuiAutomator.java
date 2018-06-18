@@ -21,7 +21,7 @@ package daksha.tpi.leaping.automator;
 import java.util.Map;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.leaping.actions.ElementCreationHandler;
+import daksha.core.leaping.actions.GuiElementCreationHandler;
 import daksha.core.leaping.actions.automator.BrowserActionHandler;
 import daksha.core.leaping.actions.automator.ImageComparator;
 import daksha.core.leaping.actions.automator.MouseActionHandler;
@@ -29,10 +29,10 @@ import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.OSType;
-import daksha.core.leaping.identifier.Identifier;
+import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
-public interface GuiAutomator<D,E> extends ManagedGuiAutomator<D>, NativeWindowActionHandler, ElementCreationHandler, BrowserActionHandler, ImageComparator, MouseActionHandler{
+public interface GuiAutomator<D,E> extends ManagedGuiAutomator<D>, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparator, MouseActionHandler{
 
 	void setAutomatorContext(GuiAutomationContext screen);
 
@@ -52,12 +52,14 @@ public interface GuiAutomator<D,E> extends ManagedGuiAutomator<D>, NativeWindowA
 
 	String getName();
 
-	Identifier<D,E> getIdentifier();
+	GuiElementIdentifier<D,E> getIdentifier();
 
 	void setWaitTime(int waitTime);
 
 	void setOSType(OSType platformType);
 
 	TestContext getTestContext();
+
+	int getWaitTime();
 
 }

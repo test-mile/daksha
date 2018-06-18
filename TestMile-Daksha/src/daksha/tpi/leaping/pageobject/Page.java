@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.tpi.leaping.pageobject;
 
-import daksha.core.leaping.actions.ElementCreationHandler;
+import daksha.core.leaping.actions.GuiElementCreationHandler;
 import daksha.core.leaping.actions.automator.BrowserActionHandler;
 import daksha.core.leaping.actions.automator.ImageComparator;
 import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
@@ -29,7 +29,7 @@ import daksha.core.leaping.loader.PageDefinition;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
-public interface Page extends ManagedGuiAutomator, ElementCreationHandler, 
+public interface Page extends ManagedGuiAutomator, GuiElementCreationHandler, 
 ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
 	
 	String getLabel() throws Exception;

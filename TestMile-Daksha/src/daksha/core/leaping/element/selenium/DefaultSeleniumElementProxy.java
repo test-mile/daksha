@@ -28,7 +28,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.Locator;
+import daksha.core.leaping.identifier.GuiLocator;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
@@ -36,14 +36,19 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 	private D driver = null;
 	private WebDriverWait waiter = null;
 	
+	public DefaultSeleniumElementProxy(GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+		super(automator, eProxy);
+		setUpObjectVars();
+	}
+	
 	public DefaultSeleniumElementProxy(Page page, GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
 		super(page, automator, eProxy);
-		this.driver = automator.getUiDriverEngine();
-		this.setWaiter(new WebDriverWait((WebDriver) driver, getWaitTime()));
+		setUpObjectVars();
 	}	
 	
-	public DefaultSeleniumElementProxy(GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
-		this(null, automator, eProxy);
+	private void setUpObjectVars() throws Exception {
+		this.driver = this.getAutomator().getUiDriverEngine();
+		this.setWaiter(new WebDriverWait((WebDriver) driver, this.getAutomator().getWaitTime()));
 	}
 	
 	protected WebDriverWait getWaiter() {
@@ -121,7 +126,8 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 	@Override
 	public boolean isPresent() throws Exception {
 		boolean present = false;
-		for(Locator locator: this.getMetaData().getLocators()){
+		System.out.println(this.getMetaData().getLocators());
+		for(GuiLocator locator: this.getMetaData().getLocators()){
 			try{
 				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);
 				present = isPresent(by);
@@ -166,7 +172,7 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 	@Override
 	public boolean isVisible() throws Exception {
 		boolean visible = false;
-		for(Locator locator: this.getMetaData().getLocators()){
+		for(GuiLocator locator: this.getMetaData().getLocators()){
 			try{
 				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);
 				visible = isVisible(by);
@@ -212,7 +218,7 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 	@Override
 	public boolean isClickable() throws Exception {
 		boolean clickable = false;
-		for(Locator locator: this.getMetaData().getLocators()){
+		for(GuiLocator locator: this.getMetaData().getLocators()){
 			try{
 				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);
 				clickable = isClickable(by);

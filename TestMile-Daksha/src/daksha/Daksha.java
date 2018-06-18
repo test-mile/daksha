@@ -32,7 +32,11 @@ public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
 	
 	public static void init() throws Exception{
-		
+		core.init();
+	}
+	
+	public static void setOSType(OSType osType) throws Exception {
+		core.setOSType(osType);
 	}
 	
 	public static void freezeCentralConfig() throws Exception {
@@ -42,20 +46,24 @@ public class Daksha {
 	public static void registerContext(TestContext context) throws Exception {
 		core.registerContext(context);
 	}
+	
+	public static TestContext getDefaultTestContext() throws Exception{
+		return core.getDefaultTestContext();
+	}
 		
-	public static TestContext getTestContext(String name) {
+	public static TestContext getTestContext(String name) throws Exception {
 		return core.getTestContext(name);
 	}
 	
-	public static TestContext getTestContext(ITestContext context) {
+	public static TestContext getTestContext(ITestContext context) throws Exception {
 		return core.getTestContext(context);
 	}
 	
-	public static Configuration getTestContextConfig(String name) {
+	public static Configuration getTestContextConfig(String name) throws Exception {
 		return core.getTestContextConfig(name);
 	}
 	
-	public static Configuration getTestContextConfig(ITestContext context) {
+	public static Configuration getTestContextConfig(ITestContext context) throws Exception {
 		return core.getTestContextConfig(context);
 	}
 	 

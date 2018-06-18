@@ -21,8 +21,8 @@ package daksha.tpi.leaping.pageobject;
 import java.util.HashMap;
 import java.util.Map;
 
-import daksha.ErrorType;
-import daksha.core.batteries.exceptions.Problem;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.tpi.leaping.automator.GuiAutomator;
 
 public class BaseApp extends BasePage implements App{

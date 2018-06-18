@@ -20,9 +20,10 @@ package daksha.core.leaping.element.proxy;
 
 import java.util.List;
 
-import daksha.ErrorType;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.identifier.GuiElementMetaData;
+import daksha.core.problem.ErrorType;
+import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
@@ -30,13 +31,16 @@ import daksha.tpi.leaping.pageobject.Page;
 public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	private GuiElementType elementType = GuiElementType.GENERIC;
 	private ConcreteGuiElement<?,?> concreteElement = null;
+	private GuiAutomator<?,?> automator = null;
 
-	public GuiElementProxy(Page page, GuiElementMetaData emd) {
+	public GuiElementProxy(Page page, GuiAutomator<?,?> automator, GuiElementMetaData emd) {
 		super(page, emd);
+		this.automator = automator;
 	}
 	
-	public GuiElementProxy(GuiElementMetaData emd) {
+	public GuiElementProxy(GuiAutomator<?,?> automator, GuiElementMetaData emd) {
 		super(emd);
+		this.automator = automator;
 	}
 
 	public GuiElement identify() throws Exception {
@@ -46,6 +50,11 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 		} catch (Exception e){
 			return (GuiElement) throwElementIdentificationException(e, "identify", "identify element");
 		}
+	}
+	
+	public GuiElementProxy asDropDown() throws Exception {
+		this.automator.getIdentifier().convertToDropDown(this);
+		return this;
 	}
 
 	private GuiElementType getType() {
@@ -65,7 +74,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	@Override
 	public void enterText(String text) throws Exception{
 		try {
-			getConcreteElement().enterText(text);} catch (Exception e){
+			getConcreteElement().enterText(text);
+		} catch (Exception e){
+			System.out.println(e);
+			e.printStackTrace();
 			throwElementActionException(e, "enterText", "enter text in");
 		}
 	}
@@ -121,9 +133,12 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	}
 
 	@Override
-	public void waitForPresence() throws Exception {
+	public void waitUntilPresent() throws Exception {
 		try {
-			getConcreteElement().waitForPresence();} catch (Exception e){
+			getConcreteElement().waitUntilPresent();
+		} catch (Exception e){
+			System.out.println(e);
+			e.printStackTrace();
 			throwElementException(
 					e,
 					ErrorType.ELEMENT_WAIT_FAILURE,
@@ -142,9 +157,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	
 
 	@Override
-	public void waitForAbsence() throws Exception {
+	public void waitUntilAbsent() throws Exception {
 		try {
-			getConcreteElement().waitForAbsence();} catch (Exception e){
+			getConcreteElement().waitUntilAbsent();
+		} catch (Exception e){
 			throwElementException(
 					e,
 					ErrorType.ELEMENT_WAIT_FAILURE,
@@ -162,9 +178,9 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	}
 
 	@Override
-	public void waitForVisibility() throws Exception {
+	public void waitUntilVisible() throws Exception {
 		try {
-			getConcreteElement().waitForVisibility();} catch (Exception e){
+			getConcreteElement().waitUntilVisible();} catch (Exception e){
 			throwElementException(
 					e,
 					ErrorType.ELEMENT_WAIT_FAILURE,
@@ -182,9 +198,9 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	}
 
 	@Override
-	public void waitForInvisibility() throws Exception {
+	public void waitUntilInvisible() throws Exception {
 		try {
-			getConcreteElement().waitForInvisibility();} catch (Exception e){
+			getConcreteElement().waitUntilInvisible();} catch (Exception e){
 			throwElementException(
 					e,
 					ErrorType.ELEMENT_WAIT_FAILURE,
@@ -434,7 +450,8 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	@Override
 	public void rightClickAndClickElement(String name) throws Exception {
 		try{
-			this.getConcreteElement().rightClickAndClickElement(name);} catch (Exception e){
+			this.getConcreteElement().rightClickAndClickElement(name);
+		} catch (Exception e){
 			throwElementException(
 					e,
 					ErrorType.ACTION_MULTIELEMENT_FAILURE,
@@ -454,28 +471,8 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	}
 
 	@Override
-	public void waitUntilPresent() throws Exception {
-		getConcreteElement().waitUntilPresent();
-	}
-
-	@Override
-	public void waitUntilAbsent() throws Exception {
-		getConcreteElement().waitUntilAbsent();
-	}
-
-	@Override
 	public void waitUntilClickable() throws Exception {
 		getConcreteElement().waitUntilClickable();
-	}
-
-	@Override
-	public void waitUntilVisible() throws Exception {
-		getConcreteElement().waitUntilVisible();
-	}
-
-	@Override
-	public void waitUntilInvisible() throws Exception {
-		getConcreteElement().waitUntilInvisible();
 	}
 
 	@Override

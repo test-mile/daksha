@@ -21,8 +21,8 @@ package daksha.core.leaping.element;
 import java.util.List;
 
 import daksha.core.leaping.element.proxy.GuiElementProxy;
+import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.Identifier;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.element.MultiGuiElement;
@@ -33,20 +33,33 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	private E toolElement = null;
 	private GuiElementMetaData emd = null;
 	private GuiElementType elementType = null;
-	private Identifier<D,E> identifier = null;
-
-	public BaseConcreteSingleGuiElement(Page page, GuiAutomator<D,E> automator, GuiElementProxy proxy) {
-		super(page, automator, proxy);
-		this.emd = proxy.getMetaData();
-		this.identifier = automator.getIdentifier();
-	}
+	private GuiElementIdentifier<D,E> identifier = null;
+	private int waitTime = 10;
 	
 	public BaseConcreteSingleGuiElement(GuiAutomator<D,E> automator, GuiElementProxy proxy) {
 		super(automator, proxy);
+		populateObjectVars(automator, proxy);
+	}
+	
+	public BaseConcreteSingleGuiElement(Page page, GuiAutomator<D,E> automator, GuiElementProxy proxy) {
+		super(page, automator, proxy);
+		populateObjectVars(automator, proxy);
+
+	}
+	
+	private void populateObjectVars(GuiAutomator<D,E> automator, GuiElementProxy proxy) {
+		this.emd = proxy.getMetaData();
+		this.identifier = automator.getIdentifier();		
+		this.waitTime = automator.getWaitTime();
+	}
+	
+	@Override
+	public int getWaitTime() throws Exception {
+		return this.waitTime;
 	}
 	
 	public void identify() throws Exception{
-		this.getAutomator().getIdentifier().find(this.emd);
+		this.toolElement = this.getAutomator().getIdentifier().find(this.emd);
 	}
 	
 	public void identifyIfNull() throws Exception {
@@ -56,12 +69,13 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 
 	public GuiElementProxy element(String name) throws Exception{
+		
 		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
 		E element = this.identifier.find(this, metaData);
 		return this.identifier.convertToolElementToProxy(this.getPage(), metaData, element);
 	}
 
-	protected Identifier<D,E> getIdentifier() {
+	protected GuiElementIdentifier<D,E> getIdentifier() {
 		return this.identifier;
 	}
 	
@@ -249,25 +263,12 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 		this.getGuiElementProxy().throwUnsupportedActionException("switchToFrame");
 	}
 
-	@Override
-	public int getWaitTime() throws Exception {
-		return (int) this.getGuiElementProxy().throwUnsupportedActionException("getWaitTime");
-	}
-
 	public void hoverAndClickElement(GuiElement uiElement) throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("hoverAndClickElement");
 	}
 
 	public void rightClickAndClickElement(GuiElement uiElement) throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("rightClickAndClickElement");
-	}
-
-	public GuiElement getInstanceByText(String text) throws Exception {
-		return (GuiElement) this.getGuiElementProxy().throwUnsupportedActionException("getInstanceByText");
-	}
-
-	public GuiElement getInstanceByTextContent(String text) throws Exception {
-		return (GuiElement) this.getGuiElementProxy().throwUnsupportedActionException("getInstanceByTextContent");
 	}
 	
 	@Override
@@ -291,22 +292,22 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	@Override
-	public void waitForPresence() throws Exception {
+	public void waitUntilPresent() throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("waitForPresence");
 	}
 
 	@Override
-	public void waitForAbsence() throws Exception {
+	public void waitUntilAbsent() throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("waitForAbsence");
 	}
 
 	@Override
-	public void waitForVisibility() throws Exception {
+	public void waitUntilVisible() throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("waitForVisibility");
 	}
 
 	@Override
-	public void waitForInvisibility() throws Exception {
+	public void waitUntilInvisible() throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("waitForInvisibility");
 	}
 	
