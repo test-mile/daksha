@@ -20,19 +20,19 @@ package daksha.tpi.leaping.generator;
 
 import org.apache.log4j.Logger;
 
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
+import daksha.core.batteries.config.TestContext;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.loader.IniPageDefLoader;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.enums.FileFormat;
 import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class PageDefLoaderFactory {
-	private static Logger sLogger = Logger.getLogger(Batteries.getCentralLogName());
+	private static Logger sLogger = Logger.getRootLogger();
 	
-	public static PageDefLoader getFileMapper(String mapPath) throws Exception{
+	public static PageDefLoader getPageDefLoader(TestContext testContext, String mapPath) throws Exception{
 		String ext = FileSystemUtils.getExtension(mapPath).toUpperCase();
 		FileFormat format = null;
 		String consideredPath = mapPath;
@@ -43,28 +43,28 @@ public class PageDefLoaderFactory {
 					"UI Automator", 
 					"Page Mapper", 
 					"getFileMapper", 
-					Daksha.problem.UNSUPPORTED_MAP_FILE_FORMAT, 
-					Batteries.getProblemText(Daksha.problem.UNSUPPORTED_MAP_FILE_FORMAT, ext)
+					ErrorType.UNSUPPORTED_MAP_FILE_FORMAT, 
+					String.format(ErrorType.UNSUPPORTED_MAP_FILE_FORMAT, ext)
 				);			
 		}
 		
 		if (!FileSystemUtils.isFile(consideredPath)){
-			consideredPath = FileSystemUtils.getCanonicalPath(Batteries.value(UiAutomatorPropertyType.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
+			consideredPath = FileSystemUtils.getCanonicalPath(testContext.getConfig().value(DakshaOption.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
 			if (FileSystemUtils.isDir(consideredPath)){
 				throw new Problem(
 						"UI Automator", 
 						"Page Mapper", 
 						"getFileMapper", 
-						Daksha.problem.MAPFILE_NOTAFILE, 
-						Batteries.getProblemText(Daksha.problem.MAPFILE_NOTAFILE, consideredPath)
+						ErrorType.MAPFILE_NOTAFILE, 
+						String.format(ErrorType.MAPFILE_NOTAFILE, consideredPath)
 					);				
 			} else if (!FileSystemUtils.isFile(consideredPath)){
 				throw new Problem(
 						"UI Automator", 
 						"Page Mapper", 
 						"getFileMapper", 
-						Daksha.problem.MAPFILE_NOT_FOUND, 
-						Batteries.getProblemText(Daksha.problem.MAPFILE_NOT_FOUND, consideredPath)
+						ErrorType.MAPFILE_NOT_FOUND, 
+						String.format(ErrorType.MAPFILE_NOT_FOUND, consideredPath)
 					);				
 			}
 		}

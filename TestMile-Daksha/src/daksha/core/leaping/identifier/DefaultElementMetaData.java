@@ -24,10 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.enums.IdentifyBy;
-import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 
 public class DefaultElementMetaData implements GuiElementMetaData {

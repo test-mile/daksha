@@ -18,22 +18,14 @@
  ******************************************************************************/
 package daksha.core.leaping.element.proxy;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
-import daksha.core.batteries.exceptions.Problem;
+import daksha.ErrorType;
 import daksha.core.leaping.element.ConcreteGuiElement;
-import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.element.MultiGuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.pageobject.Page;
 import daksha.tpi.leaping.enums.GuiElementType;
+import daksha.tpi.leaping.pageobject.Page;
 
 public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	private GuiElementType elementType = GuiElementType.GENERIC;
@@ -134,10 +126,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 			getConcreteElement().waitForPresence();} catch (Exception e){
 			throwElementException(
 					e,
-					Daksha.problem.ELEMENT_WAIT_FAILURE,
+					ErrorType.ELEMENT_WAIT_FAILURE,
 					"waitForPresence",
 					String.format(
-							Daksha.problem.ELEMENT_WAIT_FAILURE,
+							ErrorType.ELEMENT_WAIT_FAILURE,
 							this.getConcreteElement().getAutomatorName(),
 							this.getConcreteElement().getWaitTime(),
 							"presence of",
@@ -155,10 +147,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 			getConcreteElement().waitForAbsence();} catch (Exception e){
 			throwElementException(
 					e,
-					Daksha.problem.ELEMENT_WAIT_FAILURE,
+					ErrorType.ELEMENT_WAIT_FAILURE,
 					"waitForAbsence",
 					String.format(
-							Daksha.problem.ELEMENT_WAIT_FAILURE,
+							ErrorType.ELEMENT_WAIT_FAILURE,
 							this.getConcreteElement().getAutomatorName(),
 							this.getConcreteElement().getWaitTime(),
 							"absence of",
@@ -175,10 +167,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 			getConcreteElement().waitForVisibility();} catch (Exception e){
 			throwElementException(
 					e,
-					Daksha.problem.ELEMENT_WAIT_FAILURE,
+					ErrorType.ELEMENT_WAIT_FAILURE,
 					"waitForVisibility",
 					String.format(
-							Daksha.problem.ELEMENT_WAIT_FAILURE,
+							ErrorType.ELEMENT_WAIT_FAILURE,
 							this.getConcreteElement().getAutomatorName(),
 							this.getConcreteElement().getWaitTime(),
 							"visibility of",
@@ -195,10 +187,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 			getConcreteElement().waitForInvisibility();} catch (Exception e){
 			throwElementException(
 					e,
-					Daksha.problem.ELEMENT_WAIT_FAILURE,
+					ErrorType.ELEMENT_WAIT_FAILURE,
 					"waitForInvisibility",
 					String.format(
-							Daksha.problem.ELEMENT_WAIT_FAILURE,
+							ErrorType.ELEMENT_WAIT_FAILURE,
 							this.getConcreteElement().getAutomatorName(),
 							this.getConcreteElement().getWaitTime(),
 							"invisibility of",
@@ -414,7 +406,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 
 	@Override
 	public Object throwUnsupportedSelectActionException(String action) throws Exception {
-		return throwUnsupportedActionExceptionFromProxy(Daksha.problem.ELEMENT_UNSUPPORTED_SELECT_ACTION, action);
+		return throwUnsupportedActionExceptionFromProxy(ErrorType.ELEMENT_UNSUPPORTED_SELECT_ACTION, action);
 	}
 
 	@Override
@@ -423,10 +415,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 			this.getConcreteElement().hoverAndClickElement(name);} catch (Exception e){
 			throwElementException(
 					e,
-					Daksha.problem.ACTION_MULTIELEMENT_FAILURE,
+					ErrorType.ACTION_MULTIELEMENT_FAILURE,
 					"hoverAndClickElement",
 					String.format(
-							Daksha.problem.ACTION_MULTIELEMENT_FAILURE,
+							ErrorType.ACTION_MULTIELEMENT_FAILURE,
 							this.getConcreteElement().getAutomatorName(),
 							"hover on",
 							this.getElementNameFillerForException(),
@@ -445,10 +437,10 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 			this.getConcreteElement().rightClickAndClickElement(name);} catch (Exception e){
 			throwElementException(
 					e,
-					Daksha.problem.ACTION_MULTIELEMENT_FAILURE,
+					ErrorType.ACTION_MULTIELEMENT_FAILURE,
 					"rightClickAndClicElement",
 					String.format(
-							Daksha.problem.ACTION_MULTIELEMENT_FAILURE,
+							ErrorType.ACTION_MULTIELEMENT_FAILURE,
 							this.getConcreteElement().getAutomatorName(),
 							"right click on",
 							this.getElementNameFillerForException(),

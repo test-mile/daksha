@@ -18,10 +18,6 @@
  ******************************************************************************/
 package daksha.tpi.leaping.loader;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.leaping.loader.PageDefinition;
 
 public interface PageDefLoader {

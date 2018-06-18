@@ -18,23 +18,9 @@
  ******************************************************************************/
 package daksha.core.leaping.element.appium;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
-import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.selenium.BaseSeleniumDropdownElement;
-import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

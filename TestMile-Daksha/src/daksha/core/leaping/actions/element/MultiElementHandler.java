@@ -18,8 +18,6 @@
  ******************************************************************************/
 package daksha.core.leaping.actions.element;
 
-import java.util.List;
-
 import daksha.tpi.leaping.element.GuiElement;
 
 public interface MultiElementHandler {	

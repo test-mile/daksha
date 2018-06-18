@@ -1,7 +1,5 @@
 package daksha.core.leaping.element;
 
-import java.util.List;
-
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 

@@ -19,49 +19,43 @@
 package daksha.core.leaping.automator;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.By;
-
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
+import daksha.core.batteries.config.TestContext;
 import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
+import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.identifier.DefaultElementMetaData;
-import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.leaping.identifier.Identifier;
-import daksha.core.leaping.identifier.Locator;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 
 public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
-
+	private TestContext testContext = null;
+	private OSType os = null;
 	UiDriverEngine uiAutomatorEngineName = null;
-	private UiAutomationContext context = null;
+	private GuiAutomationContext automatorContext = null;
 	String appTitle = null;
 	private ElementLoaderType loaderType = ElementLoaderType.AUTOMATOR;
 	private Identifier<D,E> identifier = null;
 	
-	public AbstractGuiAutomator(UiDriverEngine name, UiAutomationContext context, ElementLoaderType loaderType){
-		this.setUiTestEngineName(name);
-		this.setContext(context);
-		this.setElementLoaderType(loaderType);
-	}
-	
-	public AbstractGuiAutomator(UiDriverEngine name, UiAutomationContext context){
-		this.setUiTestEngineName(name);
-		this.setContext(context);
-	}
-	
-	public AbstractGuiAutomator() {
+	public AbstractGuiAutomator(TestContext testContext) {
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
+		this.testContext = testContext;
+	}
+	
+	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext){
+		this(testContext);
+		this.setUiTestEngineName(name);
+		this.setAutomatorContext(automatorContext);
+	}
+	
+	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext, ElementLoaderType loaderType){
+		this(testContext, name, automatorContext);
+		this.setElementLoaderType(loaderType);
 	}
 	
 	public String getName() {
@@ -74,6 +68,19 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 	
 	public Identifier<D,E> getIdentifier(){
 		return this.identifier;
+	}
+	
+	@Override
+	public TestContext getTestContext() {
+		return this.testContext;
+	}
+	
+	protected OSType getOSType() {
+		return os;
+	}
+
+	public void setOSType(OSType os) {
+		this.os = os;
 	}
 	
 	/*
@@ -122,12 +129,12 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 		return this.appTitle;
 	}
 
-	public UiAutomationContext getContext() {
-		return context;
+	public GuiAutomationContext getAutomatorContext() {
+		return automatorContext;
 	}
 
-	public void setContext(UiAutomationContext context) {
-		this.context = context;
+	public void setAutomatorContext(GuiAutomationContext context) {
+		this.automatorContext = context;
 	}
 
 	public Object throwUnsupportedActionException(String action) throws Exception {
@@ -135,7 +142,7 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 				"Automator",
 				"Default Automator",
 				action,
-				Daksha.problem.AUTOMATOR_UNSUPPORTED_ACTION,
+				ErrorType.AUTOMATOR_UNSUPPORTED_ACTION,
 				"Unsupported action for " + this.getClass().getSimpleName()
 			);		
 	}

@@ -197,4 +197,8 @@ public class FileSystemUtils {
 	public static String getExtension(String fileName) {
 		return FilenameUtils.getExtension(fileName);
 	}
+	
+	public static String getFileName(String filePath) {
+		return FilenameUtils.getName(filePath);
+	}
 }

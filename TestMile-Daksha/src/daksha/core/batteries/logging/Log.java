@@ -25,8 +25,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import daksha.tpi.batteries.console.Console;
-
 public class Log {
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
 	private FileAppender fa = new FileAppender();

@@ -21,8 +21,6 @@ package daksha.core.leaping.identifier;
 import java.util.List;
 import java.util.Map;
 
-import daksha.tpi.leaping.enums.UiAutomationContext;
-
 public interface GuiElementMetaData {
 
 	void set(String propName, String value);

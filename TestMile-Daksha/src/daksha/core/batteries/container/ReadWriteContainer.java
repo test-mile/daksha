@@ -24,4 +24,6 @@ public interface ReadWriteContainer<T, V> extends ReadOnlyContainer<T, V> {
 	<T1 extends Number> void addNumberList(T k, List<T1> values);
 
 	void addStringList(T k, List<String> values);
+
+	void add(Container<T, V> container) throws Exception;
 }

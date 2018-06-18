@@ -20,16 +20,14 @@ package daksha.core.leaping.automator;
 
 import java.io.File;
 
-import org.openqa.selenium.WebDriver;
-
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 //
 public interface ManagedGuiAutomator<D> {
 	UiDriverEngine getUiDriverEngineName() throws Exception;
 	D getUiDriverEngine()  throws Exception;
 	File takeScreenshot() throws Exception;
-	UiAutomationContext getContext()  throws Exception;
+	GuiAutomationContext getAutomatorContext()  throws Exception;
 	void setAppTitle(String appTitle) throws Exception;
 	String getAppTitle() throws Exception;
 	void focusOnApp() throws Exception;

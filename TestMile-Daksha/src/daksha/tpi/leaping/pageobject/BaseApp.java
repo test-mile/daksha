@@ -21,13 +21,9 @@ package daksha.tpi.leaping.pageobject;
 import java.util.HashMap;
 import java.util.Map;
 
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
 import daksha.core.batteries.exceptions.Problem;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.generator.PageDefLoaderFactory;
-import daksha.tpi.leaping.loader.PageDefLoader;
 
 public class BaseApp extends BasePage implements App{
 	private String name = null;
@@ -47,8 +43,8 @@ public class BaseApp extends BasePage implements App{
 			"Page Object Component",
 			this.getName(),
 			method,
-			Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL,
-			String.format(Daksha.problem.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
+			ErrorType.COMPOSITE_PAGE_NONEXISTING_LABEL,
+			String.format(ErrorType.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
 		);
 	}
 	
@@ -57,8 +53,8 @@ public class BaseApp extends BasePage implements App{
 			"Page Object Component",
 			this.getName(),
 			method,
-			Daksha.problem.COMPOSITE_PAGE_NULL_LABEL,
-			String.format(Daksha.problem.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
+			ErrorType.COMPOSITE_PAGE_NULL_LABEL,
+			String.format(ErrorType.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
 		);
 	}
 	

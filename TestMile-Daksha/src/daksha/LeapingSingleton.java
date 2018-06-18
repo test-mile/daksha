@@ -25,23 +25,20 @@ import java.util.Map;
 
 import daksha.core.leaping.enums.AppiumAndroidBrowserType;
 import daksha.core.leaping.enums.AppiumIosBrowserType;
-import daksha.core.leaping.enums.AppiumMobilePlatformType;
 import daksha.core.leaping.enums.IdentifyBy;
 import daksha.core.leaping.enums.MobileNativeIdentifyBy;
 import daksha.core.leaping.enums.MobileWebIdentifyBy;
 import daksha.core.leaping.enums.NativeIdentifyBy;
+import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.enums.ScreenIdentifyBy;
 import daksha.core.leaping.enums.WebIdentifyBy;
-import daksha.core.leaping.loader.CentralPageDefMap;
-import daksha.core.leaping.loader.PageDefRepository;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
 
-public enum UiAutomatorSingleton {
+public enum LeapingSingleton {
 	INSTANCE;
 
-	CentralPageDefMap uicentralMap = new PageDefRepository();
 	// UI Automator
 	private static List<String> allowedGenericIdentifiers = null;
 	private static List<String> allowedWebIdentifiers = null;
@@ -50,7 +47,7 @@ public enum UiAutomatorSingleton {
 	private static List<String> allowedMobileNativeIdentifiers = null;
 	private static List<String> allowedScreenIdentifiers = null;
 	private static List<String> allAllowedUiElementTypes = null;
-	private static Map<UiAutomationContext, String> automationContextNames = null;
+	private static Map<GuiAutomationContext, String> automationContextNames = null;
 	// Appium
 	private static List<String> allowedAppiumPlatforms = new ArrayList<String>();;
 	private static List<String> allowedAppiumAndroidBrowsers = new ArrayList<String>();;
@@ -58,7 +55,7 @@ public enum UiAutomatorSingleton {
 
 	public void init() throws Exception{
 		/* Appium */
-		for (AppiumMobilePlatformType prop: AppiumMobilePlatformType.class.getEnumConstants()){
+		for (OSType prop: OSType.class.getEnumConstants()){
 			allowedAppiumPlatforms.add(prop.toString());
 		}
 
@@ -71,13 +68,13 @@ public enum UiAutomatorSingleton {
 		}
 
 		/* UI Automator */
-		automationContextNames = new HashMap<UiAutomationContext, String>();
-		automationContextNames.put(UiAutomationContext.PC_WEB, "PC Web");
-		automationContextNames.put(UiAutomationContext.PC_NATIVE, "PC Native");
-		automationContextNames.put(UiAutomationContext.MOBILE_WEB, "Mobile Web");
-		automationContextNames.put(UiAutomationContext.MOBILE_NATIVE, "Mobile Native");
-		automationContextNames.put(UiAutomationContext.SCREEN, "Screen");
-		automationContextNames.put(UiAutomationContext.GENERIC, "Generic");
+		automationContextNames = new HashMap<GuiAutomationContext, String>();
+		automationContextNames.put(GuiAutomationContext.PC_WEB, "PC Web");
+		automationContextNames.put(GuiAutomationContext.PC_NATIVE, "PC Native");
+		automationContextNames.put(GuiAutomationContext.MOBILE_WEB, "Mobile Web");
+		automationContextNames.put(GuiAutomationContext.MOBILE_NATIVE, "Mobile Native");
+		automationContextNames.put(GuiAutomationContext.SCREEN, "Screen");
+		automationContextNames.put(GuiAutomationContext.GENERIC, "Generic");
 
 		allowedGenericIdentifiers = new ArrayList<String>();
 		for (IdentifyBy prop: IdentifyBy.class.getEnumConstants()){
@@ -119,7 +116,7 @@ public enum UiAutomatorSingleton {
 	 * UI Automator
 	 */
 
-	public String getAutomationContextName(UiAutomationContext type) {
+	public String getAutomationContextName(GuiAutomationContext type) {
 		return automationContextNames.get(type);
 	}
 
@@ -172,7 +169,7 @@ public enum UiAutomatorSingleton {
 		return allowedAppiumPlatforms;
 	}
 
-	private List<String> getAllowedBrowsersForAppium(AppiumMobilePlatformType platform) throws Exception{
+	private List<String> getAllowedBrowsersForAppium(OSType platform) throws Exception{
 		switch (platform){
 		case ANDROID: return allowedAppiumAndroidBrowsers;
 		case IOS: return allowedAppiumIosBrowsers;
@@ -184,11 +181,11 @@ public enum UiAutomatorSingleton {
 		return getAllowedPlatformsForAppium().contains(platformName.toUpperCase());
 	}
 
-	public boolean isAllowedAppiumBrowser(AppiumMobilePlatformType platform, String browserName) throws Exception{
+	public boolean isAllowedAppiumBrowser(OSType platform, String browserName) throws Exception{
 		return getAllowedBrowsersForAppium(platform).contains(browserName.toUpperCase());
 	}
 
-	public String getAppiumPlatformString(AppiumMobilePlatformType platform) throws Exception{
+	public String getAppiumPlatformString(OSType platform) throws Exception{
 		switch(platform){
 		case ANDROID: return "Android";
 		case IOS: return "iOS";
@@ -198,10 +195,6 @@ public enum UiAutomatorSingleton {
 
 	public String getAppiumBrowserString(String rawName) throws Exception{
 		return DataUtils.toTitleCase(rawName);
-	}
-
-	public CentralPageDefMap getCentralMap() {
-		return this.uicentralMap;
 	}
 
 }

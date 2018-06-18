@@ -19,17 +19,12 @@
 package daksha.core.leaping.element;
 
 import java.util.List;
-import java.util.Random;
-
-import org.openqa.selenium.WebElement;
 
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.leaping.identifier.Identifier;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 
 public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcreteGuiElement<D,E,MultiGuiElementProxy> implements ConcreteMultiGuiElement<D,E>{

@@ -22,12 +22,10 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.enums.UiAutomatorPropertyType;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.leaping.pageobject.App;
 import daksha.tpi.leaping.pageobject.BaseApp;
 import daksha.tpi.leaping.pageobject.BasePage;
@@ -35,43 +33,32 @@ import daksha.tpi.leaping.pageobject.Page;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class PageFactory {
-
-//	public static Page getPage(String label, UiDriver uiDriver, PageMapper mapper) throws Exception{
-//		Page page = new BasePage(label, uiDriver);
-//		page.populate(mapper);
-//		return page;
-//	}
-
-	private static Page getPage(GuiAutomator uiDriver, PageDefLoader mapper) throws Exception{
-		Page page = new BasePage(uiDriver);
-		page.populate(mapper);
-		return page;
-	}
 	
-	public static App getSimpleApp(String name, GuiAutomator uiDriver, String appMapsRootDir) throws Exception{
-		App app = new BaseApp(name);
+	public static App getSimpleApp(String name, GuiAutomator<?,?> automator, String appMapsRootDir) throws Exception{
 		String consideredPath = appMapsRootDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
-			consideredPath = FileSystemUtils.getCanonicalPath(Batteries.value(UiAutomatorPropertyType.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
+			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
 			if (!FileSystemUtils.isDir(consideredPath)){
 				throw new Problem(
 						"UI Automator", 
 						"Page Mapper", 
 						"getFileMapper", 
-						Daksha.problem.APP_MAP_DIR_NOT_A_DIR, 
-						Batteries.getProblemText(Daksha.problem.APP_MAP_DIR_NOT_A_DIR, consideredPath)
+						ErrorType.APP_MAP_DIR_NOT_A_DIR, 
+						String.format(ErrorType.APP_MAP_DIR_NOT_A_DIR, consideredPath)
 					);				
 			} 
 		}
-		File d = new File(consideredPath);
-		for (File path: d.listFiles()){
-			app.registerPage(FilenameUtils.getBaseName(path.getAbsolutePath()), uiDriver,
-					path.getAbsolutePath());
+		App app = new BaseApp(name, automator, appMapsRootDir + File.separator + "app.ini");
+		File d = new File(consideredPath + File.separator + "pages");
+		if (!FileSystemUtils.isDir(consideredPath)){
+			for (File path: d.listFiles()){
+				app.registerPage(FilenameUtils.getBaseName(path.getAbsolutePath()), path.getAbsolutePath());
+			}
 		}
 		return app;
 	}
 
-	public static Page getPage(GuiAutomator uiDriver, String mapPath) throws Exception {
-		return getPage(uiDriver, PageDefLoaderFactory.getFileMapper(mapPath));
+	public static Page getPage(GuiAutomator<?,?> automator, String mapPath) throws Exception {
+		return new BasePage(FileSystemUtils.getFileName(mapPath), automator, mapPath);
 	}
 }

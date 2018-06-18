@@ -21,7 +21,6 @@ package daksha.core.leaping.loader;
 import java.util.HashMap;
 import java.util.Map;
 
-import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.leaping.loader.PageDefLoader;
 
 public enum PageDefRepository{
@@ -33,11 +32,11 @@ public enum PageDefRepository{
 		return pageDefMap.containsKey(name);
 	}
 
-	public boolean hasPageDef(String name) {
+	public synchronized boolean hasPageDef(String name) {
 		return pageDefMap.containsKey(name.toLowerCase());
 	}
 	
-	public PageDefinition loadPageDef(String page, PageDefLoader loader) throws Exception{
+	public synchronized PageDefinition loadPageDef(String page, PageDefLoader loader) throws Exception{
 		if(!hasPageDef(page)){
 			loader.load();
 			this.pageDefMap.put(page.toLowerCase(), loader.getPageDef());

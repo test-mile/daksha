@@ -18,7 +18,10 @@
  ******************************************************************************/
 package daksha.core.leaping.enums;
 
-public enum AppiumMobilePlatformType {
+public enum OSType {
+	WINDOWS,
+	MAC,
+	LINUX,
 	ANDROID,
 	IOS;
 }

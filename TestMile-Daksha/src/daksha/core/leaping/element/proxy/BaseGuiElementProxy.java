@@ -3,16 +3,13 @@ package daksha.core.leaping.element.proxy;
 import java.io.File;
 import java.io.IOException;
 
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
 import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.element.ManagedConcreteGuiElement;
 import daksha.core.leaping.element.ManagedElement;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class BaseGuiElementProxy implements ManagedElement{
@@ -22,7 +19,7 @@ public class BaseGuiElementProxy implements ManagedElement{
 	private String imagePath = null;
 	private ElementLoaderType loaderType = null;
 	private String uiLabel = null;
-	private UiAutomationContext idType = null;
+	private GuiAutomationContext idType = null;
 	private ManagedConcreteGuiElement concreteFinder = null;
 	private Page page = null;
 	
@@ -169,15 +166,15 @@ public class BaseGuiElementProxy implements ManagedElement{
 	}
 
 	protected Object throwElementActionException(Throwable e, String action, String filler) throws Exception{
-		return throwBasicElementMessageException(e, Daksha.problem.ELEMENT_ACTION_FAILURE, action, filler);		
+		return throwBasicElementMessageException(e, ErrorType.ELEMENT_ACTION_FAILURE, action, filler);		
 	}
 
 	protected Object throwElementInquiryException(Exception e, String action, String filler) throws Exception{
-		return throwBasicElementMessageException(e, Daksha.problem.ELEMENT_INQUIRY_FAILURE, action, filler);		
+		return throwBasicElementMessageException(e, ErrorType.ELEMENT_INQUIRY_FAILURE, action, filler);		
 	}
 
 	protected Object throwElementGetAttributeException(Exception e, String action, String filler) throws Exception{
-		return throwBasicElementMessageException(e, Daksha.problem.ELEMENT_GET_ATTR_FAILURE, action, filler);		
+		return throwBasicElementMessageException(e, ErrorType.ELEMENT_GET_ATTR_FAILURE, action, filler);		
 	}
 	
 	protected Object throwElementException(
@@ -217,9 +214,9 @@ public class BaseGuiElementProxy implements ManagedElement{
 				"Element Proxy",
 				getClassForLoaderType(),
 				action,
-				Daksha.problem.ELEMENT_UNSUPPORTED_ACTION,
+				ErrorType.ELEMENT_UNSUPPORTED_ACTION,
 				String.format(
-						Daksha.problem.ELEMENT_UNSUPPORTED_ACTION,
+						ErrorType.ELEMENT_UNSUPPORTED_ACTION,
 						action,
 						getElementNameFillerForException(),
 						this.getMetaData().getAllProperties().toString()
@@ -260,10 +257,10 @@ public class BaseGuiElementProxy implements ManagedElement{
 	}
 
 	protected Object throwElementGetInstanceException(Exception e, String action, String filler) throws Exception{
-		return throwBasicElementMessageException(e, Daksha.problem.ELEMENT_GET_INSTANCE_FAILURE, action, filler);		
+		return throwBasicElementMessageException(e, ErrorType.ELEMENT_GET_INSTANCE_FAILURE, action, filler);		
 	}
 
 	protected Object throwElementIdentificationException(Exception e, String action, String filler) throws Exception{
-		return throwBasicElementMessageException(e, Daksha.problem.ELEMENT_IDENTIFICATION_FAILURE, action, filler);		
+		return throwBasicElementMessageException(e, ErrorType.ELEMENT_IDENTIFICATION_FAILURE, action, filler);		
 	}
 }

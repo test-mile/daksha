@@ -20,10 +20,6 @@ package daksha.core.leaping.automator.sikuli;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -33,27 +29,22 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
-import daksha.core.batteries.config.Batteries;
+import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.automator.AbstractGuiAutomator;
-import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.core.leaping.element.sikuli.SikuliElement;
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.enums.ScreenIdentifyBy;
-import daksha.core.leaping.enums.UiAutomatorPropertyType;
+import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import daksha.tpi.enums.DakshaOption;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class SikuliScreenUiDriver extends AbstractGuiAutomator<Screen,Match>{
 	
-	public SikuliScreenUiDriver(ElementLoaderType loaderType) {
-		super(UiDriverEngine.SIKULI, UiAutomationContext.SCREEN, loaderType);
+	public SikuliScreenUiDriver(TestContext testContext, ElementLoaderType loaderType) {
+		super(testContext, UiDriverEngine.SIKULI, GuiAutomationContext.SCREEN, loaderType);
 	}
 	
-	public SikuliScreenUiDriver(){
-		this(ElementLoaderType.AUTOMATOR);
+	public SikuliScreenUiDriver(TestContext testContext){
+		this(testContext, ElementLoaderType.AUTOMATOR);
 	}
 
 	@Override
@@ -102,7 +93,7 @@ public class SikuliScreenUiDriver extends AbstractGuiAutomator<Screen,Match>{
 	}
 
 	private double getDefaultMinScore() throws Exception {
-		return Batteries.value(UiAutomatorPropertyType.SIKULI_COMPARISON_SCORE).asDouble();
+		return this.getTestContext().getConfig().value(DakshaOption.SIKULI_COMPARISON_SCORE).asDouble();
 	}
 
 	@Override
@@ -172,4 +163,17 @@ public class SikuliScreenUiDriver extends AbstractGuiAutomator<Screen,Match>{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setWaitTime(int waitTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOSType(OSType platformType) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

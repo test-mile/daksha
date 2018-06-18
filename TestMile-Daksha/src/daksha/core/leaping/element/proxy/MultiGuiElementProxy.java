@@ -18,25 +18,14 @@
  ******************************************************************************/
 package daksha.core.leaping.element.proxy;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.Random;
 
-import org.openqa.selenium.WebElement;
-
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
-import daksha.core.batteries.exceptions.Problem;
+import daksha.ErrorType;
 import daksha.core.leaping.element.ConcreteMultiGuiElement;
-import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.element.MultiGuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
 import daksha.tpi.leaping.pageobject.Page;
-import daksha.tpi.leaping.enums.GuiElementType;
 
 public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGuiElement{
 	private ConcreteMultiGuiElement<?,?> concreteElement = null;
@@ -60,17 +49,17 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 	
 	@Override
 	public Object throwNegativeIndexException(String action) throws Exception {
-		return throwExceptionFromProxy(Daksha.problem.ELEMENT_NEGATIVE_INEDX, action);
+		return throwExceptionFromProxy(ErrorType.ELEMENT_NEGATIVE_INEDX, action);
 	}
 
 	@Override
 	public Object throwZeroOrdinalException(String action) throws Exception {
-		return throwExceptionFromProxy(Daksha.problem.ELEMENT_ZERO_ORDINAL, action);
+		return throwExceptionFromProxy(ErrorType.ELEMENT_ZERO_ORDINAL, action);
 	}
 
 	@Override
 	public Object throwEmptyElementQueueException(String action) throws Exception {
-		return throwExceptionFromProxy(Daksha.problem.ELEMENT_EMPTY_QUEUE, action);
+		return throwExceptionFromProxy(ErrorType.ELEMENT_EMPTY_QUEUE, action);
 	}
 	
 	@Override

@@ -18,18 +18,19 @@
  ******************************************************************************/
 package daksha.core.leaping.automator.appium;
 
+import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.MobileNativeIdentifyBy;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class AppiumNativeUiDriver extends BaseAppiumUiDriver {
 
-	public AppiumNativeUiDriver(ElementLoaderType loaderType) throws Exception{
-		super(UiAutomationContext.MOBILE_NATIVE, loaderType);
+	public AppiumNativeUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception{
+		super(testContext, GuiAutomationContext.MOBILE_NATIVE, loaderType);
 	}
 		
-	public AppiumNativeUiDriver() throws Exception{
-		this(ElementLoaderType.AUTOMATOR);
+	public AppiumNativeUiDriver(TestContext testContext) throws Exception{
+		this(testContext, ElementLoaderType.AUTOMATOR);
 	}
 
 	protected boolean checkNullIdentifier(String identifier, String idValue) throws Exception{

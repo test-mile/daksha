@@ -18,9 +18,7 @@
  ******************************************************************************/
 package daksha.core.leaping.element;
 
-import java.io.File;
 import java.util.List;
-import java.util.Random;
 
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
@@ -58,7 +56,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 
 	public GuiElementProxy element(String name) throws Exception{
-		GuiElementMetaData metaData = this.getPage().getLoader().getMetaData(name);
+		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
 		E element = this.identifier.find(this, metaData);
 		return this.identifier.convertToolElementToProxy(this.getPage(), metaData, element);
 	}
@@ -68,7 +66,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	public MultiGuiElement elements(String name) throws Exception{
-		GuiElementMetaData metaData = this.getPage().getLoader().getMetaData(name);
+		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
 		List<E> elements = this.identifier.findAll(this, metaData);
 		return this.identifier.convertMultiToolElementToProxy(this.getPage(), metaData, elements);
 	}

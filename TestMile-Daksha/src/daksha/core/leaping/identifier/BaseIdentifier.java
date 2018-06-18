@@ -1,23 +1,15 @@
 package daksha.core.leaping.identifier;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.element.ConcreteMultiGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.element.MultiGuiElement;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 
@@ -216,9 +208,9 @@ public abstract class BaseIdentifier<D,E> implements Identifier<D,E>{
 //		throwGenericUiAutomatorException(
 //				componentName,
 //				methodName,
-//				Daksha.problem.UNSUPPORTED_IDENTIFIER,
-//				Batteries.getProblemText(
-//						Daksha.problem.UNSUPPORTED_IDENTIFIER,
+//				ErrorType.UNSUPPORTED_IDENTIFIER,
+//				String.format(
+//						ErrorType.UNSUPPORTED_IDENTIFIER,
 //						idString
 //				)
 //		);

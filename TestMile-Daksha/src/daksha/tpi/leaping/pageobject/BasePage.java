@@ -21,38 +21,33 @@ package daksha.tpi.leaping.pageobject;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.log4j.Logger;
 
 import daksha.Daksha;
-import daksha.UiAutomatorSingleton;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
+import daksha.core.batteries.config.TestContext;
 import daksha.core.batteries.exceptions.Problem;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.exceptions.IgnoreElementException;
-import daksha.core.leaping.identifier.DefaultElementMetaData;
-import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.enums.GuiElementType;
-import daksha.tpi.leaping.generator.PageDefLoaderFactory;
-import daksha.tpi.leaping.loader.PageDefLoader;
-import daksha.tpi.sysauto.utils.DataUtils;
 import daksha.core.leaping.loader.PageDefRepository;
 import daksha.core.leaping.loader.PageDefinition;
+import daksha.tpi.leaping.automator.GuiAutomator;
+import daksha.tpi.leaping.element.GuiElement;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
+import daksha.tpi.leaping.enums.GuiElementType;
+import daksha.tpi.leaping.generator.PageDefLoaderFactory;
+import daksha.tpi.sysauto.utils.DataUtils;
 
 public class BasePage implements Page{
-	private Logger logger = Logger.getRootLogger();
+	private Logger logger = Daksha.getLogger();
+	private TestContext testContext = null;
 	private GuiAutomator<?,?> automator = null;
 	private PageDefinition pageDef = null;
 	private Map<String, GuiElement> uiElementMap = new HashMap<String, GuiElement>();
-	private UiAutomationContext context = null;
+	private GuiAutomationContext context = null;
 	private String label;
 	private Page parent = null;
 	private ElementLoaderType loaderType = null;
@@ -80,9 +75,14 @@ public class BasePage implements Page{
 	private void populateSinglePage(String name, GuiAutomator<?,?> automator) throws Exception {
 		this.setName(name);
 		this.setLabel(name);
-		this.setContext(automator.getContext());
+		this.testContext = automator.getTestContext();
+		this.setContext(automator.getAutomatorContext());
 		this.setElementLoaderType(ElementLoaderType.PAGE);
 		this.setGuiAutomator(automator);	
+	}
+	
+	protected TestContext getTestContext() {
+		return this.testContext;
 	}
 	
 	private void populteCompositePage(Page parent) {
@@ -93,10 +93,15 @@ public class BasePage implements Page{
 	
 	private void loadPageDef(String mapPath) throws Exception {
 		if (!PageDefRepository.INSTANCE.hasPageDef(this.getLabel())) {
-			this.pageDef = PageDefRepository.INSTANCE.loadPageDef(this.getLabel(), PageDefLoaderFactory.getFileMapper(mapPath));
+			this.pageDef = PageDefRepository.INSTANCE.loadPageDef(this.getLabel(), PageDefLoaderFactory.getPageDefLoader(this.getTestContext(), mapPath));
 		}
 		
 	}	
+	
+	@Override
+	public PageDefinition getPageDef() throws Exception {
+		return this.pageDef;
+	}
 	
 	public String getName() {
 		return name;
@@ -125,11 +130,11 @@ public class BasePage implements Page{
 	}
 
 	@Override
-	public UiAutomationContext getContext() throws Exception {
+	public GuiAutomationContext getAutomatorContext() throws Exception {
 		return context;
 	}
 
-	private void setContext(UiAutomationContext context) throws Exception {
+	private void setContext(GuiAutomationContext context) throws Exception {
 		this.context = context;
 	}
 
@@ -195,10 +200,10 @@ public class BasePage implements Page{
 	public Object throwNullAutomatorException(String methodName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				Daksha.problem.PAGE_NULL_AUTOMATOR,
+				ErrorType.PAGE_NULL_AUTOMATOR,
 				String.format(
-						Daksha.problem.PAGE_NULL_AUTOMATOR,
-						Daksha.getAutomationContextName(this.getContext())
+						ErrorType.PAGE_NULL_AUTOMATOR,
+						Daksha.getAutomationContextName(this.getAutomatorContext())
 						)
 				);
 	}
@@ -206,11 +211,11 @@ public class BasePage implements Page{
 	public Object throwUndefinedElementException(String methodName, String elementName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				Daksha.problem.PAGE_UNDEFINED_ELEMENT,
+				ErrorType.PAGE_UNDEFINED_ELEMENT,
 				String.format(
-						Daksha.problem.PAGE_UNDEFINED_ELEMENT,
+						ErrorType.PAGE_UNDEFINED_ELEMENT,
 						elementName,
-						DataUtils.toTitleCase(this.getContext().toString())
+						DataUtils.toTitleCase(this.getAutomatorContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
 						//						Batteries.toTitleCase(getAutomationType().toString())
 						)
@@ -220,10 +225,10 @@ public class BasePage implements Page{
 	public Object throwNullElementException(String methodName, String elementName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				Daksha.problem.UI_NULL_ELEMENT,
+				ErrorType.UI_NULL_ELEMENT,
 				String.format(
-						Daksha.problem.UI_NULL_ELEMENT,
-						DataUtils.toTitleCase(this.getContext().toString())
+						ErrorType.UI_NULL_ELEMENT,
+						DataUtils.toTitleCase(this.getAutomatorContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
 						//						Batteries.toTitleCase(getAutomationType().toString())
 						)
@@ -432,5 +437,4 @@ public class BasePage implements Page{
 	public void sendKeysToScreen(String text) throws Exception {
 		this.getGuiAutomator().sendKeysToScreen(text);
 	}
-
 }

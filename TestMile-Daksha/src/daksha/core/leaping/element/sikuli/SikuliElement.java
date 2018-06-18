@@ -18,27 +18,14 @@
  ******************************************************************************/
 package daksha.core.leaping.element.sikuli;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
 import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.Locator;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
@@ -153,7 +140,7 @@ public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
 	
 
 	private String getImagePathForSecondElement(String name) throws Exception {
-		GuiElementMetaData emd = this.getPage().getLoader().getMetaData(name);
+		GuiElementMetaData emd = this.getPage().getPageDef().getMetaData(name);
 		GuiElementProxy proxy = this.getIdentifier().createProxy(emd);
 		return proxy.getImagePath();
 	}

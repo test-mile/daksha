@@ -20,27 +20,59 @@ package daksha;
 
 import java.util.List;
 
-import daksha.core.leaping.enums.AppiumMobilePlatformType;
-import daksha.tpi.leaping.enums.UiAutomationContext;
+import org.apache.log4j.Logger;
+import org.testng.ITestContext;
+
+import daksha.core.batteries.config.Configuration;
+import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.enums.OSType;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class Daksha {
-	
-	public static final boolean displayPageElementProcessing = false;
+	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
 	
 	public static void init() throws Exception{
-		UiAutomatorSingleton.INSTANCE.init();
+		
 	}
 	
-	public static String getAutomationContextName(UiAutomationContext context) {
-		return UiAutomatorSingleton.INSTANCE.getAutomationContextName(context);
+	public static void freezeCentralConfig() throws Exception {
+		core.freezeCentralConfig();
+	}
+	
+	public static void registerContext(TestContext context) throws Exception {
+		core.registerContext(context);
+	}
+		
+	public static TestContext getTestContext(String name) {
+		return core.getTestContext(name);
+	}
+	
+	public static TestContext getTestContext(ITestContext context) {
+		return core.getTestContext(context);
+	}
+	
+	public static Configuration getTestContextConfig(String name) {
+		return core.getTestContextConfig(name);
+	}
+	
+	public static Configuration getTestContextConfig(ITestContext context) {
+		return core.getTestContextConfig(context);
+	}
+	 
+	public static Logger getLogger() { 
+		return core.getLogger();
+	}
+	
+	public static String getAutomationContextName(GuiAutomationContext context) {
+		return LeapingSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
 	public static List<String> getAllowedIdentifiers() throws Exception {
-		return UiAutomatorSingleton.INSTANCE.getAllowedIdentifiers() ;
+		return LeapingSingleton.INSTANCE.getAllowedIdentifiers() ;
 	}
 
 	public static List<String> getAllAllowedUiElementTypes() {
-		return UiAutomatorSingleton.INSTANCE.getAllAllowedUiElementTypes();
+		return LeapingSingleton.INSTANCE.getAllAllowedUiElementTypes();
 	}
 	
 	public static String getComponentName(){
@@ -48,76 +80,19 @@ public class Daksha {
 	}
 	
 	public static boolean isAllowedAppiumPlatform(String platformName){
-		return UiAutomatorSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
+		return LeapingSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
 	}
 	
-	public static String getAppiumPlatformString(AppiumMobilePlatformType platform) throws Exception{
-		return UiAutomatorSingleton.INSTANCE.getAppiumPlatformString(platform);
+	public static String getAppiumPlatformString(OSType platform) throws Exception{
+		return LeapingSingleton.INSTANCE.getAppiumPlatformString(platform);
 	}
 	
 	public static String getAppiumBrowserString(String rawName) throws Exception{
-		return UiAutomatorSingleton.INSTANCE.getAppiumBrowserString(rawName);
+		return LeapingSingleton.INSTANCE.getAppiumBrowserString(rawName);
 	}
 
-	public static boolean isAllowedAppiumBrowser(AppiumMobilePlatformType platform, String browser) throws Exception {
-		return UiAutomatorSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
+	public static boolean isAllowedAppiumBrowser(OSType platform, String browser) throws Exception {
+		return LeapingSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
 	}
-	public static class problem{
-		/* Appium */
-		public static final String APPIUM_UNSUPPORTED_PLATFORM = "problem.appium.unsupported.platform";
-		public static final String APPIUM_UNSUPPORTED_BROWSER = "problem.appium.unsupported.browser";	
-		public static final String APPIUM_UNREACHABLE_BROWSER = "problem.appium.unreachablebrowser";
-		
-		/* UI Automator */
-		public static final String ELEMENT_IDENTIFICATION_FAILURE = "problem.uiauto.identification.failure";
-		public static final String ELEMENT_GET_INSTANCE_FAILURE = "problem.uiauto.getinstance.failure";
-
-		public static final String ELEMENT_WAIT_FAILURE = "problem.uiauto.wait.failure";
-		
-		public static final String ELEMENT_ACTION_FAILURE = "problem.uiauto.action.failure";
-		public static final String ELEMENT_GET_ATTR_FAILURE = "problem.uiauto.getattr.failure";
-		
-		public static final String ACTION_MULTIELEMENT_FAILURE = "problem.uiauto.action.multielement.failure";
-		public static final String ELEMENT_UNSUPPORTED_ACTION = "problem.uiauto.action.unsupported";
-		public static final String ELEMENT_INQUIRY_FAILURE = "problem.uiauto.inquiry.failure";
-		public static final String PAGE_NULL_AUTOMATOR = "problem.ui.nullautomator";
-		public static final String PAGE_UNDEFINED_ELEMENT = "problem.uientity.undefinedelement";
-		public static final String COMPOSITE_PAGE_CONSTRUCTOR_NULL_AUTOMATOR = "problem.genericuientity.constructor.nullautomator";
-		public static final String COMPOSITE_PAGE_GET_AUTOMATOR_NULL = "problem.genericuientity.getautomator.null";
-		public static final String MAPFILE_RELATIVE_PATH = "problem.uimap.file.relativepath";
-		public static final String MAPFILE_NOT_FOUND = "problem.uimap.file.notfound";
-		public static final String MAPFILE_NOTAFILE = "problem.uimap.file.notafile";
-		public static final String APP_MAP_DIR_NOT_A_DIR = "problem.uimap.dir.notadirectory";
-		public static final String UNSUPPORTED_IDENTIFIER = "problem.uiauto.identifier.unsupported";
-		public static final String UNSUPPORTED_MULTIPLE_IDENTIFIERS = "problem.uiauto.identifiers.combination.unsupported";
-		public static final String HYBRID_NULL_AUTOMATOR = "problem.uientity.hybrid.nullautomator";
-		
-		// NEW CODES
-		public static final String UI_ELEMENT_INVALID_METADATA = "problem.uielement.invalid.metadata";
-		public static final String LOCALIZER_NOT_INITIALIZED = "problem.localizer.not.initialized";
-		public static final String PROPERTY_DOES_NOT_EXIST = "problem.propmanager.notaproperty";
-		public static final String UNSUPPORTED_MAP_FILE_FORMAT = "problem.uimapper.unsupported.fileformat";
-		public static final String WRAPPER_AUTOMATOR_NULL_DEFAULT_AUTOMATOR = "problem.wrapperautomator.nulldefault";
-		public static final String AUTOMATOR_UNSUPPORTED_ACTION = "problem.automator.unsupportedaction";
-		public static final String COMPOSITE_PAGE_NULL_AUTOMATOR = "problem.entity.nullautomator";
-		public static final String UIENTITY_DISALLOWED_LABEL = "problem.entity.uilabel.disallowed";
-		public static final String COMPOSITE_PAGE_NONEXISTING_LABEL = "problem.entity.uilabel.nonexisting";
-		public static final String COMPOSITE_PAGE_NULL_LABEL = "problem.entity.uilabel.null";
-		public static final String UI_NULL_ELEMENT = "problem.ui.element.null";
-		public static final String FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH = "problem.factory.automator.mobile.nullapppath";
-		public static final String FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT = "problem.factory.automator.unsupportedcontext";
-		public static final String FACTORY_METHOD_APPPATH_NOT_APPLICABLE = "problem.factory.apppath.methodnotapplicable";
-		public static final String UIAUTO_CONTEXT_HANDLER_NO_AUTO_FOR_LABEL = "problem.uicontexthandler.absentautolabel";
-		public static final String UIAUTO_CONTEXT_HANDLER_NULL_AUTOMATOR = "problem.uicontexthandler.nullautomator";
-		public static final String UIAUTO_CONTEXT_HANDLER_ABSENT_PROPERTIES = "problem.uicontexthandler.propabsent";
-		public static final String ELEMENT_NEGATIVE_INEDX = "problem.uielement.negativeindex";
-		public static final String ELEMENT_ZERO_ORDINAL = "problem.uielement.zerorodinal";
-		public static final String ELEMENT_EMPTY_QUEUE = "problem.uielement.emptyqueue";
-		public static final String ELEMENT_UNSUPPORTED_SELECT_ACTION = "problem.uielement.selectaction.unsupported";
-		
-		/* Sikuli */
-		public static final String COMPARISON_IMAGE_NOT_FOUND = "problem.sikuli.comparison.imagenotfound";
-		public static final String COMPARISON_NOT_POSSIBLE = "problem.sikuli.comparison.imagesnotcomparable";
-		
-	}
+	
 }

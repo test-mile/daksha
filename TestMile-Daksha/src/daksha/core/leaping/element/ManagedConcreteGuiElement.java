@@ -1,7 +1,5 @@
 package daksha.core.leaping.element;
 
-import daksha.core.leaping.element.proxy.GuiElementProxy;
-
 public interface ManagedConcreteGuiElement {
 	String getAutomatorName();
 	void setAutomatorName(String name);

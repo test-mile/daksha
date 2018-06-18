@@ -1,6 +1,5 @@
 package daksha.tpi.batteries.console;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import daksha.core.batteries.utils.ExceptionBatteries;

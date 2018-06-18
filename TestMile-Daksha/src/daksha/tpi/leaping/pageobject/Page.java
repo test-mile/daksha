@@ -18,8 +18,6 @@
  ******************************************************************************/
 package daksha.tpi.leaping.pageobject;
 
-import java.util.Map;
-
 import daksha.core.leaping.actions.ElementCreationHandler;
 import daksha.core.leaping.actions.automator.BrowserActionHandler;
 import daksha.core.leaping.actions.automator.ImageComparator;
@@ -27,22 +25,23 @@ import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
+import daksha.core.leaping.loader.PageDefinition;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.loader.PageDefLoader;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public interface Page extends ManagedGuiAutomator, ElementCreationHandler, 
 ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
 	
-	String getName();
-	UiAutomationContext getContext() throws Exception;
-	Page getParent() throws Exception;;
-	
 	String getLabel() throws Exception;
+	String getName();
+	
+	PageDefinition getPageDef() throws Exception;
+	Page getParent() throws Exception;
+	
+	GuiAutomator<?,?> getGuiAutomator() throws Exception; 
+	GuiAutomationContext getAutomatorContext() throws Exception;
 
 	GuiElementProxy dropdown(String name) throws Exception;
 	GuiElementProxy element(String name) throws Exception;
 	MultiGuiElementProxy elements(String name) throws Exception;
-	GuiAutomator<?,?> getGuiAutomator() throws Exception;
 }

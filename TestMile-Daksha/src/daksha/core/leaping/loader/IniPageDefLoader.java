@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import daksha.core.leaping.identifier.DefaultElementMetaData;
-import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.sysauto.file.IniFileReader;
 
 public class IniPageDefLoader extends FileBasedPageLoader{

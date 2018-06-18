@@ -18,65 +18,24 @@
  ******************************************************************************/
 package daksha.core.leaping.automator.selenium;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.Augmenter;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import daksha.core.batteries.config.Batteries;
-import daksha.core.enums.BatteriesPropertyType;
-import daksha.core.leaping.automator.AbstractGuiAutomator;
-import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.core.leaping.element.selenium.DefaultSeleniumElementProxy;
+import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.enums.WebIdentifyBy;
-import daksha.core.leaping.identifier.Locator;
 import daksha.core.leaping.identifier.selenium.SeleniumIdentifier;
-import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.Identifier;
-import daksha.tpi.enums.Browser;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.enums.GuiElementType;
-import daksha.tpi.sysauto.utils.FileSystemUtils;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class SeleniumWebUiDriver extends BaseSeleniumWebUiDriver<WebDriver,WebElement>{
 	
-	public SeleniumWebUiDriver(ElementLoaderType loaderType) throws Exception{
-		super(UiDriverEngine.WEBDRIVER, UiAutomationContext.PC_WEB, loaderType);
+	public SeleniumWebUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception{
+		super(testContext, UiDriverEngine.WEBDRIVER, GuiAutomationContext.PC_WEB, loaderType);
 		this.setIdentifier(new SeleniumIdentifier(this));
 	}
 		
-	public SeleniumWebUiDriver() throws Exception{
-		this(ElementLoaderType.AUTOMATOR);
+	public SeleniumWebUiDriver(TestContext testContext) throws Exception{
+		this(testContext, ElementLoaderType.AUTOMATOR);
 	}
 	
 }

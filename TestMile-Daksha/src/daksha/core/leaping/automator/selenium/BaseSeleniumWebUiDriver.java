@@ -20,23 +20,18 @@ package daksha.core.leaping.automator.selenium;
 
 import java.awt.Toolkit;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -45,27 +40,15 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import daksha.core.batteries.config.Batteries;
-import daksha.core.enums.BatteriesPropertyType;
+import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.automator.AbstractGuiAutomator;
-import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.core.leaping.element.selenium.DefaultSeleniumElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.enums.UiAutomatorPropertyType;
 import daksha.core.leaping.enums.UiDriverEngine;
-import daksha.core.leaping.enums.WebIdentifyBy;
-import daksha.core.leaping.identifier.Locator;
-import daksha.core.leaping.identifier.selenium.SeleniumIdentifier;
-import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.Identifier;
 import daksha.tpi.enums.Browser;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.UiAutomationContext;
-import daksha.tpi.leaping.enums.GuiElementType;
+import daksha.tpi.enums.DakshaOption;
+import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
@@ -76,14 +59,14 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	private int waitTime = -1;
 	protected Capabilities capabilities = null;
 	
-	public BaseSeleniumWebUiDriver(UiDriverEngine engine, UiAutomationContext context, ElementLoaderType loaderType) throws Exception{
-		super(UiDriverEngine.WEBDRIVER, context, loaderType);
+	public BaseSeleniumWebUiDriver(TestContext testContext, UiDriverEngine engine, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
+		super(testContext, UiDriverEngine.WEBDRIVER, automatorContext, loaderType);
 	}
 	
 	@Override
 	public void init() throws Exception{
-		//this.setBrowser(Browser.valueOf(Batteries.value(UiAutomatorPropertyType.BROWSER_PC_DEFAULT).asString().toUpperCase()));
-		this.setWaitTime(Batteries.value(UiAutomatorPropertyType.BROWSER_PC_MAXWAIT).asInt());
+		//this.setBrowser(Browser.valueOf(this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_DEFAULT).asString().toUpperCase()));
+		this.setWaitTime(this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_MAXWAIT).asInt());
 		this.setUiTestEngineName(UiDriverEngine.WEBDRIVER);		
 	}
 	
@@ -172,9 +155,9 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	}
 
 	public void setCapabilities(MutableCapabilities capabilities) throws Exception {
-		if (Batteries.value(UiAutomatorPropertyType.BROWSER_PC_PROXY_ON).asBoolean()){
+		if (this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_PROXY_ON).asBoolean()){
 			Proxy proxy = new Proxy();
-			String p = Batteries.value(UiAutomatorPropertyType.BROWSER_PC_PROXY_HOST).asString() + ":" + Batteries.value(UiAutomatorPropertyType.BROWSER_PC_PROXY_PORT).asString();
+			String p = this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_PROXY_HOST).asString() + ":" + this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_PROXY_PORT).asString();
 			setHttpProxy(proxy, p);
 			setSslProxy(proxy, p);
 			capabilities.setCapability("proxy", proxy);
@@ -269,7 +252,7 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	public File takeScreenshot() throws Exception {
 		TakesScreenshot augDriver = getScreenshotAugmentedDriver();
         File srcFile = augDriver.getScreenshotAs(OutputType.FILE);
-        return FileSystemUtils.moveFiletoDir(srcFile, Batteries.value(BatteriesPropertyType.DIRECTORY_PROJECT_SCREENSHOTS).asString());
+        return FileSystemUtils.moveFiletoDir(srcFile, this.getTestContext().getConfig().value(DakshaOption.DIRECTORY_PROJECT_SCREENSHOTS).asString());
 	}
 	
 	public void focusOnApp() throws Exception{

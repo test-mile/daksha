@@ -56,6 +56,7 @@ public abstract class BaseContainer<T, V> implements ReadOnlyContainer<T, V>, Re
 		}
 	}
 
+	@Override
 	public void add(Container<T, V> container) throws Exception {
 		this.add(container.items());
 	}

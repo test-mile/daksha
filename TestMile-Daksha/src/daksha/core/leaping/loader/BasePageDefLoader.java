@@ -18,14 +18,10 @@
  ******************************************************************************/
 package daksha.core.leaping.loader;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import daksha.Daksha;
-import daksha.core.batteries.config.Batteries;
+import daksha.ErrorType;
 import daksha.core.batteries.exceptions.Problem;
-import daksha.core.leaping.identifier.DefaultElementMetaData;
-import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
@@ -68,9 +64,9 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	public Object throwNotAFileException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				Daksha.problem.MAPFILE_NOTAFILE,
+				ErrorType.MAPFILE_NOTAFILE,
 				String.format(
-						Daksha.problem.MAPFILE_NOTAFILE,
+						ErrorType.MAPFILE_NOTAFILE,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
 		);
@@ -79,9 +75,9 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	public Object throwFileNotFoundException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				Daksha.problem.MAPFILE_NOT_FOUND,
+				ErrorType.MAPFILE_NOT_FOUND,
 				String.format(
-						Daksha.problem.MAPFILE_NOT_FOUND,
+						ErrorType.MAPFILE_NOT_FOUND,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
 		);
@@ -90,9 +86,9 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	public Object throwRelativePathException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				Daksha.problem.MAPFILE_RELATIVE_PATH,
+				ErrorType.MAPFILE_RELATIVE_PATH,
 				String.format(
-						Daksha.problem.MAPFILE_RELATIVE_PATH,
+						ErrorType.MAPFILE_RELATIVE_PATH,
 						filePath
 				)
 		);

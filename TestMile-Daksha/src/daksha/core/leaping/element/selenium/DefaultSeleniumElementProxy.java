@@ -18,30 +18,18 @@
  ******************************************************************************/
 package daksha.core.leaping.element.selenium;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.leaping.identifier.Locator;
 import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiElement<D,E>{
@@ -320,7 +308,7 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 
 	public void hoverAndClickElement(String name) throws Exception{
 		Actions builder =  null;
-		GuiElementMetaData metaData = this.getPage().getLoader().getMetaData(name);
+		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
 		try {
 			builder = getActionChain();
 			builder.moveToElement(this.asWebElement()).perform();
@@ -341,7 +329,7 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 	}
 	
 	public void rightClickAndClickElement(String name) throws Exception{
-		GuiElementMetaData metaData = this.getPage().getLoader().getMetaData(name);
+		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
 		this.rightClick();
 		WebElement e2 = (WebElement) this.getIdentifier().find(metaData);
 		e2.click();	

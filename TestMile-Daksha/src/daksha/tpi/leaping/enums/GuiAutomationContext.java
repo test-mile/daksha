@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.tpi.leaping.enums;
 
-public enum UiAutomationContext {
+public enum GuiAutomationContext {
 	PC_WEB,
 	PC_NATIVE,
 	MOBILE_WEB,
