@@ -22,8 +22,6 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 
-import daksha.ErrorType;
-import daksha.core.batteries.exceptions.Problem;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.App;
@@ -39,13 +37,7 @@ public class PageFactory {
 		if (!FileSystemUtils.isDir(consideredPath)){
 			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
 			if (!FileSystemUtils.isDir(consideredPath)){
-				throw new Problem(
-						"UI Automator", 
-						"Page Mapper", 
-						"getFileMapper", 
-						ErrorType.APP_MAP_DIR_NOT_A_DIR, 
-						String.format(ErrorType.APP_MAP_DIR_NOT_A_DIR, consideredPath)
-					);				
+				throw new Exception(String.format("Provided root map path dir is not a directory: %s" ,  consideredPath));			
 			} 
 		}
 		App app = new BaseApp(name, automator, appMapsRootDir + File.separator + "app.ini");
