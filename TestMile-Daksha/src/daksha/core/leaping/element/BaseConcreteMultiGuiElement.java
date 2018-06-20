@@ -21,6 +21,7 @@ package daksha.core.leaping.element;
 import java.util.ArrayList;
 import java.util.List;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementIdentifier;
@@ -33,13 +34,13 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	private GuiElementMetaData emd = null;
 	private GuiElementIdentifier<D,E> identifier = null;
 
-	public BaseConcreteMultiGuiElement(Page page, GuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
+	public BaseConcreteMultiGuiElement(Page page, ConcreteGuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
 		super(page, automator, eProxy);
 		this.emd = eProxy.getMetaData();
 		this.identifier = automator.getIdentifier();
 	}
 	
-	public BaseConcreteMultiGuiElement(GuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
+	public BaseConcreteMultiGuiElement(ConcreteGuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
 		super(automator, eProxy);
 	}
 	
@@ -86,8 +87,6 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	protected abstract boolean doesTextContain(E element, String text) throws Exception;
 	
 	public GuiElementProxy getInstanceAtIndex(int index) throws Exception {
-		System.out.println(this.getIdentifier());
-		System.out.println(this.toolElements);
 		return this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), this.toolElements.get(index));
 	}
 	

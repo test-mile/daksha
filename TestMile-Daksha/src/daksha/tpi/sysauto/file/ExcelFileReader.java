@@ -57,7 +57,6 @@ public class ExcelFileReader {
 	}
 
 	protected void populateHeaders() throws Exception {
-//		System.out.println(getSheet().getFirstRowNum());
 		setRowCount(getSheet().getLastRowNum() + 1); //.getPhysicalNumberOfRows());
 		if (getRowCount() == 0) {
 			throw new Exception("Empty or wrongly formattted Excel file. Is first line empty?");

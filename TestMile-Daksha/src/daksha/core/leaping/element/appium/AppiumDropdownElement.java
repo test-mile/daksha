@@ -18,6 +18,7 @@
  ******************************************************************************/
 package daksha.core.leaping.element.appium;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.selenium.BaseSeleniumDropdownElement;
 import daksha.tpi.leaping.automator.GuiAutomator;
@@ -27,11 +28,11 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumDropdownElement extends BaseSeleniumDropdownElement<AppiumDriver<MobileElement>,MobileElement>{
 	
-	public AppiumDropdownElement(Page page, GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+	public AppiumDropdownElement(Page page, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
 		super(page,automator, eProxy);
 	}
 	
-	public AppiumDropdownElement(GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+	public AppiumDropdownElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 }

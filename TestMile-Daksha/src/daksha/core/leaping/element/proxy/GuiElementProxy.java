@@ -20,6 +20,9 @@ package daksha.core.leaping.element.proxy;
 
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
+
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.problem.ErrorType;
@@ -31,16 +34,13 @@ import daksha.tpi.leaping.pageobject.Page;
 public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	private GuiElementType elementType = GuiElementType.GENERIC;
 	private ConcreteGuiElement<?,?> concreteElement = null;
-	private GuiAutomator<?,?> automator = null;
 
-	public GuiElementProxy(Page page, GuiAutomator<?,?> automator, GuiElementMetaData emd) {
-		super(page, emd);
-		this.automator = automator;
+	public GuiElementProxy(Page page, GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		super(page, automator, emd);
 	}
 	
-	public GuiElementProxy(GuiAutomator<?,?> automator, GuiElementMetaData emd) {
-		super(emd);
-		this.automator = automator;
+	public GuiElementProxy(GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		super(automator, emd);
 	}
 
 	public GuiElement identify() throws Exception {
@@ -53,7 +53,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	}
 	
 	public GuiElementProxy asDropDown() throws Exception {
-		this.automator.getIdentifier().convertToDropDown(this);
+		this.getAutomator().getConcreteAutomator().getIdentifier().convertToDropDown(this);
 		return this;
 	}
 
@@ -76,7 +76,6 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 		try {
 			getConcreteElement().enterText(text);
 		} catch (Exception e){
-			System.out.println(e);
 			e.printStackTrace();
 			throwElementActionException(e, "enterText", "enter text in");
 		}
@@ -137,8 +136,6 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 		try {
 			getConcreteElement().waitUntilPresent();
 		} catch (Exception e){
-			System.out.println(e);
-			e.printStackTrace();
 			throwElementException(
 					e,
 					ErrorType.ELEMENT_WAIT_FAILURE,

@@ -18,6 +18,7 @@
  ******************************************************************************/
 package daksha.core.leaping.element.appium;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.element.selenium.BaseSeleniumMultiElement;
 import daksha.tpi.leaping.automator.GuiAutomator;
@@ -27,11 +28,11 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumMultiElement extends BaseSeleniumMultiElement<AppiumDriver<MobileElement>,MobileElement>{
 
-	public AppiumMultiElement(Page page, GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
+	public AppiumMultiElement(Page page, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
 		super(page, automator, eProxy);
 	}
 	
-	public AppiumMultiElement(GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
+	public AppiumMultiElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
 		this(null, automator, eProxy);
 	}
 }

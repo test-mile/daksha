@@ -10,6 +10,7 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.element.sikuli.SikuliElement;
@@ -22,7 +23,7 @@ import daksha.tpi.leaping.pageobject.Page;
 
 public class SikuliGuiElementIdentifier extends BaseGuiElementIdentifier<Screen,Match>{
 	
-	public SikuliGuiElementIdentifier(GuiAutomator<Screen,Match> automator) {
+	public SikuliGuiElementIdentifier(ConcreteGuiAutomator<Screen,Match> automator) {
 		super(automator);
 	}
 
@@ -66,11 +67,11 @@ public class SikuliGuiElementIdentifier extends BaseGuiElementIdentifier<Screen,
 		return GuiElementType.GENERIC;
 	}
 
-	protected void setConcreteElement(GuiElementProxy proxy, GuiElementType type) throws Exception {
+	protected void setConcreteElement(GuiElementProxy proxy) throws Exception {
 		proxy.setConcreteElement(new SikuliElement(this.getGuiAutomator(), proxy));
 	}
 
-	protected void setConcreteElement(Page page, GuiElementProxy proxy, GuiElementType type) throws Exception {
+	protected void setConcreteElement(Page page, GuiElementProxy proxy) throws Exception {
 		proxy.setConcreteElement(new SikuliElement(this.getGuiAutomator(), proxy));
 	}
 	

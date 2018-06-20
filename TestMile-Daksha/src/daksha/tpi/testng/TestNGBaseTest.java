@@ -31,7 +31,6 @@ public class TestNGBaseTest {
 	
 	@BeforeSuite
 	public void initContext(ITestContext testContext) throws Exception {
-		System.out.println(testContext.getName());
 		if (testContext.getName().toLowerCase().equals("default test")) {
 			this.testContextName.set("default");
 		} else {

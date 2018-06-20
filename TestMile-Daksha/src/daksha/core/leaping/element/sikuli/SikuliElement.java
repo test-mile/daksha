@@ -22,6 +22,7 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
@@ -30,17 +31,17 @@ import daksha.tpi.leaping.pageobject.Page;
 
 public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
 	
-	public SikuliElement(Page page, GuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
+	public SikuliElement(Page page, ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
 		super(page, automator, eProxy);
 	}	
 	
-	public SikuliElement(GuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
+	public SikuliElement(ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 	
 	
 	private Match asMatch() throws Exception {
-		return ((Match) this.getToolElementWithRetry());
+		return this.getToolElementWithRetry();
 	}	
 	
 	@Override

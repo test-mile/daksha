@@ -32,7 +32,7 @@ import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
-public interface GuiAutomator<D,E> extends ManagedGuiAutomator<D>, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparator, MouseActionHandler{
+public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparator, MouseActionHandler{
 
 	void setAutomatorContext(GuiAutomationContext screen);
 
@@ -51,8 +51,6 @@ public interface GuiAutomator<D,E> extends ManagedGuiAutomator<D>, NativeWindowA
 	void init() throws Exception;
 
 	String getName();
-
-	GuiElementIdentifier<D,E> getIdentifier();
 
 	void setWaitTime(int waitTime);
 

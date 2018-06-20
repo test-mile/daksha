@@ -44,6 +44,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.automator.AbstractGuiAutomator;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.tpi.enums.Browser;
@@ -51,7 +52,7 @@ import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
+public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	
 	private D driver = null;
 	private WebDriverWait waiter = null;
@@ -256,6 +257,5 @@ public class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
 	
 	public Actions getActionChain(){
 		return new Actions(getUnderlyingEngine());
-	}
-	
+	}	
 }

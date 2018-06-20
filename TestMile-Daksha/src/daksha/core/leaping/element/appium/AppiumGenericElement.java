@@ -18,19 +18,20 @@
  ******************************************************************************/
 package daksha.core.leaping.element.appium;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.core.leaping.element.selenium.DefaultSeleniumElementProxy;
+import daksha.core.leaping.element.selenium.AbstractSeleniumConcreteElement;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
-public class AppiumGenericElement extends DefaultSeleniumElementProxy<AppiumDriver<MobileElement>,MobileElement>{
-	public AppiumGenericElement(Page page, GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+public class AppiumGenericElement extends AbstractSeleniumConcreteElement<AppiumDriver<MobileElement>,MobileElement>{
+	public AppiumGenericElement(Page page, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
 		super(page, automator, eProxy);
 	}
 
-	public AppiumGenericElement(GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+	public AppiumGenericElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
 		super(automator, eProxy);
 	}
 	

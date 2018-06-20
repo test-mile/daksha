@@ -23,9 +23,8 @@ import java.io.File;
 import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 //
-public interface ManagedGuiAutomator<D> {
+public interface ManagedGuiAutomator {
 	UiDriverEngine getUiDriverEngineName() throws Exception;
-	D getUiDriverEngine()  throws Exception;
 	File takeScreenshot() throws Exception;
 	GuiAutomationContext getAutomatorContext()  throws Exception;
 	void setAppTitle(String appTitle) throws Exception;

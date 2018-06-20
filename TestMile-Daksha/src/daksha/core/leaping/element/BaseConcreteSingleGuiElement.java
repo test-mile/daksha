@@ -20,6 +20,7 @@ package daksha.core.leaping.element;
 
 import java.util.List;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiElementMetaData;
@@ -36,18 +37,18 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	private GuiElementIdentifier<D,E> identifier = null;
 	private int waitTime = 10;
 	
-	public BaseConcreteSingleGuiElement(GuiAutomator<D,E> automator, GuiElementProxy proxy) {
+	public BaseConcreteSingleGuiElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
 		super(automator, proxy);
 		populateObjectVars(automator, proxy);
 	}
 	
-	public BaseConcreteSingleGuiElement(Page page, GuiAutomator<D,E> automator, GuiElementProxy proxy) {
+	public BaseConcreteSingleGuiElement(Page page, ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
 		super(page, automator, proxy);
 		populateObjectVars(automator, proxy);
 
 	}
 	
-	private void populateObjectVars(GuiAutomator<D,E> automator, GuiElementProxy proxy) {
+	private void populateObjectVars(ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
 		this.emd = proxy.getMetaData();
 		this.identifier = automator.getIdentifier();		
 		this.waitTime = automator.getWaitTime();

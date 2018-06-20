@@ -10,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.automator.selenium.SeleniumWebUiDriver;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
@@ -40,7 +41,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 	}
 	
 	
-	public GuiAutomator<WebDriver, WebElement> build() throws Exception{
+	public GuiAutomatorProxy build() throws Exception{
 		SeleniumWebUiDriver selenium = new SeleniumWebUiDriver(this.getTestContext());
 		selenium.setBrowser(browser);
 		selenium.init();
@@ -59,7 +60,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 		browserCaps.merge(otherCaps);
 		selenium.setCapabilities(browserCaps.asMap());
 		selenium.load();
-		return selenium;
+		return new GuiAutomatorProxy(selenium);
 	}
 
 

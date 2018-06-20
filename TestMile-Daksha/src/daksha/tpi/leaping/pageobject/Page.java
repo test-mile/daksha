@@ -23,6 +23,7 @@ import daksha.core.leaping.actions.automator.BrowserActionHandler;
 import daksha.core.leaping.actions.automator.ImageComparator;
 import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.loader.PageDefinition;
@@ -38,7 +39,7 @@ ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
 	PageDefinition getPageDef() throws Exception;
 	Page getParent() throws Exception;
 	
-	GuiAutomator<?,?> getGuiAutomator() throws Exception; 
+	GuiAutomatorProxy getGuiAutomator() throws Exception; 
 	GuiAutomationContext getAutomatorContext() throws Exception;
 
 	GuiElementProxy dropdown(String name) throws Exception;

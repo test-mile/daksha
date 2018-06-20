@@ -6,8 +6,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.automator.appium.AppiumNativeUiDriver;
 import daksha.core.leaping.automator.appium.AppiumWebUiDriver;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.enums.OSType;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
@@ -75,9 +77,9 @@ public class AppiumBuilder extends AutomatorBuilder{
 	}
 	
 	
-	public GuiAutomator<AppiumDriver<MobileElement>, MobileElement> build() throws Exception{
+	public GuiAutomatorProxy build() throws Exception{
 		populateDefaultCapabilities(platformType, defaultCaps);
-		GuiAutomator<AppiumDriver<MobileElement>, MobileElement> appium = null;
+		ConcreteGuiAutomator<AppiumDriver<MobileElement>, MobileElement> appium = null;
 		switch (this.getGuiAutomationContext()){
 		case MOBILE_NATIVE:
 			appium = new AppiumNativeUiDriver(this.getTestContext());
@@ -94,10 +96,10 @@ public class AppiumBuilder extends AutomatorBuilder{
 		defaultCaps.merge(otherCaps);
 		appium.setCapabilities(defaultCaps.asMap());
 		appium.load();
-		return appium;
+		return new GuiAutomatorProxy(appium);
 	}
 	
-	public GuiAutomator<?,?> throwUnsupportedAutomationContextException(GuiAutomationContext context) throws Exception{
+	public GuiAutomatorProxy throwUnsupportedAutomationContextException(GuiAutomationContext context) throws Exception{
 		throw new Problem(
 				"Leaping:Generator:Appium",
 				"Appium Builder",

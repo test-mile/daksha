@@ -24,17 +24,18 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
-public class BaseSeleniumDropdownElement<D,E> extends DefaultSeleniumElementProxy<D,E>{
+public class BaseSeleniumDropdownElement<D,E> extends AbstractSeleniumConcreteElement<D,E>{
 	
-	public BaseSeleniumDropdownElement(Page page, GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+	public BaseSeleniumDropdownElement(Page page, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
 		super(page,automator, eProxy);
 	}
 	
-	public BaseSeleniumDropdownElement(GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+	public BaseSeleniumDropdownElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 

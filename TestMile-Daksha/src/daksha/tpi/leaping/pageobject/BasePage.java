@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.proxy.BaseGuiElementProxy;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
@@ -45,7 +46,7 @@ import daksha.tpi.sysauto.utils.DataUtils;
 public class BasePage implements Page{
 	private Logger logger = Daksha.getLogger();
 	private TestContext testContext = null;
-	private GuiAutomator<?,?> automator = null;
+	private GuiAutomatorProxy automator = null;
 	private PageDefinition pageDef = null;
 	private Map<String, GuiElement> uiElementMap = new HashMap<String, GuiElement>();
 	private GuiAutomationContext context = null;
@@ -57,7 +58,7 @@ public class BasePage implements Page{
 	
 	public BasePage(
 			String name,
-			GuiAutomator<?,?> automator,
+			GuiAutomatorProxy automator,
 			String mapPath) throws Exception{
 		populateSinglePage(name, automator);
 		loadPageDef(mapPath);
@@ -66,14 +67,14 @@ public class BasePage implements Page{
 	public BasePage(
 			Page parent,
 			String uiLabel, 
-			GuiAutomator<?,?> automator, 
+			GuiAutomatorProxy automator, 
 			String mapPath) throws Exception {
 		populateSinglePage(name, automator);
 		populteCompositePage(parent);
 		loadPageDef(mapPath);
 	}
 	
-	private void populateSinglePage(String name, GuiAutomator<?,?> automator) throws Exception {
+	private void populateSinglePage(String name, GuiAutomatorProxy automator) throws Exception {
 		this.setName(name);
 		this.setLabel(name);
 		this.testContext = automator.getTestContext();
@@ -149,11 +150,11 @@ public class BasePage implements Page{
 	}
 
 	@Override
-	public GuiAutomator<?,?> getGuiAutomator() throws Exception {
+	public GuiAutomatorProxy getGuiAutomator() throws Exception {
 		return this.automator;
 	}
 
-	private void setGuiAutomator(GuiAutomator<?,?> automator) throws Exception {
+	private void setGuiAutomator(GuiAutomatorProxy automator) throws Exception {
 		if (automator != null){
 			this.automator = automator;
 		} else {
@@ -167,7 +168,7 @@ public class BasePage implements Page{
 		} else if (!uiElementMap.containsKey(elementName)) {
 			return (GuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			GuiElementProxy proxy = this.getGuiAutomator().getIdentifier().createProxy(this, this.pageDef.getMetaData(elementName));
+			GuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getIdentifier().createProxy(this, this.pageDef.getMetaData(elementName));
 			return proxy;
 		}
 	}
@@ -395,11 +396,7 @@ public class BasePage implements Page{
 	public UiDriverEngine getUiDriverEngineName() throws Exception {
 		return this.getGuiAutomator().getUiDriverEngineName();
 	}
-	//
-	@Override
-	public Object getUiDriverEngine() throws Exception {
-		return this.getGuiAutomator().getUiDriverEngine();
-	}
+
 	//
 	@Override
 	public File takeScreenshot() throws Exception {

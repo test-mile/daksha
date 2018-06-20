@@ -7,6 +7,7 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.enums.WebGuiLocator;
 import daksha.core.leaping.identifier.BaseGuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiLocator;
@@ -15,13 +16,12 @@ import daksha.tpi.leaping.enums.GuiElementType;
 
 public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E extends WebElement> extends BaseGuiElementIdentifier<D,E>{
 	
-	public BaseSeleniumGuiElementIdentifier(GuiAutomator<D,E> automator) {
+	public BaseSeleniumGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) {
 		super(automator);
 	}
 
 	@Override
 	public By getFinderType(String identifier, String idValue) throws Exception {
-		System.out.println("Finding...");
 		By findBy = null;
 		WebGuiLocator idType = null;
 		try{
@@ -42,7 +42,6 @@ public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E ext
 		case CSS: findBy = By.cssSelector(idValue); break;
 		case TAG: findBy = By.tagName(idValue); break;
 		}
-		System.out.println(findBy);
 		return findBy;
 	}
 	

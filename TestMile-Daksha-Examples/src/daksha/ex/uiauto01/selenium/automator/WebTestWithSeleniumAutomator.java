@@ -27,6 +27,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 import daksha.Daksha;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.enums.OSType;
 import daksha.ex.config.AppConfig;
 import daksha.tpi.leaping.automator.GuiAutomator;
@@ -37,7 +38,7 @@ import daksha.tpi.leaping.generator.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
-	private ThreadLocal<GuiAutomator<WebDriver,WebElement>> automator = new ThreadLocal<GuiAutomator<WebDriver,WebElement>>();
+	private ThreadLocal<GuiAutomatorProxy> automator = new ThreadLocal<GuiAutomatorProxy>();
 	
 	protected void setCentralOptions() throws Exception {
 		Daksha.setOSType(OSType.MAC);
@@ -51,7 +52,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	
 	@Test
 	public void test() throws Exception{
-		GuiAutomator<WebDriver,WebElement> automator = this.automator.get();
+		GuiAutomatorProxy automator = this.automator.get();
 		automator.goTo(AppConfig.WP_ADMIN_URL);		
 
 		GuiElement userTextBox = automator.elementWithId("user_login");

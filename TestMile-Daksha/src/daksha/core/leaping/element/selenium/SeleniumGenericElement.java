@@ -21,16 +21,17 @@ package daksha.core.leaping.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
-public class SeleniumGenericElement extends DefaultSeleniumElementProxy<WebDriver,WebElement>{
-	public SeleniumGenericElement(Page page, GuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
+public class SeleniumGenericElement extends AbstractSeleniumConcreteElement<WebDriver,WebElement>{
+	public SeleniumGenericElement(Page page, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
 		super(page, automator, eProxy);
 	}
 
-	public SeleniumGenericElement(GuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
+	public SeleniumGenericElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
 		super(automator, eProxy);
 	}
 	

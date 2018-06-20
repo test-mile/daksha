@@ -21,6 +21,7 @@ package daksha.core.leaping.element.proxy;
 import java.util.List;
 import java.util.Random;
 
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ConcreteMultiGuiElement;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.problem.ErrorType;
@@ -31,16 +32,13 @@ import daksha.tpi.leaping.pageobject.Page;
 
 public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGuiElement{
 	private ConcreteMultiGuiElement<?,?> concreteElement = null;
-	private GuiAutomator<?,?> automator = null;
 
-	public MultiGuiElementProxy(Page page, GuiAutomator<?,?> automator, GuiElementMetaData emd) {
-		super(page, emd);
-		this.automator = automator;
+	public MultiGuiElementProxy(Page page, GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		super(page, automator, emd);
 	}
 	
-	public MultiGuiElementProxy(GuiAutomator<?,?> automator, GuiElementMetaData emd) {
-		super(emd);
-		this.automator = automator;
+	public MultiGuiElementProxy(GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		super(automator, emd);
 	}
 	
 	public MultiGuiElement identify() throws Exception {
@@ -126,8 +124,6 @@ public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGu
 			this.verifyOrdinal(ordinal);
 			return this.getInstanceAtIndex(ordinal - 1);
 		} catch (Exception e){
-			System.out.println(e);
-			e.printStackTrace();
 			return (GuiElement) throwElementGetInstanceException(e, "getInstanceAtOrdinal", String.format("get instance at ordinal %d", ordinal));
 		}
 	}

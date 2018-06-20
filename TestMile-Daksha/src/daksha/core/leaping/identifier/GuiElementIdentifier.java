@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 
 import daksha.core.leaping.actions.GuiElementCreationHandler;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;

@@ -1,5 +1,6 @@
 package daksha.core.leaping.identifier.appium;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.appium.AppiumDropdownElement;
 import daksha.core.leaping.element.appium.AppiumGenericElement;
 import daksha.core.leaping.element.appium.AppiumMultiElement;
@@ -14,7 +15,7 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier<AppiumDriver<MobileElement>,MobileElement>{
 	
-	public AppiumGuiElementIdentifier(GuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator) {
+	public AppiumGuiElementIdentifier(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator) {
 		super(automator);
 	}
 	
@@ -23,26 +24,12 @@ public class AppiumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier
 		proxy.setConcreteElement(new AppiumDropdownElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(GuiElementProxy proxy, GuiElementType type) throws Exception {
-		switch(type) {
-		case DROPDOWN:
-			proxy.setConcreteElement(new AppiumDropdownElement(this.getGuiAutomator(), proxy));
-			break;
-		default:
-			proxy.setConcreteElement(new AppiumGenericElement(this.getGuiAutomator(), proxy));
-			break;
-		}
+	protected void setConcreteElement(GuiElementProxy proxy) throws Exception {
+		proxy.setConcreteElement(new AppiumGenericElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(Page page, GuiElementProxy proxy, GuiElementType type) throws Exception {
-		switch(type) {
-		case DROPDOWN:
-			proxy.setConcreteElement(new AppiumDropdownElement(page, this.getGuiAutomator(), proxy));
-			break;
-		default:
-			proxy.setConcreteElement(new AppiumGenericElement(page, this.getGuiAutomator(), proxy));
-			break;
-		}
+	protected void setConcreteElement(Page page, GuiElementProxy proxy) throws Exception {
+		proxy.setConcreteElement(new AppiumGenericElement(page, this.getGuiAutomator(), proxy));
 	}
 	
 	

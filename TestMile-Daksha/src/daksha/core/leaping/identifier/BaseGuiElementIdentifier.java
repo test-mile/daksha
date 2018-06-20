@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.element.ConcreteMultiGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
@@ -14,21 +16,24 @@ import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 
 public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentifier<D,E>{
-	private GuiAutomator<D,E> automator = null;
+	private ConcreteGuiAutomator<D,E> automator = null;
 	
-	public BaseGuiElementIdentifier(GuiAutomator<D,E> automator) {
+	public BaseGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) {
 		this.automator = automator;
 	}
 	
-	protected GuiAutomator<D,E> getGuiAutomator() {
-		// TODO Auto-generated method stub
+	protected ConcreteGuiAutomator<D,E> getGuiAutomator() {
 		return automator;
+	}
+
+	protected GuiAutomatorProxy getGuiAutomatorProxy() {
+		return automator.getProxy();
 	}
 	
 	protected abstract void setConcreteElement(Page page, MultiGuiElementProxy proxy);
-	protected abstract void setConcreteElement(Page page, GuiElementProxy proxy, GuiElementType type) throws Exception;
+	protected abstract void setConcreteElement(Page page, GuiElementProxy proxy) throws Exception;
 	protected abstract void setConcreteElement(MultiGuiElementProxy proxy);
-	protected abstract void setConcreteElement(GuiElementProxy proxy, GuiElementType type) throws Exception;
+	protected abstract void setConcreteElement(GuiElementProxy proxy) throws Exception;
 
 	private GuiElementMetaData createMetaDataObject(String idType, String idValue) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
@@ -180,15 +185,15 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 	
 	@Override
 	public GuiElementProxy createProxy(GuiElementMetaData emd) throws Exception {
-		GuiElementProxy proxy = new GuiElementProxy(this.getGuiAutomator(), emd);
-		setConcreteElement(proxy, GuiElementType.GENERIC);
+		GuiElementProxy proxy = new GuiElementProxy(this.getGuiAutomatorProxy(), emd);
+		setConcreteElement(proxy);
 		proxy.setLoaderType(ElementLoaderType.AUTOMATOR);
 		return proxy;
 	}
 
 	@Override
 	public MultiGuiElementProxy createMultiProxy(GuiElementMetaData emd) throws Exception {
-		MultiGuiElementProxy proxy = new MultiGuiElementProxy(this.getGuiAutomator(), emd);
+		MultiGuiElementProxy proxy = new MultiGuiElementProxy(this.getGuiAutomatorProxy(), emd);
 		setConcreteElement(proxy);
 		proxy.setLoaderType(ElementLoaderType.AUTOMATOR);
 		return proxy;
@@ -196,15 +201,15 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 	
 	@Override
 	public GuiElementProxy createProxy(Page page, GuiElementMetaData emd) throws Exception {
-		GuiElementProxy proxy = new GuiElementProxy(page, this.getGuiAutomator(), emd);
-		setConcreteElement(page, proxy, GuiElementType.GENERIC);
+		GuiElementProxy proxy = new GuiElementProxy(page, this.getGuiAutomatorProxy(), emd);
+		setConcreteElement(page, proxy);
 		proxy.setLoaderType(this.automator.getElementLoaderType());
 		return proxy;
 	}
 
 	@Override
 	public MultiGuiElementProxy createMultiProxy(Page page, GuiElementMetaData emd) throws Exception {
-		MultiGuiElementProxy proxy = new MultiGuiElementProxy(page, this.getGuiAutomator(), emd);
+		MultiGuiElementProxy proxy = new MultiGuiElementProxy(page, this.getGuiAutomatorProxy(), emd);
 		setConcreteElement(page, proxy);
 		proxy.setLoaderType(this.automator.getElementLoaderType());
 		return proxy;

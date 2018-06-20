@@ -22,6 +22,7 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.App;
@@ -32,7 +33,7 @@ import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class PageFactory {
 	
-	public static App getSimpleApp(String name, GuiAutomator<?,?> automator, String appMapsRootDir) throws Exception{
+	public static App getSimpleApp(String name, GuiAutomatorProxy automator, String appMapsRootDir) throws Exception{
 		String consideredPath = appMapsRootDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
 			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
@@ -50,7 +51,7 @@ public class PageFactory {
 		return app;
 	}
 
-	public static Page getPage(GuiAutomator<?,?> automator, String mapPath) throws Exception {
+	public static Page getPage(GuiAutomatorProxy automator, String mapPath) throws Exception {
 		return new BasePage(FileSystemUtils.getFileName(mapPath), automator, mapPath);
 	}
 }

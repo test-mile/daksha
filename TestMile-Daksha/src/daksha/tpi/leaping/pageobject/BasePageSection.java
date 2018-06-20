@@ -18,6 +18,7 @@
  ******************************************************************************/
 package daksha.tpi.leaping.pageobject;
 
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.leaping.automator.GuiAutomator;
 
 public class BasePageSection extends BasePage implements PageSection{
@@ -25,7 +26,7 @@ public class BasePageSection extends BasePage implements PageSection{
 	public BasePageSection(
 			Page parent,
 			String uiLabel, 
-			GuiAutomator<?,?> automator, 
+			GuiAutomatorProxy automator, 
 			String mapPath) throws Exception {
 		super(parent, uiLabel, automator, mapPath);
 	}

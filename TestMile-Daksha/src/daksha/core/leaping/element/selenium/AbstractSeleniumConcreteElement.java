@@ -25,6 +25,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
@@ -32,16 +33,16 @@ import daksha.core.leaping.identifier.GuiLocator;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
-public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiElement<D,E>{
+public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiElement<D,E>{
 	private D driver = null;
 	private WebDriverWait waiter = null;
 	
-	public DefaultSeleniumElementProxy(GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+	public AbstractSeleniumConcreteElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
 		super(automator, eProxy);
 		setUpObjectVars();
 	}
 	
-	public DefaultSeleniumElementProxy(Page page, GuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+	public AbstractSeleniumConcreteElement(Page page, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
 		super(page, automator, eProxy);
 		setUpObjectVars();
 	}	
@@ -126,7 +127,6 @@ public class DefaultSeleniumElementProxy<D,E> extends BaseConcreteSingleGuiEleme
 	@Override
 	public boolean isPresent() throws Exception {
 		boolean present = false;
-		System.out.println(this.getMetaData().getLocators());
 		for(GuiLocator locator: this.getMetaData().getLocators()){
 			try{
 				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);

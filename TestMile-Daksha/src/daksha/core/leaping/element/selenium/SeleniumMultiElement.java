@@ -21,17 +21,18 @@ package daksha.core.leaping.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class SeleniumMultiElement extends BaseSeleniumMultiElement<WebDriver,WebElement>{
 
-	public SeleniumMultiElement(Page page, GuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
+	public SeleniumMultiElement(Page page, ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
 		super(page, automator, eProxy);
 	}
 	
-	public SeleniumMultiElement(GuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
+	public SeleniumMultiElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
 		this(null, automator, eProxy);
 	}
 }

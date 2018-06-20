@@ -3,12 +3,14 @@ package daksha.core.leaping.element.proxy;
 import java.io.File;
 import java.io.IOException;
 
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ManagedConcreteGuiElement;
 import daksha.core.leaping.element.ManagedElement;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.pageobject.Page;
 
@@ -22,14 +24,20 @@ public class BaseGuiElementProxy implements ManagedElement{
 	private GuiAutomationContext idType = null;
 	private ManagedConcreteGuiElement concreteElement = null;
 	private Page page = null;
+	private GuiAutomatorProxy automator = null;
 	
-	public BaseGuiElementProxy(Page page, GuiElementMetaData emd) {
-		this.page = page;
+	public BaseGuiElementProxy(GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		this.automator = automator;
 		this.emd = emd;
 	}
 	
-	public BaseGuiElementProxy(GuiElementMetaData emd) {
-		this.emd = emd;
+	public BaseGuiElementProxy(Page page, GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		this(automator, emd);
+		this.page = page;
+	}
+	
+	protected GuiAutomatorProxy getAutomator() {
+		return this.automator;
 	}
 	
 	protected Page getPage() {

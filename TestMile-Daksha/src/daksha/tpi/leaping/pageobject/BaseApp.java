@@ -21,15 +21,15 @@ package daksha.tpi.leaping.pageobject;
 import java.util.HashMap;
 import java.util.Map;
 
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
 import daksha.tpi.leaping.automator.GuiAutomator;
 
 public class BaseApp extends BasePage implements App{
-	private String name = null;
 	private Map<String, Page> pageMap = new HashMap<String, Page>();
 
-	public BaseApp(String name, GuiAutomator<?,?> automator, String homeMapPath) throws Exception{
+	public BaseApp(String name, GuiAutomatorProxy automator, String homeMapPath) throws Exception{
 		super(name, automator, homeMapPath);
 	}
 

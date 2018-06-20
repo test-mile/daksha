@@ -20,6 +20,7 @@ package daksha.core.leaping.element.selenium;
 
 import org.openqa.selenium.WebElement;
 
+import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.BaseConcreteMultiGuiElement;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.tpi.leaping.automator.GuiAutomator;
@@ -27,11 +28,11 @@ import daksha.tpi.leaping.pageobject.Page;
 
 public class BaseSeleniumMultiElement<D,E> extends BaseConcreteMultiGuiElement<D,E>{
 
-	public BaseSeleniumMultiElement(Page page, GuiAutomator<D,E> automator, MultiGuiElementProxy eProxy){
+	public BaseSeleniumMultiElement(Page page, ConcreteGuiAutomator<D,E> automator, MultiGuiElementProxy eProxy){
 		super(page, automator, eProxy);
 	}
 	
-	public BaseSeleniumMultiElement(GuiAutomator<D,E> automator, MultiGuiElementProxy eProxy){
+	public BaseSeleniumMultiElement(ConcreteGuiAutomator<D,E> automator, MultiGuiElementProxy eProxy){
 		this(null, automator, eProxy);
 	}
 	

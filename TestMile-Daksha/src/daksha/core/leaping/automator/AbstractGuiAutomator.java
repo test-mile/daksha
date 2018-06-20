@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.Map;
 
 import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
@@ -34,7 +35,7 @@ import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 
-public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
+public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<D,E>{
 	private TestContext testContext = null;
 	private OSType os = null;
 	UiDriverEngine uiAutomatorEngineName = null;
@@ -43,6 +44,7 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 	private ElementLoaderType loaderType = ElementLoaderType.AUTOMATOR;
 	private GuiElementIdentifier<D,E> identifier = null;
 	private int waitTime = 10;
+	private GuiAutomatorProxy proxy = null;
 	
 	public AbstractGuiAutomator(TestContext testContext) {
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
@@ -58,6 +60,16 @@ public abstract class AbstractGuiAutomator<D,E> implements GuiAutomator<D,E>{
 	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext, ElementLoaderType loaderType){
 		this(testContext, name, automatorContext);
 		this.setElementLoaderType(loaderType);
+	}
+	
+	@Override
+	public void setProxy(GuiAutomatorProxy proxy) {
+		this.proxy = proxy;
+	}
+
+	@Override
+	public GuiAutomatorProxy getProxy() {
+		return this.proxy;
 	}
 	
 	public String getName() {
