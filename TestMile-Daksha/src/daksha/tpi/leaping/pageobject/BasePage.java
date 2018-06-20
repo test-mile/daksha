@@ -62,6 +62,10 @@ public class BasePage implements Page{
 		loadPageDef(mapPath);
 	}
 	
+	public BasePage(GuiAutomatorProxy automator) throws Exception{
+		populateSinglePage(null, automator);
+	}
+	
 	public BasePage(
 			Page parent,
 			String uiLabel, 
@@ -73,7 +77,7 @@ public class BasePage implements Page{
 	}
 	
 	private void populateSinglePage(String name, GuiAutomatorProxy automator) throws Exception {
-		this.setName(name);
+		if (name != null) this.setName(name);
 		this.setLabel(name);
 		this.testContext = automator.getTestContext();
 		this.setContext(automator.getAutomatorContext());
@@ -91,7 +95,7 @@ public class BasePage implements Page{
 		this.setElementLoaderType(ElementLoaderType.COMPOSITE_PAGE);		
 	}
 	
-	private void loadPageDef(String mapPath) throws Exception {
+	protected void loadPageDef(String mapPath) throws Exception {
 		if (!PageDefRepository.INSTANCE.hasPageDef(this.getLabel())) {
 			this.pageDef = PageDefRepository.INSTANCE.loadPageDef(this.getLabel(), PageDefLoaderFactory.getPageDefLoader(this.getTestContext(), mapPath));
 		} else {
@@ -127,7 +131,7 @@ public class BasePage implements Page{
 		return this.label;
 	}
 
-	private void setLabel(String label) {
+	protected void setLabel(String label) {
 		this.label = label;
 	}
 
