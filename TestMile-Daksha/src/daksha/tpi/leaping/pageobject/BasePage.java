@@ -94,6 +94,8 @@ public class BasePage implements Page{
 	private void loadPageDef(String mapPath) throws Exception {
 		if (!PageDefRepository.INSTANCE.hasPageDef(this.getLabel())) {
 			this.pageDef = PageDefRepository.INSTANCE.loadPageDef(this.getLabel(), PageDefLoaderFactory.getPageDefLoader(this.getTestContext(), mapPath));
+		} else {
+			this.pageDef = PageDefRepository.INSTANCE.getPageDef(this.getLabel());
 		}
 		
 	}	
