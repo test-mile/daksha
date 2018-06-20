@@ -40,13 +40,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.automator.AbstractGuiAutomator;
-import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.UiDriverEngine;
+import daksha.core.leaping.notifier.selenium.SeleniumListener;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
@@ -78,23 +79,24 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	@SuppressWarnings("unchecked")
 	@Override
 	public void load() throws Exception{
-		D driver = null;
+		EventFiringWebDriver driver = null;
 		switch (this.getBrowser()){
 		case FIREFOX:
-			driver = (D) new FirefoxDriver(new FirefoxOptions(capabilities));
+			driver = new EventFiringWebDriver(new FirefoxDriver(new FirefoxOptions(capabilities)));
 			break;
 		case CHROME:
 			ChromeOptions coptions = new ChromeOptions();
 			coptions.merge(capabilities);
-			driver = (D) new ChromeDriver(coptions);
+			driver = new EventFiringWebDriver(new ChromeDriver(coptions));
 			break;
 		case SAFARI:
 			SafariOptions soptions = new SafariOptions();
 			soptions.merge(capabilities);
-			driver = (D) new SafariDriver(soptions);
+			driver = new EventFiringWebDriver(new SafariDriver(soptions));
 			break; 
 		}
-		this.setDriver(driver);
+		driver.register(new SeleniumListener());
+		this.setDriver((D) driver);
 		initWait();
 		maximizeWindow();
 	}

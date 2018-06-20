@@ -23,7 +23,6 @@ import org.openqa.selenium.WebElement;
 
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class SeleniumGenericElement extends AbstractSeleniumConcreteElement<WebDriver,WebElement>{

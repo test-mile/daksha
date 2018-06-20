@@ -30,7 +30,6 @@ import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.leaping.identifier.GuiLocator;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiElement<D,E>{

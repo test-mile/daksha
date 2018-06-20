@@ -31,7 +31,6 @@ import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 

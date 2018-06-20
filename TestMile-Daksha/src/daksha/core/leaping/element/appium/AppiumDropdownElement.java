@@ -21,7 +21,6 @@ package daksha.core.leaping.element.appium;
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.selenium.BaseSeleniumDropdownElement;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

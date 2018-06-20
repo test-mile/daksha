@@ -24,12 +24,11 @@ import java.util.Map;
 import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.leaping.automator.GuiAutomator;
 
-public class BaseApp extends BasePage implements App{
+public class DefaultApp extends BasePage implements App{
 	private Map<String, Page> pageMap = new HashMap<String, Page>();
 
-	public BaseApp(String name, GuiAutomatorProxy automator, String homeMapPath) throws Exception{
+	public DefaultApp(String name, GuiAutomatorProxy automator, String homeMapPath) throws Exception{
 		super(name, automator, homeMapPath);
 	}
 

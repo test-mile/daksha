@@ -9,8 +9,6 @@ import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.element.selenium.SeleniumDropdownElement;
 import daksha.core.leaping.element.selenium.SeleniumGenericElement;
 import daksha.core.leaping.element.selenium.SeleniumMultiElement;
-import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class SeleniumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier<WebDriver,WebElement>{

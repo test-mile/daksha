@@ -20,13 +20,10 @@ package daksha.core.leaping.element.proxy;
 
 import java.util.List;
 
-import org.apache.poi.util.SystemOutLogger;
-
 import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.problem.ErrorType;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
@@ -118,7 +115,9 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	@Override
 	public void click() throws Exception {
 		try {
-			getConcreteElement().click();} catch (Exception e){
+			getConcreteElement().click();
+		} catch (Exception e){
+			System.out.println("Clicking");
 			throwElementActionException(e, "click", "click");
 		}
 	}

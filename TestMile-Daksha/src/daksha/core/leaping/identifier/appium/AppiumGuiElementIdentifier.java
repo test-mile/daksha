@@ -7,8 +7,6 @@ import daksha.core.leaping.element.appium.AppiumMultiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.identifier.selenium.BaseSeleniumGuiElementIdentifier;
-import daksha.tpi.leaping.automator.GuiAutomator;
-import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

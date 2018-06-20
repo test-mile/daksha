@@ -49,7 +49,7 @@ public class PageDefLoaderFactory {
 		}
 		
 		if (!FileSystemUtils.isFile(consideredPath)){
-			consideredPath = FileSystemUtils.getCanonicalPath(testContext.getConfig().value(DakshaOption.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
+			consideredPath = FileSystemUtils.getCanonicalPath(testContext.getConfig().value(DakshaOption.GUIAUTO_MAPS_DIR).asString() + "/" + consideredPath);
 			if (FileSystemUtils.isDir(consideredPath)){
 				throw new Problem(
 						"UI Automator", 

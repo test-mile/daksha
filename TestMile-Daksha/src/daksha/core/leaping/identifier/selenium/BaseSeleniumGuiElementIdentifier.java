@@ -11,7 +11,6 @@ import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.enums.WebGuiLocator;
 import daksha.core.leaping.identifier.BaseGuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiLocator;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiElementType;
 
 public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E extends WebElement> extends BaseGuiElementIdentifier<D,E>{

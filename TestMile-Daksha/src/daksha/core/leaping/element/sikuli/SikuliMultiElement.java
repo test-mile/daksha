@@ -24,7 +24,6 @@ import org.sikuli.script.Screen;
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.BaseConcreteMultiGuiElement;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class SikuliMultiElement extends BaseConcreteMultiGuiElement<Screen,Match>{

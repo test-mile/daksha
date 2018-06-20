@@ -24,9 +24,8 @@ import org.apache.commons.io.FilenameUtils;
 
 import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.App;
-import daksha.tpi.leaping.pageobject.BaseApp;
+import daksha.tpi.leaping.pageobject.DefaultApp;
 import daksha.tpi.leaping.pageobject.BasePage;
 import daksha.tpi.leaping.pageobject.Page;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
@@ -36,12 +35,12 @@ public class PageFactory {
 	public static App getSimpleApp(String name, GuiAutomatorProxy automator, String appMapsRootDir) throws Exception{
 		String consideredPath = appMapsRootDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
-			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.DIRECTORY_PROJECT_UI_MAPS).asString() + "/" + consideredPath);
+			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAPS_DIR).asString() + "/" + consideredPath);
 			if (!FileSystemUtils.isDir(consideredPath)){
 				throw new Exception(String.format("Provided root map path dir is not a directory: %s" ,  consideredPath));			
 			} 
 		}
-		App app = new BaseApp(name, automator, appMapsRootDir + File.separator + "app.ini");
+		App app = new DefaultApp(name, automator, appMapsRootDir + File.separator + "app.ini");
 		File d = new File(consideredPath + File.separator + "pages");
 		if (!FileSystemUtils.isDir(consideredPath)){
 			for (File path: d.listFiles()){

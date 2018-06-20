@@ -26,7 +26,6 @@ import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcreteGuiElement<D,E,MultiGuiElementProxy> implements ConcreteMultiGuiElement<D,E>{

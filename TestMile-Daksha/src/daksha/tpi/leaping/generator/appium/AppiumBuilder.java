@@ -14,7 +14,6 @@ import daksha.core.leaping.enums.OSType;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
 import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.generator.AutomatorBuilder;
 import io.appium.java_client.AppiumDriver;

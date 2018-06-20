@@ -18,15 +18,12 @@
  ******************************************************************************/
 package daksha.tpi.leaping.generator;
 
-import org.sikuli.script.Match;
-import org.sikuli.script.Screen;
-
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.automator.sikuli.SikuliScreenUiDriver;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.generator.appium.AppiumBuilder;
 import daksha.tpi.leaping.generator.selenium.SeleniumBuilder;
+import daksha.tpi.leaping.loader.PageDefLoader;
 
 public class GuiAutomatorFactory {
 	

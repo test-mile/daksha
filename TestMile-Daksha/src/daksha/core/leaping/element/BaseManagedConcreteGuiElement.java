@@ -1,7 +1,6 @@
 package daksha.core.leaping.element;
 
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public abstract class BaseManagedConcreteGuiElement<D,E,P> {

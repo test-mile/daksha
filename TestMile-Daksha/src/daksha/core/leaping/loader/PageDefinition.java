@@ -1,12 +1,12 @@
 package daksha.core.leaping.loader;
 
-import java.util.Map;
+import java.util.*;
 
 import daksha.core.leaping.identifier.DefaultGuiElementMetaData;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 
 public class PageDefinition {
-	private Map<String, GuiElementMetaData> pageDef = null;
+	private Map<String, GuiElementMetaData> pageDef = new HashMap<String, GuiElementMetaData>();
 	
 	public void addElementMetaData(String name, Map<String,String> map) throws Exception {
 		GuiElementMetaData emd = new DefaultGuiElementMetaData(map);
@@ -16,6 +16,10 @@ public class PageDefinition {
 	
 	public synchronized GuiElementMetaData getMetaData(String name) {
 		return this.pageDef.get(name.toLowerCase());
+	}
+
+	public boolean has(String name) {
+		return this.pageDef.containsKey(name.toLowerCase());
 	}
 
 }

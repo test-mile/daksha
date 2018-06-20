@@ -17,7 +17,6 @@ import daksha.core.leaping.element.sikuli.SikuliElement;
 import daksha.core.leaping.element.sikuli.SikuliMultiElement;
 import daksha.core.leaping.identifier.BaseGuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiLocator;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 

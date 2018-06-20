@@ -25,7 +25,6 @@ import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.ConcreteMultiGuiElement;
 import daksha.core.leaping.identifier.GuiElementMetaData;
 import daksha.core.problem.ErrorType;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.element.MultiGuiElement;
 import daksha.tpi.leaping.pageobject.Page;

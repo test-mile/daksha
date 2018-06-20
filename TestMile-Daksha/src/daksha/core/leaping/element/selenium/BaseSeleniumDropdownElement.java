@@ -26,7 +26,6 @@ import org.openqa.selenium.support.ui.Select;
 
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class BaseSeleniumDropdownElement<D,E> extends AbstractSeleniumConcreteElement<D,E>{

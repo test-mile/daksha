@@ -36,7 +36,6 @@ import daksha.core.leaping.loader.PageDefRepository;
 import daksha.core.leaping.loader.PageDefinition;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
@@ -48,7 +47,6 @@ public class BasePage implements Page{
 	private TestContext testContext = null;
 	private GuiAutomatorProxy automator = null;
 	private PageDefinition pageDef = null;
-	private Map<String, GuiElement> uiElementMap = new HashMap<String, GuiElement>();
 	private GuiAutomationContext context = null;
 	private String label;
 	private Page parent = null;
@@ -165,7 +163,7 @@ public class BasePage implements Page{
 	public GuiElementProxy getElement(String elementName) throws Exception {
 		if (elementName == null){
 			return (GuiElementProxy) throwNullElementException("element", elementName);
-		} else if (!uiElementMap.containsKey(elementName)) {
+		} else if (!this.pageDef.has(elementName)) {
 			return (GuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
 			GuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getIdentifier().createProxy(this, this.pageDef.getMetaData(elementName));
@@ -173,20 +171,25 @@ public class BasePage implements Page{
 		}
 	}
 	
+	public MultiGuiElementProxy getElements(String elementName) throws Exception {
+		if (elementName == null){
+			return (MultiGuiElementProxy) throwNullElementException("element", elementName);
+		} else if (!this.pageDef.has(elementName)) {
+			return (MultiGuiElementProxy) throwUndefinedElementException("element", elementName);		
+		} else {
+			MultiGuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getIdentifier().createMultiProxy(this, this.pageDef.getMetaData(elementName));
+			return proxy;
+		}
+	}
+	
 	public GuiElementProxy element(String name) throws Exception {
 		return getElement(name);
 	}
-	
-	@Override
-	public GuiElementProxy dropdown(String name) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public MultiGuiElementProxy elements(String name) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return getElements(name);
 	}
 
 	protected Object throwDefaultUiException(String action, String code, String message) throws Exception {

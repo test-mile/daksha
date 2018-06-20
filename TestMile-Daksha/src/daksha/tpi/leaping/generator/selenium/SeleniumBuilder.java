@@ -3,8 +3,6 @@ package daksha.tpi.leaping.generator.selenium;
 import java.io.File;
 
 import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -14,9 +12,9 @@ import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.automator.selenium.SeleniumWebUiDriver;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.leaping.automator.GuiAutomator;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.generator.AutomatorBuilder;
+import daksha.tpi.leaping.loader.PageDefLoader;
 
 public class SeleniumBuilder extends AutomatorBuilder{
 	private MutableCapabilities browserCaps = new MutableCapabilities();
@@ -29,8 +27,8 @@ public class SeleniumBuilder extends AutomatorBuilder{
 		super(testContext);
 		this.browser = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DEFAULT_BROWSER).asEnum(Browser.class);
 	}
-	
-	
+
+
 	public void browser(Browser browser){
 		this.browser = browser;
 	}
@@ -50,6 +48,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 			setFirefoxCaps();
 			break;
 		case CHROME:
+			
 			setChromeCaps();
 			break;
 		case SAFARI:

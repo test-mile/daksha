@@ -29,7 +29,6 @@ import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
 import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.OSType;
-import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparator, MouseActionHandler{
