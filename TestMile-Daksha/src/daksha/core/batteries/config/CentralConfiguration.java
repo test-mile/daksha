@@ -9,9 +9,11 @@ import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class CentralConfiguration extends BaseConfiguration{
 	private boolean frozen = false;
+	private String rootDir = null;
 	
-	 public CentralConfiguration() throws Exception {
+	 public CentralConfiguration(String rootDir) throws Exception {
 		 super();
+		 this.rootDir = rootDir;
 		 populateDefaults();
 	 }
 	 
@@ -38,7 +40,7 @@ public class CentralConfiguration extends BaseConfiguration{
 	 } 
 	
 	private void populateDefaults() throws Exception {
-		this.add(DakshaOption.ROOT_DIR, System.getProperty("user.dir") );
+		this.add(DakshaOption.ROOT_DIR,  this.rootDir);
 		this.add(DakshaOption.TOOLS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "tools");
 		this.add(DakshaOption.GUIAUTO_DRIVERS_DIR, this.value(DakshaOption.TOOLS_DIR) + File.separator + "guidrivers");
 		this.add(DakshaOption.OSTYPE, "windows");

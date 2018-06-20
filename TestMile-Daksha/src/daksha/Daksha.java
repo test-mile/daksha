@@ -31,8 +31,12 @@ import daksha.tpi.leaping.enums.GuiAutomationContext;
 public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
 	
-	public static void init() throws Exception{
-		core.init();
+	public static void init(String rootDir) throws Exception{
+		core.init(rootDir);
+	}
+	
+	public static void init() throws Exception {
+		init(System.getProperty("user.dir"));
 	}
 	
 	public static void setOSType(OSType osType) throws Exception {

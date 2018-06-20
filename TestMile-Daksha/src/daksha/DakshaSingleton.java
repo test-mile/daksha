@@ -30,9 +30,9 @@ public enum DakshaSingleton {
 	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
 	private PageDefRepository pageRep = PageDefRepository.INSTANCE;
 	private static String defString = "default";
-	
-	public void init() throws Exception {
-		this.centralConf = new CentralConfiguration();
+	 
+	public void init(String rootDir) throws Exception {
+		this.centralConf = new CentralConfiguration(rootDir);
 		LeapingSingleton.INSTANCE.init();
 	}
 	

@@ -17,13 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.uiauto01.web.uidriver;
+package daksha.ex.uiauto01.selenium.automator;
 
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.Test;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 
 import daksha.Daksha;
 import daksha.core.leaping.enums.OSType;
@@ -33,17 +34,24 @@ import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.element.MultiGuiElement;
 import daksha.tpi.leaping.generator.GuiAutomatorFactory;
 import daksha.tpi.leaping.generator.selenium.SeleniumBuilder;
+import daksha.tpi.testng.TestNGBaseTest;
 
-public class WebTestAutomationWithUiDriver {
+public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
+	private ThreadLocal<GuiAutomator<WebDriver,WebElement>> automator = new ThreadLocal<GuiAutomator<WebDriver,WebElement>>();
+	
+	protected void setCentralOptions() throws Exception {
+		Daksha.setOSType(OSType.MAC);
+	}
+	
+	@BeforeClass
+	public void createAutomator(ITestContext testContext) throws Exception {
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
+		this.automator.set(builder.build());
+	}
 	
 	@Test
 	public void test() throws Exception{
-		Daksha.init();
-		Daksha.setOSType(OSType.MAC);
-		Daksha.freezeCentralConfig();
-		
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getDefaultTestContext());
-		GuiAutomator<WebDriver,WebElement> automator = builder.build();
+		GuiAutomator<WebDriver,WebElement> automator = this.automator.get();
 		automator.goTo(AppConfig.WP_ADMIN_URL);		
 
 		GuiElement userTextBox = automator.elementWithId("user_login");
@@ -95,6 +103,10 @@ public class WebTestAutomationWithUiDriver {
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 		
 		automator.goTo(AppConfig.WP_LOGOUT_URL);
-		automator.close();
+	}
+	
+	@AfterClass
+	public void closeAutomator(ITestContext testContext) throws Exception {
+		this.automator.get().close();
 	}
 }
