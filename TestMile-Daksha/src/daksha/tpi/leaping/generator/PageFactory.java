@@ -32,7 +32,7 @@ import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class PageFactory {
 	
-	public static App getSimpleApp(String name, GuiAutomatorProxy automator, String appMapsRootDir) throws Exception{
+	public static App createAppFromDir(String name, GuiAutomatorProxy automator, String appMapsRootDir) throws Exception{
 		String consideredPath = appMapsRootDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
 			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAPS_DIR).asString() + "/" + consideredPath);
@@ -40,9 +40,9 @@ public class PageFactory {
 				throw new Exception(String.format("Provided root map path dir is not a directory: %s" ,  consideredPath));			
 			} 
 		}
-		App app = new DefaultApp(name, automator, appMapsRootDir + File.separator + "app.ini");
+		App app = new DefaultApp(name, automator, appMapsRootDir + File.separator + "home.ini");
 		File d = new File(consideredPath + File.separator + "pages");
-		if (!FileSystemUtils.isDir(consideredPath)){
+		if (FileSystemUtils.isDir(d)){
 			for (File path: d.listFiles()){
 				app.registerPage(FilenameUtils.getBaseName(path.getAbsolutePath()), path.getAbsolutePath());
 			}
