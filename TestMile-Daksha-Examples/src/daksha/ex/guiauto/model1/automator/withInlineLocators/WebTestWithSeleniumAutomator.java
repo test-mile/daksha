@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.guiauto.model1.automator.withInlineIdentifiers;
+package daksha.ex.guiauto.model1.automator.withInlineLocators;
 
 import static org.testng.Assert.assertTrue;
 

@@ -11,9 +11,9 @@ import daksha.core.cleanup.element.selenium.SeleniumGenericElement;
 import daksha.core.cleanup.element.selenium.SeleniumMultiElement;
 import daksha.tpi.cleanup.gui.Gui;
 
-public class SeleniumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier<WebDriver,WebElement>{
+public class SeleniumGuiElementPicker extends BaseSeleniumGuiElementPicker<WebDriver,WebElement>{
 	
-	public SeleniumGuiElementIdentifier(ConcreteGuiAutomator<WebDriver,WebElement> automator) throws Exception {
+	public SeleniumGuiElementPicker(ConcreteGuiAutomator<WebDriver,WebElement> automator) throws Exception {
 		super(automator);
 	}
 	

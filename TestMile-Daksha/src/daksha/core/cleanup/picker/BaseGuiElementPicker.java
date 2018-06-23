@@ -15,10 +15,10 @@ import daksha.tpi.cleanup.element.GuiElement;
 import daksha.tpi.cleanup.enums.GuiElementType;
 import daksha.tpi.cleanup.gui.Gui;
 
-public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentifier<D,E>{
+public abstract class BaseGuiElementPicker<D,E> implements GuiElementPicker<D,E>{
 	private ConcreteGuiAutomator<D,E> automator = null;
 	
-	public BaseGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) {
+	public BaseGuiElementPicker(ConcreteGuiAutomator<D,E> automator) {
 		this.automator = automator;
 	}
 	
@@ -368,18 +368,6 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 	@Override
 	public void convertToDropDown(GuiElementProxy proxy) throws Exception {
 		throw new Exception("Drop down conversion not supported.");
-	}
-	
-	public void throwUnsupportedIndentifierException(String componentName, String methodName, String idString) throws Exception{
-//		throwGenericUiAutomatorException(
-//				componentName,
-//				methodName,
-//				ErrorType.UNSUPPORTED_IDENTIFIER,
-//				String.format(
-//						ErrorType.UNSUPPORTED_IDENTIFIER,
-//						idString
-//				)
-//		);
 	}
 
 }

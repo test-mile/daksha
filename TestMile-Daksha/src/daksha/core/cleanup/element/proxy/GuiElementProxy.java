@@ -50,7 +50,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	}
 	
 	public GuiElementProxy asDropDown() throws Exception {
-		this.getAutomator().getConcreteAutomator().getIdentifier().convertToDropDown(this);
+		this.getAutomator().getConcreteAutomator().getPicker().convertToDropDown(this);
 		return this;
 	}
 

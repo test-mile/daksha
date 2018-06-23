@@ -16,9 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.core.cleanup.enums;
+package daksha.core.cleanup.actions.element;
 
-public enum LocateBy {
-	ID, NAME, XPATH, CSS, CLASS, LINK_TEXT, PARTIAL_LINK_TEXT, TAG, FORM_ACTION,
-	X_TEXT, X_TITLE, X_PARTIAL_TEXT, X_TYPE, X_VALUE, X_IMAGE_SRC, IMAGE; 
+import daksha.tpi.cleanup.element.GuiElement;
+
+public interface ElementIdentification {	
+	GuiElement identify() throws Exception;
 }

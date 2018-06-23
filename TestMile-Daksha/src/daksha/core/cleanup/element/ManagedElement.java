@@ -27,7 +27,7 @@ public interface ManagedElement {
 
 	GuiElementMetaData getMetaData();
 	
-	void setIdentifier(GuiElementMetaData gei);
+	void setMetaData(GuiElementMetaData gei);
 
 	void setProperty(String propName, String value);
 

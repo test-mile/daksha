@@ -24,12 +24,12 @@ import java.util.List;
 import java.util.Map;
 
 import daksha.Daksha;
-import daksha.core.cleanup.enums.LocateBy;
+import daksha.core.cleanup.enums.PickBy;
 import daksha.tpi.cleanup.enums.GuiElementType;
 
 public class DefaultGuiElementMetaData implements GuiElementMetaData {
 	private Map<String, String> metaData = new HashMap<String, String>();
-	List<GuiLocator> identifiers = new ArrayList<GuiLocator>();
+	List<GuiLocator> locators = new ArrayList<GuiLocator>();
 	
 	public DefaultGuiElementMetaData(Map<String, String> map) {
 		for (String key: map.keySet()){
@@ -53,17 +53,16 @@ public class DefaultGuiElementMetaData implements GuiElementMetaData {
 		return metaData;
 	}
 
-	private List<String> getAllowedLocators() throws Exception{
-		return Daksha.getAllowedIdentifiers();
+	private List<String> getAllowedPickByStrings() throws Exception{
+		return Daksha.getAllowedPickByStrings();
 	}
 	
 	public void process() throws Exception{
 		for (String property: getAllProperties().keySet()){
 			String upProperty = property.toUpperCase();
 			String value = get(property);
-			// Is it an identifier?
-			if(getAllowedLocators().contains(upProperty)){
-				LocateBy locateBy = LocateBy.valueOf(upProperty);
+			if(getAllowedPickByStrings().contains(upProperty)){
+				PickBy locateBy = PickBy.valueOf(upProperty);
 				switch(locateBy){
 				case ID: addLocator(locateBy, value);break;
 				case NAME: addLocator(locateBy, value);break;
@@ -75,19 +74,19 @@ public class DefaultGuiElementMetaData implements GuiElementMetaData {
 				case TAG: addLocator(locateBy, value);break;
 				case IMAGE: addLocator(locateBy, value);break;
 				case X_TEXT:
-					addLocator(LocateBy.XPATH, String.format("//*[text()='%s']", value));
+					addLocator(PickBy.XPATH, String.format("//*[text()='%s']", value));
 					break;
 				case X_PARTIAL_TEXT: 
-					addLocator(LocateBy.XPATH, String.format("//*[contains(text(),'%s')]", value));
+					addLocator(PickBy.XPATH, String.format("//*[contains(text(),'%s')]", value));
 					break;
 				case X_VALUE:
-					addLocator(LocateBy.XPATH, String.format("//*[@value='%s']", value));
+					addLocator(PickBy.XPATH, String.format("//*[@value='%s']", value));
 					break;					
 				case X_TITLE: 
-					addLocator(LocateBy.XPATH, String.format("//*[@title='%s']", value));
+					addLocator(PickBy.XPATH, String.format("//*[@title='%s']", value));
 					break;
 				case X_IMAGE_SRC:
-					addLocator(LocateBy.XPATH, String.format("//img[@src='%s']", value));
+					addLocator(PickBy.XPATH, String.format("//img[@src='%s']", value));
 					break;
 				case X_TYPE:
 					String upValue = value.toUpperCase();
@@ -95,31 +94,31 @@ public class DefaultGuiElementMetaData implements GuiElementMetaData {
 						GuiElementType elementType = GuiElementType.valueOf(upValue);
 						switch(elementType){
 						case TEXTBOX:
-							addLocator(LocateBy.XPATH, String.format("//input[@type='text']", value));
+							addLocator(PickBy.XPATH, String.format("//input[@type='text']", value));
 							break;	
 						case PASSWORD:
-							addLocator(LocateBy.XPATH, String.format("//input[@type='password']", value));
+							addLocator(PickBy.XPATH, String.format("//input[@type='password']", value));
 							break;	
 						case LINK: 
-							addLocator(LocateBy.XPATH, String.format("//a", value));
+							addLocator(PickBy.XPATH, String.format("//a", value));
 							break;	
 						case BUTTON: 
-							addLocator(LocateBy.XPATH, String.format("//input[@type='button']", value));
+							addLocator(PickBy.XPATH, String.format("//input[@type='button']", value));
 							break;	
 						case SUBMIT_BUTTON: 
-							addLocator(LocateBy.XPATH, String.format("//input[@type='submit']", value));
+							addLocator(PickBy.XPATH, String.format("//input[@type='submit']", value));
 							break;	
 						case DROPDOWN: 
-							addLocator(LocateBy.XPATH, String.format("//select", value));
+							addLocator(PickBy.XPATH, String.format("//select", value));
 							break;	
 						case CHECKBOX: 
-							addLocator(LocateBy.XPATH, String.format("//input[@type='checkbox']", value));
+							addLocator(PickBy.XPATH, String.format("//input[@type='checkbox']", value));
 							break;	
 						case RADIO: 
-							addLocator(LocateBy.XPATH, String.format("//input[@type='radio']", value));
+							addLocator(PickBy.XPATH, String.format("//input[@type='radio']", value));
 							break;
 						case IMAGE: 
-							addLocator(LocateBy.XPATH, String.format("//img", value));
+							addLocator(PickBy.XPATH, String.format("//img", value));
 							break;	
 						}
 					} else {
@@ -136,12 +135,12 @@ public class DefaultGuiElementMetaData implements GuiElementMetaData {
 
 	@Override
 	public List<GuiLocator> getLocators(){
-		return identifiers;
+		return locators;
 	}
 
 	@Override
-	public void addLocator(LocateBy key, String value) {
-		identifiers.add(new GuiLocator(key, value));
+	public void addLocator(PickBy key, String value) {
+		locators.add(new GuiLocator(key, value));
 	}
 	
 }

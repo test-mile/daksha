@@ -37,10 +37,6 @@ public class AppiumNativeUiDriver extends BaseAppiumUiDriver {
 	public AppiumNativeUiDriver(TestContext testContext) throws Exception{
 		this(testContext, ElementLoaderType.AUTOMATOR);
 	}
-
-	protected boolean checkNullIdentifier(String identifier, String idValue) throws Exception{
-		return MobileNativeLocateBy.valueOf(identifier) == null;
-	}
 	
 	private void switchToView(String view) throws Exception {
 		this.getUnderlyingEngine().context(view);

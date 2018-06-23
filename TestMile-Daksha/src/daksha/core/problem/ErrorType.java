@@ -44,9 +44,9 @@ public class ErrorType {
 
 	public static final String MAPFILE_NOTAFILE = "Page Mapper was provided a path which is not a file: %s.";
 
-	public static final String UNSUPPORTED_IDENTIFIER = "Unsupported identifier: %s.";
+	public static final String UNSUPPORTED_LOCATOR = "Unsupported locator: %s.";
 
-	public static final String UNSUPPORTED_MULTIPLE_IDENTIFIERS = "Multiple identifiers not supported: %s";
+	public static final String UNSUPPORTED_MULTIPLE_LOCATORS = "Multiple locators not supported: %s";
 
 	public static final String PROPERTY_DOES_NOT_EXIST = "Property with the name %s does not exist in Property Manager.";
 
@@ -54,15 +54,15 @@ public class ErrorType {
 
 	public static final String AUTOMATOR_UNSUPPORTED_ACTION = "Unsupported action for: %s.";
 
-	public static final String COMPOSITE_PAGE_NULL_AUTOMATOR = "Null Automator provided to Composite Page for %s automation.";
+	public static final String COMPOSITE_GUI_NULL_AUTOMATOR = "Null Automator provided to Composite GUI for %s automation.";
 
-	public static final String COMPOSITE_PAGE_NONEXISTING_LABEL = "A page fragment with the label %s does not exist in %s composite page.";
+	public static final String COMPOSITE_GUI_NONEXISTING_LABEL = "A child GUI with the label %s does not exist in %s composite GUI.";
 
-	public static final String COMPOSITE_PAGE_NULL_LABEL = "Null was provided as the page fragment name for %s composite page.";
+	public static final String COMPOSITE_GUI_NULL_LABEL = "Null was provided as the child GUI name for %s composite GUI.";
 
-	public static final String UI_ELEMENT_INVALID_METADATA = "An invalid element definition was provided for %s context with meta-data: %s.";
+	public static final String GUI_ELEMENT_INVALID_METADATA = "An invalid element definition was provided for %s context with meta-data: %s.";
 
-	public static final String UI_NULL_ELEMENT = "Null was provided as element name for %s UI.";
+	public static final String GUI_NULL_ELEMENT = "Null was provided as element name for %s GUI.";
 
 	public static final String FACTORY_AUTOMATOR_MOBILE_NULL_APP_PATH = "Null value provided for mobile app path.";
 

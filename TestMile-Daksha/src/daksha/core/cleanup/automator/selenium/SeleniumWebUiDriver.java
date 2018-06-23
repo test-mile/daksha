@@ -26,7 +26,7 @@ import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.Direction;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.core.cleanup.picker.selenium.SeleniumGuiElementIdentifier;
+import daksha.core.cleanup.picker.selenium.SeleniumGuiElementPicker;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
 import daksha.tpi.enums.DakshaOption;
 
@@ -42,7 +42,7 @@ public class SeleniumWebUiDriver extends BaseSeleniumWebUiDriver<WebDriver,WebEl
 
 	public void load() throws Exception {
 		super.load();
-		this.setIdentifier(new SeleniumGuiElementIdentifier(this));
+		this.setPicker(new SeleniumGuiElementPicker(this));
 	}
 	
 }

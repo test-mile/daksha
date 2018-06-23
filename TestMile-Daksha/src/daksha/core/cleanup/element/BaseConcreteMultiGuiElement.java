@@ -24,19 +24,19 @@ import java.util.List;
 import daksha.core.cleanup.automator.ConcreteGuiAutomator;
 import daksha.core.cleanup.element.proxy.GuiElementProxy;
 import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
-import daksha.core.cleanup.picker.GuiElementIdentifier;
+import daksha.core.cleanup.picker.GuiElementPicker;
 import daksha.core.cleanup.picker.GuiElementMetaData;
 import daksha.tpi.cleanup.gui.Gui;
 
 public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcreteGuiElement<D,E,MultiGuiElementProxy> implements ConcreteMultiGuiElement<D,E>{
 	private List<E> toolElements = null;
 	private GuiElementMetaData emd = null;
-	private GuiElementIdentifier<D,E> identifier = null;
+	private GuiElementPicker<D,E> picker = null;
 
 	public BaseConcreteMultiGuiElement(Gui page, ConcreteGuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
 		super(page, automator, eProxy);
 		this.emd = eProxy.getMetaData();
-		this.identifier = automator.getIdentifier();
+		this.picker = automator.getPicker();
 	}
 	
 	public BaseConcreteMultiGuiElement(ConcreteGuiAutomator<D,E> automator, MultiGuiElementProxy eProxy) {
@@ -44,7 +44,7 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	}
 	
 	public void identify() throws Exception{
-		this.toolElements = this.identifier.findAll(this.emd);
+		this.toolElements = this.picker.findAll(this.emd);
 	}
 	
 	public void identifyIfNull() throws Exception {
@@ -53,8 +53,8 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 		}
 	}
 	
-	protected GuiElementIdentifier<D,E> getIdentifier(){
-		return this.identifier;
+	protected GuiElementPicker<D,E> getPicker(){
+		return this.picker;
 	}
 
 	protected List<E> getToolElements(){
@@ -86,14 +86,14 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	protected abstract boolean doesTextContain(E element, String text) throws Exception;
 	
 	public GuiElementProxy getInstanceAtIndex(int index) throws Exception {
-		return this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), this.toolElements.get(index));
+		return this.getPicker().convertToolElementToProxy(this.getPage(), this.getMetaData(), this.toolElements.get(index));
 	}
 	
 	@Override
 	public List<GuiElementProxy> getAllInstances() throws Exception {
 		List<GuiElementProxy> outList = new ArrayList<GuiElementProxy>();
 		for (E element: this.toolElements) {
-			outList.add(this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), element));
+			outList.add(this.getPicker().convertToolElementToProxy(this.getPage(), this.getMetaData(), element));
 		}
 		return outList;
 	}
@@ -102,7 +102,7 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	public GuiElementProxy getInstanceByText(String text) throws Exception {
 		for (E element: this.toolElements){
 			if (doesTextMatch(element, text)) {
-				return this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), element);
+				return this.getPicker().convertToolElementToProxy(this.getPage(), this.getMetaData(), element);
 			}
 		}
 		throw new Exception("None of the element instances has the specified text.");
@@ -112,7 +112,7 @@ public abstract class BaseConcreteMultiGuiElement<D,E> extends BaseManagedConcre
 	public GuiElementProxy getInstanceByTextContent(String text) throws Exception {
 		for (E element: this.getToolElements()){
 			if (doesTextContain(element, text)) {
-				return this.getIdentifier().convertToolElementToProxy(this.getPage(), this.getMetaData(), element);
+				return this.getPicker().convertToolElementToProxy(this.getPage(), this.getMetaData(), element);
 			}
 		}
 		throw new Exception("None of the element instances has the specified text content.");

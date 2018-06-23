@@ -103,7 +103,7 @@ public class BaseGuiElementProxy implements ManagedElement{
 		return this.emd;
 	}
 	
-	public void setIdentifier(GuiElementMetaData gei) {
+	public void setMetaData(GuiElementMetaData gei) {
 		this.emd = gei;
 	}
 

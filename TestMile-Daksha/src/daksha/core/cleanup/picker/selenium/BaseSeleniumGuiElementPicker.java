@@ -11,14 +11,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.cleanup.automator.ConcreteGuiAutomator;
 import daksha.core.cleanup.enums.WebLocateBy;
-import daksha.core.cleanup.picker.BaseGuiElementIdentifier;
+import daksha.core.cleanup.picker.BaseGuiElementPicker;
 import daksha.core.cleanup.picker.GuiLocator;
 import daksha.tpi.cleanup.enums.GuiElementType;
 
-public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E extends WebElement> extends BaseGuiElementIdentifier<D,E>{
+public abstract class BaseSeleniumGuiElementPicker<D extends WebDriver,E extends WebElement> extends BaseGuiElementPicker<D,E>{
 	WebDriverWait waiter = null;
 	
-	public BaseSeleniumGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) throws Exception {
+	public BaseSeleniumGuiElementPicker(ConcreteGuiAutomator<D,E> automator) throws Exception {
 		super(automator);
 		D driver = this.getGuiAutomator().getUiDriverEngine();
 		waiter = new WebDriverWait((WebDriver) driver, this.getGuiAutomator().getWaitTime());
@@ -28,12 +28,12 @@ public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E ext
 		By findBy = null;
 		WebLocateBy idType = null;
 		try{
-			idType = locator.asWebLocateBy();
+			idType = locator.asWebPickBy();
 		} catch (Throwable e){
-			throwUnsupportedIndentifierException(
-					"WEBDRIVER_AUTOMATOR",
-					"getFinderType",
-					locator.asLocateBy().toString());
+			throw new Exception(
+					String.format("Unsupported locator for %s: ",
+					"WEBDRIVER",
+					locator.asPickBy().toString()));
 		}
 		
 		String idValue = locator.getValue();

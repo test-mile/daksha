@@ -21,7 +21,7 @@ package daksha.core.cleanup.picker;
 import java.util.List;
 import java.util.Map;
 
-import daksha.core.cleanup.enums.LocateBy;
+import daksha.core.cleanup.enums.PickBy;
 
 public interface GuiElementMetaData {
 
@@ -35,5 +35,5 @@ public interface GuiElementMetaData {
 
 	List<GuiLocator> getLocators();
 
-	void addLocator(LocateBy key, String value);
+	void addLocator(PickBy key, String value);
 }

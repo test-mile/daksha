@@ -14,14 +14,14 @@ import daksha.core.cleanup.element.proxy.GuiElementProxy;
 import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
 import daksha.core.cleanup.element.sikuli.SikuliElement;
 import daksha.core.cleanup.element.sikuli.SikuliMultiElement;
-import daksha.core.cleanup.picker.BaseGuiElementIdentifier;
+import daksha.core.cleanup.picker.BaseGuiElementPicker;
 import daksha.core.cleanup.picker.GuiLocator;
 import daksha.tpi.cleanup.enums.GuiElementType;
 import daksha.tpi.cleanup.gui.Gui;
 
-public class SikuliGuiElementIdentifier extends BaseGuiElementIdentifier<Screen,Match>{
+public class SikuliGuiElementPicker extends BaseGuiElementPicker<Screen,Match>{
 	
-	public SikuliGuiElementIdentifier(ConcreteGuiAutomator<Screen,Match> automator) {
+	public SikuliGuiElementPicker(ConcreteGuiAutomator<Screen,Match> automator) {
 		super(automator);
 	}
 	
@@ -58,7 +58,7 @@ public class SikuliGuiElementIdentifier extends BaseGuiElementIdentifier<Screen,
 			locator.asVisualLocateBy();
 			imgPath = locator.getValue();
 		} catch (Exception e) {
-			throw new Exception("Unsupported identifier");
+			throw new Exception("Unsupported locator");
 		}
 		
 		Pattern pattern = new Pattern(imgPath);

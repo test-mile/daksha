@@ -6,14 +6,14 @@ import daksha.core.cleanup.element.appium.AppiumGenericElement;
 import daksha.core.cleanup.element.appium.AppiumMultiElement;
 import daksha.core.cleanup.element.proxy.GuiElementProxy;
 import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
-import daksha.core.cleanup.picker.selenium.BaseSeleniumGuiElementIdentifier;
+import daksha.core.cleanup.picker.selenium.BaseSeleniumGuiElementPicker;
 import daksha.tpi.cleanup.gui.Gui;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
-public class AppiumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier<AppiumDriver<MobileElement>,MobileElement>{
+public class AppiumGuiElementPicker extends BaseSeleniumGuiElementPicker<AppiumDriver<MobileElement>,MobileElement>{
 	
-	public AppiumGuiElementIdentifier(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator) throws Exception {
+	public AppiumGuiElementPicker(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator) throws Exception {
 		super(automator);
 	}
 	

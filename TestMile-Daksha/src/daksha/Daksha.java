@@ -79,8 +79,8 @@ public class Daksha {
 		return LeapingSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
-	public static List<String> getAllowedIdentifiers() throws Exception {
-		return LeapingSingleton.INSTANCE.getAllowedIdentifiers() ;
+	public static List<String> getAllowedPickByStrings() throws Exception {
+		return LeapingSingleton.INSTANCE.getAllowedPickByStrings() ;
 	}
 
 	public static List<String> getAllAllowedUiElementTypes() {

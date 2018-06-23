@@ -188,7 +188,7 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	}
 	
 	public void waitForBody() throws Exception {
-		this.getIdentifier().elementWithTagName("body").waitUntilPresent();
+		this.getPicker().elementWithTagName("body").waitUntilPresent();
 	}
 	
 	public void refresh() throws Exception {

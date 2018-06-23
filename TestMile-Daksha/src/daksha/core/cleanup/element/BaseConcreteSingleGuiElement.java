@@ -22,7 +22,7 @@ import java.util.List;
 
 import daksha.core.cleanup.automator.ConcreteGuiAutomator;
 import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.core.cleanup.picker.GuiElementIdentifier;
+import daksha.core.cleanup.picker.GuiElementPicker;
 import daksha.core.cleanup.picker.GuiElementMetaData;
 import daksha.tpi.cleanup.element.GuiElement;
 import daksha.tpi.cleanup.element.MultiGuiElement;
@@ -33,7 +33,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	private E toolElement = null;
 	private GuiElementMetaData emd = null;
 	private GuiElementType elementType = null;
-	private GuiElementIdentifier<D,E> identifier = null;
+	private GuiElementPicker<D,E> picker = null;
 	private int waitTime = 10;
 	
 	public BaseConcreteSingleGuiElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
@@ -49,7 +49,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	
 	private void populateObjectVars(ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
 		this.emd = proxy.getMetaData();
-		this.identifier = automator.getIdentifier();		
+		this.picker = automator.getPicker();		
 		this.waitTime = automator.getWaitTime();
 	}
 	
@@ -59,7 +59,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	public void identify() throws Exception{
-		this.setToolElement(this.getAutomator().getIdentifier().find(this.emd));
+		this.setToolElement(this.getAutomator().getPicker().find(this.emd));
 	}
 	
 	public void identifyIfNull() throws Exception {
@@ -71,18 +71,18 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	public GuiElementProxy element(String name) throws Exception{
 		
 		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
-		E element = this.identifier.find(this, metaData);
-		return this.identifier.convertToolElementToProxy(this.getPage(), metaData, element);
+		E element = this.picker.find(this, metaData);
+		return this.picker.convertToolElementToProxy(this.getPage(), metaData, element);
 	}
 
-	protected GuiElementIdentifier<D,E> getIdentifier() {
-		return this.identifier;
+	protected GuiElementPicker<D,E> getPicker() {
+		return this.picker;
 	}
 	
 	public MultiGuiElement elements(String name) throws Exception{
 		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
-		List<E> elements = this.identifier.findAll(this, metaData);
-		return this.identifier.convertMultiToolElementToProxy(this.getPage(), metaData, elements);
+		List<E> elements = this.picker.findAll(this, metaData);
+		return this.picker.convertMultiToolElementToProxy(this.getPage(), metaData, elements);
 	}
 	
 	public void setToolElement(E element) {
@@ -130,7 +130,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	
 	@Override
 	public boolean isPresent() throws Exception {
-		return this.getIdentifier().isPresent(this.getGuiElementProxy());
+		return this.getPicker().isPresent(this.getGuiElementProxy());
 	}
 	
 	@Override
@@ -154,7 +154,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 		
 	@Override
 	public boolean isVisible() throws Exception {
-		return this.getIdentifier().isVisible(this.getGuiElementProxy());
+		return this.getPicker().isVisible(this.getGuiElementProxy());
 	}
 
 	@Override
@@ -178,7 +178,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	
 	@Override
 	public boolean isClickable() throws Exception {
-		return this.getIdentifier().isClickable(this.getGuiElementProxy());
+		return this.getPicker().isClickable(this.getGuiElementProxy());
 	}
 	
 	@Override

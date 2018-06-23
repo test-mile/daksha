@@ -185,12 +185,12 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 		try {
 			builder = getActionChain();
 			builder.moveToElement(this.asWebElement()).perform();
-			WebElement e2 = (WebElement) this.getIdentifier().find(metaData);
+			WebElement e2 = (WebElement) this.getPicker().find(metaData);
 			e2.click();
 		} catch (Exception e){
 			try {
 				builder = getActionChain();
-				builder.moveToElement(this.asWebElement()).click((WebElement) this.getIdentifier().find(metaData)).perform();
+				builder.moveToElement(this.asWebElement()).click((WebElement) this.getPicker().find(metaData)).perform();
 			} catch (Exception f) {
 				throw new Exception("Hover and Click Element failed.");
 			}
@@ -204,7 +204,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 	public void rightClickAndClickElement(String name) throws Exception{
 		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
 		this.rightClick();
-		WebElement e2 = (WebElement) this.getIdentifier().find(metaData);
+		WebElement e2 = (WebElement) this.getPicker().find(metaData);
 		e2.click();	
 	}
 }

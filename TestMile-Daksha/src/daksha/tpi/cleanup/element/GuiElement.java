@@ -23,7 +23,7 @@ import daksha.core.cleanup.actions.element.BasicActionHandler;
 import daksha.core.cleanup.actions.element.ChainActionHandler;
 import daksha.core.cleanup.actions.element.CheckBoxActionHandler;
 import daksha.core.cleanup.actions.element.DropdownActionsHandler;
-import daksha.core.cleanup.actions.element.ElementIdentifier;
+import daksha.core.cleanup.actions.element.ElementIdentification;
 import daksha.core.cleanup.actions.element.ImageBasedActionHandler;
 import daksha.core.cleanup.actions.element.State;
 import daksha.core.cleanup.actions.element.WebActionHandler;
@@ -37,7 +37,7 @@ public interface GuiElement extends 		ManagedSingleElement,
 											CheckBoxActionHandler,
 											DropdownActionsHandler,
 											WebActionHandler,
-											ElementIdentifier,
+											ElementIdentification,
 											State{
 
 	Object throwUnsupportedActionException(String action) throws Exception;

@@ -9,7 +9,7 @@ import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
 import daksha.tpi.cleanup.element.GuiElement;
 import daksha.tpi.cleanup.gui.Gui;
 
-public interface GuiElementIdentifier<D,E> extends GuiElementCreationHandler{
+public interface GuiElementPicker<D,E> extends GuiElementCreationHandler{
 	
 	E find(GuiElementMetaData emd) throws Exception;
 	E find(ConcreteGuiElement<D,E> element, GuiElementMetaData emd) throws Exception;	

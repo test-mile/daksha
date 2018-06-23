@@ -201,7 +201,7 @@ public abstract class BaseGui implements Gui{
 		} else if (!this.pageDef.has(elementName)) {
 			return (GuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			GuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getIdentifier().createProxy(this, this.pageDef.getMetaData(elementName));
+			GuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getPicker().createProxy(this, this.pageDef.getMetaData(elementName));
 			return proxy;
 		}
 	}
@@ -212,7 +212,7 @@ public abstract class BaseGui implements Gui{
 		} else if (!this.pageDef.has(elementName)) {
 			return (MultiGuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			MultiGuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getIdentifier().createMultiProxy(this, this.pageDef.getMetaData(elementName));
+			MultiGuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getPicker().createMultiProxy(this, this.pageDef.getMetaData(elementName));
 			return proxy;
 		}
 	}
@@ -237,8 +237,8 @@ public abstract class BaseGui implements Gui{
 			"Page Object Component",
 			this.getName(),
 			method,
-			ErrorType.COMPOSITE_PAGE_NONEXISTING_LABEL,
-			String.format(ErrorType.COMPOSITE_PAGE_NONEXISTING_LABEL, uiLabel, this.getName())
+			ErrorType.COMPOSITE_GUI_NONEXISTING_LABEL,
+			String.format(ErrorType.COMPOSITE_GUI_NONEXISTING_LABEL, uiLabel, this.getName())
 		);
 	}
 	
@@ -247,8 +247,8 @@ public abstract class BaseGui implements Gui{
 			"Page Object Component",
 			this.getName(),
 			method,
-			ErrorType.COMPOSITE_PAGE_NULL_LABEL,
-			String.format(ErrorType.COMPOSITE_PAGE_NULL_LABEL, this.getName() )
+			ErrorType.COMPOSITE_GUI_NULL_LABEL,
+			String.format(ErrorType.COMPOSITE_GUI_NULL_LABEL, this.getName() )
 		);
 	}
 	
@@ -310,9 +310,9 @@ public abstract class BaseGui implements Gui{
 	public Object throwNullElementException(String methodName, String elementName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				ErrorType.UI_NULL_ELEMENT,
+				ErrorType.GUI_NULL_ELEMENT,
 				String.format(
-						ErrorType.UI_NULL_ELEMENT,
+						ErrorType.GUI_NULL_ELEMENT,
 						DataUtils.toTitleCase(this.getAutomatorContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
 						//						Batteries.toTitleCase(getAutomationType().toString())

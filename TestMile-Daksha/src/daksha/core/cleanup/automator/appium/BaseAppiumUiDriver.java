@@ -33,7 +33,7 @@ import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.MobileView;
 import daksha.core.cleanup.enums.OSType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.core.cleanup.picker.appium.AppiumGuiElementIdentifier;
+import daksha.core.cleanup.picker.appium.AppiumGuiElementPicker;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
@@ -82,7 +82,7 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 		}
 		this.setDriver(driver);
 		this.setWaiter(new WebDriverWait(this.getUnderlyingEngine(), this.getWaitTime()));	
-		this.setIdentifier(new AppiumGuiElementIdentifier(this));
+		this.setPicker(new AppiumGuiElementPicker(this));
 	}
 	
 	private void throwUnreachableBrowserException(OSType platformType, Throwable e) throws Exception {

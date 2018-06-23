@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.core.cleanup.picker;
 
-import daksha.core.cleanup.enums.LocateBy;
+import daksha.core.cleanup.enums.PickBy;
 import daksha.core.cleanup.enums.MobileNativeLocateBy;
 import daksha.core.cleanup.enums.MobileWebLocateBy;
 import daksha.core.cleanup.enums.NativeLocateBy;
@@ -26,19 +26,19 @@ import daksha.core.cleanup.enums.VisualLocateBy;
 import daksha.core.cleanup.enums.WebLocateBy;
 
 public class GuiLocator {
-	private LocateBy by = null;
+	private PickBy by = null;
 	private String value = null;
 	
-	public GuiLocator(LocateBy by, String value){
+	public GuiLocator(PickBy by, String value){
 		this.by = by;
 		this.value = value;
 	}
 	
-	public LocateBy asLocateBy() {
+	public PickBy asPickBy() {
 		return this.by;
 	}
 	
-	public WebLocateBy asWebLocateBy() {
+	public WebLocateBy asWebPickBy() {
 		return WebLocateBy.valueOf(by.toString());
 	}
 	

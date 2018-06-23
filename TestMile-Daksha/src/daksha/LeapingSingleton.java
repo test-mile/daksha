@@ -25,7 +25,7 @@ import java.util.Map;
 
 import daksha.core.cleanup.enums.AppiumAndroidBrowserType;
 import daksha.core.cleanup.enums.AppiumIosBrowserType;
-import daksha.core.cleanup.enums.LocateBy;
+import daksha.core.cleanup.enums.PickBy;
 import daksha.core.cleanup.enums.MobileNativeLocateBy;
 import daksha.core.cleanup.enums.MobileWebLocateBy;
 import daksha.core.cleanup.enums.NativeLocateBy;
@@ -40,12 +40,12 @@ public enum LeapingSingleton {
 	INSTANCE;
 
 	// UI Automator
-	private static List<String> allowedGenericIdentifiers = null;
-	private static List<String> allowedWebIdentifiers = null;
-	private static List<String> allowedNativeIdentifiers = null;
-	private static List<String> allowedMobileWebIdentifiers = null;
-	private static List<String> allowedMobileNativeIdentifiers = null;
-	private static List<String> allowedScreenIdentifiers = null;
+	private static List<String> allowedGenericLocators = null;
+	private static List<String> allowedWebLocators = null;
+	private static List<String> allowedNativeLocators = null;
+	private static List<String> allowedMobileWebLocators = null;
+	private static List<String> allowedMobileNativeLocators = null;
+	private static List<String> allowedScreenLocators = null;
 	private static List<String> allAllowedUiElementTypes = null;
 	private static Map<GuiAutomationContext, String> automationContextNames = null;
 	// Appium
@@ -76,9 +76,9 @@ public enum LeapingSingleton {
 		automationContextNames.put(GuiAutomationContext.SCREEN, "Screen");
 		automationContextNames.put(GuiAutomationContext.GENERIC, "Generic");
 
-		allowedGenericIdentifiers = new ArrayList<String>();
-		for (LocateBy prop: LocateBy.class.getEnumConstants()){
-			allowedGenericIdentifiers.add(prop.toString());
+		allowedGenericLocators = new ArrayList<String>();
+		for (PickBy prop: PickBy.class.getEnumConstants()){
+			allowedGenericLocators.add(prop.toString());
 		}
 
 		allAllowedUiElementTypes = new ArrayList<String>();
@@ -86,29 +86,29 @@ public enum LeapingSingleton {
 			allAllowedUiElementTypes.add(prop.toString());
 		}
 
-		allowedScreenIdentifiers = new ArrayList<String>();
+		allowedScreenLocators = new ArrayList<String>();
 		for (VisualLocateBy prop: VisualLocateBy.class.getEnumConstants()){
-			allowedScreenIdentifiers.add(prop.toString());
+			allowedScreenLocators.add(prop.toString());
 		}
 
-		allowedNativeIdentifiers = new ArrayList<String>();
+		allowedNativeLocators = new ArrayList<String>();
 		for (NativeLocateBy prop: NativeLocateBy.class.getEnumConstants()){
-			allowedNativeIdentifiers.add(prop.toString());
+			allowedNativeLocators.add(prop.toString());
 		}
 
-		allowedMobileNativeIdentifiers = new ArrayList<String>();
+		allowedMobileNativeLocators = new ArrayList<String>();
 		for (MobileNativeLocateBy prop: MobileNativeLocateBy.class.getEnumConstants()){
-			allowedMobileNativeIdentifiers.add(prop.toString());
+			allowedMobileNativeLocators.add(prop.toString());
 		}
 
-		allowedWebIdentifiers = new ArrayList<String>();
+		allowedWebLocators = new ArrayList<String>();
 		for (WebLocateBy prop: WebLocateBy.class.getEnumConstants()){
-			allowedWebIdentifiers.add(prop.toString());
+			allowedWebLocators.add(prop.toString());
 		}
 
-		allowedMobileWebIdentifiers = new ArrayList<String>();
+		allowedMobileWebLocators = new ArrayList<String>();
 		for (MobileWebLocateBy prop: MobileWebLocateBy.class.getEnumConstants()){
-			allowedMobileWebIdentifiers.add(prop.toString());		
+			allowedMobileWebLocators.add(prop.toString());		
 		}
 	}
 
@@ -120,43 +120,43 @@ public enum LeapingSingleton {
 		return automationContextNames.get(type);
 	}
 
-	public List<String> getAllowedGenericIdentifiers(){
-		return allowedGenericIdentifiers;
+	public List<String> getAllowedGenericLocators(){
+		return allowedGenericLocators;
 	}
 
 	public List<String> getAllAllowedUiElementTypes(){
 		return allAllowedUiElementTypes;
 	}
 
-	public List<String> getAllowedScreenIdentifiers(){
-		return allowedScreenIdentifiers;
+	public List<String> getAllowedScreenLocators(){
+		return allowedScreenLocators;
 	}
 
-	public List<String> getAllowedNativeIdentifiers() {
-		return allowedNativeIdentifiers;
+	public List<String> getAllowedNativeLocators() {
+		return allowedNativeLocators;
 	}
 
-	public List<String> getAllowedMobileNativeIdentifiers() {
-		return allowedMobileNativeIdentifiers;
+	public List<String> getAllowedMobileNativeLocators() {
+		return allowedMobileNativeLocators;
 	}
 
-	public List<String> getAllowedWebIdentifiers() {
-		return allowedWebIdentifiers;
+	public List<String> getAllowedWebLocators() {
+		return allowedWebLocators;
 	}
 
-	public List<String> getAllowedMobileWebIdentifiers() {
-		return allowedMobileWebIdentifiers;
+	public List<String> getAllowedMobileWebLocators() {
+		return allowedMobileWebLocators;
 	}
 
-	public List<String> getAllowedIdentifiers() throws Exception{
-		return getAllowedGenericIdentifiers();
+	public List<String> getAllowedPickByStrings() throws Exception{
+		return getAllowedGenericLocators();
 //		switch(context){
-//		case PC_WEB: return getAllowedWebIdentifiers();
-//		case PC_NATIVE: return getAllowedNativeIdentifiers();
-//		case MOBILE_WEB: return getAllowedMobileWebIdentifiers();
-//		case MOBILE_NATIVE: return getAllowedMobileNativeIdentifiers();
-//		case SCREEN: return getAllowedScreenIdentifiers();
-//		case GENERIC: return getAllowedGenericIdentifiers();
+//		case PC_WEB: return getAllowedWebLocators();
+//		case PC_NATIVE: return getAllowedNativeLocators();
+//		case MOBILE_WEB: return getAllowedMobileWebLocators();
+//		case MOBILE_NATIVE: return getAllowedMobileNativeLocators();
+//		case SCREEN: return getAllowedScreenLocators();
+//		case GENERIC: return getAllowedGenericLocators();
 //		default: throw new Exception("Unknown id context.");
 //		}
 	}

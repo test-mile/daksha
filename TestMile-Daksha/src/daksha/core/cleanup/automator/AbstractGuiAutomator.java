@@ -36,7 +36,7 @@ import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.OSType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.core.cleanup.picker.GuiElementIdentifier;
+import daksha.core.cleanup.picker.GuiElementPicker;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
@@ -50,7 +50,7 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	private GuiAutomationContext automatorContext = null;
 	String appTitle = null;
 	private ElementLoaderType loaderType = ElementLoaderType.AUTOMATOR;
-	private GuiElementIdentifier<D,E> identifier = null;
+	private GuiElementPicker<D,E> picker = null;
 	private int waitTime = 10;
 	private GuiAutomatorProxy proxy = null;
 	private ImageComprator imageComprator = null;
@@ -86,12 +86,12 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 		return uiAutomatorEngineName.toString();
 	}
 	
-	protected void setIdentifier(GuiElementIdentifier<D,E> identifier) {
-		this.identifier = identifier;
+	protected void setPicker(GuiElementPicker<D,E> picker) {
+		this.picker = picker;
 	}
 	
-	public GuiElementIdentifier<D,E> getIdentifier(){
-		return this.identifier;
+	public GuiElementPicker<D,E> getPicker(){
+		return this.picker;
 	}
 	
 	@Override
@@ -133,18 +133,6 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 				);		
 	}
 	
-//	public void throwUnsupportedMultipleIndentifiersException(String componentName, String methodName, String mapString) throws Exception{
-//		throwGenericUiAutomatorException(
-//				componentName,
-//				methodName, 
-//				UiAutomator.problem.UNSUPPORTED_MULTIPLE_IDENTIFIERS,
-//				Unitee.getProblemText(
-//						UiAutomator.problem.UNSUPPORTED_MULTIPLE_IDENTIFIERS,
-//						mapString
-//				)
-//		);
-//	}
-	
 	public UiDriverEngine getUiDriverEngineName(){
 		return this.uiAutomatorEngineName;
 	}
@@ -181,152 +169,152 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 
 	@Override
 	public GuiElementProxy elementWithId(String id) throws Exception {
-		return this.identifier.elementWithId(id);
+		return this.picker.elementWithId(id);
 	}
 
 	@Override
 	public GuiElementProxy elementWithName(String name) throws Exception {
-		return this.identifier.elementWithName(name);
+		return this.picker.elementWithName(name);
 	}
 
 	@Override
 	public GuiElementProxy elementWithClass(String klass) throws Exception {
-		return this.identifier.elementWithClass(klass);
+		return this.picker.elementWithClass(klass);
 	}
 
 	@Override
 	public GuiElementProxy elementWithCss(String cssSelector) throws Exception {
-		return this.identifier.elementWithCss(cssSelector);
+		return this.picker.elementWithCss(cssSelector);
 	}
 	
 	@Override
 	public GuiElementProxy elementWithTagName(String tag) throws Exception {
-		return this.identifier.elementWithTagName(tag);
+		return this.picker.elementWithTagName(tag);
 	}
 
 	@Override
 	public GuiElementProxy elementWithLinkText(String text) throws Exception {
-		return this.identifier.elementWithLinkText(text);
+		return this.picker.elementWithLinkText(text);
 	}
 
 	@Override
 	public GuiElementProxy elementWithPartialLinkText(String textContent) throws Exception {
-		return this.identifier.elementWithPartialLinkText(textContent);
+		return this.picker.elementWithPartialLinkText(textContent);
 	}
 
 	@Override
 	public GuiElementProxy elementWithXPath(String xpath) throws Exception {
-		return this.identifier.elementWithXPath(xpath);
+		return this.picker.elementWithXPath(xpath);
 	}
 
 	@Override
 	public GuiElementProxy elementWithXText(String text) throws Exception {
-		return this.identifier.elementWithXText(text);
+		return this.picker.elementWithXText(text);
 	}
 
 	@Override
 	public GuiElementProxy elementWithXPartialText(String textContent) throws Exception {
-		return this.identifier.elementWithXPartialText(textContent);
+		return this.picker.elementWithXPartialText(textContent);
 	}
 
 	@Override
 	public GuiElementProxy elementWithXValue(String value) throws Exception {
-		return this.identifier.elementWithXValue(value);
+		return this.picker.elementWithXValue(value);
 	}
 	
 	@Override
 	public GuiElementProxy elementWithXTitle(String value) throws Exception {
-		return this.identifier.elementWithXTitle(value);
+		return this.picker.elementWithXTitle(value);
 	}
 
 	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
-		return this.identifier.elementWithXImageSource(path);
+		return this.picker.elementWithXImageSource(path);
 	}
 
 	@Override
 	public GuiElementProxy elementOfXType(GuiElementType type) throws Exception {
-		return this.identifier.elementOfXType(type);
+		return this.picker.elementOfXType(type);
 	}
 
 	@Override
 	public GuiElementProxy elementBasedOnImage(String imagePath) throws Exception {
-		return this.identifier.elementBasedOnImage(imagePath);
+		return this.picker.elementBasedOnImage(imagePath);
 	}
 	
 	@Override
 	public MultiGuiElementProxy elementsWithId(String id) throws Exception {
-		return this.identifier.elementsWithId(id);
+		return this.picker.elementsWithId(id);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithName(String name) throws Exception {
-		return this.identifier.elementsWithName(name);
+		return this.picker.elementsWithName(name);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithClass(String klass) throws Exception {
-		return this.identifier.elementsWithClass(klass);
+		return this.picker.elementsWithClass(klass);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithCss(String cssSelector) throws Exception {
-		return this.identifier.elementsWithCss(cssSelector);
+		return this.picker.elementsWithCss(cssSelector);
 	}
 	
 	@Override
 	public MultiGuiElementProxy elementsWithTagName(String tag) throws Exception {
-		return this.identifier.elementsWithTagName(tag);
+		return this.picker.elementsWithTagName(tag);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithLinkText(String text) throws Exception {
-		return this.identifier.elementsWithLinkText(text);
+		return this.picker.elementsWithLinkText(text);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithPartialLinkText(String textContent) throws Exception {
-		return this.identifier.elementsWithPartialLinkText(textContent);
+		return this.picker.elementsWithPartialLinkText(textContent);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithXPath(String xpath) throws Exception {
-		return this.identifier.elementsWithXPath(xpath);
+		return this.picker.elementsWithXPath(xpath);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithXText(String text) throws Exception {
-		return this.identifier.elementsWithXText(text);
+		return this.picker.elementsWithXText(text);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithXPartialText(String textContent) throws Exception {
-		return this.identifier.elementsWithXPartialText(textContent);
+		return this.picker.elementsWithXPartialText(textContent);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
-		return this.identifier.elementsWithXValue(value);
+		return this.picker.elementsWithXValue(value);
 	}
 	
 	@Override
 	public MultiGuiElementProxy elementsWithXTitle(String value) throws Exception {
-		return this.identifier.elementsWithXTitle(value);
+		return this.picker.elementsWithXTitle(value);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithXImageSource(String path) throws Exception {
-		return this.identifier.elementsWithXImageSource(path);
+		return this.picker.elementsWithXImageSource(path);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsOfXType(GuiElementType type) throws Exception {
-		return this.identifier.elementsOfXType(type);
+		return this.picker.elementsOfXType(type);
 	}
 
 	@Override
 	public MultiGuiElementProxy elementsBasedOnImage(String imagePath) throws Exception {
-		return this.identifier.elementsBasedOnImage(imagePath);
+		return this.picker.elementsBasedOnImage(imagePath);
 	}
 
 	@Override
