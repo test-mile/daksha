@@ -18,7 +18,7 @@
  ******************************************************************************/
 package daksha.core.leaping.enums;
 
-public enum MobileNativeGuiLocator {
-	ID, NAME, XPATH, CLASS, LINK_TEXT, PARTIAL_LINK_TEXT, TAG,
-	X_TEXT, X_TITLE, X_PARTIAL_TEXT, X_TYPE, X_VALUE, X_IMAGE_SRC;
+public enum NativeLocateBy {
+	ID, NAME, XPATH, CLASS, LINK_TEXT, PARTIAL_LINK_TEXT, 
+	X_TEXT, X_TITLE, X_PARTIAL_TEXT, X_TYPE, X_VALUE, X_IMAGE_SRC; 
 }

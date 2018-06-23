@@ -2,16 +2,14 @@ package daksha.core.leaping.identifier;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
-
 import daksha.core.leaping.actions.GuiElementCreationHandler;
 import daksha.core.leaping.element.ConcreteGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
+import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.pageobject.Page;
 
 public interface GuiElementIdentifier<D,E> extends GuiElementCreationHandler{
-	By getFinderType(String identifier, String idValue) throws Exception;
 	
 	E find(GuiElementMetaData emd) throws Exception;
 	E find(ConcreteGuiElement<D,E> element, GuiElementMetaData emd) throws Exception;	
@@ -29,5 +27,9 @@ public interface GuiElementIdentifier<D,E> extends GuiElementCreationHandler{
 	MultiGuiElementProxy createMultiProxy(Page page, GuiElementMetaData emd) throws Exception;
 
 	void convertToDropDown(GuiElementProxy guiElementProxy) throws Exception;
+	
+	boolean isPresent(GuiElement element) throws Exception;
+	boolean isVisible(GuiElement element) throws Exception;
+	boolean isClickable(GuiElement element) throws Exception;
 
 }

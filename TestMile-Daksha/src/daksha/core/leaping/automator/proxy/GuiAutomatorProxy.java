@@ -162,6 +162,11 @@ public class GuiAutomatorProxy implements GuiAutomator{
 	}
 
 	@Override
+	public GuiElementProxy elementWithXTitle(String value) throws Exception {
+		return this.concreteAutomator.elementWithXTitle(value);
+	}
+
+	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
 		return this.concreteAutomator.elementWithXImageSource(path);
 	}
@@ -240,6 +245,12 @@ public class GuiAutomatorProxy implements GuiAutomator{
 	@Override
 	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
 		return this.concreteAutomator.elementsWithXValue(value);
+	}
+	
+
+	@Override
+	public MultiGuiElementProxy elementsWithXTitle(String value) throws Exception {
+		return this.concreteAutomator.elementsWithXTitle(value);
 	}
 
 	@Override

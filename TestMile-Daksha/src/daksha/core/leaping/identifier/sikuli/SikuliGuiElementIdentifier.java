@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
@@ -25,20 +24,31 @@ public class SikuliGuiElementIdentifier extends BaseGuiElementIdentifier<Screen,
 	public SikuliGuiElementIdentifier(ConcreteGuiAutomator<Screen,Match> automator) {
 		super(automator);
 	}
-
-	@Override
-	public By getFinderType(String identifier, String idValue) throws Exception {
-		return null;
+	
+	protected void waitUntilPresent(GuiLocator locator) throws Exception {
+		this.waitUntilVisible(locator);
+	}
+	
+	protected void waitUntilVisible(GuiLocator locator) throws Exception {
+		Screen screen = new Screen();
+		Pattern pattern = new Pattern(locator.getValue());
+		// Get the sleep time from configuration
+		screen.wait(pattern, (double) (60 / 1000));
+	}
+	
+	protected void waitUntilClickable(GuiLocator locator) throws Exception {
+		// sikuli does not have this feature
+		return;
 	}
 	
 	private List<Match> findElements(Screen screen, GuiLocator locator) throws Exception {
 		String imgPath = null;
-		if (locator.NAME.equals("IMAGE")) {
+		try {
+			locator.asVisualLocateBy();
+			imgPath = locator.getValue();
+		} catch (Exception e) {
 			throw new Exception("Unsupported identifier");
-		} else {
-			imgPath = locator.VALUE;
 		}
-		
 		
 		Pattern pattern = new Pattern(imgPath);
 		Iterator<Match> matches = screen.findAll(pattern);

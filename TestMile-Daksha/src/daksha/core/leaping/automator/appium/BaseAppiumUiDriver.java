@@ -44,7 +44,6 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 	
 	public BaseAppiumUiDriver(TestContext testContext, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
 		super(testContext, UiDriverEngine.APPIUM, automatorContext, loaderType);
-		this.setIdentifier(new AppiumGuiElementIdentifier(this));
 	}
 		
 	public BaseAppiumUiDriver(TestContext testContext, GuiAutomationContext automatorContext) throws Exception{
@@ -71,7 +70,8 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 			throwUnreachableBrowserException(getOSType(), e);
 		}
 		this.setDriver(driver);
-		this.setWaiter(new WebDriverWait(this.getUnderlyingEngine(), this.getWaitTime()));		
+		this.setWaiter(new WebDriverWait(this.getUnderlyingEngine(), this.getWaitTime()));	
+		this.setIdentifier(new AppiumGuiElementIdentifier(this));
 	}
 	
 	private void throwUnreachableBrowserException(OSType platformType, Throwable e) throws Exception {

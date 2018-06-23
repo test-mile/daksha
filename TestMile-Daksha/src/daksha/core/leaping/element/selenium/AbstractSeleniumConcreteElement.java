@@ -18,18 +18,15 @@
  ******************************************************************************/
 package daksha.core.leaping.element.selenium;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
 import daksha.core.leaping.element.BaseConcreteSingleGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.identifier.GuiElementMetaData;
-import daksha.core.leaping.identifier.GuiLocator;
 import daksha.tpi.leaping.pageobject.Page;
 
 public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiElement<D,E>{
@@ -57,18 +54,6 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 
 	protected void setWaiter(WebDriverWait waiter) {
 		this.waiter = waiter;
-	}
-	
-	private void waitUntilPresent(By findBy) throws Exception {
-		getWaiter().until(ExpectedConditions.presenceOfElementLocated(findBy));
-	}
-	
-	private void waitUntilVisible(By findBy) throws Exception {
-		getWaiter().until(ExpectedConditions.visibilityOfElementLocated(findBy));
-	}
-	
-	private void waitUntilClickable(By findBy) throws Exception {
-		getWaiter().until(ExpectedConditions.visibilityOfElementLocated(findBy));
 	}
 	
 	private WebElement asWebElement() throws Exception {
@@ -112,130 +97,6 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 	public void switchToFrame() throws Exception{
 		((WebDriver) driver).switchTo().frame(this.asWebElement());
 	}
-	
-	private boolean isPresent(By findBy) {
-		try {
-			waitUntilPresent(findBy);
-			return true;
-		} catch ( Exception e){
-			return false;
-		}
-		
-	}
-	
-	@Override
-	public boolean isPresent() throws Exception {
-		boolean present = false;
-		for(GuiLocator locator: this.getMetaData().getLocators()){
-			try{
-				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);
-				present = isPresent(by);
-				if (present) break;
-			} catch (Exception e){
-				// Do nothing
-			}
-		}
-
-		return present;
-	}
-	
-	@Override
-	public void waitUntilPresent() throws Exception {
-		if (!isPresent()) {
-			throw new Exception("Not present despite waiting.");
-		}
-	}
-	
-	@Override
-	public boolean isAbsent() throws Exception {
-		return !isPresent();
-	}
-	
-	@Override
-	public void waitUntilAbsent() throws Exception {
-		if (!isAbsent()) {
-			throw new Exception("Not absent despite waiting.");
-		}
-	}
-	
-	private boolean isVisible(By findBy) {
-		try {
-			waitUntilVisible(findBy);
-			return true;
-		} catch ( Exception e){
-			return false;
-		}
-		
-	}
-		
-	@Override
-	public boolean isVisible() throws Exception {
-		boolean visible = false;
-		for(GuiLocator locator: this.getMetaData().getLocators()){
-			try{
-				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);
-				visible = isVisible(by);
-				if (visible) break;
-			} catch (Exception e){
-				// Do nothing
-			}
-		}
-
-		return visible;
-	}
-
-	@Override
-	public void waitUntilVisible() throws Exception {
-		if (!isVisible()) {
-			throw new Exception("Not visible despite waiting.");
-		}
-	}
-
-	
-	@Override
-	public boolean isInvisible() throws Exception {
-		return !isVisible();
-	}
-	
-	@Override
-	public void waitUntilInvisible() throws Exception {
-		if (!isInvisible()) {
-			throw new Exception("Not invisible despite waiting.");
-		}
-	}
-	
-	private boolean isClickable(By findBy) {
-		try {
-			waitUntilClickable(findBy);
-			return true;
-		} catch ( Exception e){
-			return false;
-		}
-		
-	}
-	
-	@Override
-	public boolean isClickable() throws Exception {
-		boolean clickable = false;
-		for(GuiLocator locator: this.getMetaData().getLocators()){
-			try{
-				By by = this.getIdentifier().getFinderType(locator.NAME, locator.VALUE);
-				clickable = isClickable(by);
-				if (clickable) break;
-			} catch (Exception e){
-				// Do nothing
-			}
-		}
-
-		return clickable;
-	}
-	
-	@Override
-	public void waitUntilClickable() throws Exception {
-		if (!isClickable()) {
-			throw new Exception("Not clickable despite waiting.");
-		}
-	}
 
 	@Override
 	public void click() throws Exception {
@@ -244,10 +105,12 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 		}
 	}
 	
+	@Override
 	public boolean isSelected() throws Exception{
 		return this.asWebElement().isSelected();
 	}
 	
+	@Override
 	public boolean isChecked() throws Exception{
 		return isSelected();
 	}

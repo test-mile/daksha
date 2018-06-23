@@ -13,7 +13,7 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier<AppiumDriver<MobileElement>,MobileElement>{
 	
-	public AppiumGuiElementIdentifier(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator) {
+	public AppiumGuiElementIdentifier(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator) throws Exception {
 		super(automator);
 	}
 	

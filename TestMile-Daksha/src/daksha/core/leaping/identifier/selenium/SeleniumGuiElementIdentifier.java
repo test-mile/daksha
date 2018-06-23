@@ -13,7 +13,7 @@ import daksha.tpi.leaping.pageobject.Page;
 
 public class SeleniumGuiElementIdentifier extends BaseSeleniumGuiElementIdentifier<WebDriver,WebElement>{
 	
-	public SeleniumGuiElementIdentifier(ConcreteGuiAutomator<WebDriver,WebElement> automator) {
+	public SeleniumGuiElementIdentifier(ConcreteGuiAutomator<WebDriver,WebElement> automator) throws Exception {
 		super(automator);
 	}
 	

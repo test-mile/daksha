@@ -32,9 +32,7 @@ import daksha.ex.config.AppConfig;
 import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.element.MultiGuiElement;
 import daksha.tpi.leaping.generator.GuiAutomatorFactory;
-import daksha.tpi.leaping.generator.PageFactory;
 import daksha.tpi.leaping.generator.selenium.SeleniumBuilder;
-import daksha.tpi.leaping.pageobject.App;
 import daksha.tpi.leaping.pageobject.Page;
 import daksha.tpi.testng.TestNGBaseTest;
 

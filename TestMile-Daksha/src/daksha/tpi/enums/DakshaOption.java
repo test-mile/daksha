@@ -2,6 +2,7 @@ package daksha.tpi.enums;
 
 public enum DakshaOption {
 	ROOT_DIR,
+	LOG_DIR,
 	TOOLS_DIR,
 	GUIAUTO_DRIVERS_DIR,
 	GUIAUTO_MAPS_DIR,

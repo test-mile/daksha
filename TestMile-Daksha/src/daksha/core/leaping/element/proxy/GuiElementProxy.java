@@ -228,6 +228,24 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 		}
 	}
 
+	@Override
+	public boolean isChecked() throws Exception {
+		try {
+			return getConcreteElement().isChecked();
+		} catch (Exception e){
+			return (boolean) throwElementInquiryException(e, "isChecked", "checked state of");
+		}
+	}
+
+	@Override
+	public boolean isSelected() throws Exception {
+		try {
+			return getConcreteElement().isSelected();
+		} catch (Exception e){
+			return (boolean) throwElementInquiryException(e, "isSelected", "selected state of");
+		}
+	}
+	
 	public void check() throws Exception {
 		try {
 			getConcreteElement().check();} catch (Exception e){

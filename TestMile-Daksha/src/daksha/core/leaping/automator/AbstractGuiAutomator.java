@@ -222,6 +222,11 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	public GuiElementProxy elementWithXValue(String value) throws Exception {
 		return this.identifier.elementWithXValue(value);
 	}
+	
+	@Override
+	public GuiElementProxy elementWithXTitle(String value) throws Exception {
+		return this.identifier.elementWithXTitle(value);
+	}
 
 	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
@@ -291,6 +296,11 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	@Override
 	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
 		return this.identifier.elementsWithXValue(value);
+	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithXTitle(String value) throws Exception {
+		return this.identifier.elementsWithXTitle(value);
 	}
 
 	@Override

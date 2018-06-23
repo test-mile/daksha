@@ -19,8 +19,6 @@
 package daksha.tpi.leaping.pageobject;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -36,7 +34,6 @@ import daksha.core.leaping.loader.PageDefRepository;
 import daksha.core.leaping.loader.PageDefinition;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.generator.PageDefLoaderFactory;
@@ -315,6 +312,11 @@ public class BasePage implements Page{
 	public GuiElementProxy elementWithXValue(String value) throws Exception {
 		return updateGuiElementProxy(this.getGuiAutomator().elementWithXValue(value));
 	}
+	
+	@Override
+	public GuiElementProxy elementWithXTitle(String value) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementWithXTitle(value));
+	}
 
 	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
@@ -384,6 +386,11 @@ public class BasePage implements Page{
 	@Override
 	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
 		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXValue(value));
+	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithXTitle(String value) throws Exception {
+		return updateGuiElementProxy(this.getGuiAutomator().elementsWithXTitle(value));
 	}
 
 	@Override

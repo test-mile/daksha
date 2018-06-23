@@ -18,12 +18,47 @@
  ******************************************************************************/
 package daksha.core.leaping.identifier;
 
+import daksha.core.leaping.enums.LocateBy;
+import daksha.core.leaping.enums.MobileNativeLocateBy;
+import daksha.core.leaping.enums.MobileWebLocateBy;
+import daksha.core.leaping.enums.NativeLocateBy;
+import daksha.core.leaping.enums.VisualLocateBy;
+import daksha.core.leaping.enums.WebLocateBy;
+
 public class GuiLocator {
-	public String NAME = null;
-	public String VALUE = null;
+	private LocateBy by = null;
+	private String value = null;
 	
-	public GuiLocator(String id, String value){
-		this.NAME = id;
-		this.VALUE = value;
+	public GuiLocator(LocateBy by, String value){
+		this.by = by;
+		this.value = value;
+	}
+	
+	public LocateBy asLocateBy() {
+		return this.by;
+	}
+	
+	public WebLocateBy asWebLocateBy() {
+		return WebLocateBy.valueOf(by.toString());
+	}
+	
+	public MobileWebLocateBy asMobileWebLocateBy() {
+		return MobileWebLocateBy.valueOf(by.toString());
+	}
+	
+	public MobileNativeLocateBy asMobileNativeLocateBy() {
+		return MobileNativeLocateBy.valueOf(by.toString());
+	}
+	
+	public NativeLocateBy asNativeLocateBy() {
+		return NativeLocateBy.valueOf(by.toString());
+	}
+	
+	public VisualLocateBy asVisualLocateBy() {
+		return VisualLocateBy.valueOf(by.toString());
+	}
+	
+	public String getValue() {
+		return value;
 	}
 }

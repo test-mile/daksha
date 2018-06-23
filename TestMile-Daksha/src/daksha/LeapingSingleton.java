@@ -25,13 +25,13 @@ import java.util.Map;
 
 import daksha.core.leaping.enums.AppiumAndroidBrowserType;
 import daksha.core.leaping.enums.AppiumIosBrowserType;
-import daksha.core.leaping.enums.IdentifyBy;
-import daksha.core.leaping.enums.MobileNativeGuiLocator;
-import daksha.core.leaping.enums.MobileWebGuiLocator;
-import daksha.core.leaping.enums.NativeGuiLocator;
+import daksha.core.leaping.enums.LocateBy;
+import daksha.core.leaping.enums.MobileNativeLocateBy;
+import daksha.core.leaping.enums.MobileWebLocateBy;
+import daksha.core.leaping.enums.NativeLocateBy;
 import daksha.core.leaping.enums.OSType;
-import daksha.core.leaping.enums.VisualGuiLocator;
-import daksha.core.leaping.enums.WebGuiLocator;
+import daksha.core.leaping.enums.VisualLocateBy;
+import daksha.core.leaping.enums.WebLocateBy;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
@@ -77,7 +77,7 @@ public enum LeapingSingleton {
 		automationContextNames.put(GuiAutomationContext.GENERIC, "Generic");
 
 		allowedGenericIdentifiers = new ArrayList<String>();
-		for (IdentifyBy prop: IdentifyBy.class.getEnumConstants()){
+		for (LocateBy prop: LocateBy.class.getEnumConstants()){
 			allowedGenericIdentifiers.add(prop.toString());
 		}
 
@@ -87,27 +87,27 @@ public enum LeapingSingleton {
 		}
 
 		allowedScreenIdentifiers = new ArrayList<String>();
-		for (VisualGuiLocator prop: VisualGuiLocator.class.getEnumConstants()){
+		for (VisualLocateBy prop: VisualLocateBy.class.getEnumConstants()){
 			allowedScreenIdentifiers.add(prop.toString());
 		}
 
 		allowedNativeIdentifiers = new ArrayList<String>();
-		for (NativeGuiLocator prop: NativeGuiLocator.class.getEnumConstants()){
+		for (NativeLocateBy prop: NativeLocateBy.class.getEnumConstants()){
 			allowedNativeIdentifiers.add(prop.toString());
 		}
 
 		allowedMobileNativeIdentifiers = new ArrayList<String>();
-		for (MobileNativeGuiLocator prop: MobileNativeGuiLocator.class.getEnumConstants()){
+		for (MobileNativeLocateBy prop: MobileNativeLocateBy.class.getEnumConstants()){
 			allowedMobileNativeIdentifiers.add(prop.toString());
 		}
 
 		allowedWebIdentifiers = new ArrayList<String>();
-		for (WebGuiLocator prop: WebGuiLocator.class.getEnumConstants()){
+		for (WebLocateBy prop: WebLocateBy.class.getEnumConstants()){
 			allowedWebIdentifiers.add(prop.toString());
 		}
 
 		allowedMobileWebIdentifiers = new ArrayList<String>();
-		for (MobileWebGuiLocator prop: MobileWebGuiLocator.class.getEnumConstants()){
+		for (MobileWebLocateBy prop: MobileWebLocateBy.class.getEnumConstants()){
 			allowedMobileWebIdentifiers.add(prop.toString());		
 		}
 	}

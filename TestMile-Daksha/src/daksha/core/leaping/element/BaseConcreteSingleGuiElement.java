@@ -127,6 +127,66 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	public void setElementType(GuiElementType elementType) {
 		this.elementType = elementType;
 	}
+	
+	@Override
+	public boolean isPresent() throws Exception {
+		return this.getIdentifier().isPresent(this.getGuiElementProxy());
+	}
+	
+	@Override
+	public void waitUntilPresent() throws Exception {
+		if (!isPresent()) {
+			throw new Exception("Not present despite waiting.");
+		}
+	}
+	
+	@Override
+	public boolean isAbsent() throws Exception {
+		return !isPresent();
+	}
+	
+	@Override
+	public void waitUntilAbsent() throws Exception {
+		if (!isAbsent()) {
+			throw new Exception("Not absent despite waiting.");
+		}
+	}
+		
+	@Override
+	public boolean isVisible() throws Exception {
+		return this.getIdentifier().isVisible(this.getGuiElementProxy());
+	}
+
+	@Override
+	public void waitUntilVisible() throws Exception {
+		if (!isVisible()) {
+			throw new Exception("Not visible despite waiting.");
+		}
+	}
+
+	@Override
+	public boolean isInvisible() throws Exception {
+		return !isVisible();
+	}
+	
+	@Override
+	public void waitUntilInvisible() throws Exception {
+		if (!isInvisible()) {
+			throw new Exception("Not invisible despite waiting.");
+		}
+	}
+	
+	@Override
+	public boolean isClickable() throws Exception {
+		return this.getIdentifier().isClickable(this.getGuiElementProxy());
+	}
+	
+	@Override
+	public void waitUntilClickable() throws Exception {
+		if (!isClickable()) {
+			throw new Exception("Not clickable despite waiting.");
+		}
+	}
 
 	@Override
 	public String getText() throws Exception {
@@ -243,11 +303,13 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("hasSelectedIndex");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllOptions() throws Exception {
 		return (List<String>) this.getGuiElementProxy().throwUnsupportedActionException("getAllLabels");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllValues() throws Exception {
 		return (List<String>) this.getGuiElementProxy().throwUnsupportedActionException("getAllValues");
@@ -272,45 +334,14 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	@Override
-	public boolean isPresent() throws Exception {
-		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("isPresent");
-	}
-	
-	@Override
-	public boolean isAbsent() throws Exception {
-		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("isAbsent");
+	public boolean isChecked() throws Exception {
+		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("isChecked");
 	}
 
 	@Override
-	public boolean isVisible() throws Exception {
-		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("isVisible");
+	public boolean isSelected() throws Exception {
+		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("isSelected");
 	}
-
-	@Override
-	public boolean isInvisible() throws Exception {
-		return (boolean) this.getGuiElementProxy().throwUnsupportedActionException("isInvisible");
-	}
-	
-	@Override
-	public void waitUntilPresent() throws Exception {
-		this.getGuiElementProxy().throwUnsupportedActionException("waitForPresence");
-	}
-
-	@Override
-	public void waitUntilAbsent() throws Exception {
-		this.getGuiElementProxy().throwUnsupportedActionException("waitForAbsence");
-	}
-
-	@Override
-	public void waitUntilVisible() throws Exception {
-		this.getGuiElementProxy().throwUnsupportedActionException("waitForVisibility");
-	}
-
-	@Override
-	public void waitUntilInvisible() throws Exception {
-		this.getGuiElementProxy().throwUnsupportedActionException("waitForInvisibility");
-	}
-	
 	
 	@Override
 	public void doubleClick() throws Exception {

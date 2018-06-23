@@ -29,4 +29,6 @@ public interface State {
      void waitUntilVisible()  throws Exception;
      void waitUntilInvisible()  throws Exception;
 	void waitUntilClickable() throws Exception;
+	boolean isChecked() throws Exception;
+	boolean isSelected() throws Exception;
 }

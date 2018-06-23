@@ -2,17 +2,19 @@ package daksha.tpi.batteries.console;
 
 import org.apache.log4j.Logger;
 
+import daksha.Daksha;
 import daksha.core.batteries.utils.ExceptionBatteries;
 import daksha.tpi.sysauto.utils.SystemUtils;
 
 public class Console {
-	private static Logger logger = Logger.getRootLogger();
+	private static Logger logger = null;
 	private static boolean done = false;
 	private static String separator = null;
 
 	public synchronized static void init() {
 		if (done)
 			return;
+		logger = Daksha.getLogger();
 		separator = SystemUtils.getLineSeparator();
 		done = true;
 	}

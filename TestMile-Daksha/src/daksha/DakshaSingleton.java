@@ -1,12 +1,12 @@
 package daksha;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
@@ -17,6 +17,7 @@ import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.loader.PageDefRepository;
+import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
 
 public enum DakshaSingleton {
@@ -34,6 +35,9 @@ public enum DakshaSingleton {
 	public void init(String rootDir) throws Exception {
 		this.centralConf = new CentralConfiguration(rootDir);
 		LeapingSingleton.INSTANCE.init();
+		configureLogger(Level.INFO, Level.DEBUG);
+		logger = Logger.getLogger("daksha");
+		Console.init();
 	}
 	
 	public void freezeCentralConfig() throws Exception {
@@ -96,48 +100,29 @@ public enum DakshaSingleton {
 		return logger; 
 	}
 
-	private void setConsoleLogger(Level level, String logName) {
-		// configure the appender
-		// String PATTERN = "[%-5p]\t%l\t%m%n";
+	private void setConsoleLogger(Level level) {
 		String PATTERN = null;
 		PATTERN = "(%F:%L)\t%m%n";
-		// if (Unitee.isInternalBuild()){
-		// PATTERN = "(%F:%L)\t%m%n";
-		// //"[%-5p]\t%m%n";//"[%-5p]\t%d{yyyy-MM-dd|HH:mm:ss}\t(%F:%L)\t%m%n";//
-		// } else {
-		// PATTERN = "%m%n";
-		// }
 		console.setLayout(new PatternLayout(PATTERN));
 		console.setThreshold(level);
 		console.activateOptions();
-		Logger.getLogger(logName).addAppender(console);
+		Logger.getLogger("daksha").addAppender(console);
 		//Console.setCentralLogLevel(level);
 	}
 
-	private void setFileLogger(Level level, String logName, String path) {
-		fa.setName("FileLogger-" + logName);
-		fa.setFile(path + "/" + logName + ".log");
-		// if (Unitee.isInternalBuild()){
+	private void setFileLogger(Level level) throws Exception {
+		fa.setName("FileLogger");
+		fa.setFile(centralConf.value(DakshaOption.LOG_DIR).asString() + File.separator + "daksha.log");
 		fa.setLayout(new PatternLayout("[%-5p]\t%d{yyyy-MM-dd|HH:mm:ss}\t(%F:%L)\t%m%n"));
-		// } else {
-		// fa.setLayout(new PatternLayout("[%-5p]\t%d{yyyy-MM-dd|HH:mm:ss}
-		// %m%n"));
-		// }
 		fa.setThreshold(level);
 		fa.setAppend(false);
 		fa.activateOptions();
-		Logger.getLogger(logName).addAppender(fa);
+		Logger.getLogger("daksha").addAppender(fa);
 	}
 
-	public void configure(Level consoleLevel, Level fileLevel, String logName, String logPath) {
-		Logger.getLogger(logName);
-		Logger.getLogger(logName).getLoggerRepository().resetConfiguration();
-		this.setConsoleLogger(consoleLevel, logName);
-		this.setFileLogger(fileLevel, logName, logPath);
+	private void configureLogger(Level consoleLevel, Level fileLevel) throws Exception {
+		Logger.getLogger("daksha").getLoggerRepository().resetConfiguration();
+		this.setConsoleLogger(consoleLevel);
+		this.setFileLogger(fileLevel);
 	}
-
-	public void changeLogLevel(String name, String level) {
-		LogManager.getLogger(name).setLevel(Level.toLevel(level));
-	}
-
 }

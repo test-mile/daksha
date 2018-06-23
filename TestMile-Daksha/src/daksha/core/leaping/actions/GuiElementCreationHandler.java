@@ -34,6 +34,7 @@ public interface GuiElementCreationHandler {
 	GuiElementProxy elementWithXText(String text) throws Exception;
 	GuiElementProxy elementWithXPartialText(String textContent) throws Exception;
 	GuiElementProxy elementWithXValue(String value) throws Exception;
+	GuiElementProxy elementWithXTitle(String value) throws Exception;
 	GuiElementProxy elementWithXImageSource(String path) throws Exception;
 	GuiElementProxy elementOfXType(GuiElementType type) throws Exception;
 	GuiElementProxy elementBasedOnImage(String imagePath) throws Exception;
@@ -49,6 +50,7 @@ public interface GuiElementCreationHandler {
 	MultiGuiElementProxy elementsWithXText(String text) throws Exception;
 	MultiGuiElementProxy elementsWithXPartialText(String textContent) throws Exception;
 	MultiGuiElementProxy elementsWithXValue(String value) throws Exception;
+	MultiGuiElementProxy elementsWithXTitle(String value) throws Exception;
 	MultiGuiElementProxy elementsWithXImageSource(String path) throws Exception;
 	MultiGuiElementProxy elementsOfXType(GuiElementType type) throws Exception;
 	MultiGuiElementProxy elementsBasedOnImage(String imagePath) throws Exception;

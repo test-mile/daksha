@@ -6,31 +6,38 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.leaping.automator.ConcreteGuiAutomator;
-import daksha.core.leaping.enums.WebGuiLocator;
+import daksha.core.leaping.enums.WebLocateBy;
 import daksha.core.leaping.identifier.BaseGuiElementIdentifier;
 import daksha.core.leaping.identifier.GuiLocator;
 import daksha.tpi.leaping.enums.GuiElementType;
 
 public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E extends WebElement> extends BaseGuiElementIdentifier<D,E>{
+	WebDriverWait waiter = null;
 	
-	public BaseSeleniumGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) {
+	public BaseSeleniumGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) throws Exception {
 		super(automator);
+		D driver = this.getGuiAutomator().getUiDriverEngine();
+		System.out.println(driver);
+		waiter = new WebDriverWait((WebDriver) driver, this.getGuiAutomator().getWaitTime());
 	}
 
-	@Override
-	public By getFinderType(String identifier, String idValue) throws Exception {
+	private By getBy(GuiLocator locator) throws Exception {
 		By findBy = null;
-		WebGuiLocator idType = null;
+		WebLocateBy idType = null;
 		try{
-			idType = WebGuiLocator.valueOf(identifier.toUpperCase());
+			idType = locator.asWebLocateBy();
 		} catch (Throwable e){
 			throwUnsupportedIndentifierException(
 					"WEBDRIVER_AUTOMATOR",
 					"getFinderType",
-					identifier);
+					locator.asLocateBy().toString());
 		}
+		
+		String idValue = locator.getValue();
 		switch(idType){
 		case ID: findBy = By.id(idValue); break;
 		case NAME: findBy = By.name(idValue); break;
@@ -44,8 +51,21 @@ public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E ext
 		return findBy;
 	}
 	
+	
+	protected void waitUntilPresent(GuiLocator locator) throws Exception {
+		waiter.until(ExpectedConditions.presenceOfElementLocated(getBy(locator)));
+	}
+	
+	protected void waitUntilVisible(GuiLocator locator) throws Exception {
+		waiter.until(ExpectedConditions.visibilityOfElementLocated(getBy(locator)));
+	}
+	
+	protected void waitUntilClickable(GuiLocator locator) throws Exception {
+		waiter.until(ExpectedConditions.visibilityOfElementLocated(getBy(locator)));
+	}
+	
 	private List<?> findElements(SearchContext context, GuiLocator locator) throws Exception {
-		By finderType = getFinderType(locator.NAME, locator.VALUE);
+		By finderType = getBy(locator);
 		return context.findElements(finderType);
 	}
 	

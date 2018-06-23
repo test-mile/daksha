@@ -30,7 +30,7 @@ import daksha.tpi.leaping.loader.PageDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class PageDefLoaderFactory {
-	private static Logger sLogger = Logger.getRootLogger();
+	private static Logger sLogger = Logger.getLogger("daksha");
 	
 	public static PageDefLoader getPageDefLoader(TestContext testContext, String mapPath) throws Exception{
 		String ext = FileSystemUtils.getExtension(mapPath).toUpperCase();

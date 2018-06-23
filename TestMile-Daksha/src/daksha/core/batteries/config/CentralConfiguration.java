@@ -41,6 +41,7 @@ public class CentralConfiguration extends BaseConfiguration{
 	
 	private void populateDefaults() throws Exception {
 		this.add(DakshaOption.ROOT_DIR,  this.rootDir);
+		this.add(DakshaOption.LOG_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "log");
 		this.add(DakshaOption.TOOLS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "tools");
 		this.add(DakshaOption.GUIAUTO_MAPS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "ui_maps");
 		this.add(DakshaOption.GUIAUTO_DRIVERS_DIR, this.value(DakshaOption.TOOLS_DIR) + File.separator + "guidrivers");

@@ -21,6 +21,8 @@ package daksha.core.leaping.identifier;
 import java.util.List;
 import java.util.Map;
 
+import daksha.core.leaping.enums.LocateBy;
+
 public interface GuiElementMetaData {
 
 	void set(String propName, String value);
@@ -33,5 +35,5 @@ public interface GuiElementMetaData {
 
 	List<GuiLocator> getLocators();
 
-	void addLocator(String key, String value);
+	void addLocator(LocateBy key, String value);
 }

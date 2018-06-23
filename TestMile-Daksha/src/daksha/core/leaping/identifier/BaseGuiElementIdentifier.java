@@ -11,6 +11,7 @@ import daksha.core.leaping.element.ConcreteMultiGuiElement;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
 import daksha.core.leaping.enums.ElementLoaderType;
+import daksha.tpi.leaping.element.GuiElement;
 import daksha.tpi.leaping.enums.GuiElementType;
 import daksha.tpi.leaping.pageobject.Page;
 
@@ -96,6 +97,11 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 	public GuiElementProxy elementWithXValue(String value) throws Exception {
 		return this.createProxy(this.createMetaDataObject("X_VALUE", value));
 	}
+	
+	@Override
+	public GuiElementProxy elementWithXTitle(String value) throws Exception {
+		return this.createProxy(this.createMetaDataObject("X_TITLE", value));
+	}
 
 	@Override
 	public GuiElementProxy elementWithXImageSource(String path) throws Exception {
@@ -166,6 +172,11 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 	public MultiGuiElementProxy elementsWithXValue(String value) throws Exception {
 		return this.createMultiProxy(this.createMetaDataObject("X_VALUE", value));
 	}
+	
+	@Override
+	public MultiGuiElementProxy elementsWithXTitle(String value) throws Exception {
+		return this.createMultiProxy(this.createMetaDataObject("X_TITLE", value));
+	}
 
 	@Override
 	public MultiGuiElementProxy elementsWithXImageSource(String path) throws Exception {
@@ -227,6 +238,87 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 		MultiGuiElementProxy proxy = createMultiProxy(page, metaData);
 		((ConcreteMultiGuiElement<D,E>) proxy.getConcreteElement()).setToolElements(elements);
 		return proxy;		
+	}
+	
+	protected abstract void waitUntilPresent(GuiLocator locator) throws Exception;
+	
+	protected abstract void waitUntilVisible(GuiLocator locator) throws Exception;
+	
+	protected abstract void waitUntilClickable(GuiLocator locator) throws Exception;
+
+	private boolean isPresent(GuiLocator locator) {
+		try {
+			waitUntilPresent(locator);
+			return true;
+		} catch ( Exception e){
+			return false;
+		}
+		
+	}
+	
+	private boolean isVisible(GuiLocator locator) {
+		try {
+			waitUntilVisible(locator);
+			return true;
+		} catch ( Exception e){
+			return false;
+		}
+		
+	}
+	
+	private boolean isClickable(GuiLocator locator) {
+		try {
+			waitUntilClickable(locator);
+			return true;
+		} catch ( Exception e){
+			return false;
+		}
+		
+	}
+	
+	@Override
+	public boolean isPresent(GuiElement element) throws Exception {
+		boolean present = false;
+		for(GuiLocator locator: element.getMetaData().getLocators()){
+			try{
+				present = isPresent(locator);
+				if (present) break;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+
+		return present;
+	}
+		
+	@Override
+	public boolean isVisible(GuiElement element) throws Exception {
+		boolean visible = false;
+		for(GuiLocator locator: element.getMetaData().getLocators()){
+			try{
+				visible = isVisible(locator);
+				if (visible) break;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+
+		return visible;
+	}
+	
+	@Override
+	public boolean isClickable(GuiElement element) throws Exception {
+		boolean clickable = false;
+		for(GuiLocator locator: element.getMetaData().getLocators()){
+			try{
+				clickable = isClickable(locator);
+				if (clickable) break;
+			} catch (Exception e){
+				// Do nothing
+			}
+		}
+
+		return clickable;
 	}
 	
 	protected abstract List<E> findAllUsingAutomator(D engine, GuiLocator locator) throws Exception;

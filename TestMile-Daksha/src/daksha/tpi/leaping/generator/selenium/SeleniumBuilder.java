@@ -14,7 +14,6 @@ import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.generator.AutomatorBuilder;
-import daksha.tpi.leaping.loader.PageDefLoader;
 
 public class SeleniumBuilder extends AutomatorBuilder{
 	private MutableCapabilities browserCaps = new MutableCapabilities();

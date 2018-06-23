@@ -41,64 +41,7 @@ public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
 	
 	private Match asMatch() throws Exception {
 		return this.getToolElementWithRetry();
-	}	
-	
-	@Override
-	public void waitUntilVisible() throws Exception {
-		Screen screen = new Screen();
-		Pattern pattern = new Pattern(this.getImagePath());
-		// Get the sleep time from configuration
-		screen.wait(pattern, (double) (60 / 1000));
 	}
-		
-	@Override
-	public boolean isVisible() throws Exception {
-		try {
-			waitUntilVisible();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	@Override
-	public void waitUntilInvisible() throws Exception {
-		Screen screen = new Screen();
-		Pattern pattern = new Pattern(this.getImagePath());
-		// Get the sleep time from configuration
-		screen.waitVanish(pattern, (double) (60 / 1000));
-	}
-		
-	@Override
-	public boolean isInvisible() throws Exception {
-		try {
-			waitUntilInvisible();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
-	@Override
-	public void waitUntilPresent() throws Exception {
-		waitUntilVisible();
-	}
-		
-	@Override
-	public boolean isPresent() throws Exception {
-		return isVisible();
-	}
-	
-	@Override
-	public void waitUntilAbsent() throws Exception {
-		waitUntilInvisible();
-	}
-		
-	@Override
-	public boolean isAbsent() throws Exception {
-		return isInvisible();
-	}
-	
 	
 	@Override
 	public void click() throws Exception{

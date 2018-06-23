@@ -20,7 +20,7 @@ package daksha.core.leaping.automator.appium;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.enums.ElementLoaderType;
-import daksha.core.leaping.enums.MobileNativeGuiLocator;
+import daksha.core.leaping.enums.MobileNativeLocateBy;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public class AppiumNativeUiDriver extends BaseAppiumUiDriver {
@@ -34,7 +34,7 @@ public class AppiumNativeUiDriver extends BaseAppiumUiDriver {
 	}
 
 	protected boolean checkNullIdentifier(String identifier, String idValue) throws Exception{
-		return MobileNativeGuiLocator.valueOf(identifier) == null;
+		return MobileNativeLocateBy.valueOf(identifier) == null;
 	}
 
 	@Override
