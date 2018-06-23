@@ -122,7 +122,7 @@ public class DefaultGuiElementMetaData implements GuiElementMetaData {
 							break;	
 						}
 					} else {
-				// Do nothing. BECAUSE a single map is used across multiple automators.
+				// Do nothing. BECAUSE a single definition is used across multiple automators.
 					} 
 				}
 			}else {

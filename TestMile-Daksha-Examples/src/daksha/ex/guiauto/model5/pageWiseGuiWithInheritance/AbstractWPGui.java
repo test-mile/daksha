@@ -3,9 +3,9 @@ package daksha.ex.guiauto.model5.pageWiseGuiWithInheritance;
 import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.cleanup.gui.BaseGui;
 
-public class AbstractWPPage extends BaseGui{
+public class AbstractWPGui extends BaseGui{
 
-	public AbstractWPPage(GuiAutomatorProxy automator) throws Exception {
+	public AbstractWPGui(GuiAutomatorProxy automator) throws Exception {
 		super(automator);
 	}
 	

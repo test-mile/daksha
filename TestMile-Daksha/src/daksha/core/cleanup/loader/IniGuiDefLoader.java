@@ -27,13 +27,13 @@ import daksha.tpi.sysauto.file.IniFileReader;
 public class IniGuiDefLoader extends FileBasedGuiDefLoader{
 	private IniFileReader reader = null;
 
-	public IniGuiDefLoader(String mapFilePath) throws Exception{
-		super("Ini File Gui Definition Loader", mapFilePath);
+	public IniGuiDefLoader(String defFilePath) throws Exception{
+		super("Ini File Gui Definition Loader", defFilePath);
 	}
 	
 	@Override
 	public void load() throws Exception{
-		reader = new IniFileReader(getMapFilePath());
+		reader = new IniFileReader(getDefFilePath());
 		Set<String> elements = reader.getAllSections();
 		
 		Map<String, HashMap<String,String>> elementHM =  new HashMap<String, HashMap<String,String>>();

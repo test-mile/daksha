@@ -40,7 +40,7 @@ public class ErrorType {
 
 	public static final String GUIDEFFILE_RELATIVE_PATH = "GUI Loader was provided a file with relative path: %s. Expected absolute path.";
 
-	public static final String GUIDEFFILE_NOT_FOUND = "GUI Loader was not able to find the source map file: %s.";
+	public static final String GUIDEFFILE_NOT_FOUND = "GUI Loader was not able to find the GUI definition file: %s.";
 
 	public static final String GUIDEFFILE_NOTAFILE = "GUI Loader was provided a path which is not a file: %s.";
 
@@ -50,7 +50,7 @@ public class ErrorType {
 
 	public static final String PROPERTY_DOES_NOT_EXIST = "Property with the name %s does not exist in Property Manager.";
 
-	public static final String UNSUPPORTED_MAP_FILE_FORMAT = "Unsupported map file format: %s.";
+	public static final String GUIDEFFILE_UNSUPPORTED_FORMAT = "Unsupported GUI definition file format: %s.";
 
 	public static final String AUTOMATOR_UNSUPPORTED_ACTION = "Unsupported action for: %s.";
 

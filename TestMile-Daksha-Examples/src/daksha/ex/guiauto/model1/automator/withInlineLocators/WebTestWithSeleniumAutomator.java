@@ -52,11 +52,8 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@Test
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo(AppConfig.WP_ADMIN_URL);		
-		GuiElement abc = automator.elementBasedOnImage("user_login");
+		automator.goTo(AppConfig.WP_ADMIN_URL);	
 		
-		automator.close();
-		System.exit(1);
 		GuiElement userTextBox = automator.elementWithId("user_login");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);

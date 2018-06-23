@@ -46,7 +46,7 @@ ImageComparison, NativeWindowActionHandler, BrowserActionHandler, MouseActionHan
 	GuiElementProxy element(String name) throws Exception;
 	MultiGuiElementProxy elements(String name) throws Exception;
 	
-	void addChild(String label, String mapPath) throws Exception;
+	void addChild(String label, String defFilePath) throws Exception;
 	
 	Gui gui(String string) throws Exception;
 

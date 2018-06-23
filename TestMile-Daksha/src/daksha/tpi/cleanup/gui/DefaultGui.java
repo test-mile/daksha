@@ -7,16 +7,16 @@ public class DefaultGui extends BaseGui{
 	public DefaultGui(
 			String name,
 			GuiAutomatorProxy automator,
-			String mapPath) throws Exception{
-		super(name, automator, mapPath);
+			String defFilePath) throws Exception{
+		super(name, automator, defFilePath);
 	}
 	
 	public DefaultGui(
 			Gui parent,
 			String uiLabel, 
 			GuiAutomatorProxy automator, 
-			String mapPath) throws Exception {
-		super(parent, uiLabel, automator, mapPath);
+			String defFilePath) throws Exception {
+		super(parent, uiLabel, automator, defFilePath);
 	}
 
 	@Override

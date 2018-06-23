@@ -21,27 +21,27 @@ package daksha.core.cleanup.loader;
 import java.io.File;
 
 abstract public class FileBasedGuiDefLoader extends BaseGuiDefLoader{
-	private File mapFile= null;
-	private String mapPath = null;
+	private File defFile= null;
+	private String defPath = null;
 
-	public FileBasedGuiDefLoader(String name, String mapFilePath) throws Exception {
+	public FileBasedGuiDefLoader(String name, String defFilePath) throws Exception {
 		super(name);
-		this.mapPath = mapFilePath;
-		this.mapFile = new File(mapFilePath);
-		if (!this.mapFile.isAbsolute()){
-			this.throwRelativePathException("constructor", mapFilePath);
+		this.defPath = defFilePath;
+		this.defFile = new File(defFilePath);
+		if (!this.defFile.isAbsolute()){
+			this.throwRelativePathException("constructor", defFilePath);
 		} 
 		
-		if (!this.mapFile.exists()){
-			this.throwFileNotFoundException("constructor", mapFilePath);
+		if (!this.defFile.exists()){
+			this.throwFileNotFoundException("constructor", defFilePath);
 		} 
 		
-		if (!this.mapFile.isFile()){
-			this.throwNotAFileException("constructor", mapFilePath);
+		if (!this.defFile.isFile()){
+			this.throwNotAFileException("constructor", defFilePath);
 		}
 	}
 
-	protected String getMapFilePath(){
-		return mapPath;
+	protected String getDefFilePath(){
+		return defPath;
 	}
 }

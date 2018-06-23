@@ -46,7 +46,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui home = new HomePage(builder.build());
+		Gui home = new Home(builder.build());
 		threadWiseHome.set(home);
 	}
 	
@@ -54,22 +54,22 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	public void test() throws Exception{
 		Gui gui = this.threadWiseHome.get();
 
-		page.goTo(AppConfig.WP_ADMIN_URL);	
+		gui.goTo(AppConfig.WP_ADMIN_URL);	
 
-		GuiElement userTextBox = page.element("LOGIN");
+		GuiElement userTextBox = gui.element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
-		page.element("PASSWORD").enterText(AppConfig.PASSWORD);
-		page.element("SUBMIT").click();		
-		page.waitForBody();
+		gui.element("PASSWORD").enterText(AppConfig.PASSWORD);
+		gui.element("SUBMIT").click();		
+		gui.waitForBody();
 		
-		page = new LeftNavigation(page.getGuiAutomator());
-		page.element("POSTS").hover();
-		page.element("CATEGORIES").click();	
-		page.waitForBody();
+		gui = new LeftNavigation(gui.getGuiAutomator());
+		gui.element("POSTS").hover();
+		gui.element("CATEGORIES").click();	
+		gui.waitForBody();
 		
-		page = new Categories(page.getGuiAutomator());
-		MultiGuiElement tags = page.elements("CAT_CHECKBOXES");
+		gui = new Categories(gui.getGuiAutomator());
+		MultiGuiElement tags = gui.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 			
@@ -78,19 +78,19 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		page = new LeftNavigation(page.getGuiAutomator());
-		page.element("SETTINGS").click();
+		gui = new LeftNavigation(gui.getGuiAutomator());
+		gui.element("SETTINGS").click();
 		
-		page = new Settings(page.getGuiAutomator());
-		GuiElement blogNameTextBox = page.element("BLOG_NAME");
+		gui = new Settings(gui.getGuiAutomator());
+		GuiElement blogNameTextBox = gui.element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		page.element("MEMBERSHIP").check();
+		gui.element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		GuiElement roleDropDown = page.element("ROLE").asDropDown();
+		GuiElement roleDropDown = gui.element("ROLE").asDropDown();
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);
@@ -98,7 +98,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 
-		page.goTo(AppConfig.WP_LOGOUT_URL);
+		gui.goTo(AppConfig.WP_LOGOUT_URL);
 	}
 	
 	@AfterClass

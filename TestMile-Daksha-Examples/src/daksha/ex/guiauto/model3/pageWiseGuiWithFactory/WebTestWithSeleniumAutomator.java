@@ -47,7 +47,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui home = GuiFactory.createGui(builder.build(), "wordpress/HomePage.ini");
+		Gui home = GuiFactory.createGui(builder.build(), "wordpress/Home.ini");
 		threadWiseHomePage.set(home);
 	}
 	
@@ -55,22 +55,22 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	public void test() throws Exception{
 		Gui gui = this.threadWiseHomePage.get();
 
-		page.goTo(AppConfig.WP_ADMIN_URL);	
+		gui.goTo(AppConfig.WP_ADMIN_URL);	
 
-		GuiElement userTextBox = page.element("LOGIN");
+		GuiElement userTextBox = gui.element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
-		page.element("PASSWORD").enterText(AppConfig.PASSWORD);
-		page.element("SUBMIT").click();		
-		page.waitForBody();
+		gui.element("PASSWORD").enterText(AppConfig.PASSWORD);
+		gui.element("SUBMIT").click();		
+		gui.waitForBody();
 		
-		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/LeftNavigation.ini");
-		page.element("POSTS").hover();
-		page.element("CATEGORIES").click();	
-		page.waitForBody();
+		gui = GuiFactory.createGui(gui.getGuiAutomator(), "wordpress/LeftNavigation.ini");
+		gui.element("POSTS").hover();
+		gui.element("CATEGORIES").click();	
+		gui.waitForBody();
 		
-		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/Categories.ini");
-		MultiGuiElement tags = page.elements("CAT_CHECKBOXES");
+		gui = GuiFactory.createGui(gui.getGuiAutomator(), "wordpress/Categories.ini");
+		MultiGuiElement tags = gui.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 			
@@ -79,19 +79,19 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/LeftNavigation.ini");
-		page.element("SETTINGS").click();
+		gui = GuiFactory.createGui(gui.getGuiAutomator(), "wordpress/LeftNavigation.ini");
+		gui.element("SETTINGS").click();
 		
-		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/Settings.ini");
-		GuiElement blogNameTextBox = page.element("BLOG_NAME");
+		gui = GuiFactory.createGui(gui.getGuiAutomator(), "wordpress/Settings.ini");
+		GuiElement blogNameTextBox = gui.element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		page.element("MEMBERSHIP").check();
+		gui.element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		GuiElement roleDropDown = page.element("ROLE").asDropDown();
+		GuiElement roleDropDown = gui.element("ROLE").asDropDown();
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);
@@ -99,7 +99,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 
-		page.goTo(AppConfig.WP_LOGOUT_URL);
+		gui.goTo(AppConfig.WP_LOGOUT_URL);
 	}
 	
 	@AfterClass

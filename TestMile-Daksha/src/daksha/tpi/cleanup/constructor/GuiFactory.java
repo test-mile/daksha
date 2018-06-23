@@ -30,15 +30,15 @@ import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class GuiFactory {
 	
-	public static Gui createAppFromDir(String name, GuiAutomatorProxy automator, String appMapsRootDir) throws Exception{
-		String consideredPath = appMapsRootDir;
+	public static Gui createAppFromDir(String name, GuiAutomatorProxy automator, String appDefDir) throws Exception{
+		String consideredPath = appDefDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
-			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAPS_DIR).asString() + "/" + consideredPath);
+			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DEF_DIR).asString() + "/" + consideredPath);
 			if (!FileSystemUtils.isDir(consideredPath)){
-				throw new Exception(String.format("Provided root map path dir is not a directory: %s" ,  consideredPath));			
+				throw new Exception(String.format("Provided root definition path is not a directory: %s" ,  consideredPath));			
 			} 
 		}
-		Gui app = new DefaultGui(name, automator, appMapsRootDir + File.separator + "home.ini");
+		Gui app = new DefaultGui(name, automator, appDefDir + File.separator + "Home.ini");
 		File d = new File(consideredPath + File.separator + "children");
 		if (FileSystemUtils.isDir(d)){
 			for (File path: d.listFiles()){

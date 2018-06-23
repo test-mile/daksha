@@ -32,10 +32,10 @@ import daksha.tpi.sysauto.utils.FileSystemUtils;
 public class GuiDefLoaderFactory {
 	private static Logger sLogger = Logger.getLogger("daksha");
 	
-	public static GuiDefLoader createGuiDefLoader(TestContext testContext, String mapPath) throws Exception{
-		String ext = FileSystemUtils.getExtension(mapPath).toUpperCase();
+	public static GuiDefLoader createGuiDefLoader(TestContext testContext, String defPath) throws Exception{
+		String ext = FileSystemUtils.getExtension(defPath).toUpperCase();
 		FileFormat format = null;
-		String consideredPath = mapPath;
+		String consideredPath = defPath;
 		try{
 			format = FileFormat.valueOf(ext);
 		} catch (Exception e){
@@ -43,13 +43,13 @@ public class GuiDefLoaderFactory {
 					"GUI Automator", 
 					"Gui Loader", 
 					"createGuiDefLoader", 
-					ErrorType.UNSUPPORTED_MAP_FILE_FORMAT, 
-					String.format(ErrorType.UNSUPPORTED_MAP_FILE_FORMAT, ext)
+					ErrorType.GUIDEFFILE_UNSUPPORTED_FORMAT, 
+					String.format(ErrorType.GUIDEFFILE_UNSUPPORTED_FORMAT, ext)
 				);			
 		}
 		
 		if (!FileSystemUtils.isFile(consideredPath)){
-			consideredPath = FileSystemUtils.getCanonicalPath(testContext.getConfig().value(DakshaOption.GUIAUTO_MAPS_DIR).asString() + "/" + consideredPath);
+			consideredPath = FileSystemUtils.getCanonicalPath(testContext.getConfig().value(DakshaOption.GUIAUTO_DEF_DIR).asString() + "/" + consideredPath);
 			if (FileSystemUtils.isDir(consideredPath)){
 				throw new Problem(
 						"GUI Automator", 

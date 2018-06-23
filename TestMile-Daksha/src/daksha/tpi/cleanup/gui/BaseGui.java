@@ -56,10 +56,10 @@ public abstract class BaseGui implements Gui{
 	private Map<String, Gui> children = new HashMap<String, Gui>();
 	
 	public BaseGui(
-			String name,
+			String label,
 			GuiAutomatorProxy automator,
 			String defPath) throws Exception{
-		populateGuiInfo(name, automator);
+		populateGuiInfo(label, automator);
 		this.defPath = defPath;
 		loadDefinition(defPath);
 	}
@@ -70,22 +70,22 @@ public abstract class BaseGui implements Gui{
 		loadDefinition(defPath);
 	}
 	
-	public BaseGui(String name, GuiAutomatorProxy automator) throws Exception{
-		populateGuiInfo(name, automator);
+	public BaseGui(String label, GuiAutomatorProxy automator) throws Exception{
+		populateGuiInfo(label, automator);
 		this.defPath = this.getDefPath();
 		loadDefinition(defPath);
 	}
 	
 	public BaseGui(
 			Gui parent,
-			String uiLabel, 
+			String label, 
 			GuiAutomatorProxy automator, 
-			String mapPath) throws Exception {
-		populateGuiInfo(name, automator);
+			String defPath) throws Exception {
+		populateGuiInfo(label, automator);
 		populateParentInfo(parent);
-		this.defPath = mapPath;
+		this.defPath = defPath;
 		
-		loadDefinition(mapPath);
+		loadDefinition(defPath);
 	}
 	
 	protected String getDefPath() throws Exception{
@@ -104,7 +104,7 @@ public abstract class BaseGui implements Gui{
 	
 	
 	private void populateGuiInfo(String name, GuiAutomatorProxy automator) throws Exception {
-		if (name != null) this.setName(name);
+		this.setName(name);
 		this.setLabel(name);
 		this.testContext = automator.getTestContext();
 		this.setContext(automator.getAutomatorContext());
@@ -122,9 +122,9 @@ public abstract class BaseGui implements Gui{
 		this.setElementLoaderType(ElementLoaderType.COMPOSITE_GUI);		
 	}
 	
-	private void loadDefinition(String mapPath) throws Exception {
+	private void loadDefinition(String defPath) throws Exception {
 		if (!GuiDefRepository.INSTANCE.hasGuiDef(this.getLabel())) {
-			this.guiDef = GuiDefRepository.INSTANCE.loadGuiDef(this.getLabel(), GuiDefLoaderFactory.createGuiDefLoader(this.getTestContext(), mapPath));
+			this.guiDef = GuiDefRepository.INSTANCE.loadGuiDef(this.getLabel(), GuiDefLoaderFactory.createGuiDefLoader(this.getTestContext(), defPath));
 		} else {
 			this.guiDef = GuiDefRepository.INSTANCE.getGuiDef(this.getLabel());
 		}
@@ -225,9 +225,9 @@ public abstract class BaseGui implements Gui{
 		return getElements(name);
 	}
 	
-	public void addChild(String label, String mapPath) throws Exception {
-		Gui gui = new DefaultGui(name, this.getGuiAutomator(), mapPath);
-		getGuiMap().put(name.toLowerCase(), gui);		
+	public void addChild(String label, String defPath) throws Exception {
+		Gui gui = new DefaultGui(this, label, this.getGuiAutomator(), defPath);
+		getGuiMap().put(label.toLowerCase(), gui);
 	}
 	
 	protected Gui throwUndefinedUiException(String method, String uiLabel) throws Exception{

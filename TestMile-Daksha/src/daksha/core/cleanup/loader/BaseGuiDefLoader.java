@@ -47,7 +47,7 @@ public abstract class BaseGuiDefLoader implements GuiDefLoader{
 		return this.guiDef;
 	}
 	
-	protected Object throwGenericUiMapperException(
+	protected Object throwGenericGuiDefLoaderException(
 			String action,
 			String code,
 			String message
@@ -62,7 +62,7 @@ public abstract class BaseGuiDefLoader implements GuiDefLoader{
 	}
 	
 	public Object throwNotAFileException(String methodName, String filePath) throws Exception{
-		return throwGenericUiMapperException(
+		return throwGenericGuiDefLoaderException(
 				methodName,
 				ErrorType.GUIDEFFILE_NOTAFILE,
 				String.format(
@@ -73,7 +73,7 @@ public abstract class BaseGuiDefLoader implements GuiDefLoader{
 	}
 	
 	public Object throwFileNotFoundException(String methodName, String filePath) throws Exception{
-		return throwGenericUiMapperException(
+		return throwGenericGuiDefLoaderException(
 				methodName,
 				ErrorType.GUIDEFFILE_NOT_FOUND,
 				String.format(
@@ -84,7 +84,7 @@ public abstract class BaseGuiDefLoader implements GuiDefLoader{
 	}
 	
 	public Object throwRelativePathException(String methodName, String filePath) throws Exception{
-		return throwGenericUiMapperException(
+		return throwGenericGuiDefLoaderException(
 				methodName,
 				ErrorType.GUIDEFFILE_RELATIVE_PATH,
 				String.format(
