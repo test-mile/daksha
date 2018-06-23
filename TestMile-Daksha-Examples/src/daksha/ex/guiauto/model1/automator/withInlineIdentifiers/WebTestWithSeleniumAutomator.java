@@ -27,13 +27,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.Daksha;
-import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
-import daksha.core.leaping.enums.OSType;
+import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
+import daksha.core.cleanup.enums.OSType;
 import daksha.ex.config.AppConfig;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.element.MultiGuiElement;
-import daksha.tpi.leaping.generator.GuiAutomatorFactory;
-import daksha.tpi.leaping.generator.selenium.SeleniumBuilder;
+import daksha.tpi.cleanup.constructor.GuiAutomatorFactory;
+import daksha.tpi.cleanup.constructor.selenium.SeleniumBuilder;
+import daksha.tpi.cleanup.element.GuiElement;
+import daksha.tpi.cleanup.element.MultiGuiElement;
 import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
@@ -53,7 +53,10 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
 		automator.goTo(AppConfig.WP_ADMIN_URL);		
-
+		GuiElement abc = automator.elementBasedOnImage("user_login");
+		
+		automator.close();
+		System.exit(1);
 		GuiElement userTextBox = automator.elementWithId("user_login");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);

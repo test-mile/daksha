@@ -25,8 +25,8 @@ import org.testng.ITestContext;
 
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.leaping.enums.OSType;
-import daksha.tpi.leaping.enums.GuiAutomationContext;
+import daksha.core.cleanup.enums.OSType;
+import daksha.tpi.cleanup.enums.GuiAutomationContext;
 
 public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;

@@ -27,18 +27,18 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.Daksha;
-import daksha.core.leaping.enums.OSType;
+import daksha.core.cleanup.enums.OSType;
 import daksha.ex.config.AppConfig;
-import daksha.tpi.leaping.element.GuiElement;
-import daksha.tpi.leaping.element.MultiGuiElement;
-import daksha.tpi.leaping.generator.GuiAutomatorFactory;
-import daksha.tpi.leaping.generator.selenium.SeleniumBuilder;
-import daksha.tpi.leaping.pageobject.App;
-import daksha.tpi.leaping.pageobject.DefaultApp;
+import daksha.tpi.cleanup.constructor.GuiAutomatorFactory;
+import daksha.tpi.cleanup.constructor.selenium.SeleniumBuilder;
+import daksha.tpi.cleanup.element.GuiElement;
+import daksha.tpi.cleanup.element.MultiGuiElement;
+import daksha.tpi.cleanup.gui.DefaultGui;
+import daksha.tpi.cleanup.gui.Gui;
 import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
-	private ThreadLocal<App> threadWiseApp = new ThreadLocal<App>();
+	private ThreadLocal<Gui> threadWiseApp = new ThreadLocal<Gui>();
 	
 	protected void setCentralOptions() throws Exception {
 		Daksha.setOSType(OSType.MAC);
@@ -47,12 +47,12 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		threadWiseApp.set(new DefaultApp("WordPress", builder.build(), "simpleapp/wordpress.ini"));
+		threadWiseApp.set(new DefaultGui("WordPress", builder.build(), "simpleapp/wordpress.ini"));
 	}
 	
 	@Test
 	public void test() throws Exception{
-		App app = this.threadWiseApp.get();
+		Gui app = this.threadWiseApp.get();
 
 		app.goTo(AppConfig.WP_ADMIN_URL);	
 

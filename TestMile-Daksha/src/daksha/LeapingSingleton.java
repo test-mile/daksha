@@ -23,17 +23,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import daksha.core.leaping.enums.AppiumAndroidBrowserType;
-import daksha.core.leaping.enums.AppiumIosBrowserType;
-import daksha.core.leaping.enums.LocateBy;
-import daksha.core.leaping.enums.MobileNativeLocateBy;
-import daksha.core.leaping.enums.MobileWebLocateBy;
-import daksha.core.leaping.enums.NativeLocateBy;
-import daksha.core.leaping.enums.OSType;
-import daksha.core.leaping.enums.VisualLocateBy;
-import daksha.core.leaping.enums.WebLocateBy;
-import daksha.tpi.leaping.enums.GuiAutomationContext;
-import daksha.tpi.leaping.enums.GuiElementType;
+import daksha.core.cleanup.enums.AppiumAndroidBrowserType;
+import daksha.core.cleanup.enums.AppiumIosBrowserType;
+import daksha.core.cleanup.enums.LocateBy;
+import daksha.core.cleanup.enums.MobileNativeLocateBy;
+import daksha.core.cleanup.enums.MobileWebLocateBy;
+import daksha.core.cleanup.enums.NativeLocateBy;
+import daksha.core.cleanup.enums.OSType;
+import daksha.core.cleanup.enums.VisualLocateBy;
+import daksha.core.cleanup.enums.WebLocateBy;
+import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
 
 public enum LeapingSingleton {
