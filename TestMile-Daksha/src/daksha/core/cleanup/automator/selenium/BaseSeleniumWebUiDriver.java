@@ -42,6 +42,8 @@ import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.batteries.config.TestContext;
@@ -306,6 +308,25 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	@Override
 	public void scrollUp(int count) throws Exception {
 		scroll(Direction.UP, count);
+	}
+	
+	protected boolean isWebView() {
+		return true;
+	}
+	
+	public void validatePageLoad() {
+		if ((this.getAutomatorContext() == GuiAutomationContext.PC_WEB) || 
+		(this.getAutomatorContext() == GuiAutomationContext.MOBILE_WEB) ||
+		isWebView()
+		) {
+			ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver driver) {
+					return ((String) ((JavascriptExecutor) driver).executeScript("return document.readyState"))
+							.equals("complete");
+				}
+			};
+			this.getWaiter().until(pageLoadCondition);
+		}
 	}
 	
 }

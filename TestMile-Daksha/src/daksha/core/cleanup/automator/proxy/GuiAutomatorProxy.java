@@ -448,4 +448,8 @@ public class GuiAutomatorProxy implements GuiAutomator{
 		this.concreteAutomator.swipeUp();
 	}
 
+	public void validatePageLoad() {
+		this.concreteAutomator.validatePageLoad();
+	}
+
 }

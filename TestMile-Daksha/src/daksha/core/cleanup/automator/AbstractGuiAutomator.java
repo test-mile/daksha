@@ -465,6 +465,10 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 		throwUnsupportedActionException("scrollUp");
 	}
 	
+	public void validatePageLoad() {
+		// Do Nothing. For web, mobile web and web view in hybrid apps, selenium would handle this.
+	}
+	
 	public ElementLoaderType getElementLoaderType() {
 		return loaderType;
 	}
@@ -490,5 +494,5 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

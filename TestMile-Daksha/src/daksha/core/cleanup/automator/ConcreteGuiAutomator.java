@@ -10,5 +10,6 @@ public interface ConcreteGuiAutomator<D,E> extends GuiAutomator{
 	D getUiDriverEngine()  throws Exception;
 	void setProxy(GuiAutomatorProxy guiAutomatorProxy);
 	GuiAutomatorProxy getProxy();
+	void validatePageLoad();
 
 }
