@@ -24,11 +24,11 @@ import java.util.Set;
 
 import daksha.tpi.sysauto.file.IniFileReader;
 
-public class IniPageDefLoader extends FileBasedPageLoader{
+public class IniGuiDefLoader extends FileBasedGuiDefLoader{
 	private IniFileReader reader = null;
 
-	public IniPageDefLoader(String mapFilePath) throws Exception{
-		super("Ini File Page Loader", mapFilePath);
+	public IniGuiDefLoader(String mapFilePath) throws Exception{
+		super("Ini File Gui Definition Loader", mapFilePath);
 	}
 	
 	@Override

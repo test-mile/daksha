@@ -91,7 +91,7 @@ public class SikuliGuiElementPicker extends BaseGuiElementPicker<Screen,Match>{
 		proxy.setConcreteElement(new SikuliElement(this.getGuiAutomator(), proxy));
 	}
 
-	protected void setConcreteElement(Gui page, GuiElementProxy proxy) throws Exception {
+	protected void setConcreteElement(Gui gui, GuiElementProxy proxy) throws Exception {
 		proxy.setConcreteElement(new SikuliElement(this.getGuiAutomator(), proxy));
 	}
 	
@@ -100,7 +100,7 @@ public class SikuliGuiElementPicker extends BaseGuiElementPicker<Screen,Match>{
 		proxy.setConcreteElement(new SikuliMultiElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(Gui page, MultiGuiElementProxy proxy) {
-		proxy.setConcreteElement(new SikuliMultiElement(page, this.getGuiAutomator(), proxy));
+	protected void setConcreteElement(Gui gui, MultiGuiElementProxy proxy) {
+		proxy.setConcreteElement(new SikuliMultiElement(gui, this.getGuiAutomator(), proxy));
 	}
 }

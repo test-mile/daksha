@@ -52,7 +52,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	
 	@Test
 	public void test() throws Exception{
-		Gui page = this.threadWiseHome.get();
+		Gui gui = this.threadWiseHome.get();
 
 		page.goTo(AppConfig.WP_ADMIN_URL);	
 

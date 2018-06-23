@@ -22,7 +22,7 @@ public class BaseGuiElementProxy implements ManagedElement{
 	private String uiLabel = null;
 	private GuiAutomationContext idType = null;
 	private ManagedConcreteGuiElement concreteElement = null;
-	private Gui page = null;
+	private Gui gui = null;
 	private GuiAutomatorProxy automator = null;
 	
 	public BaseGuiElementProxy(GuiAutomatorProxy automator, GuiElementMetaData emd) {
@@ -30,21 +30,21 @@ public class BaseGuiElementProxy implements ManagedElement{
 		this.emd = emd;
 	}
 	
-	public BaseGuiElementProxy(Gui page, GuiAutomatorProxy automator, GuiElementMetaData emd) {
+	public BaseGuiElementProxy(Gui gui, GuiAutomatorProxy automator, GuiElementMetaData emd) {
 		this(automator, emd);
-		this.page = page;
+		this.gui = gui;
 	}
 	
 	protected GuiAutomatorProxy getAutomator() {
 		return this.automator;
 	}
 	
-	protected Gui getPage() {
-		return this.page;
+	protected Gui getGui() {
+		return this.gui;
 	}
 	
-	public void setPage(Gui page) {
-		this.page = page;
+	public void setGui(Gui gui) {
+		this.gui = gui;
 	}
 	
 	protected void setConcreteFinder(ManagedConcreteGuiElement finder) {
@@ -63,11 +63,11 @@ public class BaseGuiElementProxy implements ManagedElement{
 		this.name = name;
 	}
 
-	public String getCompositePageName(){
+	public String getCompositeGuiName(){
 		return this.entityName;
 	}
 
-	public void setCompositePageName(String name){
+	public void setCompositeGuiName(String name){
 		this.entityName = name;
 	}
 	
@@ -82,12 +82,12 @@ public class BaseGuiElementProxy implements ManagedElement{
 	}
 
 	@Override
-	public String getPageLabel() {
+	public String getGuiLabel() {
 		return this.uiLabel;
 	}
 
 	@Override
-	public void setPageLabel(String label) {
+	public void setGuiLabel(String label) {
 		this.uiLabel = label;
 	}
 
@@ -140,8 +140,8 @@ public class BaseGuiElementProxy implements ManagedElement{
 		}
 		switch(this.getLoaderType()){
 		case AUTOMATOR: rValue = "Element API"; break;
-		case PAGE: rValue = this.getPageLabel(); break;
-		case COMPOSITE_PAGE: rValue = this.getCompositePageName() + "." + this.getPageLabel(); break;
+		case GUI: rValue = this.getGuiLabel(); break;
+		case COMPOSITE_GUI: rValue = this.getCompositeGuiName() + "." + this.getGuiLabel(); break;
 		}
 		return rValue;
 	}
@@ -153,8 +153,8 @@ public class BaseGuiElementProxy implements ManagedElement{
 		}
 		switch(this.getLoaderType()){
 		case AUTOMATOR: rValue = ""; break;
-		case PAGE:  rValue = String.format("name %s and ", this.getName()); break;
-		case COMPOSITE_PAGE: rValue = String.format("name %s and ", this.getName()); break;
+		case GUI:  rValue = String.format("name %s and ", this.getName()); break;
+		case COMPOSITE_GUI: rValue = String.format("name %s and ", this.getName()); break;
 		}
 		return rValue;
 	}
@@ -166,8 +166,8 @@ public class BaseGuiElementProxy implements ManagedElement{
 		}
 		switch(element.getLoaderType()){
 		case AUTOMATOR: rValue =  ""; break;
-		case PAGE: rValue = String.format("name %s and ", element.getName()); break;
-		case COMPOSITE_PAGE: rValue = String.format("name %s and ", element.getName()); break;
+		case GUI: rValue = String.format("name %s and ", element.getName()); break;
+		case COMPOSITE_GUI: rValue = String.format("name %s and ", element.getName()); break;
 		}
 		return rValue;
 	}

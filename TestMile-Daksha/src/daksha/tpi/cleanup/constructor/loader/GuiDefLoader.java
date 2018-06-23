@@ -18,9 +18,9 @@
  ******************************************************************************/
 package daksha.tpi.cleanup.constructor.loader;
 
-import daksha.core.cleanup.loader.PageDefinition;
+import daksha.core.cleanup.loader.GuiDefinition;
 
-public interface PageDefLoader {
-	PageDefinition  getPageDef() throws Exception;
+public interface GuiDefLoader {
+	GuiDefinition  getGuiDef() throws Exception;
 	void load() throws Exception;
 }

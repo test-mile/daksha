@@ -9,7 +9,7 @@ public class AbstractWPPage extends BaseGui{
 		super(automator);
 	}
 	
-	protected String getPageDefPath() throws Exception {
+	protected String getDefPath() throws Exception {
 		return String.format("wordpress/%s.ini", this.getClass().getSimpleName());
 	}
 	

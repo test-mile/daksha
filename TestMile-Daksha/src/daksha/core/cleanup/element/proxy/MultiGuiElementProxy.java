@@ -32,8 +32,8 @@ import daksha.tpi.cleanup.gui.Gui;
 public class MultiGuiElementProxy extends BaseGuiElementProxy implements MultiGuiElement{
 	private ConcreteMultiGuiElement<?,?> concreteElement = null;
 
-	public MultiGuiElementProxy(Gui page, GuiAutomatorProxy automator, GuiElementMetaData emd) {
-		super(page, automator, emd);
+	public MultiGuiElementProxy(Gui gui, GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		super(gui, automator, emd);
 	}
 	
 	public MultiGuiElementProxy(GuiAutomatorProxy automator, GuiElementMetaData emd) {

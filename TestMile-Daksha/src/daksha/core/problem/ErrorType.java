@@ -30,19 +30,19 @@ public class ErrorType {
 
 	public static final String ELEMENT_INQUIRY_FAILURE = "%s was unable to check %s element with %sproperties %s.";
 
-	public static final String PAGE_NULL_AUTOMATOR = "%s page was provided a null automator.";
+	public static final String GUI_NULL_AUTOMATOR = "%s GUI was provided a null automator.";
 
-	public static final String PAGE_UNDEFINED_ELEMENT = "Element with name %s is not defined for %s page.";
+	public static final String GUI_UNDEFINED_ELEMENT = "Element with name %s is not defined for %s GUI.";
 
-	public static final String COMPOSITE_PAGE_CONSTRUCTOR_NULL_AUTOMATOR = "Composite Page was provided a null value for %s Automator.";
+	public static final String COMPOSITE_GUI_CONSTRUCTOR_NULL_AUTOMATOR = "Composite GUI was provided a null value for %s Automator.";
 
-	public static final String COMPOSITE_PAGE_GET_AUTOMATOR_NULL = "%s Automator is not a valid automator for composite page. Allowed Type: %s Automator.";
+	public static final String COMPOSITE_GUI_AUTOMATOR_NULL = "%s Automator is not a valid automator for composite GUI. Allowed Type: %s Automator.";
 
-	public static final String MAPFILE_RELATIVE_PATH = "Page Mapper was provided a file with relative path: %s. Expected absolute path.";
+	public static final String GUIDEFFILE_RELATIVE_PATH = "GUI Loader was provided a file with relative path: %s. Expected absolute path.";
 
-	public static final String MAPFILE_NOT_FOUND = "Page Mapper was not able to find the source map file: %s.";
+	public static final String GUIDEFFILE_NOT_FOUND = "GUI Loader was not able to find the source map file: %s.";
 
-	public static final String MAPFILE_NOTAFILE = "Page Mapper was provided a path which is not a file: %s.";
+	public static final String GUIDEFFILE_NOTAFILE = "GUI Loader was provided a path which is not a file: %s.";
 
 	public static final String UNSUPPORTED_LOCATOR = "Unsupported locator: %s.";
 

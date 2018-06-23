@@ -19,11 +19,16 @@
 package daksha.tpi.cleanup.gui;
 
 import daksha.core.cleanup.actions.GuiElementCreationHandler;
-import daksha.core.cleanup.actions.automator.*;
+import daksha.core.cleanup.actions.automator.BrowserActionHandler;
+import daksha.core.cleanup.actions.automator.ImageComparison;
+import daksha.core.cleanup.actions.automator.MobileActionHandler;
+import daksha.core.cleanup.actions.automator.MouseActionHandler;
+import daksha.core.cleanup.actions.automator.NativeWindowActionHandler;
 import daksha.core.cleanup.automator.ManagedGuiAutomator;
 import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
-import daksha.core.cleanup.element.proxy.*;
-import daksha.core.cleanup.loader.PageDefinition;
+import daksha.core.cleanup.element.proxy.GuiElementProxy;
+import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
+import daksha.core.cleanup.loader.GuiDefinition;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
 
 public interface Gui extends ManagedGuiAutomator, GuiElementCreationHandler, 
@@ -32,7 +37,7 @@ ImageComparison, NativeWindowActionHandler, BrowserActionHandler, MouseActionHan
 	String getLabel() throws Exception;
 	String getName();
 	
-	PageDefinition getPageDef() throws Exception;
+	GuiDefinition getGuiDef() throws Exception;
 	Gui getParent() throws Exception;
 	
 	GuiAutomatorProxy getGuiAutomator() throws Exception; 
@@ -41,7 +46,7 @@ ImageComparison, NativeWindowActionHandler, BrowserActionHandler, MouseActionHan
 	GuiElementProxy element(String name) throws Exception;
 	MultiGuiElementProxy elements(String name) throws Exception;
 	
-	void registerPage(String label, String mapPath) throws Exception;
+	void addChild(String label, String mapPath) throws Exception;
 	
 	Gui gui(String string) throws Exception;
 

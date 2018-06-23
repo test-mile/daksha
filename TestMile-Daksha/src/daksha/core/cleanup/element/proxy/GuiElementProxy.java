@@ -32,8 +32,8 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	private GuiElementType elementType = GuiElementType.GENERIC;
 	private ConcreteGuiElement<?,?> concreteElement = null;
 
-	public GuiElementProxy(Gui page, GuiAutomatorProxy automator, GuiElementMetaData emd) {
-		super(page, automator, emd);
+	public GuiElementProxy(Gui gui, GuiAutomatorProxy automator, GuiElementMetaData emd) {
+		super(gui, automator, emd);
 	}
 	
 	public GuiElementProxy(GuiAutomatorProxy automator, GuiElementMetaData emd) {

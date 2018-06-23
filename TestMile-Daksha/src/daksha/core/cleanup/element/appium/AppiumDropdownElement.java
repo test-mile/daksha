@@ -27,8 +27,8 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumDropdownElement extends BaseSeleniumDropdownElement<AppiumDriver<MobileElement>,MobileElement>{
 	
-	public AppiumDropdownElement(Gui page, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(page,automator, eProxy);
+	public AppiumDropdownElement(Gui gui, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui,automator, eProxy);
 	}
 	
 	public AppiumDropdownElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{

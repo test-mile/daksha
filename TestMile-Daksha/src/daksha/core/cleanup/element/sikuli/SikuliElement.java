@@ -30,8 +30,8 @@ import daksha.tpi.cleanup.gui.Gui;
 
 public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
 	
-	public SikuliElement(Gui page, ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
-		super(page, automator, eProxy);
+	public SikuliElement(Gui gui, ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui, automator, eProxy);
 	}	
 	
 	public SikuliElement(ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
@@ -83,7 +83,7 @@ public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
 	
 
 	private String getImagePathForSecondElement(String name) throws Exception {
-		GuiElementMetaData emd = this.getPage().getPageDef().getMetaData(name);
+		GuiElementMetaData emd = this.getGui().getGuiDef().getMetaData(name);
 		GuiElementProxy proxy = this.getPicker().createProxy(emd);
 		return proxy.getImagePath();
 	}

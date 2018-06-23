@@ -23,7 +23,6 @@ import java.util.Set;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.ElementLoaderType;
-import daksha.core.cleanup.enums.MobileNativeLocateBy;
 import daksha.core.cleanup.enums.MobileView;
 import daksha.core.cleanup.enums.OSType;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;

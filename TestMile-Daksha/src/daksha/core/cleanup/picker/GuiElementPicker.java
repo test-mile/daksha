@@ -17,14 +17,14 @@ public interface GuiElementPicker<D,E> extends GuiElementCreationHandler{
 	List<E> findAll(GuiElementMetaData emd) throws Exception;
 	List<E> findAll(ConcreteGuiElement<D,E> element, GuiElementMetaData emd) throws Exception;
 	
-	GuiElementProxy convertToolElementToProxy(Gui page, GuiElementMetaData metaData, E element) throws Exception;
-	MultiGuiElementProxy convertMultiToolElementToProxy(Gui page, GuiElementMetaData metaData, List<E> elements) throws Exception;
+	GuiElementProxy convertToolElementToProxy(Gui gui, GuiElementMetaData metaData, E element) throws Exception;
+	MultiGuiElementProxy convertMultiToolElementToProxy(Gui gui, GuiElementMetaData metaData, List<E> elements) throws Exception;
 	
 	GuiElementProxy createProxy(GuiElementMetaData emd) throws Exception;
-	GuiElementProxy createProxy(Gui page, GuiElementMetaData emd) throws Exception;
+	GuiElementProxy createProxy(Gui gui, GuiElementMetaData emd) throws Exception;
 	
 	MultiGuiElementProxy createMultiProxy(GuiElementMetaData emd) throws Exception;
-	MultiGuiElementProxy createMultiProxy(Gui page, GuiElementMetaData emd) throws Exception;
+	MultiGuiElementProxy createMultiProxy(Gui gui, GuiElementMetaData emd) throws Exception;
 
 	void convertToDropDown(GuiElementProxy guiElementProxy) throws Exception;
 	

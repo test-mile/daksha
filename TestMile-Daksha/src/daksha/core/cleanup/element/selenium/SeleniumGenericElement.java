@@ -26,8 +26,8 @@ import daksha.core.cleanup.element.proxy.GuiElementProxy;
 import daksha.tpi.cleanup.gui.Gui;
 
 public class SeleniumGenericElement extends AbstractSeleniumConcreteElement<WebDriver,WebElement>{
-	public SeleniumGenericElement(Gui page, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(page, automator, eProxy);
+	public SeleniumGenericElement(Gui gui, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui, automator, eProxy);
 	}
 
 	public SeleniumGenericElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{

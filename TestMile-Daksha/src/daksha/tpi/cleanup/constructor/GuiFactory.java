@@ -23,13 +23,12 @@ import java.io.File;
 import org.apache.commons.io.FilenameUtils;
 
 import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
-import daksha.tpi.cleanup.gui.BaseGui;
 import daksha.tpi.cleanup.gui.DefaultGui;
 import daksha.tpi.cleanup.gui.Gui;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public class PageFactory {
+public class GuiFactory {
 	
 	public static Gui createAppFromDir(String name, GuiAutomatorProxy automator, String appMapsRootDir) throws Exception{
 		String consideredPath = appMapsRootDir;
@@ -40,16 +39,16 @@ public class PageFactory {
 			} 
 		}
 		Gui app = new DefaultGui(name, automator, appMapsRootDir + File.separator + "home.ini");
-		File d = new File(consideredPath + File.separator + "pages");
+		File d = new File(consideredPath + File.separator + "children");
 		if (FileSystemUtils.isDir(d)){
 			for (File path: d.listFiles()){
-				app.registerPage(FilenameUtils.getBaseName(path.getAbsolutePath()), path.getAbsolutePath());
+				app.addChild(FilenameUtils.getBaseName(path.getAbsolutePath()), path.getAbsolutePath());
 			}
 		}
 		return app;
 	}
 
-	public static Gui getPage(GuiAutomatorProxy automator, String mapPath) throws Exception {
-		return new DefaultGui(FileSystemUtils.getFileName(mapPath), automator, mapPath);
+	public static Gui createGui(GuiAutomatorProxy automator, String defPath) throws Exception {
+		return new DefaultGui(FileSystemUtils.getFileName(defPath), automator, defPath);
 	}
 }

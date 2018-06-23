@@ -21,18 +21,18 @@ package daksha.tpi.cleanup.constructor;
 import org.apache.log4j.Logger;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.loader.IniPageDefLoader;
+import daksha.core.cleanup.loader.IniGuiDefLoader;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.cleanup.constructor.loader.PageDefLoader;
+import daksha.tpi.cleanup.constructor.loader.GuiDefLoader;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.enums.FileFormat;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public class PageDefLoaderFactory {
+public class GuiDefLoaderFactory {
 	private static Logger sLogger = Logger.getLogger("daksha");
 	
-	public static PageDefLoader getPageDefLoader(TestContext testContext, String mapPath) throws Exception{
+	public static GuiDefLoader createGuiDefLoader(TestContext testContext, String mapPath) throws Exception{
 		String ext = FileSystemUtils.getExtension(mapPath).toUpperCase();
 		FileFormat format = null;
 		String consideredPath = mapPath;
@@ -40,9 +40,9 @@ public class PageDefLoaderFactory {
 			format = FileFormat.valueOf(ext);
 		} catch (Exception e){
 			throw new Problem(
-					"UI Automator", 
-					"Page Mapper", 
-					"getFileMapper", 
+					"GUI Automator", 
+					"Gui Loader", 
+					"createGuiDefLoader", 
 					ErrorType.UNSUPPORTED_MAP_FILE_FORMAT, 
 					String.format(ErrorType.UNSUPPORTED_MAP_FILE_FORMAT, ext)
 				);			
@@ -52,25 +52,25 @@ public class PageDefLoaderFactory {
 			consideredPath = FileSystemUtils.getCanonicalPath(testContext.getConfig().value(DakshaOption.GUIAUTO_MAPS_DIR).asString() + "/" + consideredPath);
 			if (FileSystemUtils.isDir(consideredPath)){
 				throw new Problem(
-						"UI Automator", 
-						"Page Mapper", 
-						"getFileMapper", 
-						ErrorType.MAPFILE_NOTAFILE, 
-						String.format(ErrorType.MAPFILE_NOTAFILE, consideredPath)
+						"GUI Automator", 
+						"Gui Loader", 
+						"createGuiDefLoader",  
+						ErrorType.GUIDEFFILE_NOTAFILE, 
+						String.format(ErrorType.GUIDEFFILE_NOTAFILE, consideredPath)
 					);				
 			} else if (!FileSystemUtils.isFile(consideredPath)){
 				throw new Problem(
-						"UI Automator", 
-						"Page Mapper", 
-						"getFileMapper", 
-						ErrorType.MAPFILE_NOT_FOUND, 
-						String.format(ErrorType.MAPFILE_NOT_FOUND, consideredPath)
+						"GUI Automator", 
+						"Gui Loader", 
+						"createGuiDefLoader", 
+						ErrorType.GUIDEFFILE_NOT_FOUND, 
+						String.format(ErrorType.GUIDEFFILE_NOT_FOUND, consideredPath)
 					);				
 			}
 		}
 
 		switch(format){
-		case INI : return new IniPageDefLoader(consideredPath);
+		case INI : return new IniGuiDefLoader(consideredPath);
 		default: return null;
 		}
 	}

@@ -7,20 +7,20 @@ public abstract class BaseManagedConcreteGuiElement<D,E,P> {
 	private ConcreteGuiAutomator<D,E> automator = null;
 	private String automatorName = null;
 	private P proxy = null;
-	private Gui page = null;
+	private Gui gui = null;
 	
 	public BaseManagedConcreteGuiElement(ConcreteGuiAutomator<D,E> automator, P proxy) {
 		this.automator = automator;
 		this.proxy = proxy;
 	}
 	
-	public BaseManagedConcreteGuiElement(Gui page, ConcreteGuiAutomator<D,E> automator, P proxy) {
+	public BaseManagedConcreteGuiElement(Gui gui, ConcreteGuiAutomator<D,E> automator, P proxy) {
 		this(automator, proxy);
-		this.page = page;
+		this.gui = gui;
 	}
 	
-	protected Gui getPage() {
-		return this.page;
+	protected Gui getGui() {
+		return this.gui;
 	}
 	
 	protected ConcreteGuiAutomator<D,E> getAutomator() {

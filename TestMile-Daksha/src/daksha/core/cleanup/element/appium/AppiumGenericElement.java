@@ -26,8 +26,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public class AppiumGenericElement extends AbstractSeleniumConcreteElement<AppiumDriver<MobileElement>,MobileElement>{
-	public AppiumGenericElement(Gui page, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(page, automator, eProxy);
+	public AppiumGenericElement(Gui gui, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui, automator, eProxy);
 	}
 
 	public AppiumGenericElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{

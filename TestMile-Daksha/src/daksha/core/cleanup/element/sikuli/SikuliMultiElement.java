@@ -28,8 +28,8 @@ import daksha.tpi.cleanup.gui.Gui;
 
 public class SikuliMultiElement extends BaseConcreteMultiGuiElement<Screen,Match>{
 
-	public SikuliMultiElement(Gui page, ConcreteGuiAutomator<Screen,Match> automator, MultiGuiElementProxy eProxy){
-		super(page, automator, eProxy);
+	public SikuliMultiElement(Gui gui, ConcreteGuiAutomator<Screen,Match> automator, MultiGuiElementProxy eProxy){
+		super(gui, automator, eProxy);
 	}
 	
 	public SikuliMultiElement(ConcreteGuiAutomator<Screen,Match> automator, MultiGuiElementProxy eProxy){

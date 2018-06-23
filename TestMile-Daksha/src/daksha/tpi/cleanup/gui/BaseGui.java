@@ -19,9 +19,7 @@
 package daksha.tpi.cleanup.gui;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -34,11 +32,11 @@ import daksha.core.cleanup.element.proxy.GuiElementProxy;
 import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.core.cleanup.loader.PageDefRepository;
-import daksha.core.cleanup.loader.PageDefinition;
+import daksha.core.cleanup.loader.GuiDefRepository;
+import daksha.core.cleanup.loader.GuiDefinition;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.cleanup.constructor.PageDefLoaderFactory;
+import daksha.tpi.cleanup.constructor.GuiDefLoaderFactory;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
 import daksha.tpi.cleanup.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
@@ -47,35 +45,35 @@ public abstract class BaseGui implements Gui{
 	private Logger logger = Daksha.getLogger();
 	private TestContext testContext = null;
 	private GuiAutomatorProxy automator = null;
-	private PageDefinition pageDef = null;
+	private GuiDefinition guiDef = null;
 	private GuiAutomationContext context = null;
 	private String label;
 	private Gui parent = null;
 	private ElementLoaderType loaderType = null;
 	private String imagesDirectory =  null;
 	private String name = null;
-	private String mapPath = null;
-	private Map<String, Gui> pageMap = new HashMap<String, Gui>();
+	private String defPath = null;
+	private Map<String, Gui> children = new HashMap<String, Gui>();
 	
 	public BaseGui(
 			String name,
 			GuiAutomatorProxy automator,
-			String mapPath) throws Exception{
-		populateSinglePage(name, automator);
-		this.mapPath = mapPath;
-		loadDefinition(mapPath);
+			String defPath) throws Exception{
+		populateGuiInfo(name, automator);
+		this.defPath = defPath;
+		loadDefinition(defPath);
 	}
 	
 	public BaseGui(GuiAutomatorProxy automator) throws Exception{
-		populateSinglePage(this.getClass().getSimpleName(), automator);
-		this.mapPath = this.getPageDefPath();
-		loadDefinition(mapPath);
+		populateGuiInfo(this.getClass().getSimpleName(), automator);
+		this.defPath = this.getDefPath();
+		loadDefinition(defPath);
 	}
 	
 	public BaseGui(String name, GuiAutomatorProxy automator) throws Exception{
-		populateSinglePage(name, automator);
-		this.mapPath = this.getPageDefPath();
-		loadDefinition(mapPath);
+		populateGuiInfo(name, automator);
+		this.defPath = this.getDefPath();
+		loadDefinition(defPath);
 	}
 	
 	public BaseGui(
@@ -83,34 +81,34 @@ public abstract class BaseGui implements Gui{
 			String uiLabel, 
 			GuiAutomatorProxy automator, 
 			String mapPath) throws Exception {
-		populateSinglePage(name, automator);
-		populteCompositePage(parent);
-		this.mapPath = mapPath;
+		populateGuiInfo(name, automator);
+		populateParentInfo(parent);
+		this.defPath = mapPath;
 		
 		loadDefinition(mapPath);
 	}
 	
-	protected String getPageDefPath() throws Exception{
-		return this.mapPath;
+	protected String getDefPath() throws Exception{
+		return this.defPath;
 	}
 	
 	protected abstract void validateLoaded() throws Throwable;
 	
-	protected void goToPage() throws Exception {
+	protected void goToGui() throws Exception {
 		try {
 			this.validateLoaded();
 		} catch (Throwable e) {
-			throw new Exception(String.format("Page %s did not load as expected. Error: %s", this.getName(), e.getMessage()));
+			throw new Exception(String.format("GUI %s did not load as expected. Error: %s", this.getName(), e.getMessage()));
 		}
 	}
 	
 	
-	private void populateSinglePage(String name, GuiAutomatorProxy automator) throws Exception {
+	private void populateGuiInfo(String name, GuiAutomatorProxy automator) throws Exception {
 		if (name != null) this.setName(name);
 		this.setLabel(name);
 		this.testContext = automator.getTestContext();
 		this.setContext(automator.getAutomatorContext());
-		this.setElementLoaderType(ElementLoaderType.PAGE);
+		this.setElementLoaderType(ElementLoaderType.GUI);
 		this.setGuiAutomator(automator);	
 	}
 	
@@ -118,24 +116,24 @@ public abstract class BaseGui implements Gui{
 		return this.testContext;
 	}
 	
-	private void populteCompositePage(Gui parent) {
+	private void populateParentInfo(Gui parent) {
 		this.setParent(parent);
 		this.setName(parent.getName() + "." + this.getLabel());
-		this.setElementLoaderType(ElementLoaderType.COMPOSITE_PAGE);		
+		this.setElementLoaderType(ElementLoaderType.COMPOSITE_GUI);		
 	}
 	
 	private void loadDefinition(String mapPath) throws Exception {
-		if (!PageDefRepository.INSTANCE.hasPageDef(this.getLabel())) {
-			this.pageDef = PageDefRepository.INSTANCE.loadPageDef(this.getLabel(), PageDefLoaderFactory.getPageDefLoader(this.getTestContext(), mapPath));
+		if (!GuiDefRepository.INSTANCE.hasGuiDef(this.getLabel())) {
+			this.guiDef = GuiDefRepository.INSTANCE.loadGuiDef(this.getLabel(), GuiDefLoaderFactory.createGuiDefLoader(this.getTestContext(), mapPath));
 		} else {
-			this.pageDef = PageDefRepository.INSTANCE.getPageDef(this.getLabel());
+			this.guiDef = GuiDefRepository.INSTANCE.getGuiDef(this.getLabel());
 		}
 		
 	}	
 	
 	@Override
-	public PageDefinition getPageDef() throws Exception {
-		return this.pageDef;
+	public GuiDefinition getGuiDef() throws Exception {
+		return this.guiDef;
 	}
 	
 	public String getName() {
@@ -198,10 +196,10 @@ public abstract class BaseGui implements Gui{
 	public GuiElementProxy getElement(String elementName) throws Exception {
 		if (elementName == null){
 			return (GuiElementProxy) throwNullElementException("element", elementName);
-		} else if (!this.pageDef.has(elementName)) {
+		} else if (!this.guiDef.has(elementName)) {
 			return (GuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			GuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getPicker().createProxy(this, this.pageDef.getMetaData(elementName));
+			GuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getPicker().createProxy(this, this.guiDef.getMetaData(elementName));
 			return proxy;
 		}
 	}
@@ -209,10 +207,10 @@ public abstract class BaseGui implements Gui{
 	public MultiGuiElementProxy getElements(String elementName) throws Exception {
 		if (elementName == null){
 			return (MultiGuiElementProxy) throwNullElementException("element", elementName);
-		} else if (!this.pageDef.has(elementName)) {
+		} else if (!this.guiDef.has(elementName)) {
 			return (MultiGuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			MultiGuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getPicker().createMultiProxy(this, this.pageDef.getMetaData(elementName));
+			MultiGuiElementProxy proxy = this.getGuiAutomator().getConcreteAutomator().getPicker().createMultiProxy(this, this.guiDef.getMetaData(elementName));
 			return proxy;
 		}
 	}
@@ -227,14 +225,14 @@ public abstract class BaseGui implements Gui{
 		return getElements(name);
 	}
 	
-	public void registerPage(String label, String mapPath) throws Exception {
-		Gui page = new DefaultGui(name, this.getGuiAutomator(), mapPath);
-		getPageMap().put(name.toLowerCase(), page);		
+	public void addChild(String label, String mapPath) throws Exception {
+		Gui gui = new DefaultGui(name, this.getGuiAutomator(), mapPath);
+		getGuiMap().put(name.toLowerCase(), gui);		
 	}
 	
 	protected Gui throwUndefinedUiException(String method, String uiLabel) throws Exception{
 		throw new Problem(
-			"Page Object Component",
+			"GUI",
 			this.getName(),
 			method,
 			ErrorType.COMPOSITE_GUI_NONEXISTING_LABEL,
@@ -244,7 +242,7 @@ public abstract class BaseGui implements Gui{
 	
 	protected Gui throwNullUiException(String method) throws Exception{
 		throw new Problem(
-			"Page Object Component",
+			"GUI",
 			this.getName(),
 			method,
 			ErrorType.COMPOSITE_GUI_NULL_LABEL,
@@ -254,22 +252,22 @@ public abstract class BaseGui implements Gui{
 	
 	public Gui gui(String uiName) throws Exception {
 		if (uiName != null){
-			if (getPageMap().containsKey(uiName.toLowerCase())){
-				return getPageMap().get(uiName.toLowerCase());
+			if (getGuiMap().containsKey(uiName.toLowerCase())){
+				return getGuiMap().get(uiName.toLowerCase());
 			} else{
-				return throwUndefinedUiException("page", uiName);
+				return throwUndefinedUiException("gui", uiName);
 			}
 		} else {
-			return throwNullUiException("page");
+			return throwNullUiException("gui");
 		}
 	}
 
-	protected Map<String, Gui> getPageMap() {
-		return pageMap;
+	protected Map<String, Gui> getGuiMap() {
+		return children;
 	}
 
-	protected void setPageMap(Map<String, Gui> pageMap) {
-		this.pageMap = pageMap;
+	protected void setGuiMap(Map<String, Gui> guiMap) {
+		this.children = guiMap;
 	}
 
 	protected Object throwDefaultUiException(String action, String code, String message) throws Exception {
@@ -285,9 +283,9 @@ public abstract class BaseGui implements Gui{
 	public Object throwNullAutomatorException(String methodName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				ErrorType.PAGE_NULL_AUTOMATOR,
+				ErrorType.GUI_NULL_AUTOMATOR,
 				String.format(
-						ErrorType.PAGE_NULL_AUTOMATOR,
+						ErrorType.GUI_NULL_AUTOMATOR,
 						Daksha.getAutomationContextName(this.getAutomatorContext())
 						)
 				);
@@ -296,9 +294,9 @@ public abstract class BaseGui implements Gui{
 	public Object throwUndefinedElementException(String methodName, String elementName) throws Exception {
 		return throwDefaultUiException(
 				methodName,
-				ErrorType.PAGE_UNDEFINED_ELEMENT,
+				ErrorType.GUI_UNDEFINED_ELEMENT,
 				String.format(
-						ErrorType.PAGE_UNDEFINED_ELEMENT,
+						ErrorType.GUI_UNDEFINED_ELEMENT,
 						elementName,
 						DataUtils.toTitleCase(this.getAutomatorContext().toString())
 						//						Batteries.toTitleCase(getDeviceType().toString()),
@@ -321,7 +319,7 @@ public abstract class BaseGui implements Gui{
 	}
 
 	private void wrapProxy(BaseGuiElementProxy proxy) {
-		proxy.setPage(this);
+		proxy.setGui(this);
 		proxy.setLoaderType(this.getElementLoaderType());		
 	}
 	

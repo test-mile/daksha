@@ -38,8 +38,8 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 		setUpObjectVars();
 	}
 	
-	public AbstractSeleniumConcreteElement(Gui page, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
-		super(page, automator, eProxy);
+	public AbstractSeleniumConcreteElement(Gui gui, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui, automator, eProxy);
 		setUpObjectVars();
 	}	
 	
@@ -181,7 +181,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 
 	public void hoverAndClickElement(String name) throws Exception{
 		Actions builder =  null;
-		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getGuiDef().getMetaData(name);
 		try {
 			builder = getActionChain();
 			builder.moveToElement(this.asWebElement()).perform();
@@ -202,7 +202,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 	}
 	
 	public void rightClickAndClickElement(String name) throws Exception{
-		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getGuiDef().getMetaData(name);
 		this.rightClick();
 		WebElement e2 = (WebElement) this.getPicker().find(metaData);
 		e2.click();	

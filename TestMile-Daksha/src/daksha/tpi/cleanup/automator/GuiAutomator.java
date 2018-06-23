@@ -21,10 +21,15 @@ package daksha.tpi.cleanup.automator;
 import java.util.Map;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.actions.*;
-import daksha.core.cleanup.actions.automator.*;
+import daksha.core.cleanup.actions.GuiElementCreationHandler;
+import daksha.core.cleanup.actions.automator.BrowserActionHandler;
+import daksha.core.cleanup.actions.automator.ImageComparison;
+import daksha.core.cleanup.actions.automator.MobileActionHandler;
+import daksha.core.cleanup.actions.automator.MouseActionHandler;
+import daksha.core.cleanup.actions.automator.NativeWindowActionHandler;
 import daksha.core.cleanup.automator.ManagedGuiAutomator;
-import daksha.core.cleanup.enums.*;
+import daksha.core.cleanup.enums.ElementLoaderType;
+import daksha.core.cleanup.enums.OSType;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
 
 public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparison, MouseActionHandler, MobileActionHandler{

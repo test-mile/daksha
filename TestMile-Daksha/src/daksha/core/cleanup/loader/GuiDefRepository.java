@@ -18,30 +18,35 @@
  ******************************************************************************/
 package daksha.core.cleanup.loader;
 
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
-abstract public class FileBasedPageLoader extends BasePageDefLoader{
-	private File mapFile= null;
-	private String mapPath = null;
+import daksha.tpi.cleanup.constructor.loader.GuiDefLoader;
 
-	public FileBasedPageLoader(String name, String mapFilePath) throws Exception {
-		super(name);
-		this.mapPath = mapFilePath;
-		this.mapFile = new File(mapFilePath);
-		if (!this.mapFile.isAbsolute()){
-			this.throwRelativePathException("constructor", mapFilePath);
-		} 
-		
-		if (!this.mapFile.exists()){
-			this.throwFileNotFoundException("constructor", mapFilePath);
-		} 
-		
-		if (!this.mapFile.isFile()){
-			this.throwNotAFileException("constructor", mapFilePath);
+public enum GuiDefRepository{
+	INSTANCE;
+
+	private Map<String, GuiDefinition> guiDefMap =  new HashMap<String, GuiDefinition>();
+
+	public synchronized boolean isGuiDefLoader(String name){
+		return guiDefMap.containsKey(name);
+	}
+
+	public synchronized boolean hasGuiDef(String name) {
+		return guiDefMap.containsKey(name.toLowerCase());
+	}
+	
+	public synchronized GuiDefinition loadGuiDef(String name, GuiDefLoader loader) throws Exception{
+		if(!hasGuiDef(name)){
+			loader.load();
+			this.guiDefMap.put(name.toLowerCase(), loader.getGuiDef());
 		}
+		return guiDefMap.get(name.toLowerCase());
+	}
+	
+
+	public synchronized GuiDefinition getGuiDef(String name) throws Exception{
+		return guiDefMap.get(name.toLowerCase());
 	}
 
-	protected String getMapFilePath(){
-		return mapPath;
-	}
 }

@@ -30,8 +30,8 @@ import daksha.tpi.cleanup.gui.Gui;
 
 public class BaseSeleniumDropdownElement<D,E> extends AbstractSeleniumConcreteElement<D,E>{
 	
-	public BaseSeleniumDropdownElement(Gui page, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
-		super(page,automator, eProxy);
+	public BaseSeleniumDropdownElement(Gui gui, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui,automator, eProxy);
 	}
 	
 	public BaseSeleniumDropdownElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{

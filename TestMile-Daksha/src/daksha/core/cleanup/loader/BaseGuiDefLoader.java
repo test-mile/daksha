@@ -22,16 +22,16 @@ import java.util.Map;
 
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.cleanup.constructor.loader.PageDefLoader;
+import daksha.tpi.cleanup.constructor.loader.GuiDefLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public abstract class BasePageDefLoader implements PageDefLoader{
+public abstract class BaseGuiDefLoader implements GuiDefLoader{
 	private String name;
-	private PageDefinition pageDef;
+	private GuiDefinition guiDef;
 	
-	public BasePageDefLoader(String name) {
+	public BaseGuiDefLoader(String name) {
 		this.name = name;
-		this.pageDef = new PageDefinition();
+		this.guiDef = new GuiDefinition();
 	}
 	
 	public String getName() {
@@ -39,12 +39,12 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	}
 	
 	protected synchronized void addElementMetaData(String name, Map<String,String> map) throws Exception {
-		this.pageDef.addElementMetaData(name, map);
+		this.guiDef.addElementMetaData(name, map);
 	}
 	
 	@Override
-	public synchronized PageDefinition getPageDef() {
-		return this.pageDef;
+	public synchronized GuiDefinition getGuiDef() {
+		return this.guiDef;
 	}
 	
 	protected Object throwGenericUiMapperException(
@@ -64,9 +64,9 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	public Object throwNotAFileException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				ErrorType.MAPFILE_NOTAFILE,
+				ErrorType.GUIDEFFILE_NOTAFILE,
 				String.format(
-						ErrorType.MAPFILE_NOTAFILE,
+						ErrorType.GUIDEFFILE_NOTAFILE,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
 		);
@@ -75,9 +75,9 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	public Object throwFileNotFoundException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				ErrorType.MAPFILE_NOT_FOUND,
+				ErrorType.GUIDEFFILE_NOT_FOUND,
 				String.format(
-						ErrorType.MAPFILE_NOT_FOUND,
+						ErrorType.GUIDEFFILE_NOT_FOUND,
 						FileSystemUtils.getCanonicalPath(filePath)
 				)
 		);
@@ -86,9 +86,9 @@ public abstract class BasePageDefLoader implements PageDefLoader{
 	public Object throwRelativePathException(String methodName, String filePath) throws Exception{
 		return throwGenericUiMapperException(
 				methodName,
-				ErrorType.MAPFILE_RELATIVE_PATH,
+				ErrorType.GUIDEFFILE_RELATIVE_PATH,
 				String.format(
-						ErrorType.MAPFILE_RELATIVE_PATH,
+						ErrorType.GUIDEFFILE_RELATIVE_PATH,
 						filePath
 				)
 		);

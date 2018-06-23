@@ -18,10 +18,10 @@
  ******************************************************************************/
 package daksha.core.cleanup.picker;
 
-import daksha.core.cleanup.enums.PickBy;
 import daksha.core.cleanup.enums.MobileNativeLocateBy;
 import daksha.core.cleanup.enums.MobileWebLocateBy;
 import daksha.core.cleanup.enums.NativeLocateBy;
+import daksha.core.cleanup.enums.PickBy;
 import daksha.core.cleanup.enums.VisualLocateBy;
 import daksha.core.cleanup.enums.WebLocateBy;
 

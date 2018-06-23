@@ -9,17 +9,17 @@ public interface ManagedElement {
 
 	void setName(String name);
 
-	String getCompositePageName();
+	String getCompositeGuiName();
 
-	void setCompositePageName(String name);
+	void setCompositeGuiName(String name);
 	
 	void setLoaderType(ElementLoaderType type);
 	
 	ElementLoaderType getLoaderType();
 
-	String getPageLabel();
+	String getGuiLabel();
 
-	void setPageLabel(String label);
+	void setGuiLabel(String label);
 
 	String property(String propName);
 

@@ -18,18 +18,11 @@
  ******************************************************************************/
 package daksha.core.cleanup.automator;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import org.sikuli.script.Finder;
-import org.sikuli.script.Pattern;
-
 import daksh.core.batteries.image.ImageComprator;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.actions.automator.ImageComparison;
 import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
 import daksha.core.cleanup.element.proxy.GuiElementProxy;
 import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;

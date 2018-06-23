@@ -18,26 +18,16 @@
  ******************************************************************************/
 package daksha.core.cleanup.automator.sikuli;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
 import org.sikuli.script.App;
-import org.sikuli.script.Finder;
 import org.sikuli.script.Match;
-import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.automator.AbstractGuiAutomator;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.OSType;
 import daksha.core.cleanup.enums.UiDriverEngine;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
-import daksha.tpi.enums.DakshaOption;
 
 public class SikuliScreenUiDriver extends AbstractGuiAutomator<Screen,Match>{
 	

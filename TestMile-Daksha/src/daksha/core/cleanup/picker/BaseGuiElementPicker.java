@@ -30,8 +30,8 @@ public abstract class BaseGuiElementPicker<D,E> implements GuiElementPicker<D,E>
 		return automator.getProxy();
 	}
 	
-	protected abstract void setConcreteElement(Gui page, MultiGuiElementProxy proxy);
-	protected abstract void setConcreteElement(Gui page, GuiElementProxy proxy) throws Exception;
+	protected abstract void setConcreteElement(Gui gui, MultiGuiElementProxy proxy);
+	protected abstract void setConcreteElement(Gui gui, GuiElementProxy proxy) throws Exception;
 	protected abstract void setConcreteElement(MultiGuiElementProxy proxy);
 	protected abstract void setConcreteElement(GuiElementProxy proxy) throws Exception;
 
@@ -210,32 +210,32 @@ public abstract class BaseGuiElementPicker<D,E> implements GuiElementPicker<D,E>
 	}
 	
 	@Override
-	public GuiElementProxy createProxy(Gui page, GuiElementMetaData emd) throws Exception {
-		GuiElementProxy proxy = new GuiElementProxy(page, this.getGuiAutomatorProxy(), emd);
-		setConcreteElement(page, proxy);
+	public GuiElementProxy createProxy(Gui gui, GuiElementMetaData emd) throws Exception {
+		GuiElementProxy proxy = new GuiElementProxy(gui, this.getGuiAutomatorProxy(), emd);
+		setConcreteElement(gui, proxy);
 		proxy.setLoaderType(this.automator.getElementLoaderType());
 		return proxy;
 	}
 
 	@Override
-	public MultiGuiElementProxy createMultiProxy(Gui page, GuiElementMetaData emd) throws Exception {
-		MultiGuiElementProxy proxy = new MultiGuiElementProxy(page, this.getGuiAutomatorProxy(), emd);
-		setConcreteElement(page, proxy);
+	public MultiGuiElementProxy createMultiProxy(Gui gui, GuiElementMetaData emd) throws Exception {
+		MultiGuiElementProxy proxy = new MultiGuiElementProxy(gui, this.getGuiAutomatorProxy(), emd);
+		setConcreteElement(gui, proxy);
 		proxy.setLoaderType(this.automator.getElementLoaderType());
 		return proxy;
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public GuiElementProxy convertToolElementToProxy(Gui page, GuiElementMetaData metaData, E element) throws Exception{
-		GuiElementProxy proxy = createProxy(page, metaData);
+	public GuiElementProxy convertToolElementToProxy(Gui gui, GuiElementMetaData metaData, E element) throws Exception{
+		GuiElementProxy proxy = createProxy(gui, metaData);
 		((ConcreteGuiElement<D,E>) proxy.getConcreteElement()).setToolElement(element);
 		return proxy;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public MultiGuiElementProxy convertMultiToolElementToProxy(Gui page, GuiElementMetaData metaData, List<E> elements) throws Exception{
-		MultiGuiElementProxy proxy = createMultiProxy(page, metaData);
+	public MultiGuiElementProxy convertMultiToolElementToProxy(Gui gui, GuiElementMetaData metaData, List<E> elements) throws Exception{
+		MultiGuiElementProxy proxy = createMultiProxy(gui, metaData);
 		((ConcreteMultiGuiElement<D,E>) proxy.getConcreteElement()).setToolElements(elements);
 		return proxy;		
 	}

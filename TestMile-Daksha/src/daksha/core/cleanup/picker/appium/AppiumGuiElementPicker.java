@@ -26,8 +26,8 @@ public class AppiumGuiElementPicker extends BaseSeleniumGuiElementPicker<AppiumD
 		proxy.setConcreteElement(new AppiumGenericElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(Gui page, GuiElementProxy proxy) throws Exception {
-		proxy.setConcreteElement(new AppiumGenericElement(page, this.getGuiAutomator(), proxy));
+	protected void setConcreteElement(Gui gui, GuiElementProxy proxy) throws Exception {
+		proxy.setConcreteElement(new AppiumGenericElement(gui, this.getGuiAutomator(), proxy));
 	}
 	
 	
@@ -35,7 +35,7 @@ public class AppiumGuiElementPicker extends BaseSeleniumGuiElementPicker<AppiumD
 		proxy.setConcreteElement(new AppiumMultiElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(Gui page, MultiGuiElementProxy proxy) {
-		proxy.setConcreteElement(new AppiumMultiElement(page, this.getGuiAutomator(), proxy));
+	protected void setConcreteElement(Gui gui, MultiGuiElementProxy proxy) {
+		proxy.setConcreteElement(new AppiumMultiElement(gui, this.getGuiAutomator(), proxy));
 	}
 }

@@ -26,8 +26,8 @@ public class SeleniumGuiElementPicker extends BaseSeleniumGuiElementPicker<WebDr
 		proxy.setConcreteElement(new SeleniumGenericElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(Gui page, GuiElementProxy proxy) throws Exception {
-		proxy.setConcreteElement(new SeleniumGenericElement(page, this.getGuiAutomator(), proxy));
+	protected void setConcreteElement(Gui gui, GuiElementProxy proxy) throws Exception {
+		proxy.setConcreteElement(new SeleniumGenericElement(gui, this.getGuiAutomator(), proxy));
 	}
 	
 	
@@ -35,8 +35,8 @@ public class SeleniumGuiElementPicker extends BaseSeleniumGuiElementPicker<WebDr
 		proxy.setConcreteElement(new SeleniumMultiElement(this.getGuiAutomator(), proxy));
 	}
 	
-	protected void setConcreteElement(Gui page, MultiGuiElementProxy proxy) {
-		proxy.setConcreteElement(new SeleniumMultiElement(page, this.getGuiAutomator(), proxy));
+	protected void setConcreteElement(Gui gui, MultiGuiElementProxy proxy) {
+		proxy.setConcreteElement(new SeleniumMultiElement(gui, this.getGuiAutomator(), proxy));
 	}
 
 }

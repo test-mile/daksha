@@ -30,7 +30,7 @@ import daksha.Daksha;
 import daksha.core.cleanup.enums.OSType;
 import daksha.ex.config.AppConfig;
 import daksha.tpi.cleanup.constructor.GuiAutomatorFactory;
-import daksha.tpi.cleanup.constructor.PageFactory;
+import daksha.tpi.cleanup.constructor.GuiFactory;
 import daksha.tpi.cleanup.constructor.selenium.SeleniumBuilder;
 import daksha.tpi.cleanup.element.GuiElement;
 import daksha.tpi.cleanup.element.MultiGuiElement;
@@ -47,13 +47,13 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui home = PageFactory.getPage(builder.build(), "wordpress/HomePage.ini");
+		Gui home = GuiFactory.createGui(builder.build(), "wordpress/HomePage.ini");
 		threadWiseHomePage.set(home);
 	}
 	
 	@Test
 	public void test() throws Exception{
-		Gui page = this.threadWiseHomePage.get();
+		Gui gui = this.threadWiseHomePage.get();
 
 		page.goTo(AppConfig.WP_ADMIN_URL);	
 
@@ -64,12 +64,12 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		page.element("SUBMIT").click();		
 		page.waitForBody();
 		
-		page = PageFactory.getPage(page.getGuiAutomator(), "wordpress/LeftNavigation.ini");
+		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/LeftNavigation.ini");
 		page.element("POSTS").hover();
 		page.element("CATEGORIES").click();	
 		page.waitForBody();
 		
-		page = PageFactory.getPage(page.getGuiAutomator(), "wordpress/Categories.ini");
+		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/Categories.ini");
 		MultiGuiElement tags = page.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
@@ -79,10 +79,10 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		page = PageFactory.getPage(page.getGuiAutomator(), "wordpress/LeftNavigation.ini");
+		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/LeftNavigation.ini");
 		page.element("SETTINGS").click();
 		
-		page = PageFactory.getPage(page.getGuiAutomator(), "wordpress/Settings.ini");
+		page = GuiFactory.createGui(page.getGuiAutomator(), "wordpress/Settings.ini");
 		GuiElement blogNameTextBox = page.element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");

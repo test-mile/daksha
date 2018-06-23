@@ -30,7 +30,7 @@ import daksha.Daksha;
 import daksha.core.cleanup.enums.OSType;
 import daksha.ex.config.AppConfig;
 import daksha.tpi.cleanup.constructor.GuiAutomatorFactory;
-import daksha.tpi.cleanup.constructor.PageFactory;
+import daksha.tpi.cleanup.constructor.GuiFactory;
 import daksha.tpi.cleanup.constructor.selenium.SeleniumBuilder;
 import daksha.tpi.cleanup.element.GuiElement;
 import daksha.tpi.cleanup.element.MultiGuiElement;
@@ -47,7 +47,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui app = PageFactory.createAppFromDir("WordPress", builder.build(), "appwithpages");
+		Gui app = GuiFactory.createAppFromDir("WordPress", builder.build(), "appwithpages");
 		threadWiseApp.set(app);
 	}
 	

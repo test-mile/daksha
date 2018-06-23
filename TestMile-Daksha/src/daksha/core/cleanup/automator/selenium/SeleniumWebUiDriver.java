@@ -18,17 +18,14 @@
  ******************************************************************************/
 package daksha.core.cleanup.automator.selenium;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.enums.Direction;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.UiDriverEngine;
 import daksha.core.cleanup.picker.selenium.SeleniumGuiElementPicker;
 import daksha.tpi.cleanup.enums.GuiAutomationContext;
-import daksha.tpi.enums.DakshaOption;
 
 public class SeleniumWebUiDriver extends BaseSeleniumWebUiDriver<WebDriver,WebElement>{
 	

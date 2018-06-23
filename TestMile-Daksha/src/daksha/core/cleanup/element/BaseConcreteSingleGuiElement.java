@@ -22,8 +22,8 @@ import java.util.List;
 
 import daksha.core.cleanup.automator.ConcreteGuiAutomator;
 import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.core.cleanup.picker.GuiElementPicker;
 import daksha.core.cleanup.picker.GuiElementMetaData;
+import daksha.core.cleanup.picker.GuiElementPicker;
 import daksha.tpi.cleanup.element.GuiElement;
 import daksha.tpi.cleanup.element.MultiGuiElement;
 import daksha.tpi.cleanup.enums.GuiElementType;
@@ -41,8 +41,8 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 		populateObjectVars(automator, proxy);
 	}
 	
-	public BaseConcreteSingleGuiElement(Gui page, ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
-		super(page, automator, proxy);
+	public BaseConcreteSingleGuiElement(Gui gui, ConcreteGuiAutomator<D,E> automator, GuiElementProxy proxy) {
+		super(gui, automator, proxy);
 		populateObjectVars(automator, proxy);
 
 	}
@@ -70,9 +70,9 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 
 	public GuiElementProxy element(String name) throws Exception{
 		
-		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getGuiDef().getMetaData(name);
 		E element = this.picker.find(this, metaData);
-		return this.picker.convertToolElementToProxy(this.getPage(), metaData, element);
+		return this.picker.convertToolElementToProxy(this.getGui(), metaData, element);
 	}
 
 	protected GuiElementPicker<D,E> getPicker() {
@@ -80,9 +80,9 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	public MultiGuiElement elements(String name) throws Exception{
-		GuiElementMetaData metaData = this.getPage().getPageDef().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getGuiDef().getMetaData(name);
 		List<E> elements = this.picker.findAll(this, metaData);
-		return this.picker.convertMultiToolElementToProxy(this.getPage(), metaData, elements);
+		return this.picker.convertMultiToolElementToProxy(this.getGui(), metaData, elements);
 	}
 	
 	public void setToolElement(E element) {

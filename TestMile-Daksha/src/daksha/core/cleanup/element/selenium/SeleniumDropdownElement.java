@@ -27,8 +27,8 @@ import daksha.tpi.cleanup.gui.Gui;
 
 public class SeleniumDropdownElement extends BaseSeleniumDropdownElement<WebDriver,WebElement>{
 	
-	public SeleniumDropdownElement(Gui page, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(page,automator, eProxy);
+	public SeleniumDropdownElement(Gui gui, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
+		super(gui,automator, eProxy);
 	}
 	
 	public SeleniumDropdownElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{

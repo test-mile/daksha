@@ -27,8 +27,8 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumMultiElement extends BaseSeleniumMultiElement<AppiumDriver<MobileElement>,MobileElement>{
 
-	public AppiumMultiElement(Gui page, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
-		super(page, automator, eProxy);
+	public AppiumMultiElement(Gui gui, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
+		super(gui, automator, eProxy);
 	}
 	
 	public AppiumMultiElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){

@@ -21,7 +21,7 @@ public class DefaultGui extends BaseGui{
 
 	@Override
 	protected void validateLoaded() throws Throwable {
-		// Do nothing. It is supposed to be used only for bulk page creation.
+		// Do nothing. It is supposed to be used only for bulk gui creation.
 	}
 
 }

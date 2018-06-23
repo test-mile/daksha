@@ -6,21 +6,21 @@ import java.util.Map;
 import daksha.core.cleanup.picker.DefaultGuiElementMetaData;
 import daksha.core.cleanup.picker.GuiElementMetaData;
 
-public class PageDefinition {
-	private Map<String, GuiElementMetaData> pageDef = new HashMap<String, GuiElementMetaData>();
+public class GuiDefinition {
+	private Map<String, GuiElementMetaData> guiDef = new HashMap<String, GuiElementMetaData>();
 	
 	public void addElementMetaData(String name, Map<String,String> map) throws Exception {
 		GuiElementMetaData emd = new DefaultGuiElementMetaData(map);
 		emd.process();
-		this.pageDef.put(name.toLowerCase(), emd);
+		this.guiDef.put(name.toLowerCase(), emd);
 	}
 	
 	public synchronized GuiElementMetaData getMetaData(String name) {
-		return this.pageDef.get(name.toLowerCase());
+		return this.guiDef.get(name.toLowerCase());
 	}
 
 	public boolean has(String name) {
-		return this.pageDef.containsKey(name.toLowerCase());
+		return this.guiDef.containsKey(name.toLowerCase());
 	}
 
 }

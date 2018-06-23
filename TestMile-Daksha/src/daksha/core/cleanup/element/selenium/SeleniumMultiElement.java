@@ -27,8 +27,8 @@ import daksha.tpi.cleanup.gui.Gui;
 
 public class SeleniumMultiElement extends BaseSeleniumMultiElement<WebDriver,WebElement>{
 
-	public SeleniumMultiElement(Gui page, ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
-		super(page, automator, eProxy);
+	public SeleniumMultiElement(Gui gui, ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
+		super(gui, automator, eProxy);
 	}
 	
 	public SeleniumMultiElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){

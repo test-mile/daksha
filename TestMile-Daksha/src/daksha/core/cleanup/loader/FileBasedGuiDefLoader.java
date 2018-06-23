@@ -18,35 +18,30 @@
  ******************************************************************************/
 package daksha.core.cleanup.loader;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
-import daksha.tpi.cleanup.constructor.loader.PageDefLoader;
+abstract public class FileBasedGuiDefLoader extends BaseGuiDefLoader{
+	private File mapFile= null;
+	private String mapPath = null;
 
-public enum PageDefRepository{
-	INSTANCE;
-
-	private Map<String, PageDefinition> pageDefMap =  new HashMap<String, PageDefinition>();
-
-	public synchronized boolean isPageDefLoaded(String name){
-		return pageDefMap.containsKey(name);
-	}
-
-	public synchronized boolean hasPageDef(String name) {
-		return pageDefMap.containsKey(name.toLowerCase());
-	}
-	
-	public synchronized PageDefinition loadPageDef(String page, PageDefLoader loader) throws Exception{
-		if(!hasPageDef(page)){
-			loader.load();
-			this.pageDefMap.put(page.toLowerCase(), loader.getPageDef());
+	public FileBasedGuiDefLoader(String name, String mapFilePath) throws Exception {
+		super(name);
+		this.mapPath = mapFilePath;
+		this.mapFile = new File(mapFilePath);
+		if (!this.mapFile.isAbsolute()){
+			this.throwRelativePathException("constructor", mapFilePath);
+		} 
+		
+		if (!this.mapFile.exists()){
+			this.throwFileNotFoundException("constructor", mapFilePath);
+		} 
+		
+		if (!this.mapFile.isFile()){
+			this.throwNotAFileException("constructor", mapFilePath);
 		}
-		return pageDefMap.get(page.toLowerCase());
-	}
-	
-
-	public synchronized PageDefinition getPageDef(String page) throws Exception{
-		return pageDefMap.get(page.toLowerCase());
 	}
 
+	protected String getMapFilePath(){
+		return mapPath;
+	}
 }
