@@ -21,7 +21,6 @@ public abstract class BaseSeleniumGuiElementIdentifier<D extends WebDriver,E ext
 	public BaseSeleniumGuiElementIdentifier(ConcreteGuiAutomator<D,E> automator) throws Exception {
 		super(automator);
 		D driver = this.getGuiAutomator().getUiDriverEngine();
-		System.out.println(driver);
 		waiter = new WebDriverWait((WebDriver) driver, this.getGuiAutomator().getWaitTime());
 	}
 

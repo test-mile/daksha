@@ -20,7 +20,7 @@ package daksha.core.leaping.actions.automator;
 
 import java.io.File;
 
-public interface ImageComparator {
+public interface ImageComparison {
 	boolean areImagesSimilar(File leftImage, File rightImage, Double minScore) throws Exception;
 	boolean areImagesSimilar(String leftImagePath, File rightImage)  throws Exception;
 	boolean areImagesSimilar(String leftImagePath, File rightImage, Double minScore)  throws Exception;

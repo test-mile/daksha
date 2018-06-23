@@ -106,6 +106,11 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 	}
 	
 	@Override
+	public void submit() throws Exception {
+		this.asWebElement().submit();
+	}
+	
+	@Override
 	public boolean isSelected() throws Exception{
 		return this.asWebElement().isSelected();
 	}
@@ -202,5 +207,4 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 		WebElement e2 = (WebElement) this.getIdentifier().find(metaData);
 		e2.click();	
 	}
-
 }

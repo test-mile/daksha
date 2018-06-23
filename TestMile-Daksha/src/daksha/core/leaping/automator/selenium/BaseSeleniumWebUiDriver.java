@@ -59,9 +59,11 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	private WebDriverWait waiter = null;
 	private Browser browser = null;
 	protected Capabilities capabilities = null;
+	public String screenShotDir = null;
 	
 	public BaseSeleniumWebUiDriver(TestContext testContext, UiDriverEngine engine, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
 		super(testContext, UiDriverEngine.WEBDRIVER, automatorContext, loaderType);
+		screenShotDir = this.getTestContext().getConfig().value(DakshaOption.SCREENSHOTS_DIR).asString();
 	}
 	
 	@Override
@@ -250,7 +252,7 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	public File takeScreenshot() throws Exception {
 		TakesScreenshot augDriver = getScreenshotAugmentedDriver();
         File srcFile = augDriver.getScreenshotAs(OutputType.FILE);
-        return FileSystemUtils.moveFiletoDir(srcFile, this.getTestContext().getConfig().value(DakshaOption.SCREENSHOTS_DIR).asString());
+        return FileSystemUtils.moveFiletoDir(srcFile, screenShotDir);
 	}
 	
 	public void focusOnApp() throws Exception{

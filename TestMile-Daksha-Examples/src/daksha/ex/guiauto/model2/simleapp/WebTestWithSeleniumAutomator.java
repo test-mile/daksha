@@ -56,7 +56,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 
 		app.goTo(AppConfig.WP_ADMIN_URL);	
 
-		GuiElement userTextBox = app.element("LOGIN");
+		GuiElement userTextBox = app.elementWithId("user_login"); //.element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
 		app.element("PASSWORD").enterText(AppConfig.PASSWORD);

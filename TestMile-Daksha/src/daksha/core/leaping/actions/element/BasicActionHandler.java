@@ -26,4 +26,6 @@ public interface BasicActionHandler {
 	void focus() throws Exception;
 	void click() throws Exception;
 	void doubleClick() throws Exception;
+	
+	void submit() throws Exception;
 }

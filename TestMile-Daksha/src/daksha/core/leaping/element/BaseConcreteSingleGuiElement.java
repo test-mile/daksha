@@ -59,11 +59,11 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	public void identify() throws Exception{
-		this.toolElement = this.getAutomator().getIdentifier().find(this.emd);
+		this.setToolElement(this.getAutomator().getIdentifier().find(this.emd));
 	}
 	
 	public void identifyIfNull() throws Exception {
-		if (toolElement == null) {
+		if (this.getToolElement() == null) {
 			this.identify();
 		}
 	}
@@ -104,7 +104,7 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	}
 	
 	public boolean isIdentified() throws Exception{
-		return this.toolElement != null;
+		return this.getToolElement() != null;
 	}
 	
 	public GuiElementMetaData getMetaData() {
@@ -221,6 +221,11 @@ public abstract class BaseConcreteSingleGuiElement<D,E> extends BaseManagedConcr
 	@Override
 	public void focus() throws Exception {
 		this.getGuiElementProxy().throwUnsupportedActionException("focus");
+	}
+	
+	@Override
+	public void submit() throws Exception {
+		this.getGuiElementProxy().throwUnsupportedActionException("submit");
 	}
 
 	@Override

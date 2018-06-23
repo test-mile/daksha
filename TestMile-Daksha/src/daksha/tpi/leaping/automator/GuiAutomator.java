@@ -23,7 +23,7 @@ import java.util.Map;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.leaping.actions.GuiElementCreationHandler;
 import daksha.core.leaping.actions.automator.BrowserActionHandler;
-import daksha.core.leaping.actions.automator.ImageComparator;
+import daksha.core.leaping.actions.automator.ImageComparison;
 import daksha.core.leaping.actions.automator.MouseActionHandler;
 import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
@@ -31,7 +31,7 @@ import daksha.core.leaping.enums.ElementLoaderType;
 import daksha.core.leaping.enums.OSType;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
-public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparator, MouseActionHandler{
+public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparison, MouseActionHandler{
 
 	void setAutomatorContext(GuiAutomationContext screen);
 

@@ -45,6 +45,7 @@ public class CentralConfiguration extends BaseConfiguration{
 		this.add(DakshaOption.TOOLS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "tools");
 		this.add(DakshaOption.GUIAUTO_MAPS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "ui_maps");
 		this.add(DakshaOption.GUIAUTO_DRIVERS_DIR, this.value(DakshaOption.TOOLS_DIR) + File.separator + "guidrivers");
+		this.add(DakshaOption.SCREENSHOTS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "screenshots");
 		this.add(DakshaOption.OSTYPE, "windows");
 		this.add(DakshaOption.GUIAUTO_CONTEXT, GuiAutomationContext.PC_WEB.toString());
 		this.add(DakshaOption.GUIAUTO_DEFAULT_BROWSER, Browser.CHROME.toString());

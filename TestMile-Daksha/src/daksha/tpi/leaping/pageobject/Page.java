@@ -20,7 +20,7 @@ package daksha.tpi.leaping.pageobject;
 
 import daksha.core.leaping.actions.GuiElementCreationHandler;
 import daksha.core.leaping.actions.automator.BrowserActionHandler;
-import daksha.core.leaping.actions.automator.ImageComparator;
+import daksha.core.leaping.actions.automator.ImageComparison;
 import daksha.core.leaping.actions.automator.NativeWindowActionHandler;
 import daksha.core.leaping.automator.ManagedGuiAutomator;
 import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
@@ -30,7 +30,7 @@ import daksha.core.leaping.loader.PageDefinition;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 
 public interface Page extends ManagedGuiAutomator, GuiElementCreationHandler, 
-ImageComparator, NativeWindowActionHandler, BrowserActionHandler{
+ImageComparison, NativeWindowActionHandler, BrowserActionHandler{
 	
 	String getLabel() throws Exception;
 	String getName();

@@ -117,7 +117,6 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 		try {
 			getConcreteElement().click();
 		} catch (Exception e){
-			System.out.println("Clicking");
 			throwElementActionException(e, "click", "click");
 		}
 	}
@@ -502,6 +501,11 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 	@Override
 	public void dragAndDrop(String name) throws Exception {
 		getConcreteElement().dragAndDrop(name);
+	}
+
+	@Override
+	public void submit() throws Exception {
+		getConcreteElement().submit();
 	}
 
 }

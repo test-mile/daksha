@@ -18,10 +18,18 @@
  ******************************************************************************/
 package daksha.core.leaping.automator;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
+import org.sikuli.script.Finder;
+import org.sikuli.script.Pattern;
+
+import daksh.core.batteries.image.ImageComprator;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.leaping.actions.automator.ImageComparison;
 import daksha.core.leaping.automator.proxy.GuiAutomatorProxy;
 import daksha.core.leaping.element.proxy.GuiElementProxy;
 import daksha.core.leaping.element.proxy.MultiGuiElementProxy;
@@ -31,6 +39,7 @@ import daksha.core.leaping.enums.UiDriverEngine;
 import daksha.core.leaping.identifier.GuiElementIdentifier;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.leaping.enums.GuiAutomationContext;
 import daksha.tpi.leaping.enums.GuiElementType;
 
@@ -44,19 +53,21 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	private GuiElementIdentifier<D,E> identifier = null;
 	private int waitTime = 10;
 	private GuiAutomatorProxy proxy = null;
+	private ImageComprator imageComprator = null;
 	
-	public AbstractGuiAutomator(TestContext testContext) {
+	public AbstractGuiAutomator(TestContext testContext) throws Exception {
 		this.setUiTestEngineName(UiDriverEngine.DEFAULT);
 		this.testContext = testContext;
+		this.imageComprator = new ImageComprator(testContext.getConfig().value(DakshaOption.SIKULI_COMPARISON_SCORE).asDouble());
 	}
 	
-	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext){
+	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext) throws Exception{
 		this(testContext);
 		this.setUiTestEngineName(name);
 		this.setAutomatorContext(automatorContext);
 	}
 	
-	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext, ElementLoaderType loaderType){
+	public AbstractGuiAutomator(TestContext testContext, UiDriverEngine name, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
 		this(testContext, name, automatorContext);
 		this.setElementLoaderType(loaderType);
 	}
@@ -317,6 +328,26 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	public MultiGuiElementProxy elementsBasedOnImage(String imagePath) throws Exception {
 		return this.identifier.elementsBasedOnImage(imagePath);
 	}
+
+	@Override
+	public boolean areImagesSimilar(String leftImagePath, File rightImage) throws Exception {
+		return this.imageComprator.areImagesSimilar(leftImagePath, rightImage);
+	}
+
+	@Override
+	public boolean areImagesSimilar(String leftImagePath, File rightImage, Double minScore) throws Exception {
+		return this.imageComprator.areImagesSimilar(leftImagePath, rightImage);
+	}
+
+	@Override
+	public boolean areImagesSimilar(String leftImagePath, String rightImagePath) throws Exception {
+		return this.imageComprator.areImagesSimilar(leftImagePath, rightImagePath);
+	}
+
+	@Override
+	public boolean areImagesSimilar(File leftImage, File rightImage) throws Exception {
+		return this.imageComprator.areImagesSimilar(leftImage, rightImage);
+	}
 	
 	@Override
 	public D getUiDriverEngine() throws Exception {
@@ -390,22 +421,6 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 
 	@Override
 	public boolean areImagesSimilar(File leftImage, File rightImage, Double minScore) throws Exception {
-		return (boolean) throwUnsupportedActionException("areImagesSimilar");}
-
-	@Override
-	public boolean areImagesSimilar(String leftImagePath, File rightImage) throws Exception {
-		return (boolean) throwUnsupportedActionException("areImagesSimilar");}
-
-	@Override
-	public boolean areImagesSimilar(String leftImagePath, File rightImage, Double minScore) throws Exception {
-		return (boolean) throwUnsupportedActionException("areImagesSimilar");}
-
-	@Override
-	public boolean areImagesSimilar(String leftImagePath, String rightImagePath) throws Exception {
-		return (boolean) throwUnsupportedActionException("areImagesSimilar");}
-
-	@Override
-	public boolean areImagesSimilar(File leftImage, File rightImage) throws Exception {
 		return (boolean) throwUnsupportedActionException("areImagesSimilar");}
 
 	@Override

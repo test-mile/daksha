@@ -4,12 +4,15 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
+
+import com.gargoylesoftware.htmlunit.javascript.host.file.FileSystem;
 
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
@@ -19,6 +22,7 @@ import daksha.core.leaping.enums.OSType;
 import daksha.core.leaping.loader.PageDefRepository;
 import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
+import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public enum DakshaSingleton {
 	INSTANCE;
@@ -35,14 +39,21 @@ public enum DakshaSingleton {
 	public void init(String rootDir) throws Exception {
 		this.centralConf = new CentralConfiguration(rootDir);
 		LeapingSingleton.INSTANCE.init();
-		configureLogger(Level.INFO, Level.DEBUG);
-		logger = Logger.getLogger("daksha");
-		Console.init();
 	}
 	
 	public void freezeCentralConfig() throws Exception {
 		this.centralConfFrozen = true;
 		this.centralConf.freeze();
+		// Finalize logger
+		configureLogger(Level.INFO, Level.DEBUG);
+		logger = Logger.getLogger("daksha");
+		Console.init();
+		
+		// Create directories
+		String dir = this.centralConf.value(DakshaOption.SCREENSHOTS_DIR).asString();
+		if (!FileSystemUtils.isDir(dir)) {
+			FileUtils.forceMkdir(new File(dir));
+		}
 		this.registerContext(new TestContext(defString, new HashMap<String,String>()));
 	}
 	
