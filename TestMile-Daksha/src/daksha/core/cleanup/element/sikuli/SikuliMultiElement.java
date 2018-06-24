@@ -21,18 +21,18 @@ package daksha.core.cleanup.element.sikuli;
 import org.sikuli.script.Match;
 import org.sikuli.script.Screen;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.BaseConcreteMultiGuiElement;
-import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.BaseConcreteUiMultiElement;
+import daksha.core.cleanup.element.proxy.UiMultiElementProxy;
+import daksha.tpi.cleanup.ui.UI;
 
-public class SikuliMultiElement extends BaseConcreteMultiGuiElement<Screen,Match>{
+public class SikuliMultiElement extends BaseConcreteUiMultiElement<Screen,Match>{
 
-	public SikuliMultiElement(Gui gui, ConcreteGuiAutomator<Screen,Match> automator, MultiGuiElementProxy eProxy){
-		super(gui, automator, eProxy);
+	public SikuliMultiElement(UI ui, ConcreteUiAutomator<Screen,Match> automator, UiMultiElementProxy eProxy){
+		super(ui, automator, eProxy);
 	}
 	
-	public SikuliMultiElement(ConcreteGuiAutomator<Screen,Match> automator, MultiGuiElementProxy eProxy){
+	public SikuliMultiElement(ConcreteUiAutomator<Screen,Match> automator, UiMultiElementProxy eProxy){
 		this(null, automator, eProxy);
 	}
 	

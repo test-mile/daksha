@@ -22,19 +22,19 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.BaseConcreteSingleGuiElement;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.core.cleanup.picker.GuiElementMetaData;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.BaseConcreteUiSingleElement;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
+import daksha.core.cleanup.picker.UiElementMetaData;
+import daksha.tpi.cleanup.ui.UI;
 
-public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
+public class SikuliElement extends BaseConcreteUiSingleElement<Screen,Match>{
 	
-	public SikuliElement(Gui gui, ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
-		super(gui, automator, eProxy);
+	public SikuliElement(UI ui, ConcreteUiAutomator<Screen,Match> automator, UiElementProxy eProxy) throws Exception{
+		super(ui, automator, eProxy);
 	}	
 	
-	public SikuliElement(ConcreteGuiAutomator<Screen,Match> automator, GuiElementProxy eProxy) throws Exception{
+	public SikuliElement(ConcreteUiAutomator<Screen,Match> automator, UiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 	
@@ -83,8 +83,8 @@ public class SikuliElement extends BaseConcreteSingleGuiElement<Screen,Match>{
 	
 
 	private String getImagePathForSecondElement(String name) throws Exception {
-		GuiElementMetaData emd = this.getGui().getGuiDef().getMetaData(name);
-		GuiElementProxy proxy = this.getPicker().createProxy(emd);
+		UiElementMetaData emd = this.getUI().getDefinition().getMetaData(name);
+		UiElementProxy proxy = this.getPicker().createProxy(emd);
 		return proxy.getImagePath();
 	}
 	

@@ -8,23 +8,23 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
+import daksha.core.cleanup.automator.proxy.UiAutomatorProxy;
 import daksha.core.cleanup.automator.selenium.SeleniumWebUiDriver;
-import daksha.tpi.cleanup.constructor.AutomatorBuilder;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.constructor.UiAutomatorBuilder;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 
-public class SeleniumBuilder extends AutomatorBuilder{
+public class SeleniumBuilder extends UiAutomatorBuilder{
 	private MutableCapabilities browserCaps = new MutableCapabilities();
 	private MutableCapabilities otherCaps = new MutableCapabilities();
-	private GuiAutomationContext context = GuiAutomationContext.PC_WEB;
+	private UiAutomationContext context = UiAutomationContext.PC_WEB;
 	private String appTitle = null;
 	private Browser browser = null;
 	
 	public SeleniumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
-		this.browser = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DEFAULT_BROWSER).asEnum(Browser.class);
+		this.browser = this.getTestContext().getConfig().value(DakshaOption.UIAUTO_DEFAULT_BROWSER).asEnum(Browser.class);
 	}
 
 
@@ -38,7 +38,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 	}
 	
 	
-	public GuiAutomatorProxy build() throws Exception{
+	public UiAutomatorProxy build() throws Exception{
 		SeleniumWebUiDriver selenium = new SeleniumWebUiDriver(this.getTestContext());
 		selenium.setBrowser(browser);
 		selenium.init();
@@ -58,7 +58,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 		browserCaps.merge(otherCaps);
 		selenium.setCapabilities(browserCaps.asMap());
 		selenium.load();
-		return new GuiAutomatorProxy(selenium);
+		return new UiAutomatorProxy(selenium);
 	}
 
 
@@ -84,7 +84,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 			binaryName = "geckodriver";
 		}
 
-		String driversDir = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DRIVERS_DIR).asString();
+		String driversDir = this.getTestContext().getConfig().value(DakshaOption.UIAUTO_DRIVERS_DIR).asString();
 		System.setProperty("webdriver.gecko.driver",  driversDir + File.separator + os + File.separator + binaryName);
 
 		browserCaps = getFireFoxCapabilitiesSkeleton();
@@ -104,7 +104,7 @@ public class SeleniumBuilder extends AutomatorBuilder{
 			binaryName = "chromedriver";
 		}
 
-		String driversDir = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DRIVERS_DIR).asString();
+		String driversDir = this.getTestContext().getConfig().value(DakshaOption.UIAUTO_DRIVERS_DIR).asString();
 		System.setProperty("webdriver.chrome.driver",  driversDir + File.separator + os + File.separator + binaryName);
 		browserCaps = getChromeCapabilitiesSkeleton();
 	}

@@ -23,23 +23,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.BaseConcreteSingleGuiElement;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.core.cleanup.picker.GuiElementMetaData;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.BaseConcreteUiSingleElement;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
+import daksha.core.cleanup.picker.UiElementMetaData;
+import daksha.tpi.cleanup.ui.UI;
 
-public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiElement<D,E>{
+public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteUiSingleElement<D,E>{
 	private D driver = null;
 	private WebDriverWait waiter = null;
 	
-	public AbstractSeleniumConcreteElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+	public AbstractSeleniumConcreteElement(ConcreteUiAutomator<D,E> automator, UiElementProxy eProxy) throws Exception{
 		super(automator, eProxy);
 		setUpObjectVars();
 	}
 	
-	public AbstractSeleniumConcreteElement(Gui gui, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
-		super(gui, automator, eProxy);
+	public AbstractSeleniumConcreteElement(UI ui, ConcreteUiAutomator<D,E> automator, UiElementProxy eProxy) throws Exception{
+		super(ui, automator, eProxy);
 		setUpObjectVars();
 	}	
 	
@@ -181,7 +181,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 
 	public void hoverAndClickElement(String name) throws Exception{
 		Actions builder =  null;
-		GuiElementMetaData metaData = this.getGui().getGuiDef().getMetaData(name);
+		UiElementMetaData metaData = this.getUI().getDefinition().getMetaData(name);
 		try {
 			builder = getActionChain();
 			builder.moveToElement(this.asWebElement()).perform();
@@ -202,7 +202,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteSingleGuiE
 	}
 	
 	public void rightClickAndClickElement(String name) throws Exception{
-		GuiElementMetaData metaData = this.getGui().getGuiDef().getMetaData(name);
+		UiElementMetaData metaData = this.getUI().getDefinition().getMetaData(name);
 		this.rightClick();
 		WebElement e2 = (WebElement) this.getPicker().find(metaData);
 		e2.click();	

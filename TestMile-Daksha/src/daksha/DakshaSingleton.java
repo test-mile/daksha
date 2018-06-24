@@ -17,7 +17,7 @@ import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.OSType;
-import daksha.core.cleanup.loader.GuiDefRepository;
+import daksha.core.cleanup.loader.UiDefRepository;
 import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
@@ -31,12 +31,12 @@ public enum DakshaSingleton {
 	private FileAppender fa = new FileAppender();
 	private CentralConfiguration centralConf = null;
 	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
-	private GuiDefRepository guiRep = GuiDefRepository.INSTANCE;
+	private UiDefRepository uiRep = UiDefRepository.INSTANCE;
 	private static String defString = "default";
 	 
 	public void init(String rootDir) throws Exception {
 		this.centralConf = new CentralConfiguration(rootDir);
-		LeapingSingleton.INSTANCE.init();
+		CleanupSingleton.INSTANCE.init();
 	}
 	
 	public void freezeCentralConfig() throws Exception {

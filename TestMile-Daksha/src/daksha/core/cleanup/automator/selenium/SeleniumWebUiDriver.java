@@ -24,13 +24,13 @@ import org.openqa.selenium.WebElement;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.core.cleanup.picker.selenium.SeleniumGuiElementPicker;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.core.cleanup.picker.selenium.SeleniumElementPicker;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 
 public class SeleniumWebUiDriver extends BaseSeleniumWebUiDriver<WebDriver,WebElement>{
 	
 	public SeleniumWebUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception{
-		super(testContext, UiDriverEngine.WEBDRIVER, GuiAutomationContext.PC_WEB, loaderType);
+		super(testContext, UiDriverEngine.WEBDRIVER, UiAutomationContext.PC_WEB, loaderType);
 	}
 		
 	public SeleniumWebUiDriver(TestContext testContext) throws Exception{
@@ -39,7 +39,7 @@ public class SeleniumWebUiDriver extends BaseSeleniumWebUiDriver<WebDriver,WebEl
 
 	public void load() throws Exception {
 		super.load();
-		this.setPicker(new SeleniumGuiElementPicker(this));
+		this.setPicker(new SeleniumElementPicker(this));
 	}
 	
 }

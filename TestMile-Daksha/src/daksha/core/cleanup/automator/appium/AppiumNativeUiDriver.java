@@ -25,12 +25,12 @@ import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.MobileView;
 import daksha.core.cleanup.enums.OSType;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 
 public class AppiumNativeUiDriver extends BaseAppiumUiDriver {
 
 	public AppiumNativeUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiAutomationContext.MOBILE_NATIVE, loaderType);
+		super(testContext, UiAutomationContext.MOBILE_NATIVE, loaderType);
 	}
 		
 	public AppiumNativeUiDriver(TestContext testContext) throws Exception{

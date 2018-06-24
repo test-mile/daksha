@@ -43,21 +43,20 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.automator.AbstractGuiAutomator;
+import daksha.core.cleanup.automator.AbstractUiAutomator;
 import daksha.core.cleanup.enums.Direction;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.UiDriverEngine;
 import daksha.core.cleanup.notifier.selenium.SeleniumListener;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
-public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<D,E>{
+public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractUiAutomator<D,E>{
 	
 	private D driver = null;
 	private WebDriverWait waiter = null;
@@ -66,16 +65,16 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	public String screenShotDir = null;
 	private int scrollPixels;
 	
-	public BaseSeleniumWebUiDriver(TestContext testContext, UiDriverEngine engine, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
+	public BaseSeleniumWebUiDriver(TestContext testContext, UiDriverEngine engine, UiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
 		super(testContext, UiDriverEngine.WEBDRIVER, automatorContext, loaderType);
 		screenShotDir = this.getTestContext().getConfig().value(DakshaOption.SCREENSHOTS_DIR).asString();
-		scrollPixels = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_SCROLL_PIXELS).asInt();
+		scrollPixels = this.getTestContext().getConfig().value(DakshaOption.UIAUTO_SCROLL_PIXELS).asInt();
 	}
 	
 	@Override
 	public void init() throws Exception{
 		//this.setBrowser(Browser.valueOf(this.getTestContext().getConfig().value(DakshaOption.BROWSER_PC_DEFAULT).asString().toUpperCase()));
-		this.setWaitTime(this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAX_WAIT).asInt());
+		this.setWaitTime(this.getTestContext().getConfig().value(DakshaOption.UIAUTO_MAX_WAIT).asInt());
 		this.setUiTestEngineName(UiDriverEngine.WEBDRIVER);		
 	}
 	
@@ -315,8 +314,8 @@ public abstract class BaseSeleniumWebUiDriver<D,E> extends AbstractGuiAutomator<
 	}
 	
 	public void validatePageLoad() {
-		if ((this.getAutomatorContext() == GuiAutomationContext.PC_WEB) || 
-		(this.getAutomatorContext() == GuiAutomationContext.MOBILE_WEB) ||
+		if ((this.getAutomatorContext() == UiAutomationContext.PC_WEB) || 
+		(this.getAutomatorContext() == UiAutomationContext.MOBILE_WEB) ||
 		isWebView()
 		) {
 			ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {

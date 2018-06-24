@@ -21,16 +21,16 @@ package daksha.core.cleanup.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
+import daksha.tpi.cleanup.ui.UI;
 
 public class SeleniumGenericElement extends AbstractSeleniumConcreteElement<WebDriver,WebElement>{
-	public SeleniumGenericElement(Gui gui, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(gui, automator, eProxy);
+	public SeleniumGenericElement(UI ui, ConcreteUiAutomator<WebDriver,WebElement> automator, UiElementProxy eProxy) throws Exception{
+		super(ui, automator, eProxy);
 	}
 
-	public SeleniumGenericElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
+	public SeleniumGenericElement(ConcreteUiAutomator<WebDriver,WebElement> automator, UiElementProxy eProxy) throws Exception{
 		super(automator, eProxy);
 	}
 	

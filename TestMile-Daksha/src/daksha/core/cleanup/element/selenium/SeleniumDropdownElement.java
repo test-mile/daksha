@@ -21,17 +21,17 @@ package daksha.core.cleanup.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
+import daksha.tpi.cleanup.ui.UI;
 
 public class SeleniumDropdownElement extends BaseSeleniumDropdownElement<WebDriver,WebElement>{
 	
-	public SeleniumDropdownElement(Gui gui, ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(gui,automator, eProxy);
+	public SeleniumDropdownElement(UI ui, ConcreteUiAutomator<WebDriver,WebElement> automator, UiElementProxy eProxy) throws Exception{
+		super(ui,automator, eProxy);
 	}
 	
-	public SeleniumDropdownElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, GuiElementProxy eProxy) throws Exception{
+	public SeleniumDropdownElement(ConcreteUiAutomator<WebDriver,WebElement> automator, UiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 }

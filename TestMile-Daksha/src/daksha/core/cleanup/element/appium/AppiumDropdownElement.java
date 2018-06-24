@@ -18,20 +18,20 @@
  ******************************************************************************/
 package daksha.core.cleanup.element.appium;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
 import daksha.core.cleanup.element.selenium.BaseSeleniumDropdownElement;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.tpi.cleanup.ui.UI;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public class AppiumDropdownElement extends BaseSeleniumDropdownElement<AppiumDriver<MobileElement>,MobileElement>{
 	
-	public AppiumDropdownElement(Gui gui, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
-		super(gui,automator, eProxy);
+	public AppiumDropdownElement(UI ui, ConcreteUiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, UiElementProxy eProxy) throws Exception{
+		super(ui,automator, eProxy);
 	}
 	
-	public AppiumDropdownElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, GuiElementProxy eProxy) throws Exception{
+	public AppiumDropdownElement(ConcreteUiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, UiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 }

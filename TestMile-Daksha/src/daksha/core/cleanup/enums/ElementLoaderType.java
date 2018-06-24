@@ -20,6 +20,6 @@ package daksha.core.cleanup.enums;
 
 public enum ElementLoaderType {
 	AUTOMATOR, // When element is created using automator's element* API
-	GUI, // When element is created using standalone GUI's element* API.
-	COMPOSITE_GUI; // When element is created using child GUI
+	UI, // When element is created using standalone UI's element* API.
+	COMPOSITE_UI; // When element is created using child UI
 }

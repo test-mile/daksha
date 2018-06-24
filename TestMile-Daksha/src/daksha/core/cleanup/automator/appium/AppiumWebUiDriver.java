@@ -20,12 +20,12 @@ package daksha.core.cleanup.automator.appium;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.ElementLoaderType;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 
 public class AppiumWebUiDriver extends BaseAppiumUiDriver {
 	
 	public AppiumWebUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiAutomationContext.MOBILE_WEB, loaderType);
+		super(testContext, UiAutomationContext.MOBILE_WEB, loaderType);
 	}
 		
 	public AppiumWebUiDriver(TestContext testContext) throws Exception{

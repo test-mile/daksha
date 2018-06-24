@@ -20,19 +20,19 @@ package daksha.core.cleanup.actions.element;
 
 import java.util.List;
 
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.tpi.cleanup.element.GuiElement;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
+import daksha.tpi.cleanup.element.UiElement;
 
 public interface MultiElementHandler {	
 	// Get wrapped object from raw object, already identified ones
-	GuiElement getInstanceAtIndex(int index) throws Exception;
-	GuiElement get(int index) throws Exception;
-	GuiElement getInstanceAtOrdinal(int ordinal) throws Exception;
-	GuiElement getRandomInstance() throws Exception;
-	GuiElement getFirstInstance() throws Exception;
-	GuiElement getLastInstance() throws Exception;
+	UiElement getInstanceAtIndex(int index) throws Exception;
+	UiElement get(int index) throws Exception;
+	UiElement getInstanceAtOrdinal(int ordinal) throws Exception;
+	UiElement getRandomInstance() throws Exception;
+	UiElement getFirstInstance() throws Exception;
+	UiElement getLastInstance() throws Exception;
 	int getElementCount() throws Exception;
-	GuiElement getInstanceByText(String text) throws Exception;
-	GuiElement getInstanceByTextContent(String text) throws Exception;
-	List<GuiElementProxy> getAllInstances() throws Exception;
+	UiElement getInstanceByText(String text) throws Exception;
+	UiElement getInstanceByTextContent(String text) throws Exception;
+	List<UiElementProxy> getAllInstances() throws Exception;
 }

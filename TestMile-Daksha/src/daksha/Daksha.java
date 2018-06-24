@@ -26,7 +26,7 @@ import org.testng.ITestContext;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.cleanup.enums.OSType;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 
 public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
@@ -75,16 +75,16 @@ public class Daksha {
 		return core.getLogger();
 	}
 	
-	public static String getAutomationContextName(GuiAutomationContext context) {
-		return LeapingSingleton.INSTANCE.getAutomationContextName(context);
+	public static String getAutomationContextName(UiAutomationContext context) {
+		return CleanupSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
 	public static List<String> getAllowedPickByStrings() throws Exception {
-		return LeapingSingleton.INSTANCE.getAllowedPickByStrings() ;
+		return CleanupSingleton.INSTANCE.getAllowedPickByStrings() ;
 	}
 
 	public static List<String> getAllAllowedUiElementTypes() {
-		return LeapingSingleton.INSTANCE.getAllAllowedUiElementTypes();
+		return CleanupSingleton.INSTANCE.getAllAllowedUiElementTypes();
 	}
 	
 	public static String getComponentName(){
@@ -92,19 +92,19 @@ public class Daksha {
 	}
 	
 	public static boolean isAllowedAppiumPlatform(String platformName){
-		return LeapingSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
+		return CleanupSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
 	}
 	
 	public static String getAppiumPlatformString(OSType platform) throws Exception{
-		return LeapingSingleton.INSTANCE.getAppiumPlatformString(platform);
+		return CleanupSingleton.INSTANCE.getAppiumPlatformString(platform);
 	}
 	
 	public static String getAppiumBrowserString(String rawName) throws Exception{
-		return LeapingSingleton.INSTANCE.getAppiumBrowserString(rawName);
+		return CleanupSingleton.INSTANCE.getAppiumBrowserString(rawName);
 	}
 
 	public static boolean isAllowedAppiumBrowser(OSType platform, String browser) throws Exception {
-		return LeapingSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
+		return CleanupSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
 	}
 	
 }

@@ -21,17 +21,17 @@ package daksha.core.cleanup.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.proxy.UiMultiElementProxy;
+import daksha.tpi.cleanup.ui.UI;
 
 public class SeleniumMultiElement extends BaseSeleniumMultiElement<WebDriver,WebElement>{
 
-	public SeleniumMultiElement(Gui gui, ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
-		super(gui, automator, eProxy);
+	public SeleniumMultiElement(UI ui, ConcreteUiAutomator<WebDriver,WebElement> automator, UiMultiElementProxy eProxy){
+		super(ui, automator, eProxy);
 	}
 	
-	public SeleniumMultiElement(ConcreteGuiAutomator<WebDriver,WebElement> automator, MultiGuiElementProxy eProxy){
+	public SeleniumMultiElement(ConcreteUiAutomator<WebDriver,WebElement> automator, UiMultiElementProxy eProxy){
 		this(null, automator, eProxy);
 	}
 }

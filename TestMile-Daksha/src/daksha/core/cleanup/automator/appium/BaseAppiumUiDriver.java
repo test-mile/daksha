@@ -33,10 +33,10 @@ import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.MobileView;
 import daksha.core.cleanup.enums.OSType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.core.cleanup.picker.appium.AppiumGuiElementPicker;
+import daksha.core.cleanup.picker.appium.AppiumElementPicker;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 import daksha.tpi.enums.DakshaOption;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -50,14 +50,14 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 	private float swipeBottom;
 	private int swipeMaxWait;
 	
-	public BaseAppiumUiDriver(TestContext testContext, GuiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
+	public BaseAppiumUiDriver(TestContext testContext, UiAutomationContext automatorContext, ElementLoaderType loaderType) throws Exception{
 		super(testContext, UiDriverEngine.APPIUM, automatorContext, loaderType);
-		swipeTop = testContext.getConfig().value(DakshaOption.GUIAUTO_SWIPE_TOP).asFloat();
-		swipeBottom = testContext.getConfig().value(DakshaOption.GUIAUTO_SWIPE_BOTTOM).asFloat();
-		swipeMaxWait = testContext.getConfig().value(DakshaOption.GUIAUTO_SWIPE_MAX_WAIT).asInt();
+		swipeTop = testContext.getConfig().value(DakshaOption.UIAUTO_SWIPE_TOP).asFloat();
+		swipeBottom = testContext.getConfig().value(DakshaOption.UIAUTO_SWIPE_BOTTOM).asFloat();
+		swipeMaxWait = testContext.getConfig().value(DakshaOption.UIAUTO_SWIPE_MAX_WAIT).asInt();
 	}
 		
-	public BaseAppiumUiDriver(TestContext testContext, GuiAutomationContext automatorContext) throws Exception{
+	public BaseAppiumUiDriver(TestContext testContext, UiAutomationContext automatorContext) throws Exception{
 		this(testContext, automatorContext, ElementLoaderType.AUTOMATOR);
 	}
 	
@@ -82,7 +82,7 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 		}
 		this.setDriver(driver);
 		this.setWaiter(new WebDriverWait(this.getUnderlyingEngine(), this.getWaitTime()));	
-		this.setPicker(new AppiumGuiElementPicker(this));
+		this.setPicker(new AppiumElementPicker(this));
 	}
 	
 	private void throwUnreachableBrowserException(OSType platformType, Throwable e) throws Exception {
@@ -117,13 +117,13 @@ public class BaseAppiumUiDriver extends BaseSeleniumWebUiDriver<AppiumDriver<Mob
 	}
 
 	private void validateSwipeSupport() throws Exception {
-		if ((this.getAutomatorContext() == GuiAutomationContext.MOBILE_WEB) || isWebView()){
+		if ((this.getAutomatorContext() == UiAutomationContext.MOBILE_WEB) || isWebView()){
 			throw new Exception("Swipe actions are not supported for Web View.");
 		}
 	}
 
 	protected void validateScrollSupport() throws Exception {
-		if ((this.getAutomatorContext() == GuiAutomationContext.MOBILE_NATIVE) || isNativeView()){
+		if ((this.getAutomatorContext() == UiAutomationContext.MOBILE_NATIVE) || isNativeView()){
 			throw new Exception("Scroll actions are not supported for Native View.");
 		}
 	}

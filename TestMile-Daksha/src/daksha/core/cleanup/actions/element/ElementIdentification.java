@@ -18,8 +18,8 @@
  ******************************************************************************/
 package daksha.core.cleanup.actions.element;
 
-import daksha.tpi.cleanup.element.GuiElement;
+import daksha.tpi.cleanup.element.UiElement;
 
 public interface ElementIdentification {	
-	GuiElement identify() throws Exception;
+	UiElement identify() throws Exception;
 }

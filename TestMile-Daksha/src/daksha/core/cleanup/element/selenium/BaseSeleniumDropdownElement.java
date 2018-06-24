@@ -24,17 +24,17 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.proxy.GuiElementProxy;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.proxy.UiElementProxy;
+import daksha.tpi.cleanup.ui.UI;
 
 public class BaseSeleniumDropdownElement<D,E> extends AbstractSeleniumConcreteElement<D,E>{
 	
-	public BaseSeleniumDropdownElement(Gui gui, ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
-		super(gui,automator, eProxy);
+	public BaseSeleniumDropdownElement(UI ui, ConcreteUiAutomator<D,E> automator, UiElementProxy eProxy) throws Exception{
+		super(ui,automator, eProxy);
 	}
 	
-	public BaseSeleniumDropdownElement(ConcreteGuiAutomator<D,E> automator, GuiElementProxy eProxy) throws Exception{
+	public BaseSeleniumDropdownElement(ConcreteUiAutomator<D,E> automator, UiElementProxy eProxy) throws Exception{
 		this(null, automator, eProxy);
 	}
 

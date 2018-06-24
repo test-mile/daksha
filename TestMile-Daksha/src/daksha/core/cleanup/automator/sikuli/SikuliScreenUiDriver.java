@@ -23,16 +23,16 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Screen;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.automator.AbstractGuiAutomator;
+import daksha.core.cleanup.automator.AbstractUiAutomator;
 import daksha.core.cleanup.enums.ElementLoaderType;
 import daksha.core.cleanup.enums.OSType;
 import daksha.core.cleanup.enums.UiDriverEngine;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 
-public class SikuliScreenUiDriver extends AbstractGuiAutomator<Screen,Match>{
+public class SikuliScreenUiDriver extends AbstractUiAutomator<Screen,Match>{
 	
 	public SikuliScreenUiDriver(TestContext testContext, ElementLoaderType loaderType) throws Exception {
-		super(testContext, UiDriverEngine.SIKULI, GuiAutomationContext.SCREEN, loaderType);
+		super(testContext, UiDriverEngine.SIKULI, UiAutomationContext.SCREEN, loaderType);
 	}
 	
 	public SikuliScreenUiDriver(TestContext testContext) throws Exception{

@@ -18,20 +18,20 @@
  ******************************************************************************/
 package daksha.core.cleanup.element.appium;
 
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
-import daksha.core.cleanup.element.proxy.MultiGuiElementProxy;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
+import daksha.core.cleanup.element.proxy.UiMultiElementProxy;
 import daksha.core.cleanup.element.selenium.BaseSeleniumMultiElement;
-import daksha.tpi.cleanup.gui.Gui;
+import daksha.tpi.cleanup.ui.UI;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public class AppiumMultiElement extends BaseSeleniumMultiElement<AppiumDriver<MobileElement>,MobileElement>{
 
-	public AppiumMultiElement(Gui gui, ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
-		super(gui, automator, eProxy);
+	public AppiumMultiElement(UI ui, ConcreteUiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, UiMultiElementProxy eProxy){
+		super(ui, automator, eProxy);
 	}
 	
-	public AppiumMultiElement(ConcreteGuiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, MultiGuiElementProxy eProxy){
+	public AppiumMultiElement(ConcreteUiAutomator<AppiumDriver<MobileElement>,MobileElement> automator, UiMultiElementProxy eProxy){
 		this(null, automator, eProxy);
 	}
 }

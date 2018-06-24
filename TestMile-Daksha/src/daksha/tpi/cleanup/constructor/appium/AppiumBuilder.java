@@ -6,21 +6,21 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.automator.ConcreteGuiAutomator;
+import daksha.core.cleanup.automator.ConcreteUiAutomator;
 import daksha.core.cleanup.automator.appium.AppiumNativeUiDriver;
 import daksha.core.cleanup.automator.appium.AppiumWebUiDriver;
-import daksha.core.cleanup.automator.proxy.GuiAutomatorProxy;
+import daksha.core.cleanup.automator.proxy.UiAutomatorProxy;
 import daksha.core.cleanup.enums.OSType;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.tpi.cleanup.constructor.AutomatorBuilder;
-import daksha.tpi.cleanup.enums.GuiAutomationContext;
+import daksha.tpi.cleanup.constructor.UiAutomatorBuilder;
+import daksha.tpi.cleanup.enums.UiAutomationContext;
 import daksha.tpi.enums.DakshaOption;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-public class AppiumBuilder extends AutomatorBuilder{
+public class AppiumBuilder extends UiAutomatorBuilder{
 	private MutableCapabilities defaultCaps = new MutableCapabilities();
 	private MutableCapabilities otherCaps = new MutableCapabilities();
 	private int waitTime = 0;
@@ -29,7 +29,7 @@ public class AppiumBuilder extends AutomatorBuilder{
 	
 	public AppiumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
-		switch(this.getGuiAutomationContext()){
+		switch(this.getAutomationContext()){
 		case MOBILE_WEB: waitTime = this.getTestContext().getConfig().value(DakshaOption.BROWSER_MOBILE_MAXWAIT).asInt(); break;
 		case MOBILE_NATIVE: waitTime = this.getTestContext().getConfig().value(DakshaOption.APP_MOBILE_MAXWAIT).asInt(); break;
 		default: waitTime = this.getTestContext().getConfig().value(DakshaOption.APP_MOBILE_MAXWAIT).asInt();
@@ -76,10 +76,10 @@ public class AppiumBuilder extends AutomatorBuilder{
 	}
 	
 	
-	public GuiAutomatorProxy build() throws Exception{
+	public UiAutomatorProxy build() throws Exception{
 		populateDefaultCapabilities(platformType, defaultCaps);
-		ConcreteGuiAutomator<AppiumDriver<MobileElement>, MobileElement> appium = null;
-		switch (this.getGuiAutomationContext()){
+		ConcreteUiAutomator<AppiumDriver<MobileElement>, MobileElement> appium = null;
+		switch (this.getAutomationContext()){
 		case MOBILE_NATIVE:
 			appium = new AppiumNativeUiDriver(this.getTestContext());
 			break;
@@ -87,7 +87,7 @@ public class AppiumBuilder extends AutomatorBuilder{
 			appium = new AppiumWebUiDriver(this.getTestContext());
 			break;
 		default:
-			throwUnsupportedAutomationContextException(this.getGuiAutomationContext());
+			throwUnsupportedAutomationContextException(this.getAutomationContext());
 		}
 		appium.init();
 		appium.setWaitTime(this.waitTime);
@@ -95,12 +95,12 @@ public class AppiumBuilder extends AutomatorBuilder{
 		defaultCaps.merge(otherCaps);
 		appium.setCapabilities(defaultCaps.asMap());
 		appium.load();
-		return new GuiAutomatorProxy(appium);
+		return new UiAutomatorProxy(appium);
 	}
 	
-	public GuiAutomatorProxy throwUnsupportedAutomationContextException(GuiAutomationContext context) throws Exception{
+	public UiAutomatorProxy throwUnsupportedAutomationContextException(UiAutomationContext context) throws Exception{
 		throw new Problem(
-				"Leaping:Generator:Appium",
+				"UI Auto:Generator:Appium",
 				"Appium Builder",
 				"build",
 				ErrorType.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
@@ -126,7 +126,7 @@ public class AppiumBuilder extends AutomatorBuilder{
 			setSslProxy(proxy, p);
 			capabilities.setCapability("proxy", proxy);
 		}
-		switch(this.getGuiAutomationContext()){
+		switch(this.getAutomationContext()){
 		case MOBILE_WEB: setMobileWebCapabilities(platform, capabilities) ; break;
 		case MOBILE_NATIVE: setMobileNativeCapabilities(platform, capabilities); break;
 		default: throw new Exception("Unsupported automation context for Appium. Allowed: MOBILE_WEB/MOBILE_NATIVE");
@@ -163,7 +163,7 @@ public class AppiumBuilder extends AutomatorBuilder{
 	
 	protected void throwAppiumAutomatorException(String action, String code, String message) throws Exception {
 		throw new Problem(
-				"Leaping:Generator:Appium",
+				"UI Auto:Generator:Appium",
 				this.getClass().getSimpleName(),
 				action,
 				code,
