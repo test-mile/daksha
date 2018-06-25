@@ -33,7 +33,7 @@ public class IniGuiNamespaceLoader extends FileBasedGuiNamespaceLoader{
 	
 	@Override
 	public void load() throws Exception{
-		reader = new IniFileReader(getDefFilePath());
+		reader = new IniFileReader(this.getFilePath());
 		Set<String> elements = reader.getAllSections();
 		
 		Map<String, HashMap<String,String>> elementHM =  new HashMap<String, HashMap<String,String>>();

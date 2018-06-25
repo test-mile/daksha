@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha;
+package daksha.core.meaningful;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ import daksha.tpi.meaningful.enums.GuiAutomationContext;
 import daksha.tpi.meaningful.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
 
-public enum meaningfulSingleton {
+public enum UiAutoSingleton {
 	INSTANCE;
 
 	// UI Automator

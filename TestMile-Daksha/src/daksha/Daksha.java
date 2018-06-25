@@ -25,6 +25,7 @@ import org.testng.ITestContext;
 
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.meaningful.UiAutoSingleton;
 import daksha.core.meaningful.enums.OSType;
 import daksha.tpi.meaningful.enums.GuiAutomationContext;
 
@@ -76,15 +77,15 @@ public class Daksha {
 	}
 	
 	public static String getAutomationContextName(GuiAutomationContext context) {
-		return meaningfulSingleton.INSTANCE.getAutomationContextName(context);
+		return UiAutoSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
 	public static List<String> getAllowedPickByStrings() throws Exception {
-		return meaningfulSingleton.INSTANCE.getAllowedPickByStrings() ;
+		return UiAutoSingleton.INSTANCE.getAllowedPickByStrings() ;
 	}
 
 	public static List<String> getAllAllowedGuiElementTypes() {
-		return meaningfulSingleton.INSTANCE.getAllAllowedGuiElementTypes();
+		return UiAutoSingleton.INSTANCE.getAllAllowedGuiElementTypes();
 	}
 	
 	public static String getComponentName(){
@@ -92,19 +93,19 @@ public class Daksha {
 	}
 	
 	public static boolean isAllowedAppiumPlatform(String platformName){
-		return meaningfulSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
+		return UiAutoSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
 	}
 	
 	public static String getAppiumPlatformString(OSType platform) throws Exception{
-		return meaningfulSingleton.INSTANCE.getAppiumPlatformString(platform);
+		return UiAutoSingleton.INSTANCE.getAppiumPlatformString(platform);
 	}
 	
 	public static String getAppiumBrowserString(String rawName) throws Exception{
-		return meaningfulSingleton.INSTANCE.getAppiumBrowserString(rawName);
+		return UiAutoSingleton.INSTANCE.getAppiumBrowserString(rawName);
 	}
 
 	public static boolean isAllowedAppiumBrowser(OSType platform, String browser) throws Exception {
-		return meaningfulSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
+		return UiAutoSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
 	}
 	
 }

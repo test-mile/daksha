@@ -41,7 +41,7 @@ abstract public class FileBasedGuiNamespaceLoader extends BaseGuiNamespaceLoader
 		}
 	}
 
-	protected String getnsFilePath(){
+	protected String getFilePath(){
 		return nsPath;
 	}
 }

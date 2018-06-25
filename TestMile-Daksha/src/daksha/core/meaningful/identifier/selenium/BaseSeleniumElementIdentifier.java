@@ -28,12 +28,12 @@ public abstract class BaseSeleniumElementIdentifier<D extends WebDriver,E extend
 		By findBy = null;
 		WebLocateBy idType = null;
 		try{
-			idType = locator.asWebPickBy();
+			idType = locator.asWebLocateBy();
 		} catch (Throwable e){
 			throw new Exception(
 					String.format("Unsupported locator for %s: ",
 					"WEBDRIVER",
-					locator.asPickBy().toString()));
+					locator.asLocateBy().toString()));
 		}
 		
 		String idValue = locator.getValue();

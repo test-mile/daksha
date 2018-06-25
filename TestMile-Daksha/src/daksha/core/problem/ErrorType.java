@@ -28,7 +28,7 @@ public class ErrorType {
 
 	public static final String ELEMENT_UNSUPPORTED_ACTION = "Unsupported action: %s for element with %sproperties %s.";
 
-	public static final String ELEMENT_INQGUIRY_FAILURE = "%s was unable to check %s element with %sproperties %s.";
+	public static final String ELEMENT_INQUIRY_FAILURE = "%s was unable to check %s element with %sproperties %s.";
 
 	public static final String GUI_NULL_AUTOMATOR = "%s GUI was provided a null automator.";
 

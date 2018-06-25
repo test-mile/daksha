@@ -16,6 +16,7 @@ import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.meaningful.UiAutoSingleton;
 import daksha.core.meaningful.enums.OSType;
 import daksha.core.meaningful.loader.GuiNamsepaceStore;
 import daksha.tpi.batteries.console.Console;
@@ -36,7 +37,7 @@ public enum DakshaSingleton {
 	 
 	public void init(String rootDir) throws Exception {
 		this.centralConf = new CentralConfiguration(rootDir);
-		meaningfulSingleton.INSTANCE.init();
+		UiAutoSingleton.INSTANCE.init();
 	}
 	
 	public void freezeCentralConfig() throws Exception {
