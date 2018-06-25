@@ -239,6 +239,10 @@ public class DefaultGui implements Gui{
 	
 	public void addChild(String label, String defPath) throws Exception {
 		Gui gui = new DefaultGui(this, label, this.getAutomator(), defPath);
+		this.addChild(label, gui);
+	}
+	
+	public void addChild(String label, Gui gui) {
 		getChildMap().put(label.toLowerCase(), gui);
 	}
 	
