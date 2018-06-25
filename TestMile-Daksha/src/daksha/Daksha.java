@@ -25,8 +25,8 @@ import org.testng.ITestContext;
 
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.cleanup.enums.OSType;
-import daksha.tpi.cleanup.enums.UiAutomationContext;
+import daksha.core.meaningful.enums.OSType;
+import daksha.tpi.meaningful.enums.GuiAutomationContext;
 
 public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
@@ -75,16 +75,16 @@ public class Daksha {
 		return core.getLogger();
 	}
 	
-	public static String getAutomationContextName(UiAutomationContext context) {
-		return CleanupSingleton.INSTANCE.getAutomationContextName(context);
+	public static String getAutomationContextName(GuiAutomationContext context) {
+		return meaningfulSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
 	public static List<String> getAllowedPickByStrings() throws Exception {
-		return CleanupSingleton.INSTANCE.getAllowedPickByStrings() ;
+		return meaningfulSingleton.INSTANCE.getAllowedPickByStrings() ;
 	}
 
-	public static List<String> getAllAllowedUiElementTypes() {
-		return CleanupSingleton.INSTANCE.getAllAllowedUiElementTypes();
+	public static List<String> getAllAllowedGuiElementTypes() {
+		return meaningfulSingleton.INSTANCE.getAllAllowedGuiElementTypes();
 	}
 	
 	public static String getComponentName(){
@@ -92,19 +92,19 @@ public class Daksha {
 	}
 	
 	public static boolean isAllowedAppiumPlatform(String platformName){
-		return CleanupSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
+		return meaningfulSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
 	}
 	
 	public static String getAppiumPlatformString(OSType platform) throws Exception{
-		return CleanupSingleton.INSTANCE.getAppiumPlatformString(platform);
+		return meaningfulSingleton.INSTANCE.getAppiumPlatformString(platform);
 	}
 	
 	public static String getAppiumBrowserString(String rawName) throws Exception{
-		return CleanupSingleton.INSTANCE.getAppiumBrowserString(rawName);
+		return meaningfulSingleton.INSTANCE.getAppiumBrowserString(rawName);
 	}
 
 	public static boolean isAllowedAppiumBrowser(OSType platform, String browser) throws Exception {
-		return CleanupSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
+		return meaningfulSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
 	}
 	
 }

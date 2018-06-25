@@ -2,7 +2,7 @@ package daksha.core.batteries.config;
 
 import java.util.Map;
 
-import daksha.tpi.cleanup.enums.UiAutomationContext;
+import daksha.tpi.meaningful.enums.GuiAutomationContext;
 import daksha.tpi.enums.DakshaOption;
 
 public class TestContext {
@@ -31,8 +31,8 @@ public class TestContext {
 		return this.config;
 	}
 
-	public UiAutomationContext getAutomationContext() throws Exception {
-		return UiAutomationContext.valueOf(this.config.value(DakshaOption.UIAUTO_CONTEXT).asString());
+	public GuiAutomationContext getAutomationContext() throws Exception {
+		return GuiAutomationContext.valueOf(this.config.value(DakshaOption.GUIAUTO_CONTEXT).asString());
 	}
 
 }
