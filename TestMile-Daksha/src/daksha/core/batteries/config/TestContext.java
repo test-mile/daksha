@@ -2,7 +2,7 @@ package daksha.core.batteries.config;
 
 import java.util.Map;
 
-import daksha.tpi.meaningful.enums.GuiAutomationContext;
+import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.enums.DakshaOption;
 
 public class TestContext {
