@@ -17,7 +17,7 @@ import daksha.Daksha;
 public class AppiumDriverServerLauncher {
 	private Map<Integer, AppiumServer> servers = new HashMap<Integer, AppiumServer>();
 	private Logger logger = null;
-	private int lastPort = 4272;
+	private int lastPort = 4722;
 	private String APPIUM_COMMAND = "appium";
 	
 	public AppiumDriverServerLauncher() {
@@ -65,7 +65,7 @@ public class AppiumDriverServerLauncher {
         logger.debug(String.format("Checking if Appium server is executing on port %s", port));
 
         // command to check if Appium service running on port --> sh -c lsof -P | grep ':4723'
-        String checkCommand[] = new String[]{"sh", "-c", String.format("lsof -P | grep :%s", port)};
+        String checkCommand[] = new String[]{"sh","-c", String.format("lsof -P | grep ':%s'", port)};
         if (runCommandAndWaitToComplete(checkCommand).equals("")) {
             logger.warn(String.format("Appium server is not running on port %s", port));
             return false;
@@ -84,7 +84,7 @@ public class AppiumDriverServerLauncher {
         logger.debug(String.format("Stopping Appium server on port %s", port));
 
         // command to stop Appium service running on port --> sh -c lsof -P | grep ':4723' | awk '{print $2}' | xargs kill -9
-        String stopCommand[] = new String[]{"sh", "-c", String.format("lsof -P | grep ':%s' | awk '{print $2}' | xargs kill -9", port)};
+        String stopCommand[] = new String[]{String.format("netstat -anp tcp | grep %s | awk '{print $2}' | xargs kill -9", port)};
         runCommandAndWaitToComplete(stopCommand);
     }
 

@@ -36,7 +36,6 @@ import daksha.tpi.uiauto.element.GuiMultiElement;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.uiauto.maker.appium.AppiumBuilder;
-import daksha.tpi.uiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestAppiumAndroid extends TestNGBaseTest{
@@ -63,9 +62,10 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
 		automator.elementWithId("user_pass").enterText(AppConfig.PASSWORD);
-		automator.elementWithId("wp-submit").click();
+		automator.elementWithName("wp-submit").click();
 		
-		automator.elementWithCss(".dashicons-admin-post").hover();
+		automator.elementWithId("wp-admin-bar-menu-toggle").click();
+		automator.elementWithXText("Posts").click();
 		automator.elementWithLinkText("Categories").click();
 		
 		GuiMultiElement tags = automator.elementsWithName("delete_tags[]");
@@ -88,7 +88,8 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		tags.getRandomInstance().check();
 		tags.getRandomInstance().uncheck();
 	
-		automator.elementWithCss(".dashicons-admin-settings").hover();
+		automator.elementWithId("wp-admin-bar-menu-toggle").click();
+		automator.elementWithXText("Settings").click();
 		automator.elementWithLinkText("General").click();
 		
 		GuiElement blogNameTextBox = automator.elementWithId("blogname");
