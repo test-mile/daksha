@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
+import daksha.core.uiauto.enums.OSType;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 
@@ -55,5 +56,11 @@ public class CentralConfiguration extends BaseConfiguration{
 		this.add(DakshaOption.GUIAUTO_CONTEXT, GuiAutomationContext.PC_WEB.toString());
 		this.add(DakshaOption.GUIAUTO_DEFAULT_BROWSER, Browser.CHROME.toString());
 		this.add(DakshaOption.GUIAUTO_MAX_WAIT, "60");
+		this.add(DakshaOption.MOBILE_PLATFORM_NAME, OSType.ANDROID.toString());
+		this.add(DakshaOption.BROWSER_MOBILE_PROXY_ON, "false");
+		this.add(DakshaOption.MOBILE_BROWSER, Browser.CHROME.toString());
+		this.add(DakshaOption.APPIUM_HUB_URL, "http://127.0.0.1:4723/wd/hub");
+		this.add(DakshaOption.MOBILE_DEVICE_NAME, "Android Emulator");
+		this.add(DakshaOption.MOBILE_PLATFORM_VERSION, "9");
 	}
 }

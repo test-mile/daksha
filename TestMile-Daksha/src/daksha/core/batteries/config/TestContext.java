@@ -35,4 +35,7 @@ public class TestContext {
 		return GuiAutomationContext.valueOf(this.config.value(DakshaOption.GUIAUTO_CONTEXT).asString());
 	}
 
+	public void setAutomationContext(GuiAutomationContext context) throws Exception {
+		this.config.add(DakshaOption.GUIAUTO_CONTEXT, context.toString());
+	}
 }

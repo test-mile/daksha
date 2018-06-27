@@ -140,7 +140,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	}
 
 	private void setMobileWebCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {
-		String browser = this.getTestContext().getConfig().value(DakshaOption.BROWSER_MOBILE_DEFAULT).asString();
+		String browser = this.getTestContext().getConfig().value(DakshaOption.MOBILE_BROWSER).asString();
 		if (!Daksha.isAllowedAppiumBrowser(platform, browser)){
 			throwUnsupportedBrowserException("setMobileCapabilities", platform, browser);
 		}

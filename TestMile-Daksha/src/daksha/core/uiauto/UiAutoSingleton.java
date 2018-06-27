@@ -32,6 +32,7 @@ import daksha.core.uiauto.enums.OSType;
 import daksha.core.uiauto.enums.LocateBy;
 import daksha.core.uiauto.enums.VisualLocateBy;
 import daksha.core.uiauto.enums.WebLocateBy;
+import daksha.core.uiauto.launcher.appium.AppiumDriverServerLauncher;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
@@ -52,6 +53,7 @@ public enum UiAutoSingleton {
 	private static List<String> allowedAppiumPlatforms = new ArrayList<String>();;
 	private static List<String> allowedAppiumAndroidBrowsers = new ArrayList<String>();;
 	private static List<String> allowedAppiumIosBrowsers = new ArrayList<String>();
+	private static AppiumDriverServerLauncher serverLauncher = null;
 
 	public void init() throws Exception{
 		/* Appium */
@@ -110,6 +112,8 @@ public enum UiAutoSingleton {
 		for (MobileWebLocateBy prop: MobileWebLocateBy.class.getEnumConstants()){
 			allowedMobileWebLocators.add(prop.toString());		
 		}
+		
+		serverLauncher = new AppiumDriverServerLauncher();
 	}
 
 	/*
@@ -195,6 +199,10 @@ public enum UiAutoSingleton {
 
 	public String getAppiumBrowserString(String rawName) throws Exception{
 		return DataUtils.toTitleCase(rawName);
+	}
+	
+	public AppiumDriverServerLauncher getDriverServerLauncher() throws Exception{
+		return serverLauncher;
 	}
 
 }

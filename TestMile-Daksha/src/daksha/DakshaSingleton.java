@@ -37,7 +37,6 @@ public enum DakshaSingleton {
 	 
 	public void init(String rootDir) throws Exception {
 		this.centralConf = new CentralConfiguration(rootDir);
-		UiAutoSingleton.INSTANCE.init();
 	}
 	
 	public void freezeCentralConfig() throws Exception {
@@ -47,6 +46,8 @@ public enum DakshaSingleton {
 		configureLogger(Level.INFO, Level.DEBUG);
 		logger = Logger.getLogger("daksha");
 		Console.init();
+		
+		UiAutoSingleton.INSTANCE.init();
 		
 		// Create directories
 		String dir = this.centralConf.value(DakshaOption.SCREENSHOTS_DIR).asString();

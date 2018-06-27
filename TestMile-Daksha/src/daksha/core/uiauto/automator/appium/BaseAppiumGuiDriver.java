@@ -20,13 +20,17 @@ package daksha.core.uiauto.automator.appium;
 
 import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.uiauto.UiAutoSingleton;
 import daksha.core.uiauto.automator.selenium.BaseSeleniumWebGuiDriver;
 import daksha.core.uiauto.enums.Direction;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
@@ -34,6 +38,7 @@ import daksha.core.uiauto.enums.MobileView;
 import daksha.core.uiauto.enums.OSType;
 import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.identifier.appium.AppiumElementIdentifier;
+import daksha.core.uiauto.launcher.appium.AppiumServer;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
@@ -64,13 +69,8 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 	@Override
 	public void load() throws Exception{
 		AppiumDriver<MobileElement> driver = null;
-		URL hubUrl = new URL(
-				String.format(
-						this.getTestContext().getConfig().value(DakshaOption.APPIUM_HUB_URL).asString(),
-						this.getTestContext().getConfig().value(DakshaOption.APPIUM_HUB_HOST).asString(),
-						this.getTestContext().getConfig().value(DakshaOption.APPIUM_HUB_PORT).asString()
-						)
-				);
+		AppiumServer server = UiAutoSingleton.INSTANCE.getDriverServerLauncher().startServer();
+		URL hubUrl = new URL(server.getURL());
 		try{
 			switch(getOSType()){
 			case ANDROID: driver = new AndroidDriver<MobileElement>(hubUrl, capabilities); break;
@@ -130,14 +130,15 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 	
 	private void swipe(Direction direction, int count, float startFraction, float endFraction) throws Exception {
 		validateSwipeSupport();
+		JavascriptExecutor js = (JavascriptExecutor) this.getUnderlyingEngine();
 		Dimension size = this.getUnderlyingEngine().manage().window().getSize();
-		int starty = (int) (size.height * startFraction);
-		int endy = (int) (size.height * endFraction);
-		int width = size.width / 2;
-		for (int i = 0; i < count; i++) {
-			new TouchAction(this.getUnderlyingEngine()).press(width, starty).waitAction(Duration.ofSeconds(swipeMaxWait))
-					.moveTo(width, endy).release().perform();
-		}
+		Map<String, Double> swipeElement = new HashMap<String, Double>();
+		swipeElement.put("startX", (double) 0.5);
+		swipeElement.put("startY", (double) size.height * startFraction);
+		swipeElement.put("endX", (double) 0.5);
+		swipeElement.put("endY", (double) size.height * endFraction);
+		swipeElement.put("duration", (double) swipeMaxWait);
+		js.executeScript("mobile: swipe", swipeElement);
 	}
 
 	@Override
