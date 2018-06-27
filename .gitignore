@@ -2,9 +2,9 @@
 dist_structure_for_but/**
 report/**
 log/**
-screenshots/**
-test-output/**
-tools/**
+**/screenshots/**
+**/test-output/**
+**/tools/**
 # Package Files #
 *.jar
 *.war
