@@ -5,6 +5,7 @@ log/**
 **/screenshots/**
 **/test-output/**
 **/tools/**
+**/apps/**
 # Package Files #
 *.jar
 *.war
