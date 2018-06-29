@@ -22,8 +22,8 @@ import java.util.List;
 
 import daksha.core.uiauto.automator.ConcreteGuiAutomator;
 import daksha.core.uiauto.element.proxy.GuiElementProxy;
-import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.core.uiauto.identifier.GuiElementIdentifier;
+import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
 import daksha.tpi.uiauto.enums.GuiElementType;

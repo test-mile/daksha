@@ -2,7 +2,8 @@ package daksha.core.uiauto.launcher.appium;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -25,9 +26,9 @@ public class AppiumDriverServerLauncher {
 	}
 
 	public AppiumServer startServer() throws Exception {
-		int port = lastPort + 1;
-		startAppiumServer(port);
-		return new AppiumServer(port);
+		lastPort += 1;
+		startAppiumServer(lastPort);
+		return new AppiumServer(lastPort);
 	}
 
 	 public void stopServer(AppiumServer server) throws Exception {

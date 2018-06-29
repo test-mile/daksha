@@ -10,10 +10,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.automator.selenium.SeleniumWebGuiDriver;
-import daksha.tpi.uiauto.enums.GuiAutomationContext;
-import daksha.tpi.uiauto.maker.GuiAutomatorBuilder;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
+import daksha.tpi.uiauto.enums.GuiAutomationContext;
+import daksha.tpi.uiauto.maker.GuiAutomatorBuilder;
 
 public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private MutableCapabilities browserCaps = new MutableCapabilities();

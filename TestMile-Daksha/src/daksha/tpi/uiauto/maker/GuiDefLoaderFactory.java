@@ -21,13 +21,13 @@ package daksha.tpi.uiauto.maker;
 import org.apache.log4j.Logger;
 
 import daksha.core.batteries.config.TestContext;
-import daksha.core.uiauto.loader.IniGuiNamespaceLoader;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.core.uiauto.loader.IniGuiNamespaceLoader;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.enums.FileFormat;
-import daksha.tpi.uiauto.maker.namespace.GuiNamespaceLoader;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
+import daksha.tpi.uiauto.maker.namespace.GuiNamespaceLoader;
 
 public class GuiDefLoaderFactory {
 	private static Logger sLogger = Logger.getLogger("daksha");

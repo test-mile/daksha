@@ -30,11 +30,11 @@ import daksha.Daksha;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.enums.OSType;
 import daksha.ex.config.AppConfig;
+import daksha.tpi.testng.TestNGBaseTest;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
 import daksha.tpi.uiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.uiauto.maker.selenium.SeleniumBuilder;
-import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();

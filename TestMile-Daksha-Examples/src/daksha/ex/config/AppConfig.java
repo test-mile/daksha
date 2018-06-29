@@ -30,7 +30,7 @@ public class AppConfig {
 	public static String CHROME_DRIVER_PATH = DRIVER_DIR + "chromedriver";
 	public static String GECKO_DRIVER_PATH = DRIVER_DIR + "geckodriver";
 	public static String WP_URL = "http://192.168.56.101";
-	public static String WP_ADMIN_URL = "http://192.168.56.101/wp-admin";
+	public static String WP_ADMIN_URL = WP_URL + "/wp-admin";
 	public static String USER_NAME = "user";
 	public static String PASSWORD = "bitnami";
 	public static String WP_LOGOUT_URL = WP_URL + "/wp-login.php?action=logout";

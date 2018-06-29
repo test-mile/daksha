@@ -21,10 +21,10 @@ package daksha.core.uiauto.element.proxy;
 import java.util.List;
 import java.util.Random;
 
+import daksha.core.problem.ErrorType;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.element.ConcreteGuiMultiElement;
 import daksha.core.uiauto.identifier.GuiElementMetaData;
-import daksha.core.problem.ErrorType;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
 import daksha.tpi.uiauto.gui.Gui;

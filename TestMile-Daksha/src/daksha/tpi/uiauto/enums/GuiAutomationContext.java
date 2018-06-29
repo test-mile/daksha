@@ -18,11 +18,22 @@
  ******************************************************************************/
 package daksha.tpi.uiauto.enums;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public enum GuiAutomationContext {
+	
 	PC_WEB,
 	PC_NATIVE,
 	MOBILE_WEB,
 	MOBILE_NATIVE,
 	SCREEN,
-	GENERIC
+	GENERIC;
+	
+	private static Set<GuiAutomationContext> desktopContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.PC_NATIVE, GuiAutomationContext.PC_WEB}));
+	
+	public static boolean isDesktopContext(GuiAutomationContext context) {
+		return desktopContexts.contains(context);
+	}
 }

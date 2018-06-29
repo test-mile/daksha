@@ -20,10 +20,10 @@ package daksha.core.uiauto.element.proxy;
 
 import java.util.List;
 
+import daksha.core.problem.ErrorType;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.element.ConcreteGuiElement;
 import daksha.core.uiauto.identifier.GuiElementMetaData;
-import daksha.core.problem.ErrorType;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.enums.GuiElementType;
 import daksha.tpi.uiauto.gui.Gui;

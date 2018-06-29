@@ -6,16 +6,16 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.core.uiauto.automator.ConcreteGuiAutomator;
 import daksha.core.uiauto.automator.appium.AppiumNativeGuiDriver;
 import daksha.core.uiauto.automator.appium.AppiumWebGuiDriver;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.enums.OSType;
-import daksha.core.problem.ErrorType;
-import daksha.core.problem.Problem;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.maker.GuiAutomatorBuilder;
-import daksha.tpi.enums.DakshaOption;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -30,7 +30,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	public AppiumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
 		waitTime = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAX_WAIT).asInt();
-		String platform = this.getTestContext().getConfig().value(DakshaOption.MOBILE_PLATFORM_NAME).asString();
+		String platform = this.getTestContext().getConfig().value(DakshaOption.TEST_MOBILE_PLATFORM).asString();
 		if (!Daksha.isAllowedAppiumPlatform(platform)){
 			throwUnsupportedPlatformException("constructor", platform);
 		}
@@ -44,6 +44,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	
 	public void appPath(String path){
 		otherCaps.setCapability(MobileCapabilityType.APP, path);
+		otherCaps.setCapability(MobileCapabilityType.BROWSER_NAME, "");
 	}
 	
 	
@@ -122,6 +123,8 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 			setSslProxy(proxy, p);
 			capabilities.setCapability("proxy", proxy);
 		}
+		
+		capabilities.setCapability("newCommandTimeout", "60000");
 		switch(this.getAutomationContext()){
 		case MOBILE_WEB: setMobileWebCapabilities(platform, capabilities) ; break;
 		case MOBILE_NATIVE: setMobileNativeCapabilities(platform, capabilities); break;
@@ -137,6 +140,22 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 		if (!this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).isNull()){
 			capabilities.setCapability(MobileCapabilityType.UDID, this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).asString());
 		}
+		
+		if (platform == OSType.ANDROID) {
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
+		} else {
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
+		}
+	}
+	
+	public AppiumBuilder appPackage(String pkg) {
+		otherCaps.setCapability("appPackage", pkg);
+		return this;
+	}
+	
+	public AppiumBuilder appActivity(String pkg) {
+		otherCaps.setCapability("appActivity", pkg);
+		return this;
 	}
 
 	private void setMobileWebCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {

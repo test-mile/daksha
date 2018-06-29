@@ -29,13 +29,13 @@ import org.testng.annotations.Test;
 import daksha.Daksha;
 import daksha.core.uiauto.enums.OSType;
 import daksha.ex.config.AppConfig;
+import daksha.tpi.testng.TestNGBaseTest;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
 import daksha.tpi.uiauto.gui.Gui;
 import daksha.tpi.uiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.uiauto.maker.GuiFactory;
 import daksha.tpi.uiauto.maker.selenium.SeleniumBuilder;
-import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Gui> threadWiseApp = new ThreadLocal<Gui>();

@@ -18,10 +18,15 @@
  ******************************************************************************/
 package daksha.core.uiauto.automator.appium;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -30,24 +35,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.TestContext;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.core.uiauto.UiAutoSingleton;
 import daksha.core.uiauto.automator.selenium.BaseSeleniumWebGuiDriver;
 import daksha.core.uiauto.enums.Direction;
+import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.enums.MobileView;
 import daksha.core.uiauto.enums.OSType;
-import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.identifier.appium.AppiumElementIdentifier;
 import daksha.core.uiauto.launcher.appium.AppiumServer;
-import daksha.core.problem.ErrorType;
-import daksha.core.problem.Problem;
-import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.enums.DakshaOption;
+import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<MobileElement>,MobileElement>{
 	private String appPath = null;
@@ -69,8 +76,13 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 	@Override
 	public void load() throws Exception{
 		AppiumDriver<MobileElement> driver = null;
-		AppiumServer server = UiAutoSingleton.INSTANCE.getDriverServerLauncher().startServer();
-		URL hubUrl = new URL(server.getURL());
+		AppiumServer server = null;
+		if (this.getTestContext().getConfig().value(DakshaOption.APPIUM_AUTO_LAUNCH).asBoolean() == true) {
+			server = UiAutoSingleton.INSTANCE.getDriverServerLauncher().startServer();
+		} else {
+			server = new AppiumServer(this.getTestContext().getConfig().value(DakshaOption.APPIUM_HUB_URL).asString());
+		}
+		URL hubUrl = server.getURL();
 		try{
 			switch(getOSType()){
 			case ANDROID: driver = new AndroidDriver<MobileElement>(hubUrl, capabilities); break;
@@ -128,22 +140,84 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 		}
 	}
 	
+	public String swipeUsingADB(int startx, int starty, int endx, int endy, int duration) {
+        return executeAsString("adb shell input touchscreen swipe "+startx+" "+starty+" "+endx+" "+endy+" "+duration);
+    }
+
+    private String executeAsString(String command) {
+        try {
+            Process pr = execute(command);
+            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = input.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    sb.append(line);
+                }
+            }
+            input.close();
+            pr.destroy();
+            return sb.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Execution error while executing command" + command, e);
+        }
+    }  
+    
+    private Process execute(String command) throws Exception {
+        List<String> commandP = new ArrayList<String>();
+        String[] com = command.split(" ");
+        for (int i = 0; i < com.length; i++) {
+            commandP.add(com[i]);
+        }
+        ProcessBuilder prb = new ProcessBuilder(commandP);
+        Process pr = prb.start();
+        pr.waitFor(10, TimeUnit.SECONDS);
+        return pr;
+    }
+
+	
 	private void swipe(Direction direction, int count, float startFraction, float endFraction) throws Exception {
 		validateSwipeSupport();
 		JavascriptExecutor js = (JavascriptExecutor) this.getUnderlyingEngine();
 		Dimension size = this.getUnderlyingEngine().manage().window().getSize();
-		Map<String, Double> swipeElement = new HashMap<String, Double>();
-		swipeElement.put("startX", (double) 0.5);
-		swipeElement.put("startY", (double) size.height * startFraction);
-		swipeElement.put("endX", (double) 0.5);
-		swipeElement.put("endY", (double) size.height * endFraction);
-		swipeElement.put("duration", (double) swipeMaxWait);
-		js.executeScript("mobile: swipe", swipeElement);
+		int x1 = (int) (0.5 * size.width);
+		int y1 = (int) (size.height * startFraction);
+		int x2 = (int) (0.5 * size.width);
+		int y2 = (int) (size.height * endFraction);
+		
+		System.out.println("Swipe from "+x1 +" " +y1 +"to" +x2 +" " +y2 );
+
+		if (this.getOSType() == OSType.ANDROID) {
+//			new TouchActions(this.getUnderlyingEngine()).moveByOffset(xOffset, yOffset);
+			new AndroidTouchAction((AndroidDriver<MobileElement>)this.getUnderlyingEngine())
+			.press(PointOption.point(x1,  y1))
+			.waitAction(WaitOptions.waitOptions(Duration.ofMillis(swipeMaxWait)))
+			.moveTo(PointOption.point(x2, y2)).release().perform();
+			//swipeUsingADB(x1, y1, x2,y2, swipeMaxWait);
+//			TouchActions action = new TouchActions(this.getUnderlyingEngine());
+//			action.scroll(10, 200);
+//			action.perform();
+			//action.longPress(PointOption.point(x1,y1)).moveTo(PointOption.point(x2, y2)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(swipeMaxWait))).release().perform();
+//			Map<String, Object> params = new HashMap<>();
+//			params.put("end", "40%,30%");
+//			params.put("start", "40%,70%");
+//			params.put("duration", "2");
+//			Object res = this.getUnderlyingEngine().executeScript("mobile:touch:swipe", params);
+		} else {
+			Map<String, Double> swipeElement = new HashMap<String, Double>();
+			swipeElement.put("startX", (double) x1);
+			swipeElement.put("startY", (double) y1);
+			swipeElement.put("endX", (double) x2);
+			swipeElement.put("endY", (double) y2);
+			swipeElement.put("duration", (double) swipeMaxWait);
+			js.executeScript("mobile: swipe", swipeElement);
+		}
+		
 	}
 
 	@Override
 	public void swipeUp(int count) throws Exception {
-		swipe(Direction.UP, count, swipeTop, swipeBottom);
+		swipe(Direction.UP, count, swipeBottom, swipeTop);
 	}
 
 	@Override
@@ -153,7 +227,7 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 
 	@Override
 	public void swipeDown(int count) throws Exception {
-		swipe(Direction.DOWN, count, swipeBottom, swipeTop);
+		swipe(Direction.DOWN, count, swipeTop, swipeBottom);
 	}
 
 	@Override

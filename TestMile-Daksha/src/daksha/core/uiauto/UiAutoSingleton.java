@@ -25,17 +25,17 @@ import java.util.Map;
 
 import daksha.core.uiauto.enums.AppiumAndroidBrowserType;
 import daksha.core.uiauto.enums.AppiumIosBrowserType;
+import daksha.core.uiauto.enums.LocateBy;
 import daksha.core.uiauto.enums.MobileNativeLocateBy;
 import daksha.core.uiauto.enums.MobileWebLocateBy;
 import daksha.core.uiauto.enums.NativeLocateBy;
 import daksha.core.uiauto.enums.OSType;
-import daksha.core.uiauto.enums.LocateBy;
 import daksha.core.uiauto.enums.VisualLocateBy;
 import daksha.core.uiauto.enums.WebLocateBy;
 import daksha.core.uiauto.launcher.appium.AppiumDriverServerLauncher;
+import daksha.tpi.sysauto.utils.DataUtils;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.enums.GuiElementType;
-import daksha.tpi.sysauto.utils.DataUtils;
 
 public enum UiAutoSingleton {
 	INSTANCE;

@@ -18,10 +18,10 @@
  ******************************************************************************/
 package daksha.core.uiauto.identifier;
 
+import daksha.core.uiauto.enums.LocateBy;
 import daksha.core.uiauto.enums.MobileNativeLocateBy;
 import daksha.core.uiauto.enums.MobileWebLocateBy;
 import daksha.core.uiauto.enums.NativeLocateBy;
-import daksha.core.uiauto.enums.LocateBy;
 import daksha.core.uiauto.enums.VisualLocateBy;
 import daksha.core.uiauto.enums.WebLocateBy;
 

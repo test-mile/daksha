@@ -23,18 +23,18 @@ import java.util.Map;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.batteries.image.ImageComprator;
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.element.proxy.GuiElementProxy;
 import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
+import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.enums.OSType;
-import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.identifier.GuiElementIdentifier;
-import daksha.core.problem.ErrorType;
-import daksha.core.problem.Problem;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.enums.GuiElementType;
-import daksha.tpi.enums.DakshaOption;
 
 public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<D,E>{
 	private TestContext testContext = null;

@@ -31,12 +31,12 @@ import daksha.core.batteries.config.TestContext;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.enums.OSType;
 import daksha.ex.config.AppConfig;
+import daksha.tpi.testng.TestNGBaseTest;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.uiauto.maker.appium.AppiumBuilder;
-import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();

@@ -24,8 +24,8 @@ import java.util.List;
 import daksha.core.uiauto.automator.ConcreteGuiAutomator;
 import daksha.core.uiauto.element.proxy.GuiElementProxy;
 import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
-import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.core.uiauto.identifier.GuiElementIdentifier;
+import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.tpi.uiauto.gui.Gui;
 
 public abstract class BaseConcreteGuiMultiElement<D,E> extends BaseManagedConcreteGuiElement<D,E,GuiMultiElementProxy> implements ConcreteGuiMultiElement<D,E>{

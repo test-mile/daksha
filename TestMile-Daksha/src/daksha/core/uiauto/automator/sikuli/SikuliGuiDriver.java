@@ -24,9 +24,9 @@ import org.sikuli.script.Screen;
 
 import daksha.core.batteries.config.TestContext;
 import daksha.core.uiauto.automator.AbstractGuiAutomator;
+import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.enums.OSType;
-import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 
 public class SikuliGuiDriver extends AbstractGuiAutomator<Screen,Match>{

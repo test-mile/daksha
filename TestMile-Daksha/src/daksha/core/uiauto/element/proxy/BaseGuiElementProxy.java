@@ -3,13 +3,13 @@ package daksha.core.uiauto.element.proxy;
 import java.io.File;
 import java.io.IOException;
 
+import daksha.core.problem.ErrorType;
+import daksha.core.problem.Problem;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.element.ManagedConcreteGuiElement;
 import daksha.core.uiauto.element.ManagedGuiElement;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.identifier.GuiElementMetaData;
-import daksha.core.problem.ErrorType;
-import daksha.core.problem.Problem;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.gui.Gui;
 
