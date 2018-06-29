@@ -47,8 +47,8 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 		context.setAutomationContext(GuiAutomationContext.MOBILE_NATIVE);
 		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(context);
 		builder.appPath(context.getAppDir() + "WordPress.apk");
-		builder.appPackage("org.wordpress.android");
-		builder.appActivity("org.wordpress.android.ui.WPLaunchActivity");
+		builder.appPackage(AppConfig.APP_PKG);
+		builder.appActivity(AppConfig.APP_ACTIVITY);
 		this.threadWiseAutomator.set(builder.build());
 	}
 	

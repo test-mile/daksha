@@ -34,5 +34,8 @@ public class AppConfig {
 	public static String USER_NAME = "user";
 	public static String PASSWORD = "bitnami";
 	public static String WP_LOGOUT_URL = WP_URL + "/wp-login.php?action=logout";
+	
+	public static String APP_PKG = "org.wordpress.android";
+	public static String APP_ACTIVITY = APP_PKG + ".ui.WPLaunchActivity";
 
 }
