@@ -76,14 +76,11 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	public GuiAutomatorProxy build() throws Exception{
 		populateDefaultCapabilities(platformType, defaultCaps);
 		ConcreteGuiAutomator<AppiumDriver<MobileElement>, MobileElement> appium = null;
-		switch (this.getAutomationContext()){
-		case MOBILE_NATIVE:
-			appium = new AppiumNativeGuiDriver(this.getTestContext());
-			break;
-		case MOBILE_WEB:
+		if (GuiAutomationContext.isMobileNativeContext(this.getAutomationContext())) {
+			appium = new AppiumNativeGuiDriver(this.getTestContext());			
+		} else if (GuiAutomationContext.isMobileWebContext(this.getAutomationContext())) {
 			appium = new AppiumWebGuiDriver(this.getTestContext());
-			break;
-		default:
+		} else {
 			throwUnsupportedAutomationContextException(this.getAutomationContext());
 		}
 		appium.init();
@@ -125,10 +122,13 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 		}
 		
 		capabilities.setCapability("newCommandTimeout", "60000");
-		switch(this.getAutomationContext()){
-		case MOBILE_WEB: setMobileWebCapabilities(platform, capabilities) ; break;
-		case MOBILE_NATIVE: setMobileNativeCapabilities(platform, capabilities); break;
-		default: throw new Exception("Unsupported automation context for Appium. Allowed: MOBILE_WEB/MOBILE_NATIVE");
+		
+		if (GuiAutomationContext.isMobileNativeContext(this.getAutomationContext())) {
+			setMobileWebCapabilities(platform, capabilities);			
+		} else if (GuiAutomationContext.isMobileWebContext(this.getAutomationContext())) {
+			setMobileNativeCapabilities(platform, capabilities);
+		} else {
+			throwUnsupportedAutomationContextException(this.getAutomationContext());
 		}
 	}
 	

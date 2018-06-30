@@ -16,14 +16,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.core.uiauto.loader;
+package daksha.core.uiauto.namestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import daksha.tpi.uiauto.maker.namespace.GuiNamespaceLoader;
+import daksha.tpi.uiauto.maker.namestore.GuiNamespaceLoader;
 
-public enum GuiNamsepaceStore{
+public enum GuiNameStore{
 	INSTANCE;
 
 	private Map<String, GuiNamespace> nsMap =  new HashMap<String, GuiNamespace>();

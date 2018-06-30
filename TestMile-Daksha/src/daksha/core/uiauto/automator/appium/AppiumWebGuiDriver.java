@@ -25,7 +25,7 @@ import daksha.tpi.uiauto.enums.GuiAutomationContext;
 public class AppiumWebGuiDriver extends BaseAppiumGuiDriver {
 	
 	public AppiumWebGuiDriver(TestContext testContext, GuiElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiAutomationContext.MOBILE_WEB, loaderType);
+		super(testContext, loaderType);
 	}
 		
 	public AppiumWebGuiDriver(TestContext testContext) throws Exception{

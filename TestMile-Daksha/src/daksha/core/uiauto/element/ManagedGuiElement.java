@@ -21,14 +21,8 @@ public interface ManagedGuiElement {
 
 	void setGuiLabel(String label);
 
-	String property(String propName);
-
-	String getProperty(String propName);
-
 	GuiElementMetaData getMetaData();
 	
 	void setMetaData(GuiElementMetaData gei);
-
-	void setProperty(String propName, String value);
 
 }

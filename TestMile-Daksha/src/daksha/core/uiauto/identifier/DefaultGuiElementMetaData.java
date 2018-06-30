@@ -25,32 +25,15 @@ import java.util.Map;
 
 import daksha.Daksha;
 import daksha.core.uiauto.enums.LocateBy;
+import daksha.core.uiauto.namestore.StringNVPair;
 import daksha.tpi.uiauto.enums.GuiElementType;
 
 public class DefaultGuiElementMetaData implements GuiElementMetaData {
-	private Map<String, String> metaData = new HashMap<String, String>();
+	private List<StringNVPair> properties = null;
 	List<GuiElementLocator> locators = new ArrayList<GuiElementLocator>();
 	
-	public DefaultGuiElementMetaData(Map<String, String> map) {
-		for (String key: map.keySet()){
-			set(key, map.get(key));
-		}
-	}
-
-	@Override
-	public void set(String propName, String value) {
-		metaData.put(propName.toUpperCase(), value);
-	}
-
-
-	@Override
-	public String get(String propName) {
-		return metaData.get(propName.toUpperCase());
-	}
-
-	@Override
-	public Map<String, String> getAllProperties() {
-		return metaData;
+	public DefaultGuiElementMetaData(List<StringNVPair> properties) {
+		this.properties = properties;
 	}
 
 	private List<String> getAllowedPickByStrings() throws Exception{
@@ -58,9 +41,9 @@ public class DefaultGuiElementMetaData implements GuiElementMetaData {
 	}
 	
 	public void process() throws Exception{
-		for (String property: getAllProperties().keySet()){
-			String upProperty = property.toUpperCase();
-			String value = get(property);
+		for (StringNVPair property: properties){
+			String upProperty = property.getName();
+			String value = property.getValue();
 			if(getAllowedPickByStrings().contains(upProperty)){
 				LocateBy locateBy = LocateBy.valueOf(upProperty);
 				switch(locateBy){

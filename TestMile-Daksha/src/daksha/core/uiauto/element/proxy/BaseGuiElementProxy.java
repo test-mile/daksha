@@ -91,24 +91,12 @@ public class BaseGuiElementProxy implements ManagedGuiElement{
 		this.label = label;
 	}
 
-	public String property(String propName) {
-		return emd.get(propName);
-	}
-
-	public String getProperty(String propName) {
-		return emd.get(propName);
-	}
-
 	public GuiElementMetaData getMetaData() {
 		return this.emd;
 	}
 	
 	public void setMetaData(GuiElementMetaData gei) {
 		this.emd = gei;
-	}
-
-	public void setProperty(String propName, String value) {
-		emd.set(propName, value);
 	}
 	
 	public String getImagePath() throws Exception {
@@ -211,7 +199,7 @@ public class BaseGuiElementProxy implements ManagedGuiElement{
 						concreteElement.getAutomatorName(),
 						filler,
 						getElementNameFillerForException(),
-						this.getMetaData().getAllProperties().toString()
+						this.getMetaData().getLocators().toString()
 						)
 				);		
 	}
@@ -226,7 +214,7 @@ public class BaseGuiElementProxy implements ManagedGuiElement{
 						ErrorType.ELEMENT_UNSUPPORTED_ACTION,
 						action,
 						getElementNameFillerForException(),
-						this.getMetaData().getAllProperties().toString()
+						this.getMetaData().getLocators().toString()
 						),
 				takeScreenshotIfPossible()
 				);	
@@ -241,7 +229,7 @@ public class BaseGuiElementProxy implements ManagedGuiElement{
 				String.format(
 						code,
 						getElementNameFillerForException(),
-						this.getMetaData().getAllProperties().toString()
+						this.getMetaData().getLocators().toString()
 						),
 				takeScreenshotIfPossible()
 				);	
@@ -257,7 +245,7 @@ public class BaseGuiElementProxy implements ManagedGuiElement{
 						code,
 						action,
 						getElementNameFillerForException(),
-						this.getMetaData().getAllProperties().toString()
+						this.getMetaData().getLocators().toString()
 						),
 				takeScreenshotIfPossible()
 				);	

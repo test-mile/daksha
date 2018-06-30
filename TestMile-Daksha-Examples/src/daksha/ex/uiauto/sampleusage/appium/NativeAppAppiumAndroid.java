@@ -44,7 +44,7 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testNGContext) throws Exception {
 		TestContext context = Daksha.getTestContext(this.getTestContextName());
-		context.setAutomationContext(GuiAutomationContext.MOBILE_NATIVE);
+		context.setAutomationContext(GuiAutomationContext.ANDROID_NATIVE);
 		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(context);
 		builder.appPath(context.getAppDir() + "WordPress.apk");
 		builder.appPackage(AppConfig.APP_PKG);

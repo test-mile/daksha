@@ -28,7 +28,7 @@ import daksha.core.uiauto.automator.ManagedGuiAutomator;
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.uiauto.element.proxy.GuiElementProxy;
 import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
-import daksha.core.uiauto.loader.GuiNamespace;
+import daksha.core.uiauto.namestore.GuiNamespace;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 
 public interface Gui extends ManagedGuiAutomator, GuiElementCreationHandler, 

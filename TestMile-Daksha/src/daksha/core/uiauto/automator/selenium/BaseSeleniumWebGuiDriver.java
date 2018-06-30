@@ -65,8 +65,8 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 	public String screenShotDir = null;
 	private int scrollPixels;
 	
-	public BaseSeleniumWebGuiDriver(TestContext testContext, GuiDriverEngine engine, GuiAutomationContext automatorContext, GuiElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiDriverEngine.WEBDRIVER, automatorContext, loaderType);
+	public BaseSeleniumWebGuiDriver(TestContext testContext, GuiDriverEngine engine, GuiElementLoaderType loaderType) throws Exception{
+		super(testContext, GuiDriverEngine.WEBDRIVER, loaderType);
 		screenShotDir = this.getTestContext().getConfig().value(DakshaOption.SCREENSHOTS_DIR).asString();
 		scrollPixels = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_SCROLL_PIXELS).asInt();
 	}
@@ -314,10 +314,7 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 	}
 	
 	public void validatePageLoad() {
-		if ((this.getAutomatorContext() == GuiAutomationContext.PC_WEB) || 
-		(this.getAutomatorContext() == GuiAutomationContext.MOBILE_WEB) ||
-		isWebView()
-		) {
+		if ((GuiAutomationContext.isAnyWebContext(this.getAutomatorContext()) || isWebView())) {
 			ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
 				public Boolean apply(WebDriver driver) {
 					return ((String) ((JavascriptExecutor) driver).executeScript("return document.readyState"))

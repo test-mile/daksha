@@ -62,15 +62,15 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 	private float swipeBottom;
 	private int swipeMaxWait;
 	
-	public BaseAppiumGuiDriver(TestContext testContext, GuiAutomationContext automatorContext, GuiElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiDriverEngine.APPIUM, automatorContext, loaderType);
+	public BaseAppiumGuiDriver(TestContext testContext, GuiElementLoaderType loaderType) throws Exception{
+		super(testContext, GuiDriverEngine.APPIUM, loaderType);
 		swipeTop = testContext.getConfig().value(DakshaOption.GUIAUTO_SWIPE_TOP).asFloat();
 		swipeBottom = testContext.getConfig().value(DakshaOption.GUIAUTO_SWIPE_BOTTOM).asFloat();
 		swipeMaxWait = testContext.getConfig().value(DakshaOption.GUIAUTO_SWIPE_MAX_WAIT).asInt();
 	}
 		
-	public BaseAppiumGuiDriver(TestContext testContext, GuiAutomationContext automatorContext) throws Exception{
-		this(testContext, automatorContext, GuiElementLoaderType.AUTOMATOR);
+	public BaseAppiumGuiDriver(TestContext testContext) throws Exception{
+		this(testContext, GuiElementLoaderType.AUTOMATOR);
 	}
 	
 	@Override
@@ -129,13 +129,13 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 	}
 
 	private void validateSwipeSupport() throws Exception {
-		if ((this.getAutomatorContext() == GuiAutomationContext.MOBILE_WEB) || isWebView()){
+		if ((GuiAutomationContext.isMobileWebContext(this.getAutomatorContext())) || isWebView()){
 			throw new Exception("Swipe actions are not supported for Web View.");
 		}
 	}
 
 	protected void validateScrollSupport() throws Exception {
-		if ((this.getAutomatorContext() == GuiAutomationContext.MOBILE_NATIVE) || isNativeView()){
+		if ((GuiAutomationContext.isMobileNativeContext(this.getAutomatorContext())) || isNativeView()){
 			throw new Exception("Scroll actions are not supported for Native View.");
 		}
 	}

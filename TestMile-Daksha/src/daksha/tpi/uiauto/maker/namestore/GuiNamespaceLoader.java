@@ -16,32 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.core.uiauto.loader;
+package daksha.tpi.uiauto.maker.namestore;
 
-import java.io.File;
+import daksha.core.uiauto.namestore.GuiNamespace;
 
-abstract public class FileBasedGuiNamespaceLoader extends BaseGuiNamespaceLoader{
-	private File nsFile= null;
-	private String nsPath = null;
-
-	public FileBasedGuiNamespaceLoader(String name, String nsFilePath) throws Exception {
-		super(name);
-		this.nsPath = nsFilePath;
-		this.nsFile = new File(nsFilePath);
-		if (!this.nsFile.isAbsolute()){
-			this.throwRelativePathException("constructor", nsFilePath);
-		} 
-		
-		if (!this.nsFile.exists()){
-			this.throwFileNotFoundException("constructor", nsFilePath);
-		} 
-		
-		if (!this.nsFile.isFile()){
-			this.throwNotAFileException("constructor", nsFilePath);
-		}
-	}
-
-	protected String getFilePath(){
-		return nsPath;
-	}
+public interface GuiNamespaceLoader {
+	GuiNamespace  getNamespace() throws Exception;
+	void load() throws Exception;
 }

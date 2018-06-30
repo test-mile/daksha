@@ -25,12 +25,6 @@ import daksha.core.uiauto.enums.LocateBy;
 
 public interface GuiElementMetaData {
 
-	void set(String propName, String value);
-
-	String get(String propName);
-
-	Map<String, String> getAllProperties();
-
 	void process() throws Exception;
 
 	List<GuiElementLocator> getLocators();

@@ -48,7 +48,7 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testNGContext) throws Exception {
 		TestContext context = Daksha.getTestContext(this.getTestContextName());
-		context.setAutomationContext(GuiAutomationContext.MOBILE_WEB);
+		context.setAutomationContext(GuiAutomationContext.ANDROID_WEB);
 		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(context);
 		this.threadWiseAutomator.set(builder.build());
 	}

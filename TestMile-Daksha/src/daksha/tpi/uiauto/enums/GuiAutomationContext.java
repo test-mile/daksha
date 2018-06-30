@@ -24,16 +24,33 @@ import java.util.Set;
 
 public enum GuiAutomationContext {
 	
-	PC_WEB,
-	PC_NATIVE,
-	MOBILE_WEB,
-	MOBILE_NATIVE,
+	WEB,
+	NATIVE,
 	SCREEN,
+	ANDROID_WEB,
+	IOS_WEB,
+	ANDROID_NATIVE,
+	IOS_NATIVE,
 	GENERIC;
 	
-	private static Set<GuiAutomationContext> desktopContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.PC_NATIVE, GuiAutomationContext.PC_WEB}));
+	private static Set<GuiAutomationContext> desktopContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.NATIVE, GuiAutomationContext.WEB}));
+	private static Set<GuiAutomationContext> mobileWebContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.ANDROID_WEB, GuiAutomationContext.IOS_WEB}));
+	private static Set<GuiAutomationContext> allWebContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.WEB, GuiAutomationContext.ANDROID_WEB, GuiAutomationContext.IOS_WEB}));
+	private static Set<GuiAutomationContext> mobileNativeContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.ANDROID_NATIVE, GuiAutomationContext.IOS_NATIVE}));
 	
 	public static boolean isDesktopContext(GuiAutomationContext context) {
 		return desktopContexts.contains(context);
+	}
+	
+	public static boolean isMobileWebContext(GuiAutomationContext context) {
+		return mobileWebContexts.contains(context);
+	}
+	
+	public static boolean isMobileNativeContext(GuiAutomationContext context) {
+		return mobileWebContexts.contains(context);
+	}
+	
+	public static boolean isAnyWebContext(GuiAutomationContext context) {
+		return allWebContexts.contains(context);
 	}
 }

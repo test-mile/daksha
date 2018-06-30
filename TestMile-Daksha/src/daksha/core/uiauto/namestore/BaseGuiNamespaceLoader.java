@@ -16,14 +16,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.core.uiauto.loader;
+package daksha.core.uiauto.namestore;
 
+import java.util.List;
 import java.util.Map;
 
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
-import daksha.tpi.uiauto.maker.namespace.GuiNamespaceLoader;
+import daksha.tpi.uiauto.enums.GuiAutomationContext;
+import daksha.tpi.uiauto.maker.namestore.GuiNamespaceLoader;
 
 public abstract class BaseGuiNamespaceLoader implements GuiNamespaceLoader{
 	private String name;
@@ -38,8 +40,8 @@ public abstract class BaseGuiNamespaceLoader implements GuiNamespaceLoader{
 		return this.name;
 	}
 	
-	protected synchronized void addElementMetaData(String name, Map<String,String> map) throws Exception {
-		this.namespace.addElementMetaData(name, map);
+	protected synchronized void addElementMetaData(String name, GuiAutomationContext context, List<StringNVPair> locators) throws Exception {
+		this.namespace.addElementMetaData(name, context, locators);
 	}
 	
 	@Override

@@ -71,10 +71,12 @@ public enum UiAutoSingleton {
 
 		/* UI Automator */
 		automationContextNames = new HashMap<GuiAutomationContext, String>();
-		automationContextNames.put(GuiAutomationContext.PC_WEB, "PC Web");
-		automationContextNames.put(GuiAutomationContext.PC_NATIVE, "PC Native");
-		automationContextNames.put(GuiAutomationContext.MOBILE_WEB, "Mobile Web");
-		automationContextNames.put(GuiAutomationContext.MOBILE_NATIVE, "Mobile Native");
+		automationContextNames.put(GuiAutomationContext.WEB, "PC Web");
+		automationContextNames.put(GuiAutomationContext.NATIVE, "PC Native");
+		automationContextNames.put(GuiAutomationContext.ANDROID_WEB, "Android Web");
+		automationContextNames.put(GuiAutomationContext.ANDROID_NATIVE, "Android Native");
+		automationContextNames.put(GuiAutomationContext.IOS_WEB, "IOS Web");
+		automationContextNames.put(GuiAutomationContext.IOS_NATIVE, "IOS Native");
 		automationContextNames.put(GuiAutomationContext.SCREEN, "Screen");
 		automationContextNames.put(GuiAutomationContext.GENERIC, "Generic");
 

@@ -18,7 +18,7 @@ import daksha.tpi.uiauto.maker.GuiAutomatorBuilder;
 public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private MutableCapabilities browserCaps = new MutableCapabilities();
 	private MutableCapabilities otherCaps = new MutableCapabilities();
-	private GuiAutomationContext context = GuiAutomationContext.PC_WEB;
+	private GuiAutomationContext context = GuiAutomationContext.WEB;
 	private String appTitle = null;
 	private Browser browser = null;
 	

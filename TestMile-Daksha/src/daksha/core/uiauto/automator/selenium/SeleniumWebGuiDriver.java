@@ -30,7 +30,7 @@ import daksha.tpi.uiauto.enums.GuiAutomationContext;
 public class SeleniumWebGuiDriver extends BaseSeleniumWebGuiDriver<WebDriver,WebElement>{
 	
 	public SeleniumWebGuiDriver(TestContext testContext, GuiElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiDriverEngine.WEBDRIVER, GuiAutomationContext.PC_WEB, loaderType);
+		super(testContext, GuiDriverEngine.WEBDRIVER, loaderType);
 	}
 		
 	public SeleniumWebGuiDriver(TestContext testContext) throws Exception{

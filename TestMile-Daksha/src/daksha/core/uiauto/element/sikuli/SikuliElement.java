@@ -83,7 +83,7 @@ public class SikuliElement extends BaseConcreteGuiSingleElement<Screen,Match>{
 	
 
 	private String getImagePathForSecondElement(String name) throws Exception {
-		GuiElementMetaData emd = this.getGui().getDefinition().getMetaData(name);
+		GuiElementMetaData emd = this.getGui().getDefinition().getMetaData(name, this.getAutomator().getAutomatorContext());
 		GuiElementProxy proxy = this.getIdentifier().createProxy(emd);
 		return proxy.getImagePath();
 	}

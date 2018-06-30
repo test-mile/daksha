@@ -1,5 +1,6 @@
 package daksha.core.uiauto.identifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import daksha.core.uiauto.element.ConcreteGuiMultiElement;
 import daksha.core.uiauto.element.proxy.GuiElementProxy;
 import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
+import daksha.core.uiauto.namestore.StringNVPair;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.enums.GuiElementType;
 import daksha.tpi.uiauto.gui.Gui;
@@ -36,9 +38,11 @@ public abstract class BaseGuiElementIdentifier<D,E> implements GuiElementIdentif
 	protected abstract void setConcreteElement(GuiElementProxy proxy) throws Exception;
 
 	protected GuiElementMetaData createMetaDataObject(String idType, String idValue) throws Exception {
+		List<StringNVPair> locatorInfo = new ArrayList<StringNVPair>();
+		locatorInfo.add(new StringNVPair(idType, idValue));
 		Map<String, String> map = new HashMap<String, String>();
 		map.put(idType, idValue);
-		GuiElementMetaData metaData = new DefaultGuiElementMetaData(map);
+		GuiElementMetaData metaData = new DefaultGuiElementMetaData(locatorInfo);
 		metaData.process();
 		return metaData;
 	}

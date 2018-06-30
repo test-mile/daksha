@@ -181,7 +181,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteGuiSingleE
 
 	public void hoverAndClickElement(String name) throws Exception{
 		Actions builder =  null;
-		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name, this.getAutomator().getAutomatorContext());
 		try {
 			builder = getActionChain();
 			builder.moveToElement(this.asWebElement()).perform();
@@ -202,7 +202,7 @@ public class AbstractSeleniumConcreteElement<D,E> extends BaseConcreteGuiSingleE
 	}
 	
 	public void rightClickAndClickElement(String name) throws Exception{
-		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name, this.getAutomator().getAutomatorContext());
 		this.rightClick();
 		WebElement e2 = (WebElement) this.getIdentifier().find(metaData);
 		e2.click();	

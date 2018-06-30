@@ -144,7 +144,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 							this.getConcreteElement().getWaitTime(),
 							"presence of",
 							getElementNameFillerForException(),
-							this.getMetaData().getAllProperties().toString()
+							this.getMetaData().getLocators().toString()
 							)
 					);
 		}
@@ -166,7 +166,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 							this.getConcreteElement().getWaitTime(),
 							"absence of",
 							getElementNameFillerForException(),
-							this.getMetaData().getAllProperties().toString()
+							this.getMetaData().getLocators().toString()
 							)
 					);
 		}
@@ -186,7 +186,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 							this.getConcreteElement().getWaitTime(),
 							"visibility of",
 							getElementNameFillerForException(),
-							this.getMetaData().getAllProperties().toString()
+							this.getMetaData().getLocators().toString()
 							)
 					);
 		}
@@ -206,7 +206,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 							this.getConcreteElement().getWaitTime(),
 							"invisibility of",
 							getElementNameFillerForException(),
-							this.getMetaData().getAllProperties().toString()
+							this.getMetaData().getLocators().toString()
 							)
 					);
 		}
@@ -451,7 +451,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 							this.getConcreteElement().getAutomatorName(),
 							"hover on",
 							this.getElementNameFillerForException(),
-							this.getMetaData().getAllProperties().toString(),
+							this.getMetaData().getLocators().toString(),
 							"click on",
 							name,
 							""
@@ -474,7 +474,7 @@ public class GuiElementProxy extends BaseGuiElementProxy implements GuiElement{
 							this.getConcreteElement().getAutomatorName(),
 							"right click on",
 							this.getElementNameFillerForException(),
-							this.getMetaData().getAllProperties().toString(),
+							this.getMetaData().getLocators().toString(),
 							"click on",
 							name,
 							""	

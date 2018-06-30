@@ -34,12 +34,12 @@ import daksha.core.uiauto.element.proxy.GuiElementProxy;
 import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
 import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
-import daksha.core.uiauto.loader.GuiNamespace;
-import daksha.core.uiauto.loader.GuiNamsepaceStore;
+import daksha.core.uiauto.namestore.GuiNamespace;
+import daksha.core.uiauto.namestore.GuiNameStore;
 import daksha.tpi.sysauto.utils.DataUtils;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.enums.GuiElementType;
-import daksha.tpi.uiauto.maker.GuiDefLoaderFactory;
+import daksha.tpi.uiauto.maker.GuiNamespaceLoaderFactory;
 
 public class DefaultGui implements Gui{
 	private Logger logger = Daksha.getLogger();
@@ -135,10 +135,10 @@ public class DefaultGui implements Gui{
 	}
 	
 	private void loadDefinition(String defPath) throws Exception {
-		if (!GuiNamsepaceStore.INSTANCE.hasUiDef(this.getLabel())) {
-			this.ns = GuiNamsepaceStore.INSTANCE.loadUiDef(this.getLabel(), GuiDefLoaderFactory.createUiDefLoader(this.getTestContext(), defPath));
+		if (!GuiNameStore.INSTANCE.hasUiDef(this.getLabel())) {
+			this.ns = GuiNameStore.INSTANCE.loadUiDef(this.getLabel(), GuiNamespaceLoaderFactory.createNamespaceLoader(this.getTestContext(), defPath));
 		} else {
-			this.ns = GuiNamsepaceStore.INSTANCE.getUiDef(this.getLabel());
+			this.ns = GuiNameStore.INSTANCE.getUiDef(this.getLabel());
 		}
 		
 	}	
@@ -211,7 +211,7 @@ public class DefaultGui implements Gui{
 		} else if (!this.ns.has(elementName)) {
 			return (GuiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			GuiElementProxy proxy = this.getAutomator().getConcreteAutomator().getIdentifier().createProxy(this, this.ns.getMetaData(elementName));
+			GuiElementProxy proxy = this.getAutomator().getConcreteAutomator().getIdentifier().createProxy(this, this.ns.getMetaData(elementName, this.getAutomatorContext()));
 			return proxy;
 		}
 	}
@@ -222,7 +222,7 @@ public class DefaultGui implements Gui{
 		} else if (!this.ns.has(elementName)) {
 			return (GuiMultiElementProxy) throwUndefinedElementException("element", elementName);		
 		} else {
-			GuiMultiElementProxy proxy = this.getAutomator().getConcreteAutomator().getIdentifier().createMultiProxy(this, this.ns.getMetaData(elementName));
+			GuiMultiElementProxy proxy = this.getAutomator().getConcreteAutomator().getIdentifier().createMultiProxy(this, this.ns.getMetaData(elementName, this.getAutomatorContext()));
 			return proxy;
 		}
 	}

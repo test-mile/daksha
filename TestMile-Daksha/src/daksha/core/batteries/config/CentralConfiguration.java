@@ -54,7 +54,7 @@ public class CentralConfiguration extends BaseConfiguration{
 		this.add(DakshaOption.SCREENSHOTS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "screenshots");
 		this.add(DakshaOption.OSTYPE, "windows");
 		this.add(DakshaOption.IMAGE_COMPARISON_MIN_SCORE, "0.7");
-		this.add(DakshaOption.GUIAUTO_CONTEXT, GuiAutomationContext.PC_WEB.toString());
+		this.add(DakshaOption.GUIAUTO_CONTEXT, GuiAutomationContext.WEB.toString());
 		this.add(DakshaOption.GUIAUTO_DEFAULT_BROWSER, Browser.CHROME.toString());
 		this.add(DakshaOption.GUIAUTO_MAX_WAIT, "60");
 		this.add(DakshaOption.TEST_PC_PLATFORM, OSType.WINDOWS.toString());

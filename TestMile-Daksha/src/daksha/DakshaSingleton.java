@@ -18,7 +18,7 @@ import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.uiauto.UiAutoSingleton;
 import daksha.core.uiauto.enums.OSType;
-import daksha.core.uiauto.loader.GuiNamsepaceStore;
+import daksha.core.uiauto.namestore.GuiNameStore;
 import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
@@ -32,7 +32,7 @@ public enum DakshaSingleton {
 	private FileAppender fa = new FileAppender();
 	private CentralConfiguration centralConf = null;
 	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
-	private GuiNamsepaceStore uiRep = GuiNamsepaceStore.INSTANCE;
+	private GuiNameStore uiRep = GuiNameStore.INSTANCE;
 	private static String defString = "default";
 	 
 	public void init(String rootDir) throws Exception {

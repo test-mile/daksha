@@ -47,7 +47,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		threadWiseApp.set(new DefaultGui("WordPress", builder.build(), "simpleapp/wordpress.ini"));
+		threadWiseApp.set(new DefaultGui("WordPress", builder.build(), "simpleapp/wordpress.ns"));
 	}
 	
 	@Test

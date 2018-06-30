@@ -23,16 +23,16 @@ import org.apache.log4j.Logger;
 import daksha.core.batteries.config.TestContext;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
-import daksha.core.uiauto.loader.IniGuiNamespaceLoader;
+import daksha.core.uiauto.namestore.NamespaceFileLoader;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.enums.FileFormat;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
-import daksha.tpi.uiauto.maker.namespace.GuiNamespaceLoader;
+import daksha.tpi.uiauto.maker.namestore.GuiNamespaceLoader;
 
-public class GuiDefLoaderFactory {
+public class GuiNamespaceLoaderFactory {
 	private static Logger sLogger = Logger.getLogger("daksha");
 	
-	public static GuiNamespaceLoader createUiDefLoader(TestContext testContext, String defPath) throws Exception{
+	public static GuiNamespaceLoader createNamespaceLoader(TestContext testContext, String defPath) throws Exception{
 		String ext = FileSystemUtils.getExtension(defPath).toUpperCase();
 		FileFormat format = null;
 		String consideredPath = defPath;
@@ -41,8 +41,8 @@ public class GuiDefLoaderFactory {
 		} catch (Exception e){
 			throw new Problem(
 					"UI Automator", 
-					"UI Loader", 
-					"createUiDefLoader", 
+					"Namespace Loader", 
+					"createNamespaceLoader", 
 					ErrorType.GUI_NAMESPACE_FILE_UNSUPPORTED_FORMAT, 
 					String.format(ErrorType.GUI_NAMESPACE_FILE_UNSUPPORTED_FORMAT, ext)
 				);			
@@ -53,16 +53,16 @@ public class GuiDefLoaderFactory {
 			if (FileSystemUtils.isDir(consideredPath)){
 				throw new Problem(
 						"UI Automator", 
-						"UI Loader", 
-						"createUiDefLoader",  
+						"Namespace Loader", 
+						"createNamespaceLoader",  
 						ErrorType.GUI_NAMESPACE_FILE_NOTAFILE, 
 						String.format(ErrorType.GUI_NAMESPACE_FILE_NOTAFILE, consideredPath)
 					);				
 			} else if (!FileSystemUtils.isFile(consideredPath)){
 				throw new Problem(
 						"UI Automator", 
-						"UI Loader", 
-						"createUiDefLoader", 
+						"Namespace Loader", 
+						"createNamespaceLoader", 
 						ErrorType.GUI_NAMESPACE_FILE_NOT_FOUND, 
 						String.format(ErrorType.GUI_NAMESPACE_FILE_NOT_FOUND, consideredPath)
 					);				
@@ -70,7 +70,7 @@ public class GuiDefLoaderFactory {
 		}
 
 		switch(format){
-		case INI : return new IniGuiNamespaceLoader(consideredPath);
+		case NS : return new NamespaceFileLoader(consideredPath);
 		default: return null;
 		}
 	}

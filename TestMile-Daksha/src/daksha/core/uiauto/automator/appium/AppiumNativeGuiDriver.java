@@ -30,7 +30,7 @@ import daksha.tpi.uiauto.enums.GuiAutomationContext;
 public class AppiumNativeGuiDriver extends BaseAppiumGuiDriver {
 
 	public AppiumNativeGuiDriver(TestContext testContext, GuiElementLoaderType loaderType) throws Exception{
-		super(testContext, GuiAutomationContext.MOBILE_NATIVE, loaderType);
+		super(testContext, loaderType);
 	}
 		
 	public AppiumNativeGuiDriver(TestContext testContext) throws Exception{

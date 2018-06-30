@@ -32,7 +32,7 @@ import daksha.tpi.uiauto.enums.GuiAutomationContext;
 public class SikuliGuiDriver extends AbstractGuiAutomator<Screen,Match>{
 	
 	public SikuliGuiDriver(TestContext testContext, GuiElementLoaderType loaderType) throws Exception {
-		super(testContext, GuiDriverEngine.SIKULI, GuiAutomationContext.SCREEN, loaderType);
+		super(testContext, GuiDriverEngine.SIKULI, loaderType);
 	}
 	
 	public SikuliGuiDriver(TestContext testContext) throws Exception{

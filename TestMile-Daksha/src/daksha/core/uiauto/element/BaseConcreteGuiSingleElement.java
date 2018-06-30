@@ -70,7 +70,7 @@ public abstract class BaseConcreteGuiSingleElement<D,E> extends BaseManagedConcr
 
 	public GuiElementProxy element(String name) throws Exception{
 		
-		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name, this.getAutomator().getAutomatorContext());
 		E element = this.identifier.find(this, metaData);
 		return this.identifier.convertToolElementToProxy(this.getGui(), metaData, element);
 	}
@@ -80,7 +80,7 @@ public abstract class BaseConcreteGuiSingleElement<D,E> extends BaseManagedConcr
 	}
 	
 	public GuiMultiElement elements(String name) throws Exception{
-		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name);
+		GuiElementMetaData metaData = this.getGui().getDefinition().getMetaData(name, this.getAutomator().getAutomatorContext());
 		List<E> elements = this.identifier.findAll(this, metaData);
 		return this.identifier.convertMultiToolElementToProxy(this.getGui(), metaData, elements);
 	}

@@ -54,14 +54,14 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 		this.imageComprator = new ImageComprator(testContext.getConfig().value(DakshaOption.IMAGE_COMPARISON_MIN_SCORE).asDouble());
 	}
 	
-	public AbstractGuiAutomator(TestContext testContext, GuiDriverEngine name, GuiAutomationContext automatorContext) throws Exception{
+	public AbstractGuiAutomator(TestContext testContext, GuiDriverEngine name) throws Exception{
 		this(testContext);
 		this.setGuiTestEngineName(name);
-		this.setAutomatorContext(automatorContext);
+		this.setAutomatorContext(testContext.getAutomationContext());
 	}
 	
-	public AbstractGuiAutomator(TestContext testContext, GuiDriverEngine name, GuiAutomationContext automatorContext, GuiElementLoaderType loaderType) throws Exception{
-		this(testContext, name, automatorContext);
+	public AbstractGuiAutomator(TestContext testContext, GuiDriverEngine name, GuiElementLoaderType loaderType) throws Exception{
+		this(testContext, name);
 		this.setElementLoaderType(loaderType);
 	}
 	
