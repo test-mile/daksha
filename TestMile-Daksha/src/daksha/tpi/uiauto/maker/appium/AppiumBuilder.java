@@ -170,6 +170,11 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 		if (!this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).isNull()){
 			capabilities.setCapability(MobileCapabilityType.UDID, this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).asString());
 		}
+		
+		if (platform == OSType.ANDROID) {
+			capabilities.setCapability("unicodeKeyboard", true);
+			capabilities.setCapability("resetKeyboard", true);
+		}
 	}
 	
 	/**********************************************************************************

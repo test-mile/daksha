@@ -47,7 +47,7 @@ public enum GuiAutomationContext {
 	}
 	
 	public static boolean isMobileNativeContext(GuiAutomationContext context) {
-		return mobileWebContexts.contains(context);
+		return mobileNativeContexts.contains(context);
 	}
 	
 	public static boolean isAnyWebContext(GuiAutomationContext context) {

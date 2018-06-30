@@ -67,6 +67,6 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	
 	@AfterClass
 	public void closeAutomator(ITestContext testContext) throws Exception {
-		//this.threadWiseAutomator.get().close();
+		this.threadWiseAutomator.get().close();
 	}
 }
