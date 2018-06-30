@@ -47,7 +47,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui home = GuiFactory.createGui(builder.build(), "wordpress/Home.ini");
+		Gui home = GuiFactory.createGui(builder.build(), "wordpress/Home.gns");
 		threadWiseHomePage.set(home);
 	}
 	
@@ -64,12 +64,12 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		gui.element("SUBMIT").click();		
 		gui.waitForBody();
 		
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.ini");
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
 		gui.element("POSTS").hover();
 		gui.element("CATEGORIES").click();	
 		gui.waitForBody();
 		
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Categories.ini");
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Categories.gns");
 		GuiMultiElement tags = gui.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
@@ -79,10 +79,10 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.ini");
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
 		gui.element("SETTINGS").click();
 		
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Settings.ini");
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Settings.gns");
 		GuiElement blogNameTextBox = gui.element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");

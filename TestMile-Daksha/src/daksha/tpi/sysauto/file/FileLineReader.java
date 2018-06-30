@@ -28,9 +28,16 @@ import daksha.tpi.batteries.console.Console;
 
 public class FileLineReader {
 	Scanner reader = null;
+	String commentPrefix = ";";
 
 	public FileLineReader(String filePath) throws IOException {
 		File file = new File(filePath);
+		reader = new Scanner(file);
+	}
+	
+	public FileLineReader(String filePath, String commentPrefix) throws IOException {
+		File file = new File(filePath);
+		this.commentPrefix = commentPrefix;
 		reader = new Scanner(file);
 	}
 
@@ -39,7 +46,7 @@ public class FileLineReader {
 	public String next() {
 		if (this.reader.hasNextLine()) {
 			String line = this.reader.nextLine();
-			if (line.trim().isEmpty() || line.trim().startsWith("#")) {
+			if (line.trim().isEmpty() || line.trim().startsWith(commentPrefix)) {
 				return this.next();
 			} else {
 				return line;

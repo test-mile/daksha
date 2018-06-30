@@ -40,7 +40,7 @@ public class NamespaceFileLoader extends BaseGuiNamespaceLoader{
 	private Pattern idPattern = Pattern.compile("\\s*(.*?)\\s*=\\s*(.*?)\\s*");
 	private boolean headerFound = false;
 	private String lastHeader = null;
-	private String[] lastContexts;
+	private List<GuiAutomationContext> lastContexts;
 	private Map<String, Map<GuiAutomationContext,List<StringNVPair>>> ns = new HashMap<String, Map<GuiAutomationContext,List<StringNVPair>>>();
 	private FileLineReader reader = null;
 
@@ -99,11 +99,12 @@ public class NamespaceFileLoader extends BaseGuiNamespaceLoader{
         boolean matches = matcher.matches();	
         if (matches == true){
         	String[] contexts = matcher.group(1).split(",");
-        	System.out.println(Arrays.toString(contexts));
         	GuiAutomationContext contextEnum = null;
+        	List<GuiAutomationContext> contextEnums = new ArrayList<GuiAutomationContext>();
         	for (String context: contexts) {
         		try {
         			contextEnum = GuiAutomationContext.valueOf(context.toUpperCase());
+        			contextEnums.add(contextEnum);
         		} catch (Exception e) {
         			throw new Exception("Invalid automation context in namespace file: " + context);
         		}
@@ -114,7 +115,7 @@ public class NamespaceFileLoader extends BaseGuiNamespaceLoader{
         		}
         	}
         	
-        	lastContexts = contexts;
+        	lastContexts = contextEnums;
         	return true;
         } else {
         	return false;
@@ -131,8 +132,8 @@ public class NamespaceFileLoader extends BaseGuiNamespaceLoader{
         	if (this.lastContexts == null) {
         		throw new Exception("Locators must be preceded with context information as #context1, context2 construct. Current line: " + input);
         	}
-        	for (String context: this.lastContexts) {
-        		ns.get(lastHeader).get(context.toUpperCase()).add(locator);
+        	for (GuiAutomationContext context: this.lastContexts) {
+        		ns.get(lastHeader).get(context).add(locator);
         	}
         	return true;
         } else {
@@ -143,10 +144,6 @@ public class NamespaceFileLoader extends BaseGuiNamespaceLoader{
 	public void load() throws Exception{
 
 		for (String line: reader.all()) {
-			System.out.println(line);
-	        if (line.startsWith(";")){
-	        	continue;
-	        }
 	        if (matchHeader(line)) {
 	        	headerFound = true;
 	        	continue;

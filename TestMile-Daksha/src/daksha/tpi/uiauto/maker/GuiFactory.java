@@ -38,7 +38,7 @@ public class GuiFactory {
 				throw new Exception(String.format("Provided root definition path is not a directory: %s" ,  consideredPath));			
 			} 
 		}
-		Gui app = new DefaultGui(name, automator, appDefDir + File.separator + "Home.ini");
+		Gui app = new DefaultGui(name, automator, appDefDir + File.separator + "Home.gns");
 		File d = new File(consideredPath + File.separator + "children");
 		if (FileSystemUtils.isDir(d)){
 			for (File path: d.listFiles()){

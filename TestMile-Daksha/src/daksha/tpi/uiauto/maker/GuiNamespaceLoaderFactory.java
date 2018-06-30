@@ -70,7 +70,7 @@ public class GuiNamespaceLoaderFactory {
 		}
 
 		switch(format){
-		case NS : return new NamespaceFileLoader(consideredPath);
+		case GNS : return new NamespaceFileLoader(consideredPath);
 		default: return null;
 		}
 	}

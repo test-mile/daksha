@@ -10,7 +10,7 @@ public class AbstractWordPressGui extends DefaultGui{
 	}
 	
 	protected String getDefPath() throws Exception {
-		return String.format("wordpress/%s.ini", this.getClass().getSimpleName());
+		return String.format("wordpress/%s.gns", this.getClass().getSimpleName());
 	}
 
 }

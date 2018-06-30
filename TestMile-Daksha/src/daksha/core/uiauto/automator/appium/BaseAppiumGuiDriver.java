@@ -184,25 +184,12 @@ public class BaseAppiumGuiDriver extends BaseSeleniumWebGuiDriver<AppiumDriver<M
 		int y1 = (int) (size.height * startFraction);
 		int x2 = (int) (0.5 * size.width);
 		int y2 = (int) (size.height * endFraction);
-		
-		System.out.println("Swipe from "+x1 +" " +y1 +"to" +x2 +" " +y2 );
 
 		if (this.getOSType() == OSType.ANDROID) {
-//			new TouchActions(this.getUnderlyingEngine()).moveByOffset(xOffset, yOffset);
 			new AndroidTouchAction((AndroidDriver<MobileElement>)this.getUnderlyingEngine())
 			.press(PointOption.point(x1,  y1))
 			.waitAction(WaitOptions.waitOptions(Duration.ofMillis(swipeMaxWait)))
 			.moveTo(PointOption.point(x2, y2)).release().perform();
-			//swipeUsingADB(x1, y1, x2,y2, swipeMaxWait);
-//			TouchActions action = new TouchActions(this.getUnderlyingEngine());
-//			action.scroll(10, 200);
-//			action.perform();
-			//action.longPress(PointOption.point(x1,y1)).moveTo(PointOption.point(x2, y2)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(swipeMaxWait))).release().perform();
-//			Map<String, Object> params = new HashMap<>();
-//			params.put("end", "40%,30%");
-//			params.put("start", "40%,70%");
-//			params.put("duration", "2");
-//			Object res = this.getUnderlyingEngine().executeScript("mobile:touch:swipe", params);
 		} else {
 			Map<String, Double> swipeElement = new HashMap<String, Double>();
 			swipeElement.put("startX", (double) x1);

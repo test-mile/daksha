@@ -62,14 +62,14 @@ public class DefaultGui implements Gui{
 		populateGuiInfo(label, automator);
 		this.defPath = defPath;
 		
-		loadDefinition(defPath);
+		loadNamespace(defPath);
 		goToGui();
 	}
 	
 	public DefaultGui(GuiAutomatorProxy automator) throws Exception{
 		populateGuiInfo(this.getClass().getSimpleName(), automator);
 		this.defPath = this.getDefPath();
-		loadDefinition(defPath);
+		loadNamespace(defPath);
 		goToGui();
 	}
 	
@@ -77,7 +77,7 @@ public class DefaultGui implements Gui{
 		populateGuiInfo(label, automator);
 		this.defPath = this.getDefPath();
 		
-		loadDefinition(defPath);
+		loadNamespace(defPath);
 		goToGui();
 	}
 	
@@ -90,7 +90,7 @@ public class DefaultGui implements Gui{
 		populateParentInfo(parent);
 		this.defPath = defPath;
 		
-		loadDefinition(defPath);
+		loadNamespace(defPath);
 		goToGui();
 	}
 	
@@ -134,11 +134,11 @@ public class DefaultGui implements Gui{
 		this.setElementLoaderType(GuiElementLoaderType.COMPOSITE_GUI);		
 	}
 	
-	private void loadDefinition(String defPath) throws Exception {
-		if (!GuiNameStore.INSTANCE.hasUiDef(this.getLabel())) {
-			this.ns = GuiNameStore.INSTANCE.loadUiDef(this.getLabel(), GuiNamespaceLoaderFactory.createNamespaceLoader(this.getTestContext(), defPath));
+	private void loadNamespace(String defPath) throws Exception {
+		if (!GuiNameStore.INSTANCE.hasNamespace(this.getLabel())) {
+			this.ns = GuiNameStore.INSTANCE.loadNamespace(this.getLabel(), GuiNamespaceLoaderFactory.createNamespaceLoader(this.getTestContext(), defPath));
 		} else {
-			this.ns = GuiNameStore.INSTANCE.getUiDef(this.getLabel());
+			this.ns = GuiNameStore.INSTANCE.getNamespace(this.getLabel());
 		}
 		
 	}	

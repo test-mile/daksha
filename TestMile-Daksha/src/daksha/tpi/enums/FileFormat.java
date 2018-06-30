@@ -19,5 +19,5 @@
 package daksha.tpi.enums;
 
 public enum FileFormat {
-	INI, TXT, DELIMITED, XLS, CSV, NS
+	INI, TXT, DELIMITED, XLS, CSV, GNS
 }

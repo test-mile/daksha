@@ -32,12 +32,12 @@ public enum GuiNameStore{
 		return nsMap.containsKey(name);
 	}
 
-	public synchronized boolean hasUiDef(String name) {
+	public synchronized boolean hasNamespace(String name) {
 		return nsMap.containsKey(name.toLowerCase());
 	}
 	
-	public synchronized GuiNamespace loadUiDef(String name, GuiNamespaceLoader loader) throws Exception{
-		if(!hasUiDef(name)){
+	public synchronized GuiNamespace loadNamespace(String name, GuiNamespaceLoader loader) throws Exception{
+		if(!hasNamespace(name)){
 			loader.load();
 			this.nsMap.put(name.toLowerCase(), loader.getNamespace());
 		}
@@ -45,7 +45,7 @@ public enum GuiNameStore{
 	}
 	
 
-	public synchronized GuiNamespace getUiDef(String name) throws Exception{
+	public synchronized GuiNamespace getNamespace(String name) throws Exception{
 		return nsMap.get(name.toLowerCase());
 	}
 
