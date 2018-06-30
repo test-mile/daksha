@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.uiauto.variants.v4.appAsCompositeUI;
+package daksha.ex.uiauto.variants.v4.pageWiseUIWithFactory;
 
 import static org.testng.Assert.assertTrue;
 
@@ -38,7 +38,7 @@ import daksha.tpi.uiauto.maker.GuiFactory;
 import daksha.tpi.uiauto.maker.selenium.SeleniumBuilder;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
-	private ThreadLocal<Gui> threadWiseApp = new ThreadLocal<Gui>();
+	private ThreadLocal<Gui> threadWiseHomePage = new ThreadLocal<Gui>();
 	
 	protected void setCentralOptions() throws Exception {
 		Daksha.setOSType(OSType.MAC);
@@ -47,28 +47,30 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui app = GuiFactory.createAppFromDir("WordPress", builder.build(), "appwithpages");
-		threadWiseApp.set(app);
+		Gui home = GuiFactory.createGui(builder.build(), "wordpress/Home.gns");
+		threadWiseHomePage.set(home);
 	}
 	
 	@Test
 	public void test() throws Exception{
-		Gui app = this.threadWiseApp.get();
+		Gui gui =  this.threadWiseHomePage.get();
 
-		app.goTo(AppConfig.WP_ADMIN_URL);	
+		gui.goTo(AppConfig.WP_ADMIN_URL);	
 
-		GuiElement userTextBox = app.element("LOGIN");
+		GuiElement userTextBox = gui.element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
-		app.element("PASSWORD").enterText(AppConfig.PASSWORD);
-		app.element("SUBMIT").click();		
-		app.waitForBody();
+		gui.element("PASSWORD").enterText(AppConfig.PASSWORD);
+		gui.element("SUBMIT").click();		
+		gui.waitForBody();
 		
-		app.gui("LeftNavigation").element("POSTS").hover();
-		app.gui("LeftNavigation").element("CATEGORIES").click();	
-		app.waitForBody();
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
+		gui.element("POSTS").hover();
+		gui.element("CATEGORIES").click();	
+		gui.waitForBody();
 		
-		GuiMultiElement tags = app.gui("Categories").elements("CAT_CHECKBOXES");
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Categories.gns");
+		GuiMultiElement tags = gui.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 			
@@ -77,17 +79,19 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		app.gui("LeftNavigation").element("SETTINGS").click();
-
-		GuiElement blogNameTextBox = app.gui("Settings").element("BLOG_NAME");
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
+		gui.element("SETTINGS").click();
+		
+		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Settings.gns");
+		GuiElement blogNameTextBox = gui.element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		app.gui("Settings").element("MEMBERSHIP").check();
+		gui.element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		GuiElement roleDropDown = app.gui("Settings").element("ROLE").asDropDown();
+		GuiElement roleDropDown = gui.element("ROLE").asDropDown();
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);
@@ -95,11 +99,11 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 
-		app.goTo(AppConfig.WP_LOGOUT_URL);
+		gui.goTo(AppConfig.WP_LOGOUT_URL);
 	}
 	
 	@AfterClass
 	public void closeAutomator(ITestContext testContext) throws Exception {
-		this.threadWiseApp.get().close();
+		this.threadWiseHomePage.get().close();
 	}
 }

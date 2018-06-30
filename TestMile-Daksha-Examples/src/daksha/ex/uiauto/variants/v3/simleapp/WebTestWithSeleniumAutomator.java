@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.uiauto.variants.v3.pageWiseUIWithFactory;
+package daksha.ex.uiauto.variants.v3.simleapp;
 
 import static org.testng.Assert.assertTrue;
 
@@ -32,13 +32,13 @@ import daksha.ex.config.AppConfig;
 import daksha.tpi.testng.TestNGBaseTest;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
+import daksha.tpi.uiauto.gui.DefaultGui;
 import daksha.tpi.uiauto.gui.Gui;
 import daksha.tpi.uiauto.maker.GuiAutomatorFactory;
-import daksha.tpi.uiauto.maker.GuiFactory;
 import daksha.tpi.uiauto.maker.selenium.SeleniumBuilder;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
-	private ThreadLocal<Gui> threadWiseHomePage = new ThreadLocal<Gui>();
+	private ThreadLocal<Gui> threadWiseApp = new ThreadLocal<Gui>();
 	
 	protected void setCentralOptions() throws Exception {
 		Daksha.setOSType(OSType.MAC);
@@ -47,30 +47,27 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		Gui home = GuiFactory.createGui(builder.build(), "wordpress/Home.gns");
-		threadWiseHomePage.set(home);
+		threadWiseApp.set(new DefaultGui("WordPress", builder.build(), "simpleapp/wordpress.gns"));
 	}
 	
 	@Test
 	public void test() throws Exception{
-		Gui gui =  this.threadWiseHomePage.get();
+		Gui app = this.threadWiseApp.get();
 
-		gui.goTo(AppConfig.WP_ADMIN_URL);	
+		app.goTo(AppConfig.WP_ADMIN_URL);	
 
-		GuiElement userTextBox = gui.element("LOGIN");
+		GuiElement userTextBox = app.element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
-		gui.element("PASSWORD").enterText(AppConfig.PASSWORD);
-		gui.element("SUBMIT").click();		
-		gui.waitForBody();
+		app.element("PASSWORD").enterText(AppConfig.PASSWORD);
+		app.element("SUBMIT").click();		
+		app.waitForBody();
 		
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
-		gui.element("POSTS").hover();
-		gui.element("CATEGORIES").click();	
-		gui.waitForBody();
-		
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Categories.gns");
-		GuiMultiElement tags = gui.elements("CAT_CHECKBOXES");
+		app.element("POSTS").hover();
+		app.element("CATEGORIES").click();	
+
+		app.waitForBody();
+		GuiMultiElement tags = app.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 			
@@ -79,19 +76,17 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
-		gui.element("SETTINGS").click();
-		
-		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Settings.gns");
-		GuiElement blogNameTextBox = gui.element("BLOG_NAME");
+		app.element("SETTINGS").click();
+			
+		GuiElement blogNameTextBox = app.element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		gui.element("MEMBERSHIP").check();
+		app.element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		GuiElement roleDropDown = gui.element("ROLE").asDropDown();
+		GuiElement roleDropDown = app.element("ROLE").asDropDown();
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);
@@ -99,11 +94,11 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 
-		gui.goTo(AppConfig.WP_LOGOUT_URL);
+		app.goTo(AppConfig.WP_LOGOUT_URL);
 	}
 	
 	@AfterClass
 	public void closeAutomator(ITestContext testContext) throws Exception {
-		this.threadWiseHomePage.get().close();
+		this.threadWiseApp.get().close();
 	}
 }

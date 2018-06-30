@@ -1,4 +1,4 @@
-package daksha.ex.uiauto.variants.v6.pageTransitions;
+package daksha.ex.uiauto.variants.v7.pageTransitions;
 
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.uiauto.element.GuiElement;

@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.uiauto.variants.v6.pageTransitions;
+package daksha.ex.uiauto.variants.v7.pageTransitions;
 
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;

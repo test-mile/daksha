@@ -29,7 +29,9 @@ import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
 import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.enums.OSType;
+import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.tpi.uiauto.automator.GuiAutomator;
+import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.enums.GuiElementType;
 
@@ -450,6 +452,14 @@ public class GuiAutomatorProxy implements GuiAutomator{
 
 	public void validatePageLoad() {
 		this.concreteAutomator.validatePageLoad();
+	}
+
+	public GuiElementProxy element(GuiElementMetaData metaData) throws Exception {
+		return this.concreteAutomator.element(metaData);
+	}
+	
+	public GuiMultiElementProxy elements(GuiElementMetaData metaData) throws Exception {
+		return this.concreteAutomator.elements(metaData);
 	}
 
 }

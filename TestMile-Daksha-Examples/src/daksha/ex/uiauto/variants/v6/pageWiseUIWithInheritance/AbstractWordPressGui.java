@@ -1,4 +1,4 @@
-package daksha.ex.uiauto.variants.v5.pageWiseUIWithInheritance;
+package daksha.ex.uiauto.variants.v6.pageWiseUIWithInheritance;
 
 import daksha.core.uiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.uiauto.gui.DefaultGui;

@@ -28,8 +28,11 @@ import daksha.core.uiauto.actions.automator.MobileActionHandler;
 import daksha.core.uiauto.actions.automator.MouseActionHandler;
 import daksha.core.uiauto.actions.automator.NativeWindowActionHandler;
 import daksha.core.uiauto.automator.ManagedGuiAutomator;
+import daksha.core.uiauto.element.proxy.GuiElementProxy;
+import daksha.core.uiauto.element.proxy.GuiMultiElementProxy;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.enums.OSType;
+import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 
 public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparison, MouseActionHandler, MobileActionHandler{
@@ -55,5 +58,9 @@ public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHan
 	TestContext getTestContext();
 
 	int getWaitTime();
+	
+	GuiElementProxy element(GuiElementMetaData eData) throws Exception;
+	
+	GuiMultiElementProxy elements(GuiElementMetaData eData) throws Exception;
 
 }

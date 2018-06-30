@@ -32,6 +32,7 @@ import daksha.core.uiauto.enums.GuiDriverEngine;
 import daksha.core.uiauto.enums.GuiElementLoaderType;
 import daksha.core.uiauto.enums.OSType;
 import daksha.core.uiauto.identifier.GuiElementIdentifier;
+import daksha.core.uiauto.identifier.GuiElementMetaData;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.uiauto.enums.GuiAutomationContext;
 import daksha.tpi.uiauto.enums.GuiElementType;
@@ -158,6 +159,14 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 				ErrorType.AUTOMATOR_UNSUPPORTED_ACTION,
 				"Unsupported action for " + this.getClass().getSimpleName()
 			);		
+	}
+	
+	public GuiElementProxy element(GuiElementMetaData metaData) throws Exception {
+		return this.identifier.createProxy(metaData);
+	}
+	
+	public GuiMultiElementProxy elements(GuiElementMetaData metaData) throws Exception {
+		return this.identifier.createMultiProxy(metaData);
 	}
 
 	@Override

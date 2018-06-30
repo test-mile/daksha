@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.uiauto.variants.v2.simleapp;
+package daksha.ex.uiauto.variants.v5.appAsCompositeUI;
 
 import static org.testng.Assert.assertTrue;
 
@@ -32,9 +32,9 @@ import daksha.ex.config.AppConfig;
 import daksha.tpi.testng.TestNGBaseTest;
 import daksha.tpi.uiauto.element.GuiElement;
 import daksha.tpi.uiauto.element.GuiMultiElement;
-import daksha.tpi.uiauto.gui.DefaultGui;
 import daksha.tpi.uiauto.gui.Gui;
 import daksha.tpi.uiauto.maker.GuiAutomatorFactory;
+import daksha.tpi.uiauto.maker.GuiFactory;
 import daksha.tpi.uiauto.maker.selenium.SeleniumBuilder;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
@@ -47,7 +47,8 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(Daksha.getTestContext(this.getTestContextName()));
-		threadWiseApp.set(new DefaultGui("WordPress", builder.build(), "simpleapp/wordpress.gns"));
+		Gui app = GuiFactory.createAppFromDir("WordPress", builder.build(), "appwithpages");
+		threadWiseApp.set(app);
 	}
 	
 	@Test
@@ -56,18 +57,18 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 
 		app.goTo(AppConfig.WP_ADMIN_URL);	
 
-		GuiElement userTextBox = app.elementWithId("user_login"); //.element("LOGIN");
+		GuiElement userTextBox = app.element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(AppConfig.USER_NAME);
 		app.element("PASSWORD").enterText(AppConfig.PASSWORD);
 		app.element("SUBMIT").click();		
 		app.waitForBody();
 		
-		app.element("POSTS").hover();
-		app.element("CATEGORIES").click();	
-
+		app.gui("LeftNavigation").element("POSTS").hover();
+		app.gui("LeftNavigation").element("CATEGORIES").click();	
 		app.waitForBody();
-		GuiMultiElement tags = app.elements("CAT_CHECKBOXES");
+		
+		GuiMultiElement tags = app.gui("Categories").elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 			
@@ -76,17 +77,17 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		app.element("SETTINGS").click();
-			
-		GuiElement blogNameTextBox = app.element("BLOG_NAME");
+		app.gui("LeftNavigation").element("SETTINGS").click();
+
+		GuiElement blogNameTextBox = app.gui("Settings").element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		app.element("MEMBERSHIP").check();
+		app.gui("Settings").element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		GuiElement roleDropDown = app.element("ROLE").asDropDown();
+		GuiElement roleDropDown = app.gui("Settings").element("ROLE").asDropDown();
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

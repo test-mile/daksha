@@ -20,8 +20,14 @@ public class GuiNamespace {
 		this.ns.get(name.toLowerCase()).put(context, emd);
 	}
 	
-	public synchronized GuiElementMetaData getMetaData(String name, GuiAutomationContext context) {
-		return this.ns.get(name.toLowerCase()).get(context);
+	public synchronized GuiElementMetaData getMetaData(String name, GuiAutomationContext context) throws Exception {
+		if (!has(name)) {
+			throw new Exception("GuiNamespace does not have an element with name: " + name);
+		} else if (!has(name, context)) {
+			throw new Exception(String.format("GuiNamespace does not have an element with name:%s for automation context:%s", name, context.toString()));
+		} else {
+			return this.ns.get(name.toLowerCase()).get(context);
+		}
 	}
 
 	public boolean has(String name) {
