@@ -16,9 +16,9 @@ import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.uiauto.UiAutoSingleton;
-import daksha.core.uiauto.enums.OSType;
-import daksha.core.uiauto.namestore.GuiNameStore;
+import daksha.core.guiauto.GuiAutoSingleton;
+import daksha.core.guiauto.enums.OSType;
+import daksha.core.guiauto.namestore.GuiNameStore;
 import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
@@ -47,7 +47,7 @@ public enum DakshaSingleton {
 		logger = Logger.getLogger("daksha");
 		Console.init();
 		
-		UiAutoSingleton.INSTANCE.init();
+		GuiAutoSingleton.INSTANCE.init();
 		
 		// Create directories
 		String dir = this.centralConf.value(DakshaOption.SCREENSHOTS_DIR).asString();

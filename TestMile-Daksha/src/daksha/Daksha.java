@@ -25,9 +25,9 @@ import org.testng.ITestContext;
 
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.TestContext;
-import daksha.core.uiauto.UiAutoSingleton;
-import daksha.core.uiauto.enums.OSType;
-import daksha.tpi.uiauto.enums.GuiAutomationContext;
+import daksha.core.guiauto.GuiAutoSingleton;
+import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
@@ -77,15 +77,15 @@ public class Daksha {
 	}
 	
 	public static String getAutomationContextName(GuiAutomationContext context) {
-		return UiAutoSingleton.INSTANCE.getAutomationContextName(context);
+		return GuiAutoSingleton.INSTANCE.getAutomationContextName(context);
 	}
 
 	public static List<String> getAllowedPickByStrings() throws Exception {
-		return UiAutoSingleton.INSTANCE.getAllowedPickByStrings() ;
+		return GuiAutoSingleton.INSTANCE.getAllowedPickByStrings() ;
 	}
 
 	public static List<String> getAllAllowedGuiElementTypes() {
-		return UiAutoSingleton.INSTANCE.getAllAllowedGuiElementTypes();
+		return GuiAutoSingleton.INSTANCE.getAllAllowedGuiElementTypes();
 	}
 	
 	public static String getComponentName(){
@@ -93,19 +93,19 @@ public class Daksha {
 	}
 	
 	public static boolean isAllowedAppiumPlatform(String platformName){
-		return UiAutoSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
+		return GuiAutoSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
 	}
 	
 	public static String getAppiumPlatformString(OSType platform) throws Exception{
-		return UiAutoSingleton.INSTANCE.getAppiumPlatformString(platform);
+		return GuiAutoSingleton.INSTANCE.getAppiumPlatformString(platform);
 	}
 	
 	public static String getAppiumBrowserString(String rawName) throws Exception{
-		return UiAutoSingleton.INSTANCE.getAppiumBrowserString(rawName);
+		return GuiAutoSingleton.INSTANCE.getAppiumBrowserString(rawName);
 	}
 
 	public static boolean isAllowedAppiumBrowser(OSType platform, String browser) throws Exception {
-		return UiAutoSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
+		return GuiAutoSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
 	}
 	
 }

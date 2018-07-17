@@ -3,10 +3,10 @@ package daksha.core.batteries.config;
 import java.io.File;
 import java.util.Map;
 
-import daksha.core.uiauto.enums.OSType;
+import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.uiauto.enums.GuiAutomationContext;
+import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class CentralConfiguration extends BaseConfiguration{
 	private boolean frozen = false;

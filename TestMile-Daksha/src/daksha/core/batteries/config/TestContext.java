@@ -5,7 +5,7 @@ import java.util.Map;
 
 import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.uiauto.enums.GuiAutomationContext;
+import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class TestContext {
 	private String name;
