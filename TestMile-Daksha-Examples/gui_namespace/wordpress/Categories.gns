@@ -9,3 +9,4 @@ id = submit
 [CAT_CHECKBOXES]
 #web,android_web
 name = delete_tags[]
+
