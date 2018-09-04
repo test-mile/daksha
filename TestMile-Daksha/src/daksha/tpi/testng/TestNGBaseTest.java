@@ -2,6 +2,7 @@ package daksha.tpi.testng;
 
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import daksha.Daksha;
 
@@ -29,7 +30,7 @@ public class TestNGBaseTest {
 		return null;
 	}
 	
-	@BeforeSuite
+	@BeforeTest
 	public void initContext(ITestContext testContext) throws Exception {
 		if (testContext.getName().toLowerCase().equals("default test")) {
 			this.testContextName.set("default");
