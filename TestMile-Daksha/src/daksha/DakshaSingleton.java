@@ -26,6 +26,7 @@ import daksha.tpi.sysauto.utils.FileSystemUtils;
 public enum DakshaSingleton {
 	INSTANCE;
 
+	private String version = "1.0.1-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
