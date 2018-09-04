@@ -139,7 +139,7 @@ public class SeleniumListener implements WebDriverEventListener{
 	@Override
 	public void onException(Throwable arg0, WebDriver arg1) {
 		logger.debug("Exception occured");
-		logger.debug(arg0.toString());
+		logger.debug(arg0.toString());		
 		arg0.printStackTrace();
 	}
 
