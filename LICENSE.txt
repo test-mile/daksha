@@ -5,7 +5,7 @@ Email: support@testmile.com
 
 This Software includes software developed by
 Test Mile Testing Testing Pvt Ltd
-(Company Website: http://www.testmile.com, Company Email: sales@testmile.com)
+(Company Website: www.testmile.com, Company Email: sales@testmile.com)
 
 TestMile Daksha, is hereinafter referred to as "Software" or "Daksha".
 
