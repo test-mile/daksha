@@ -83,4 +83,4 @@ local.properties
 
 report/results.ini
 
-act
+Ant-Build/**
