@@ -1,0 +1,13 @@
+- Notifier component needs to be implemented. It should accomodate Daksha's MEANINGful model, rather than only raw notifications that Selenium supports in its event listener.
+- Determine Host OS dynamically.
+- findElements returns an empty list as compared to findElement which throws an Exception. As Daksha is based on findElements at its core, equivalent of this exception and state settings needs to be handled.
+- Project level configuration
+- JVM args
+- Firefox profile
+- Firefox extension
+- HtmlUnitDriver
+- Headless Firefox
+- Headless Chrome
+- Filtering Support for MultiElement
+- GetText Support for MultiElement
+- 
