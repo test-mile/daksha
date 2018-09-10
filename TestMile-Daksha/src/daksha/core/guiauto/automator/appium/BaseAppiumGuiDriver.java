@@ -34,7 +34,6 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import daksha.Daksha;
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.automator.selenium.BaseSeleniumWebGuiDriver;
 import daksha.core.guiauto.enums.Direction;
@@ -46,6 +45,7 @@ import daksha.core.guiauto.identifier.appium.AppiumElementIdentifier;
 import daksha.core.guiauto.launcher.appium.AppiumServer;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import io.appium.java_client.AppiumDriver;

@@ -20,10 +20,10 @@ package daksha.tpi.guiauto.maker;
 
 import org.apache.log4j.Logger;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.namestore.NamespaceFileLoader;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.enums.FileFormat;
 import daksha.tpi.guiauto.namestore.GuiNamespaceLoader;

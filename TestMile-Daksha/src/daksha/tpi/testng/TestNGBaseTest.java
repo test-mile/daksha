@@ -5,6 +5,9 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import daksha.Daksha;
+import daksha.core.batteries.config.Configuration;
+import daksha.core.batteries.config.ContextConfiguration;
+import daksha.tpi.TestContext;
 
 public class TestNGBaseTest {
 	private ThreadLocal<String> testContextName = new ThreadLocal<String>();
@@ -40,8 +43,15 @@ public class TestNGBaseTest {
 		}
 	}
 	
-	protected String getTestContextName() {
+	private String getTestContextName() {
 		return this.testContextName.get();
 	}
+	
+	protected TestContext getContext() throws Exception {
+		return Daksha.getTestContext(this.getTestContextName());
+	}
 
+	protected Configuration getContextConfig() throws Exception {
+		return getContext().getConfig();
+	}
 }

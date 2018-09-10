@@ -16,26 +16,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package daksha.tpi.guiauto.maker;
 
+package daksha.ex.gettingstarted;
+
+import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import daksha.core.guiauto.automator.sikuli.SikuliGuiDriver;
+import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
-import daksha.tpi.guiauto.maker.appium.AppiumBuilder;
+import daksha.tpi.enums.Browser;
+import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 
-public class GuiAutomatorFactory {
+public class Basic{
 	
-	public static AppiumBuilder getAppiumBuilder(TestContext testContext) throws Exception{
-		return new AppiumBuilder(testContext);
+	public static void main (String args[]) throws Exception {
+		// Initialize and set central configuration
+		Daksha.init();
+		Daksha.setOSType(OSType.MAC); // Remove for Windows OS. Change as appropritate
+		Daksha.freezeCentralConfig();
+		
+		// Get test context
+		TestContext context = Daksha.getDefaultTestContext();
+		
+		// Create Selenium automator with context options
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+		builder.browser(Browser.HTML_UNIT);
+		GuiAutomatorProxy automator = builder.build();
+
+		automator.goTo("https://www.google.com");
+		System.out.println(automator.getPageTitle());
+		automator.close();
 	}
-	
-	public static SeleniumBuilder getSeleniumBuilder(TestContext testContext) throws Exception{
-		return new SeleniumBuilder(testContext);
-	}
-	
-	public static GuiAutomatorProxy getSikuli(TestContext testContext) throws Exception{
-		return new GuiAutomatorProxy(new SikuliGuiDriver(testContext));
-	}
-	
+
 }

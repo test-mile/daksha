@@ -25,7 +25,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import daksha.Daksha;
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.element.proxy.BaseGuiElementProxy;
 import daksha.core.guiauto.element.proxy.GuiElementProxy;
@@ -36,6 +35,7 @@ import daksha.core.guiauto.namestore.GuiNameStore;
 import daksha.core.guiauto.namestore.GuiNamespace;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.enums.GuiElementType;
 import daksha.tpi.guiauto.maker.GuiNamespaceLoaderFactory;

@@ -7,9 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.automator.selenium.SeleniumWebGuiDriver;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -53,6 +53,9 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 		case SAFARI:
 			setSafariCaps();
 			break;	
+		case HTML_UNIT:
+			setHtmlUnitCaps();
+			break;
 		}
 		
 		browserCaps.merge(otherCaps);
@@ -114,4 +117,8 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 		browserCaps = getSafariCapabilitiesSkeleton();
 	}
 
+	private void setHtmlUnitCaps() throws Exception {
+		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.SAFARI_WINDOWNAME).asString();
+		browserCaps = DesiredCapabilities.htmlUnit();
+	}
 }

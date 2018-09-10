@@ -21,7 +21,6 @@ package daksha.core.guiauto.automator;
 import java.io.File;
 import java.util.Map;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.batteries.image.ImageComprator;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.element.proxy.GuiElementProxy;
@@ -33,6 +32,7 @@ import daksha.core.guiauto.identifier.GuiElementIdentifier;
 import daksha.core.guiauto.identifier.GuiElementMetaData;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.enums.GuiElementType;
@@ -502,6 +502,11 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	public void init() throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public String getPageTitle() {
+		return "NA";
 	}
 	
 }

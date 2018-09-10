@@ -18,8 +18,8 @@
  ******************************************************************************/
 package daksha.core.guiauto.automator.appium;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class AppiumWebGuiDriver extends BaseAppiumGuiDriver {

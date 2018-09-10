@@ -20,7 +20,6 @@ package daksha.tpi.guiauto.automator;
 
 import java.util.Map;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.actions.GuiElementCreationHandler;
 import daksha.core.guiauto.actions.automator.BrowserActionHandler;
 import daksha.core.guiauto.actions.automator.ImageComparison;
@@ -33,6 +32,7 @@ import daksha.core.guiauto.element.proxy.GuiMultiElementProxy;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.identifier.GuiElementMetaData;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public interface GuiAutomator extends ManagedGuiAutomator, NativeWindowActionHandler, GuiElementCreationHandler, BrowserActionHandler, ImageComparison, MouseActionHandler, MobileActionHandler{

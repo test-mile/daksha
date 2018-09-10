@@ -11,5 +11,6 @@ public interface ConcreteGuiAutomator<D,E> extends GuiAutomator{
 	void setProxy(GuiAutomatorProxy proxy);
 	GuiAutomatorProxy getProxy();
 	void validatePageLoad();
+	String getPageTitle();
 
 }

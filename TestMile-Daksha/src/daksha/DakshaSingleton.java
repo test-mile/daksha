@@ -15,10 +15,11 @@ import org.testng.ITestContext;
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
-import daksha.core.batteries.config.TestContext;
+import daksha.core.batteries.config.DakshaTestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.namestore.GuiNameStore;
+import daksha.tpi.TestContext;
 import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
@@ -26,13 +27,13 @@ import daksha.tpi.sysauto.utils.FileSystemUtils;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.0.1-b";
+	private String version = "1.0.2-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
 	private FileAppender fa = new FileAppender();
 	private CentralConfiguration centralConf = null;
-	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
+	private Map<String, DakshaTestContext> contexts = new HashMap<String, DakshaTestContext>();
 	private GuiNameStore uiRep = GuiNameStore.INSTANCE;
 	private static String defString = "default";
 	 
@@ -55,7 +56,7 @@ public enum DakshaSingleton {
 		if (!FileSystemUtils.isDir(dir)) {
 			FileUtils.forceMkdir(new File(dir));
 		}
-		this.registerContext(new TestContext(defString, new HashMap<String,String>()));
+		this.registerContext(new DakshaTestContext(defString, new HashMap<String,String>()));
 	}
 	
 	private void validateNotFrozenCentralConfig() throws Exception {
@@ -75,7 +76,7 @@ public enum DakshaSingleton {
 		}		
 	}
 	
-	public void registerContext(TestContext context) throws Exception {
+	public void registerContext(DakshaTestContext context) throws Exception {
 		validateFrozenCentralConfig("registering context");
 		ContextConfiguration conf = new ContextConfiguration(this.centralConf, context.getAsMap());
 		context.setOptions(conf);

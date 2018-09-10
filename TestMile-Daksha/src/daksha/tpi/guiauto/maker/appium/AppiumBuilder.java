@@ -5,7 +5,6 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.Daksha;
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.automator.ConcreteGuiAutomator;
 import daksha.core.guiauto.automator.appium.AppiumNativeGuiDriver;
 import daksha.core.guiauto.automator.appium.AppiumWebGuiDriver;
@@ -13,6 +12,7 @@ import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.maker.GuiAutomatorBuilder;

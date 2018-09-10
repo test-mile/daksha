@@ -21,10 +21,10 @@ package daksha.core.guiauto.automator.appium;
 import java.io.File;
 import java.util.Set;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.enums.MobileView;
 import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class AppiumNativeGuiDriver extends BaseAppiumGuiDriver {

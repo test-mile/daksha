@@ -1,6 +1,6 @@
 package daksha.tpi.guiauto.maker;
 
-import daksha.core.batteries.config.TestContext;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public abstract class GuiAutomatorBuilder {

@@ -19,5 +19,5 @@
 package daksha.tpi.enums;
 
 public enum Browser {
-	CHROME, FIREFOX, SAFARI, IE, OPERA, HTML;
+	CHROME, FIREFOX, SAFARI, HTML_UNIT;
 }

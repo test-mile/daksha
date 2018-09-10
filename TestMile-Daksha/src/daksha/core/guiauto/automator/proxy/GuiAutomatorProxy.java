@@ -22,7 +22,6 @@ package daksha.core.guiauto.automator.proxy;
 import java.io.File;
 import java.util.Map;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.automator.ConcreteGuiAutomator;
 import daksha.core.guiauto.element.proxy.GuiElementProxy;
 import daksha.core.guiauto.element.proxy.GuiMultiElementProxy;
@@ -30,6 +29,7 @@ import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.identifier.GuiElementMetaData;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.automator.GuiAutomator;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -460,6 +460,10 @@ public class GuiAutomatorProxy implements GuiAutomator{
 	
 	public GuiMultiElementProxy elements(GuiElementMetaData metaData) throws Exception {
 		return this.concreteAutomator.elements(metaData);
+	}
+
+	public String getPageTitle() {
+		return this.concreteAutomator.getPageTitle();
 	}
 
 }

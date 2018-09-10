@@ -37,6 +37,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.safari.SafariDriver;
@@ -45,12 +46,12 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.automator.AbstractGuiAutomator;
 import daksha.core.guiauto.enums.Direction;
 import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.notifier.selenium.SeleniumListener;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -100,6 +101,9 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 			SafariOptions soptions = new SafariOptions();
 			soptions.merge(capabilities);
 			driver = new EventFiringWebDriver(new SafariDriver(soptions));
+			break; 
+		case HTML_UNIT:
+			driver = new EventFiringWebDriver(new HtmlUnitDriver(capabilities));
 			break; 
 		}
 		driver.register(new SeleniumListener());
@@ -219,6 +223,11 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 	}
 	
 	// Windows related
+	@Override
+	public String getPageTitle() {
+		return getUnderlyingEngine().getTitle();
+	}
+	
 	public String getCurrentWindow() {
 		return getUnderlyingEngine().getWindowHandle();
 	}

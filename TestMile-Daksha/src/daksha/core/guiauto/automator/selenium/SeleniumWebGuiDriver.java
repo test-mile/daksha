@@ -21,10 +21,10 @@ package daksha.core.guiauto.automator.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import daksha.core.batteries.config.TestContext;
 import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.identifier.selenium.SeleniumElementIdentifier;
+import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class SeleniumWebGuiDriver extends BaseSeleniumWebGuiDriver<WebDriver,WebElement>{
