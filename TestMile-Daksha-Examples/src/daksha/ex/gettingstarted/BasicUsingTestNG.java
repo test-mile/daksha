@@ -41,7 +41,7 @@ public class BasicUsingTestNG extends TestNGBaseTest {
 	}
 	
 	@BeforeClass
-	public void createAutomator(ITestContext testContext) throws Exception {
+	public void createAutomator() throws Exception {
 		// Get test context
 		TestContext context = this.getContext();
 		
@@ -60,7 +60,7 @@ public class BasicUsingTestNG extends TestNGBaseTest {
 	}
 	
 	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void closeAutomator() throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }
