@@ -9,7 +9,6 @@ import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class CentralConfiguration extends BaseConfiguration{
-	private boolean frozen = false;
 	private String rootDir = null;
 	
 	 public CentralConfiguration(String rootDir) throws Exception {
@@ -17,26 +16,14 @@ public class CentralConfiguration extends BaseConfiguration{
 		 this.rootDir = rootDir;
 		 populateDefaults();
 	 }
-	 
-	 public void freeze(){
-		 this.frozen = true;
-	 }
-
-	private void validateFrozen() throws Exception {
-		if (frozen) {
-			throw new Exception("You can not add options to central configuration after it is frozen.");
-		}
-	}
 	
 	@Override
 	public void add(String k, String v) throws Exception {
-		validateFrozen();
 		super.add(k,v);
 	 } 
 	 
 	@Override
 	public void add(Map<String,String> map) throws Exception {
-		validateFrozen();
 		super.add(map);
 	 } 
 	
@@ -66,15 +53,13 @@ public class CentralConfiguration extends BaseConfiguration{
 		this.add(DakshaOption.GUIAUTO_SWIPE_BOTTOM, "0.5");
 		this.add(DakshaOption.GUIAUTO_SWIPE_MAX_WAIT, "5");
 		this.add(DakshaOption.SCREENSHOTS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "screenshots");
-		this.add(DakshaOption.OSTYPE, "windows");
+		this.add(DakshaOption.TESTRUN_TARGET_PLATFORM, "windows");
 		this.add(DakshaOption.IMAGE_COMPARISON_MIN_SCORE, "0.7");
 		this.add(DakshaOption.GUIAUTO_CONTEXT, GuiAutomationContext.WEB.toString());
 		this.add(DakshaOption.GUIAUTO_MAX_WAIT, "60");
-		this.add(DakshaOption.TEST_PC_PLATFORM, OSType.WINDOWS.toString());
-		this.add(DakshaOption.TEST_MOBILE_PLATFORM, OSType.ANDROID.toString());
 		this.add(DakshaOption.APPIUM_HUB_URL, "http://127.0.0.1:4723/wd/hub");
 		this.add(DakshaOption.MOBILE_DEVICE_NAME, "Android Emulator");
-		this.add(DakshaOption.MOBILE_PLATFORM_VERSION, "9");
+		this.add(DakshaOption.TESTRUN_TARGET_PLATFORM_VERSION, "9");
 		this.add(DakshaOption.APPIUM_AUTO_LAUNCH, "false");
 	}
 }

@@ -32,6 +32,7 @@ import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.identifier.GuiElementMetaData;
 import daksha.core.guiauto.namestore.GuiNamespace;
 import daksha.ex.config.AppConfig;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;
@@ -45,8 +46,8 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	private ThreadLocal<GuiNamespace> threadWiseNamespace = new ThreadLocal<GuiNamespace>();
 	
-	protected void setCentralOptions() throws Exception {
-		Daksha.setOSType(OSType.MAC);
+	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
 	@BeforeClass

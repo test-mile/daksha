@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
 
 import daksha.Daksha;
 import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
@@ -34,8 +35,8 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Home> threadWiseHome = new ThreadLocal<Home>();
 	
-	protected void setCentralOptions() throws Exception {
-		Daksha.setOSType(OSType.MAC);
+	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
 	@BeforeClass

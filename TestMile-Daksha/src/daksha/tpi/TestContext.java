@@ -39,4 +39,10 @@ public interface TestContext {
 	Value getOptionValue(DakshaOption option) throws Exception;
 
 	String getScreenshotsDir() throws Exception;
+
+	String getLogDir() throws Exception;
+
+	void setTargetPlatform(OSType mac) throws Exception;
+
+	int getGuiAutoMaxWaitTime() throws Exception;
 }

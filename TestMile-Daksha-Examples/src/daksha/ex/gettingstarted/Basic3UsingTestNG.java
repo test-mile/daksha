@@ -27,17 +27,18 @@ import org.testng.annotations.Test;
 import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;
 
-public class BasicUsingTestNG extends TestNGBaseTest {
+public class Basic3UsingTestNG extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void setCentralOptions() throws Exception {
-		Daksha.setOSType(OSType.MAC);
+	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
 	@BeforeClass

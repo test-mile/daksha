@@ -17,12 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.testng.parameters;
-
-import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+package daksha.ex.gettingstarted;
 
 import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
@@ -33,37 +28,28 @@ import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
-import daksha.tpi.testng.TestNGBaseTest;
 
-public class AppUrlBasedNavigation extends TestNGBaseTest {
-	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
+public class Basic2WithDefaultTestContext{
 	
-	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+	public static void main (String args[]) throws Exception {
+		// Initialize and set central configuration
+		CentralTestContext centralContext = Daksha.init();
 		centralContext.setTargetPlatform(OSType.MAC);
-	}
-	
-	@BeforeClass
-	public void createAutomator() throws Exception {
-		// Get test context
-		TestContext context = this.getContext();
-		System.out.println("here");
-		System.out.println(Daksha.getCentralContext().getConfig().getAllOptions().strItems());
-		System.out.println(context.getConfig().getAllOptions().strItems());
+		centralContext.freeze();
+		
+		// Get default test context. This has the same values as central context
+		// The difference is that you can modify it.
+		TestContext context = Daksha.getDefaultTestContext();
+		context.setBrowserType(Browser.HTML_UNIT);
+		context.getGuiAutoMaxWaitTime();
 		
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
-		threadWiseAutomator.set(builder.build());
-	}
-	
-	@Test
-	public void test() throws Exception{
-		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo(this.getContext().getOptionValue(DakshaOption.APP_URL).asString());
+		GuiAutomatorProxy automator = builder.build();
+
+		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());
+		automator.close();
 	}
-	
-	@AfterClass
-	public void closeAutomator() throws Exception {
-		this.threadWiseAutomator.get().close();
-	}
+
 }

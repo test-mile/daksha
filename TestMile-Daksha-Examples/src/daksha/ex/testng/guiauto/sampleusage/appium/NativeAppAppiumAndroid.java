@@ -28,6 +28,7 @@ import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
 import daksha.ex.config.AppConfig;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
@@ -37,8 +38,8 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void setCentralOptions() throws Exception {
-		Daksha.setOSType(OSType.MAC);
+	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
 	@BeforeClass

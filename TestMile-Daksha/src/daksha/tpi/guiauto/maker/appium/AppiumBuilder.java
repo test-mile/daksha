@@ -30,7 +30,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	public AppiumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
 		waitTime = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_MAX_WAIT).asInt();
-		String platform = this.getTestContext().getConfig().value(DakshaOption.TEST_MOBILE_PLATFORM).asString();
+		String platform = this.getTestContext().getConfig().value(DakshaOption.TESTRUN_TARGET_PLATFORM).asString();
 		if (!Daksha.isAllowedAppiumPlatform(platform)){
 			throwUnsupportedPlatformException("constructor", platform);
 		}
@@ -134,7 +134,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	
 	private void setMobileNativeCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {		
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Daksha.getAppiumPlatformString(platform));
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, this.getTestContext().getConfig().value(DakshaOption.MOBILE_PLATFORM_VERSION).asString());
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, this.getTestContext().getConfig().value(DakshaOption.TESTRUN_TARGET_PLATFORM_VERSION).asString());
 		capabilities.setCapability(MobileCapabilityType.APP, this.getAppPath());
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_NAME).asString());
 		if (!this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).isNull()){
@@ -164,7 +164,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 			throwUnsupportedBrowserException("setMobileCapabilities", platform, browser);
 		}
 		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Daksha.getAppiumPlatformString(platform));
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,  this.getTestContext().getConfig().value(DakshaOption.MOBILE_PLATFORM_VERSION).asString());
+		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,  this.getTestContext().getConfig().value(DakshaOption.TESTRUN_TARGET_PLATFORM_VERSION).asString());
 		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, Daksha.getAppiumBrowserString(browser));
 		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_NAME).asString());
 		if (!this.getTestContext().getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).isNull()){

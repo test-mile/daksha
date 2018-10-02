@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
@@ -37,8 +38,8 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class TestMile extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void setCentralOptions() throws Exception {
-		Daksha.setOSType(OSType.MAC);
+	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
 	@BeforeClass

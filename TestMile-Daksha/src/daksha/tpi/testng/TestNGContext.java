@@ -2,7 +2,7 @@ package daksha.tpi.testng;
 
 import org.testng.ITestContext;
 
-import daksha.core.batteries.config.DakshaTestContext;
+import daksha.core.batteries.context.DakshaTestContext;
 
 public class TestNGContext extends DakshaTestContext{
 	

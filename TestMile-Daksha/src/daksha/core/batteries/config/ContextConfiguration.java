@@ -8,5 +8,9 @@ public class ContextConfiguration extends BaseConfiguration{
 		 super(centralConf);
 		 this.add(contextOptions);
 	 }
+	 
+	 public ContextConfiguration(Configuration centralConf) throws Exception {
+		 super(centralConf);
+	 }
 
 }

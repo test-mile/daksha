@@ -1,10 +1,12 @@
-package daksha.core.batteries.config;
+package daksha.core.batteries.context;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 
 import daksha.Daksha;
+import daksha.core.batteries.config.BaseConfiguration;
+import daksha.core.batteries.config.Configuration;
+import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
 import daksha.tpi.batteries.container.Value;
@@ -12,86 +14,74 @@ import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
-public class DakshaTestContext implements TestContext {
-	private String name;
-	private ContextConfiguration config;
-	
-	public DakshaTestContext(String name, Map<String, String> map) throws Exception {
-		this.name = name;		
-		config = new ContextConfiguration(Daksha.getFrozenCentralConfig(), map);
+public class AbstractTestContext implements TestContext {
+	protected String name;
+	protected ContextConfiguration config;
+	private boolean frozen = false;
+
+	public AbstractTestContext(String name) {
+		this.name = name;
 	}
 	
-	public DakshaTestContext(String name) throws Exception {
-		this(name, new HashMap<String, String>());
+	protected void setContextConfig(ContextConfiguration config) {
+		this.config = config;
 	}
 	
+	 protected void setFrozen(){
+		 this.frozen = true;
+	 }
+
+	private void validateFrozen() throws Exception {
+		if (frozen) {
+			throw new Exception("You can not add/modify options of a context after it is frozen.");
+		}
+	}
+
 	@Override
 	public void add(DakshaOption option, String value) throws Exception {
+		validateFrozen();
 		this.config.add(option, value);
 	}
-	
-	/* (non-Javadoc)
-	 * @see daksha.core.batteries.config.TestContext#getAsMap()
-	 */
+
 	@Override
-	public Map<DakshaOption, Value> asMap() throws Exception{
+	public Map<DakshaOption, Value> asMap() throws Exception {
 		return this.config.getAllOptions().items();
 	}
-	
-	/* (non-Javadoc)
-	 * @see daksha.core.batteries.config.TestContext#getName()
-	 */
+
 	@Override
 	public String getName() {
 		return this.name;
 	}
 
-	/* (non-Javadoc)
-	 * @see daksha.core.batteries.config.TestContext#getConfig()
-	 */
 	@Override
 	public Configuration getConfig() {
 		return this.config;
 	}
 
-	/* (non-Javadoc)
-	 * @see daksha.core.batteries.config.TestContext#getAutomationContext()
-	 */
 	@Override
 	public GuiAutomationContext getGuiAutoContext() throws Exception {
 		return GuiAutomationContext.valueOf(getOptionValue(DakshaOption.GUIAUTO_CONTEXT).asString());
 	}
 
-	/* (non-Javadoc)
-	 * @see daksha.core.batteries.config.TestContext#setAutomationContext(daksha.tpi.guiauto.enums.GuiAutomationContext)
-	 */
 	@Override
 	public void setAutomationContext(GuiAutomationContext context) throws Exception {
-		this.config.add(DakshaOption.GUIAUTO_CONTEXT, context.toString());
+		add(DakshaOption.GUIAUTO_CONTEXT, context.toString());
 	}
-	
-	/* (non-Javadoc)
-	 * @see daksha.core.batteries.config.TestContext#getAppDir()
-	 */
+
 	@Override
 	public String getAppDir() throws Exception {
 		GuiAutomationContext aContext = getOptionValue(DakshaOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
-		Value testOS = null;
-		if (GuiAutomationContext.isDesktopContext(aContext)) {
-			testOS = getOptionValue(DakshaOption.TEST_PC_PLATFORM);
-		} else {
-			testOS = getOptionValue(DakshaOption.TEST_MOBILE_PLATFORM);
-		}
+		Value testOS = this.getOptionValue(DakshaOption.TESTRUN_TARGET_PLATFORM);
 		return getOptionValue(DakshaOption.APPS_DIR).asString() 
 				+ File.separator 
 				+ testOS.asString().toLowerCase() + File.separator; 
 	}
-	
+
 	@Override
 	public Browser getBrowserType() throws Exception {
 		return this.config.value(DakshaOption.BROWSER_NAME).asEnum(Browser.class);
 	}
-	
+
 	@Override
 	public Value getOptionValue(DakshaOption option) throws Exception {
 		return this.config.value(option);
@@ -119,10 +109,10 @@ public class DakshaTestContext implements TestContext {
 			return name;
 		}
 	}
-	
+
 	@Override
 	public String getSeleniumDriverPath(Browser browser) throws Exception {
-		Value driverPathValue = config.value(DakshaOption.SELENIUM_DRIVER_PATH);
+		Value driverPathValue = getOptionValue(DakshaOption.SELENIUM_DRIVER_PATH);
 		if (!driverPathValue.isNotSet()) {
 			return driverPathValue.asString();
 		}
@@ -131,8 +121,8 @@ public class DakshaTestContext implements TestContext {
 		Daksha.getSeleniumDriverPathSystemProperty(browser);
 		
 		// Construct and return the path
-		String driversDir = this.config.value(DakshaOption.SELENIUM_DRIVERS_DIR).asString();
-		String os = this.config.value(DakshaOption.OSTYPE).asString().toLowerCase();
+		String driversDir = getOptionValue(DakshaOption.SELENIUM_DRIVERS_DIR).asString();
+		String os = getOptionValue(DakshaOption.TESTRUN_TARGET_PLATFORM).asString().toLowerCase();
 		String binName = modifyExeNameForWindows(Daksha.getDriverName(browser));
 		String driverPath = driversDir + File.separator + os + File.separator + binName;
 		return driverPath;
@@ -146,6 +136,21 @@ public class DakshaTestContext implements TestContext {
 	@Override
 	public String getScreenshotsDir() throws Exception {
 		return getOptionValue(DakshaOption.SCREENSHOTS_DIR).asString();
+	}
+	
+	@Override
+	public String getLogDir() throws Exception {
+		return getOptionValue(DakshaOption.LOG_DIR).asString();
+	}
+
+	@Override
+	public void setTargetPlatform(OSType osType) throws Exception {
+		this.add(DakshaOption.TESTRUN_TARGET_PLATFORM, osType.toString());
+	}
+
+	@Override
+	public int getGuiAutoMaxWaitTime() throws Exception {
+		return getOptionValue(DakshaOption.GUIAUTO_MAX_WAIT).asInt();
 	}
 
 }

@@ -12,15 +12,20 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
 
+import daksha.core.batteries.config.BaseConfiguration;
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
-import daksha.core.batteries.config.DakshaTestContext;
+import daksha.core.batteries.container.ValueContainer;
+import daksha.core.batteries.context.CommonTestContext;
+import daksha.core.batteries.context.DakshaTestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.namestore.GuiNameStore;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.batteries.console.Console;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.sysauto.utils.FileSystemUtils;
 
@@ -32,42 +37,29 @@ public enum DakshaSingleton {
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
 	private FileAppender fa = new FileAppender();
-	private CentralConfiguration centralConf = null;
-	private Map<String, DakshaTestContext> contexts = new HashMap<String, DakshaTestContext>();
+	private CommonTestContext centralTestContext = null;
+	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
 	private GuiNameStore uiRep = GuiNameStore.INSTANCE;
 	private static String defString = "default";
 	 
-	public void init(String rootDir) throws Exception {
-		this.centralConf = new CentralConfiguration(rootDir);
+	public CentralTestContext init(String rootDir) throws Exception {
+		centralTestContext = new CommonTestContext(new CentralConfiguration(rootDir));
+		return centralTestContext;
 	}
 	
-	public void freezeCentralConfig() throws Exception {
+	public void actOnFrozenCentralContext() throws Exception {
 		this.centralConfFrozen = true;
-		this.centralConf.freeze();
 		// Finalize logger
 		configureLogger(Level.INFO, Level.DEBUG);
 		logger = Logger.getLogger("daksha");
 		Console.init();
 		
 		GuiAutoSingleton.INSTANCE.init();
+		this.contexts.put(
+				defString, 
+				new DakshaTestContext(defString));
 		
-		// Create directories
-		String dir = this.centralConf.value(DakshaOption.SCREENSHOTS_DIR).asString();
-		if (!FileSystemUtils.isDir(dir)) {
-			FileUtils.forceMkdir(new File(dir));
-		}
-		this.registerContext(new DakshaTestContext(defString, new HashMap<String,String>()));
-	}
-	
-	private void validateNotFrozenCentralConfig() throws Exception {
-		if (centralConfFrozen) {
-			throw new Exception("You can not make central configuration changes after freezing it.");
-		}		
-	}
-	
-	public void setOSType(OSType osType) throws Exception {
-		validateNotFrozenCentralConfig();
-		this.centralConf.add(DakshaOption.OSTYPE, osType.toString());
+		System.out.println(centralTestContext.getConfig().getAllOptions().strItems());
 	}
 
 	private void validateFrozenCentralConfig(String suffix) throws Exception {
@@ -76,12 +68,13 @@ public enum DakshaSingleton {
 		}		
 	}
 	
-	public Configuration getFrozenCentralConfig() throws Exception {
-		validateFrozenCentralConfig("pulling frozen central configuration");
-		return centralConf;
+	public CommonTestContext getCentralContext() throws Exception {
+		validateFrozenCentralConfig("pulling frozen central context");
+		return centralTestContext;
 	}
 	
-	public void registerContext(DakshaTestContext context) throws Exception {
+	public void registerContext(TestContext context) throws Exception {
+		validateFrozenCentralConfig("registering custom test context");
 		this.contexts.put(context.getName().toLowerCase(), context);
 	}
 	
@@ -127,7 +120,7 @@ public enum DakshaSingleton {
 
 	private void setFileLogger(Level level) throws Exception {
 		fa.setName("FileLogger");
-		fa.setFile(centralConf.value(DakshaOption.LOG_DIR).asString() + File.separator + "daksha.log");
+		fa.setFile(centralTestContext.getLogDir() + File.separator + "daksha.log");
 		fa.setLayout(new PatternLayout("[%-5p]\t%d{yyyy-MM-dd|HH:mm:ss}\t(%F:%L)\t%m%n"));
 		fa.setThreshold(level);
 		fa.setAppend(false);

@@ -24,9 +24,10 @@ import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
 import daksha.core.batteries.config.Configuration;
-import daksha.core.batteries.config.DakshaTestContext;
+import daksha.core.batteries.context.DakshaTestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -35,24 +36,16 @@ public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
 	private static GuiAutoSingleton guiAuto = GuiAutoSingleton.INSTANCE;
 	
-	public static void init(String rootDir) throws Exception{
-		core.init(rootDir);
+	public static CentralTestContext init(String rootDir) throws Exception{
+		return core.init(rootDir);
 	}
 	
-	public static void init() throws Exception {
-		init(System.getProperty("user.dir"));
+	public static CentralTestContext init() throws Exception {
+		return init(System.getProperty("user.dir"));
 	}
 	
-	public static void setOSType(OSType osType) throws Exception {
-		core.setOSType(osType);
-	}
-	
-	public static void freezeCentralConfig() throws Exception {
-		core.freezeCentralConfig();
-	}
-	
-	public static Configuration getFrozenCentralConfig() throws Exception {
-		return core.getFrozenCentralConfig();		
+	public static CentralTestContext getCentralContext() throws Exception {
+		return core.getCentralContext();		
 	}
 	
 	public static void registerContext(DakshaTestContext context) throws Exception {

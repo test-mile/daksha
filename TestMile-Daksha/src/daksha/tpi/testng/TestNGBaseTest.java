@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeTest;
 import daksha.Daksha;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 
 public class TestNGBaseTest {
@@ -15,16 +16,17 @@ public class TestNGBaseTest {
 	@BeforeSuite
 	public void initDaksha() throws Exception {
 		String rootDir = this.getRootDir();
+		CentralTestContext centralContext;
 		if (rootDir == null) {
-			Daksha.init();
+			centralContext = Daksha.init();
 		} else {
-			Daksha.init(rootDir);
+			centralContext = Daksha.init(rootDir);
 		}
-		this.setCentralOptions();
-		Daksha.freezeCentralConfig();
+		this.setCentralOptions(centralContext);
+		centralContext.freeze();
 	}
 	
-	protected void setCentralOptions() throws Exception {
+	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	

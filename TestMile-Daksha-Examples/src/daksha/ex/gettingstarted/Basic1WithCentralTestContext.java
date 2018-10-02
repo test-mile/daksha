@@ -22,26 +22,25 @@ package daksha.ex.gettingstarted;
 import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
+import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 
-public class Basic{
+public class Basic1WithCentralTestContext{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize and set central configuration
-		Daksha.init();
-		Daksha.setOSType(OSType.MAC); // Remove for Windows OS. Change as appropriate
-		Daksha.freezeCentralConfig();
+		CentralTestContext centralContext = Daksha.init();
+		centralContext.setTargetPlatform(OSType.MAC);
+		centralContext.setBrowserType(Browser.HTML_UNIT);
+		centralContext.freeze();
+		// Central Context can not be modified after this point
 		
-		// Get test context
-		TestContext context = Daksha.getDefaultTestContext();
-		context.setBrowserType(Browser.HTML_UNIT);
-		
-		// Create Selenium automator with context options
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+		// Create Selenium automator with central context options
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(centralContext);
 		GuiAutomatorProxy automator = builder.build();
 
 		automator.goTo("https://www.google.com");
