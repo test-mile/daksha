@@ -12,6 +12,7 @@ Look into possibility of including these features
 - Headless Chrome
 - Filtering Support for MultiElement
 - GetText Support for MultiElement
+- Integrate WebDriverManager to download drivers on the fly. Provide an option to enable/disable this.
 - 
 
 Notes related to properties
@@ -30,8 +31,20 @@ Retrieving a property in a TestNG test:
 	The configuration options are stored as a Value object. So, before using, using the values, use .as* methods for conversation.
 	For example, you can get the value of App Url property and convert it as follows in a TestNG test method:
 	
-	this.getContextConfig().value(DakshaOption.APP_URL).asString();
+	getContext().getOptionValue(DakshaOption.APP_URL).asString();
+	
+	For many important properties direct method names are available, wherein type conversion is internally handled.
+	For example
+	getContext().getBrowserType() returns Browser enum constant.
+	
 	
 By default Daksha maximizes the browser. You can switch this off by setting brower.maximize to false.
 You can also set the size of browser by using browser.dim.width and/or browser.dim.height options. If one or both of these options are provided, it overrides the browser.maximize setting and browser is not maximized (even if there is a user provided option present)
 
+selenium_driver_path
+If this is not provided, Daksha would look for a driver in the selenium_drivers_dir location in which one is supposed to place all drivers for all platforms under named OSType folders (e.g. windows, mac)
+Later I am planning to support auto-download the correct binary on-the-fly as an option as well. At what point I am not sure. This would be a need-based-feature.
+
+
+
+guiauto_context. As of now no-automatic decisions are taken based on this although you can retrieve its value and do anything you want in your code. This value is internally used by various automator classes for mostly validation purposes. Current options as WEB (equivalent of DESKTOP_WEB), NATIVE (equivalent of DESKTOP_NATIVE), SCREEN (used for Sikuli integration - image based recognition), ANDROID_WEB, IOS_WEB, ANDROID_NATIVE, IOS_NATIVE, GENERIC. The last one is experimental stuff which is more future oriented and nothing to worry about as of now.
