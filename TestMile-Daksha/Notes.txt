@@ -1,0 +1,37 @@
+Look into possibility of including these features
+-------------------------------------------------
+- Notifier component needs to be implemented. It should accomodate Daksha's MEANINGful model, rather than only raw notifications that Selenium supports in its event listener.
+- Determine Host OS dynamically.
+- findElements returns an empty list as compared to findElement which throws an Exception. As Daksha is based on findElements at its core, equivalent of this exception and state settings needs to be handled.
+- Project level configuration
+- JVM args
+- Firefox profile
+- Firefox extension
+- HtmlUnitDriver
+- Headless Firefox
+- Headless Chrome
+- Filtering Support for MultiElement
+- GetText Support for MultiElement
+- 
+
+Notes related to properties
+---------------------------
+You can provide the configuration option names the way you have using e.g. A_B_C or in property format A.B.C. It’s case insensitive.
+Browser properties can be set as follows:
+	Browser.name : Name of the browser. Allowed values
+		Desktop: Chrome, Safari, Firefox, Html_unit
+		Android: Browser, Chrome
+		iOS: Safari
+	Browser.version: To provide browser version
+	
+Retrieving a property in a TestNG test:
+	There is a helper method created in the base TestNG class for tests to easily retrieve config options.
+	All configuration options are stored context-wise and Daksha takes care of providing the right values when multiple test context exist.
+	The configuration options are stored as a Value object. So, before using, using the values, use .as* methods for conversation.
+	For example, you can get the value of App Url property and convert it as follows in a TestNG test method:
+	
+	this.getContextConfig().value(DakshaOption.APP_URL).asString();
+	
+By default Daksha maximizes the browser. You can switch this off by setting brower.maximize to false.
+You can also set the size of browser by using browser.dim.width and/or browser.dim.height options. If one or both of these options are provided, it overrides the browser.maximize setting and browser is not maximized (even if there is a user provided option present)
+

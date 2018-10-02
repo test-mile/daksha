@@ -1,5 +1,6 @@
 package daksha.core.batteries.config;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import daksha.core.batteries.container.OptionContainer;
@@ -27,7 +28,7 @@ public class BaseConfiguration implements Configuration {
 	 }
 	 
 		private DakshaOption convertPropertyToOption(String strOption) {
-			return DakshaOption.valueOf(DataUtils.join(strOption.split("."), "_").toUpperCase());
+			return DakshaOption.valueOf(DataUtils.join(DataUtils.split(strOption, "\\."), "_").toUpperCase());
 		}
 
 	@Override
@@ -48,6 +49,8 @@ public class BaseConfiguration implements Configuration {
 	@Override
 	public void add(Map<String,String> map) throws Exception {
 		 for (String k : map.keySet()) {
+			 System.out.println(k);
+			 System.out.println(map.get(k));
 			 this.add(k, map.get(k));
 		 } 
 	 } 

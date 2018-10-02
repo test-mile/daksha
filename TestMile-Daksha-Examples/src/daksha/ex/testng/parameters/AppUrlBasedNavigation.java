@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.gettingstarted;
+package daksha.ex.testng.parameters;
 
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
@@ -29,11 +29,12 @@ import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;
 
-public class BasicUsingTestNG extends TestNGBaseTest {
+public class AppUrlBasedNavigation extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
 	protected void setCentralOptions() throws Exception {
@@ -47,14 +48,13 @@ public class BasicUsingTestNG extends TestNGBaseTest {
 		
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
-		builder.browser(Browser.HTML_UNIT);
 		threadWiseAutomator.set(builder.build());
 	}
 	
 	@Test
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo("https://www.testmile.com");
+		automator.goTo(this.getContextConfig().value(DakshaOption.APP_URL).asString());
 		System.out.println(automator.getPageTitle());
 		automator.close();
 	}

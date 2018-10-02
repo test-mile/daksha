@@ -5,6 +5,7 @@ import java.io.File;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
@@ -24,7 +25,7 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	
 	public SeleniumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
-		this.browser = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DEFAULT_BROWSER).asEnum(Browser.class);
+		this.browser = this.getTestContext().getConfig().value(DakshaOption.BROWSER_NAME).asEnum(Browser.class);
 	}
 
 
@@ -47,7 +48,6 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 			setFirefoxCaps();
 			break;
 		case CHROME:
-			
 			setChromeCaps();
 			break;
 		case SAFARI:
@@ -91,6 +91,9 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 		System.setProperty("webdriver.gecko.driver",  driversDir + File.separator + os + File.separator + binaryName);
 
 		browserCaps = getFireFoxCapabilitiesSkeleton();
+		browserCaps.setCapability(
+				CapabilityType.BROWSER_VERSION, 
+				this.getTestContext().getConfig().value(DakshaOption.BROWSER_VERSION).asString());
 		//driver = new FirefoxDriver(capabilities);
 		FirefoxProfile profile = new FirefoxProfile();
 		//profile..setEnableNativeEvents(true);

@@ -42,6 +42,11 @@ public class AbstractValue implements Value {
 	public boolean isNull() {
 		return this.object == null;
 	}
+	
+	@Override
+	public boolean isNotSet() {
+		return false;
+	}
 
 	@Override
 	public String asString() {

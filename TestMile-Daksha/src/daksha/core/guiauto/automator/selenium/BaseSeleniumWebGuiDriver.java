@@ -46,12 +46,14 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import daksha.core.batteries.config.Configuration;
 import daksha.core.guiauto.automator.AbstractGuiAutomator;
 import daksha.core.guiauto.enums.Direction;
 import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.notifier.selenium.SeleniumListener;
 import daksha.tpi.TestContext;
+import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -107,9 +109,43 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 			break; 
 		}
 		driver.register(new SeleniumListener());
+		
 		this.setDriver((D) driver);
 		initWait();
-		maximizeWindow();
+		resizeWindow();
+	}
+	
+	private void resizeWindow() throws Exception {
+		// Resize window
+		Configuration config = this.getTestContext().getConfig();
+		Value browserWidth = config.value(DakshaOption.BROWSER_DIM_WIDTH);
+		Value browserHeight = config.value(DakshaOption.BROWSER_DIM_HEIGHT);
+		boolean maxWindow = config.value(DakshaOption.BROWSER_MAXIMIZE).asBoolean();
+		
+		if (browserWidth.isNotSet() && browserHeight.isNotSet()) {
+			if (maxWindow) {
+				maximizeWindow();
+			}
+		} else {
+			int width;
+			int height;
+			
+			Dimension currentSize = this.getUnderlyingEngine().manage().window().getSize();
+			
+			if (!browserWidth.isNotSet()) {
+				width = browserWidth.asInt();
+			} else {
+				width = currentSize.getWidth();
+			}
+			
+			if (!browserHeight.isNotSet()) {
+				height = browserHeight.asInt();
+			} else {
+				height = currentSize.getHeight();
+			}
+			
+			this.getUnderlyingEngine().manage().window().setSize(new Dimension(width, height));
+		}
 	}
 	
 	protected void setDriver(D driver) {

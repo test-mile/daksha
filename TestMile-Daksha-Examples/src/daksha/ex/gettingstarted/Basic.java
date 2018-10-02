@@ -43,7 +43,7 @@ public class Basic{
 		builder.browser(Browser.HTML_UNIT);
 		GuiAutomatorProxy automator = builder.build();
 
-		automator.goTo("https://www.google.com");
+		automator.goTo("https://www.testmile.com");
 		System.out.println(automator.getPageTitle());
 		automator.close();
 	}

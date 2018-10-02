@@ -61,6 +61,7 @@ public class DataUtils {
 			sb.append(inArray[i]);
 			sb.append(delimiter);
 		}
+		System.out.println(Arrays.asList(inArray));
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}
@@ -154,19 +155,6 @@ public class DataUtils {
 		return retValues;
 	}
 
-	public static List<String> split(String inString, String delimiter) {
-		List<String> retValues = new ArrayList<String>();
-		String[] values = inString.split(delimiter);
-		for (String v : values) {
-			retValues.add(v.trim());
-		}
-		return retValues;
-	}
-
-	public static List<String> split(String inString) {
-		return split(inString, ",");
-	}
-
 	public static String flatten(Set<String> inSet) {
 		StringBuffer sb = new StringBuffer();
 		for (String s : inSet) {
@@ -177,6 +165,23 @@ public class DataUtils {
 
 	public static void print(Set<String> inSet) {
 		Console.display(flatten(inSet));
+	}
+	
+	public static List<String> split(String str, String delimiter) {
+		String[] parts = str.split(delimiter);
+		if (parts.length == 0) {
+			return Arrays.asList(new String[] {str});
+		} else {
+			List<String> l = new ArrayList<String>();
+			for (String p: parts) {
+				l.add(p.trim());
+			}
+			return l;
+		}
+	}
+	
+	public static List<String> split(String inString) {
+		return split(inString, ",");
 	}
 
 }

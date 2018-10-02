@@ -40,4 +40,6 @@ public interface Value extends Cloneable {
 
 	Value clone();
 
+	boolean isNotSet();
+
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestNG Example Suite - No Paramerters" verbose="1">
+	
+	<test name="Test Mile">
+		<classes>
+			<class name="daksha.ex.testng.parameters.TestMile" />
+		</classes>
+	</test>
+	
+	<test name="Google">
+		<classes>
+			<class name="daksha.ex.testng.parameters.Google" />
+		</classes>
+	</test>
+
+</suite>

@@ -21,6 +21,11 @@ public class StringValue extends AbstractValue {
 	public Value clone() {
 		return new StringValue(this.asString());
 	}
+	
+	@Override
+	public boolean isNotSet() {
+		return this.asString().toUpperCase().trim().equals("NOT_SET");
+	}
 
 	@Override
 	public String asString() {
