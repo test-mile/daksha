@@ -49,8 +49,6 @@ public class BaseConfiguration implements Configuration {
 	@Override
 	public void add(Map<String,String> map) throws Exception {
 		 for (String k : map.keySet()) {
-			 System.out.println(k);
-			 System.out.println(map.get(k));
 			 this.add(k, map.get(k));
 		 } 
 	 } 

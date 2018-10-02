@@ -1,6 +1,7 @@
 package daksha.tpi.enums;
 
 public enum DakshaOption {
+	// Daksha Directories
 	ROOT_DIR,
 	LOG_DIR,
 	TOOLS_DIR,
@@ -8,13 +9,12 @@ public enum DakshaOption {
 	GUIAUTO_NAMESPACE_DIR,
 	SCREENSHOTS_DIR,
 
+	// Test Run
 	TESTRUN_ENVIRONMENT,
 	TESTRUN_TARGET_PLATFORM,
 	TESTRUN_TARGET_PLATFORM_VERSION,
 	
-	SELENIUM_DRIVERS_DIR, // Place to find all drivers
-	SELENIUM_DRIVER_PATH, // Overrides general look-up. If provided this absolute path is used.
-	
+	// Browser (Common)
 	BROWSER_NAME,
 	BROWSER_VERSION,
 	BROWSER_MAXIMIZE,
@@ -29,8 +29,15 @@ public enum DakshaOption {
 	BROWSER_PC_PROXY_ON,
 	BROWSER_PC_PROXY_PORT,
 	
+	// Browser Specific
+	FIREFOX_WINDOWNAME,
+	CHROME_WINDOWNAME,
+	SAFARI_WINDOWNAME,
+	
+	// Application
 	APP_URL,
 	
+	// General Gui Automation
 	GUIAUTO_CONTEXT,
 	GUIAUTO_SCROLL_PIXELS,
 	GUIAUTO_SWIPE_TOP,
@@ -38,24 +45,19 @@ public enum DakshaOption {
 	GUIAUTO_SWIPE_MAX_WAIT,
 	GUIAUTO_MAX_WAIT,
 	
-	
-	// Browser Specific
-	FIREFOX_WINDOWNAME,
-	CHROME_WINDOWNAME,
-	SAFARI_WINDOWNAME,
-	
+	// Mobile automation
 	MOBILE_DEVICE_NAME,
 	MOBILE_DEVICE_UDID,
+	MOBILE_APP_FILE_PATH,
 
+	// Selenium
+	SELENIUM_DRIVERS_DIR, // Place to find all drivers
+	SELENIUM_DRIVER_PATH, // Overrides general look-up. If provided this absolute path is used.
 
-	
-
-
-	APP_PC_MAXWAIT,
-	APP_MOBILE_MAXWAIT,
-	APP_MOBILE_PATH,
+	// Appium
 	APPIUM_HUB_URL,
-	SIKULI_MAXWAIT,
-	IMAGE_COMPARISON_MIN_SCORE,
 	APPIUM_AUTO_LAUNCH,
+	
+	// Image comparison
+	IMAGE_COMPARISON_MIN_SCORE,
 }

@@ -61,7 +61,6 @@ public class DataUtils {
 			sb.append(inArray[i]);
 			sb.append(delimiter);
 		}
-		System.out.println(Arrays.asList(inArray));
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
 	}

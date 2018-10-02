@@ -41,7 +41,6 @@ public class Basic2WithDefaultTestContext{
 		// The difference is that you can modify it.
 		TestContext context = Daksha.getDefaultTestContext();
 		context.setBrowserType(Browser.HTML_UNIT);
-		context.getGuiAutoMaxWaitTime();
 		
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);

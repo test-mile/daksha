@@ -38,7 +38,7 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class TestMile extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	

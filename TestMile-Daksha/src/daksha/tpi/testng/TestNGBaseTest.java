@@ -22,11 +22,11 @@ public class TestNGBaseTest {
 		} else {
 			centralContext = Daksha.init(rootDir);
 		}
-		this.setCentralOptions(centralContext);
+		this.tweakCentralOptions(centralContext);
 		centralContext.freeze();
 	}
 	
-	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	

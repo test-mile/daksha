@@ -37,7 +37,7 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class Google extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
@@ -56,7 +56,6 @@ public class Google extends TestNGBaseTest {
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
 		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());
-		System.out.println(this.getContext().getTestRunEnvName());
 		automator.takeScreenshot();
 	}
 	

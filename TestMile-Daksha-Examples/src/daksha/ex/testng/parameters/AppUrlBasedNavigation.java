@@ -38,7 +38,7 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class AppUrlBasedNavigation extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
@@ -46,9 +46,6 @@ public class AppUrlBasedNavigation extends TestNGBaseTest {
 	public void createAutomator() throws Exception {
 		// Get test context
 		TestContext context = this.getContext();
-		System.out.println("here");
-		System.out.println(Daksha.getCentralContext().getConfig().getAllOptions().strItems());
-		System.out.println(context.getConfig().getAllOptions().strItems());
 		
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);

@@ -35,7 +35,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 			throwUnsupportedPlatformException("constructor", platform);
 		}
 		platformType = OSType.valueOf(platform.toUpperCase());
-		this.appPath = this.getTestContext().getConfig().value(DakshaOption.APP_MOBILE_PATH).asString();
+		this.appPath = this.getTestContext().getConfig().value(DakshaOption.MOBILE_APP_FILE_PATH).asString();
 	}
 	
 	private String getAppPath(){

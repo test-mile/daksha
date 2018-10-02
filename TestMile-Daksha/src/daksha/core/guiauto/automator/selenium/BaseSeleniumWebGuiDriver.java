@@ -73,7 +73,6 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 	public BaseSeleniumWebGuiDriver(TestContext testContext, GuiDriverEngine engine, GuiElementLoaderType loaderType) throws Exception{
 		super(testContext, GuiDriverEngine.WEBDRIVER, loaderType);
 		screenShotDir = this.getTestContext().getScreenshotsDir();
-		System.out.println(screenShotDir);
 		File sDir = new File(screenShotDir);
 		if (sDir.isFile()) {
 			throw new Exception(String.format("Screenshots directory: %s is not a directory. It is an existing file.", screenShotDir));

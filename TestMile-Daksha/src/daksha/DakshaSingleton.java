@@ -58,8 +58,6 @@ public enum DakshaSingleton {
 		this.contexts.put(
 				defString, 
 				new DakshaTestContext(defString));
-		
-		System.out.println(centralTestContext.getConfig().getAllOptions().strItems());
 	}
 
 	private void validateFrozenCentralConfig(String suffix) throws Exception {

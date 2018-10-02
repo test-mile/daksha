@@ -41,7 +41,7 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Gui> threadWiseHome = new ThreadLocal<Gui>();
 	
-	protected void setCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
