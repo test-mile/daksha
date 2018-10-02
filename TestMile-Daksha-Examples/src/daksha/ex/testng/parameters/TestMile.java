@@ -56,7 +56,6 @@ public class TestMile extends TestNGBaseTest {
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
 		automator.goTo("http://www.testmile.com");
 		System.out.println(automator.getPageTitle());
-		automator.close();
 	}
 	
 	@AfterClass

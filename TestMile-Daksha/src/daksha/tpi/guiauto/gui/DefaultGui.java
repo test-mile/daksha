@@ -288,7 +288,7 @@ public class DefaultGui implements Gui{
 
 	protected Object throwDefaultUiException(String action, String code, String message) throws Exception {
 		throw new Problem(
-				Daksha.getComponentName(),
+				"GUI Automator",
 				this.getName(),
 				action,
 				code,

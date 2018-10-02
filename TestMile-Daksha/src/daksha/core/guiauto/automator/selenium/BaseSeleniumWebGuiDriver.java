@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
@@ -52,6 +53,7 @@ import daksha.core.guiauto.enums.Direction;
 import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.notifier.selenium.SeleniumListener;
+import daksha.core.value.StringValue;
 import daksha.tpi.TestContext;
 import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.Browser;
@@ -70,7 +72,14 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 	
 	public BaseSeleniumWebGuiDriver(TestContext testContext, GuiDriverEngine engine, GuiElementLoaderType loaderType) throws Exception{
 		super(testContext, GuiDriverEngine.WEBDRIVER, loaderType);
-		screenShotDir = this.getTestContext().getConfig().value(DakshaOption.SCREENSHOTS_DIR).asString();
+		screenShotDir = this.getTestContext().getScreenshotsDir();
+		System.out.println(screenShotDir);
+		File sDir = new File(screenShotDir);
+		if (sDir.isFile()) {
+			throw new Exception(String.format("Screenshots directory: %s is not a directory. It is an existing file.", screenShotDir));
+		} else if (!sDir.isDirectory()) {
+			FileUtils.forceMkdir(new File(screenShotDir));
+		}
 		scrollPixels = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_SCROLL_PIXELS).asInt();
 	}
 	
@@ -90,20 +99,28 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 	@Override
 	public void load() throws Exception{
 		EventFiringWebDriver driver = null;
+		String browserBinPath = this.getTestContext().getBrowserBinaryPath();
 		switch (this.getBrowser()){
 		case FIREFOX:
-			driver = new EventFiringWebDriver(new FirefoxDriver(new FirefoxOptions(capabilities)));
+			FirefoxOptions fOptions = new FirefoxOptions(capabilities);
+			if (StringValue.isSet(browserBinPath)) {
+				fOptions.setBinary(browserBinPath);
+			}
+			driver = new EventFiringWebDriver(new FirefoxDriver());
 			break;
 		case CHROME:
 			ChromeOptions coptions = new ChromeOptions();
+			if (StringValue.isSet(browserBinPath)) {
+				coptions.setBinary(browserBinPath);
+			}
 			coptions.merge(capabilities);
 			driver = new EventFiringWebDriver(new ChromeDriver(coptions));
 			break;
 		case SAFARI:
-			SafariOptions soptions = new SafariOptions();
-			soptions.merge(capabilities);
-			driver = new EventFiringWebDriver(new SafariDriver(soptions));
-			break; 
+			SafariOptions sOptions = new SafariOptions();
+			sOptions.merge(capabilities);
+			driver = new EventFiringWebDriver(new SafariDriver(sOptions));
+			break;
 		case HTML_UNIT:
 			driver = new EventFiringWebDriver(new HtmlUnitDriver(capabilities));
 			break; 

@@ -54,9 +54,8 @@ public class AppUrlBasedNavigation extends TestNGBaseTest {
 	@Test
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo(this.getContextConfig().value(DakshaOption.APP_URL).asString());
+		automator.goTo(this.getContext().getOptionValue(DakshaOption.APP_URL).asString());
 		System.out.println(automator.getPageTitle());
-		automator.close();
 	}
 	
 	@AfterClass

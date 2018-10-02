@@ -58,7 +58,7 @@ public abstract class AbstractGuiAutomator<D,E> implements ConcreteGuiAutomator<
 	public AbstractGuiAutomator(TestContext testContext, GuiDriverEngine name) throws Exception{
 		this(testContext);
 		this.setGuiTestEngineName(name);
-		this.setAutomatorContext(testContext.getAutomationContext());
+		this.setAutomatorContext(testContext.getGuiAutoContext());
 	}
 	
 	public AbstractGuiAutomator(TestContext testContext, GuiDriverEngine name, GuiElementLoaderType loaderType) throws Exception{

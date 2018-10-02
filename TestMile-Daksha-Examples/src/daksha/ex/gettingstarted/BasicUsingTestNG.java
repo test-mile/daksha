@@ -44,19 +44,18 @@ public class BasicUsingTestNG extends TestNGBaseTest {
 	public void createAutomator() throws Exception {
 		// Get test context
 		TestContext context = this.getContext();
+		context.setBrowserType(Browser.HTML_UNIT);
 		
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
-		builder.browser(Browser.HTML_UNIT);
 		threadWiseAutomator.set(builder.build());
 	}
 	
 	@Test
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo("https://www.testmile.com");
+		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());
-		automator.close();
 	}
 	
 	@AfterClass

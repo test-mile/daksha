@@ -55,7 +55,8 @@ public class Google extends TestNGBaseTest {
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
 		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());
-		automator.close();
+		System.out.println(this.getContext().getTestRunEnvName());
+		automator.takeScreenshot();
 	}
 	
 	@AfterClass

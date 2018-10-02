@@ -1,16 +1,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="TestNG Example Suite - Params Test" verbose="1">
-	<parameter name="Browser_name" value="Firefox" />
-	<parameter name="browser_VERSION" value="61" />
-		<parameter name="browser.width.px" value="300" />
+	<parameter name="browser.name" value="Firefox" />
+		<parameter name="testrun.environment" value="PROD" />
 	
-	<test name="Test Mile">
+	<test name="Google">
+	<parameter name="screenshots.dir" value="/Users/rahulverma/Documents/github_tm/daksha/TestMile-Daksha-Examples/screenshots/abc" />
 		<classes>
-			<class name="daksha.ex.testng.parameters.TestMile" />
+			<class name="daksha.ex.testng.parameters.Google" />
 		</classes>
 	</test>
 	
-	<test name="Google">
+		<test name="Google2">
+		<parameter name="screenshots.dir" value="/Users/rahulverma/Documents/github_tm/daksha/TestMile-Daksha-Examples/screenshots/def" />
 		<classes>
 			<class name="daksha.ex.testng.parameters.Google" />
 		</classes>

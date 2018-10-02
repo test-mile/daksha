@@ -28,10 +28,12 @@ import daksha.core.batteries.config.DakshaTestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
+import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
+	private static GuiAutoSingleton guiAuto = GuiAutoSingleton.INSTANCE;
 	
 	public static void init(String rootDir) throws Exception{
 		core.init(rootDir);
@@ -47,6 +49,10 @@ public class Daksha {
 	
 	public static void freezeCentralConfig() throws Exception {
 		core.freezeCentralConfig();
+	}
+	
+	public static Configuration getFrozenCentralConfig() throws Exception {
+		return core.getFrozenCentralConfig();		
 	}
 	
 	public static void registerContext(DakshaTestContext context) throws Exception {
@@ -78,35 +84,43 @@ public class Daksha {
 	}
 	
 	public static String getAutomationContextName(GuiAutomationContext context) {
-		return GuiAutoSingleton.INSTANCE.getAutomationContextName(context);
+		return guiAuto.getAutomationContextName(context);
 	}
 
 	public static List<String> getAllowedPickByStrings() throws Exception {
-		return GuiAutoSingleton.INSTANCE.getAllowedPickByStrings() ;
+		return guiAuto.getAllowedPickByStrings() ;
 	}
 
 	public static List<String> getAllAllowedGuiElementTypes() {
-		return GuiAutoSingleton.INSTANCE.getAllAllowedGuiElementTypes();
-	}
-	
-	public static String getComponentName(){
-		return "UI Automator";
+		return guiAuto.getAllAllowedGuiElementTypes();
 	}
 	
 	public static boolean isAllowedAppiumPlatform(String platformName){
-		return GuiAutoSingleton.INSTANCE.isAllowedAppiumPlatform(platformName);
+		return guiAuto.isAllowedAppiumPlatform(platformName);
 	}
 	
 	public static String getAppiumPlatformString(OSType platform) throws Exception{
-		return GuiAutoSingleton.INSTANCE.getAppiumPlatformString(platform);
+		return guiAuto.getAppiumPlatformString(platform);
 	}
 	
 	public static String getAppiumBrowserString(String rawName) throws Exception{
-		return GuiAutoSingleton.INSTANCE.getAppiumBrowserString(rawName);
+		return guiAuto.getAppiumBrowserString(rawName);
 	}
 
 	public static boolean isAllowedAppiumBrowser(OSType platform, String browser) throws Exception {
-		return GuiAutoSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser);
+		return guiAuto.isAllowedAppiumBrowser(platform, browser);
+	}
+	
+	public static String getDriverName(Browser browser) throws Exception {
+		return guiAuto.getDriverName(browser);
+	}
+	
+	public static boolean isDriverPathNeeded(Browser browser) throws Exception {
+		return guiAuto.isSeleniumDriverPathNeeded(browser);
+	}
+	
+	public static String getSeleniumDriverPathSystemProperty(Browser browser) throws Exception {
+		return guiAuto.getSeleniumDriverPathSystemProperty(browser);
 	}
 	
 }

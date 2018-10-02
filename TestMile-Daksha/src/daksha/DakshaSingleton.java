@@ -76,10 +76,12 @@ public enum DakshaSingleton {
 		}		
 	}
 	
+	public Configuration getFrozenCentralConfig() throws Exception {
+		validateFrozenCentralConfig("pulling frozen central configuration");
+		return centralConf;
+	}
+	
 	public void registerContext(DakshaTestContext context) throws Exception {
-		validateFrozenCentralConfig("registering context");
-		ContextConfiguration conf = new ContextConfiguration(this.centralConf, context.getAsMap());
-		context.setOptions(conf);
 		this.contexts.put(context.getName().toLowerCase(), context);
 	}
 	

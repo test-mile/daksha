@@ -9,7 +9,7 @@ public abstract class GuiAutomatorBuilder {
 	
 	public GuiAutomatorBuilder(TestContext testContext) throws Exception{
 		this.testContext = testContext;
-		this.automationContext = testContext.getAutomationContext();
+		this.automationContext = testContext.getGuiAutoContext();
 	}
 	
 	protected TestContext getTestContext() {

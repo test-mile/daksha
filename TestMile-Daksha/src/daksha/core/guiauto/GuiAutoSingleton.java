@@ -33,6 +33,7 @@ import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.enums.VisualLocateBy;
 import daksha.core.guiauto.enums.WebLocateBy;
 import daksha.core.guiauto.launcher.appium.AppiumDriverServerLauncher;
+import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.enums.GuiElementType;
 import daksha.tpi.sysauto.utils.DataUtils;
@@ -49,6 +50,9 @@ public enum GuiAutoSingleton {
 	private static List<String> allowedScreenLocators = null;
 	private static List<String> allAllowedGuiElementTypes = null;
 	private static Map<GuiAutomationContext, String> automationContextNames = null;
+	private static Map<Browser, String> browserDriverMap = null;
+	private static Map<Browser, String> browserSysPropNameMap = null;
+	
 	// Appium
 	private static List<String> allowedAppiumPlatforms = new ArrayList<String>();;
 	private static List<String> allowedAppiumAndroidBrowsers = new ArrayList<String>();;
@@ -79,6 +83,15 @@ public enum GuiAutoSingleton {
 		automationContextNames.put(GuiAutomationContext.IOS_NATIVE, "IOS Native");
 		automationContextNames.put(GuiAutomationContext.SCREEN, "Screen");
 		automationContextNames.put(GuiAutomationContext.GENERIC, "Generic");
+		
+		browserDriverMap = new HashMap<Browser, String>();
+		browserDriverMap.put(Browser.CHROME, "chromedriver");
+		browserDriverMap.put(Browser.FIREFOX, "geckodriver");
+		browserDriverMap.put(Browser.SAFARI, "safaridriver");
+		
+		browserSysPropNameMap = new HashMap<Browser, String>();
+		browserSysPropNameMap.put(Browser.CHROME, "webdriver.chrome.driver");
+		browserSysPropNameMap.put(Browser.FIREFOX, "webdriver.gecko.driver");
 
 		allowedGenericLocators = new ArrayList<String>();
 		for (LocateBy prop: LocateBy.class.getEnumConstants()){
@@ -206,5 +219,26 @@ public enum GuiAutoSingleton {
 	public AppiumDriverServerLauncher getDriverServerLauncher() throws Exception{
 		return serverLauncher;
 	}
+	
+	public String getDriverName(Browser browser) throws Exception {
+		try {
+			return this.browserDriverMap.get(browser);
+		} catch (Exception e) {
+			throw new Exception(String.format("Browser [] does not have a driver.", browser));
+		}
+	}
+	
+	public boolean isSeleniumDriverPathNeeded(Browser browser) throws Exception {
+		return browserSysPropNameMap.containsKey(browser);
+	}
+	
+	public String getSeleniumDriverPathSystemProperty(Browser browser) throws Exception {
+		try {
+			return browserSysPropNameMap.get(browser);
+		} catch (Exception e) {
+			throw new Exception(String.format("Browser [] does not have a driver path related System property.", browser));
+		}
+	}
+	
 
 }

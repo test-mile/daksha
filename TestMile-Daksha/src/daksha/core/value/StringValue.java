@@ -22,6 +22,10 @@ public class StringValue extends AbstractValue {
 		return new StringValue(this.asString());
 	}
 	
+	public static boolean isSet(String value) {
+		return !value.toUpperCase().trim().equals("NOT_SET");
+	}
+	
 	@Override
 	public boolean isNotSet() {
 		return this.asString().toUpperCase().trim().equals("NOT_SET");

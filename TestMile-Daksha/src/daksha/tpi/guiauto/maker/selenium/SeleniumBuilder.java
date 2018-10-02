@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.automator.selenium.SeleniumWebGuiDriver;
 import daksha.tpi.TestContext;
@@ -21,29 +22,23 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private MutableCapabilities otherCaps = new MutableCapabilities();
 	private GuiAutomationContext context = GuiAutomationContext.WEB;
 	private String appTitle = null;
-	private Browser browser = null;
 	
 	public SeleniumBuilder(TestContext testContext) throws Exception{
 		super(testContext);
-		this.browser = this.getTestContext().getConfig().value(DakshaOption.BROWSER_NAME).asEnum(Browser.class);
 	}
-
-
-	public void browser(Browser browser){
-		this.browser = browser;
-	}
-	
 	
 	public void capabilities(DesiredCapabilities caps){
 		otherCaps.merge(caps);
 	}
-	
-	
+
 	public GuiAutomatorProxy build() throws Exception{
 		SeleniumWebGuiDriver selenium = new SeleniumWebGuiDriver(this.getTestContext());
+		Browser browser = this.getTestContext().getConfig().value(DakshaOption.BROWSER_NAME).asEnum(Browser.class);
 		selenium.setBrowser(browser);
 		selenium.init();
-		switch (this.browser){
+		setDriverPath();
+		
+		switch (browser){
 		case FIREFOX:
 			setFirefoxCaps();
 			break;
@@ -57,7 +52,7 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 			setHtmlUnitCaps();
 			break;
 		}
-		
+
 		browserCaps.merge(otherCaps);
 		selenium.setCapabilities(browserCaps.asMap());
 		selenium.load();
@@ -79,45 +74,31 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	
 	private void setFirefoxCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.FIREFOX_WINDOWNAME).asString();
-		String os = this.getTestContext().getConfig().value(DakshaOption.OSTYPE).asString().toLowerCase();
-		String binaryName = null;
-		if (os.equals("windows")){
-			binaryName = "geckodriver.exe";
-		} else {
-			binaryName = "geckodriver";
-		}
-
-		String driversDir = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DRIVERS_DIR).asString();
-		System.setProperty("webdriver.gecko.driver",  driversDir + File.separator + os + File.separator + binaryName);
-
 		browserCaps = getFireFoxCapabilitiesSkeleton();
-		browserCaps.setCapability(
-				CapabilityType.BROWSER_VERSION, 
-				this.getTestContext().getConfig().value(DakshaOption.BROWSER_VERSION).asString());
-		//driver = new FirefoxDriver(capabilities);
+		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
 		FirefoxProfile profile = new FirefoxProfile();
 		//profile..setEnableNativeEvents(true);
 		browserCaps.setCapability(FirefoxDriver.PROFILE, profile);
 	}
 
+	private void setDriverPath() throws Exception {
+		Browser browser = this.getTestContext().getBrowserType();
+		if (Daksha.isDriverPathNeeded(browser)){
+			String driverPath = this.getTestContext().getSeleniumDriverPath(browser);
+			System.setProperty(Daksha.getSeleniumDriverPathSystemProperty(browser), driverPath);
+		}
+	}
+	
 	private void setChromeCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.CHROME_WINDOWNAME).asString();
-		String os = this.getTestContext().getConfig().value(DakshaOption.OSTYPE).asString().toLowerCase();
-		String binaryName = null;
-		if (os.equals("windows")){
-			binaryName = "chromedriver.exe";
-		} else {
-			binaryName = "chromedriver";
-		}
-
-		String driversDir = this.getTestContext().getConfig().value(DakshaOption.GUIAUTO_DRIVERS_DIR).asString();
-		System.setProperty("webdriver.chrome.driver",  driversDir + File.separator + os + File.separator + binaryName);
 		browserCaps = getChromeCapabilitiesSkeleton();
+		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
 	}
 
 	private void setSafariCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.SAFARI_WINDOWNAME).asString();
 		browserCaps = getSafariCapabilitiesSkeleton();
+		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
 	}
 
 	private void setHtmlUnitCaps() throws Exception {

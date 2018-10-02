@@ -51,7 +51,4 @@ public class TestNGBaseTest {
 		return Daksha.getTestContext(this.getTestContextName());
 	}
 
-	protected Configuration getContextConfig() throws Exception {
-		return getContext().getConfig();
-	}
 }
