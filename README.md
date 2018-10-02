@@ -5,3 +5,5 @@ Daksha is re-usable Java library for test automation, to be used primarily with 
 It includes a practical implementation of MEANINGful model of GUI automation developed by Rahul Verma (www.rahulverma.net). MEANINGful model is an advanced UI automation model that enables integration of multiple tools, GUI definition externalization, customized identification types and so on, with finer control of each component. Rahul as the Chief Consultant at Test Mile, has implemented smaller variants of MEANINGful model across frameworks and organizations, or given advise around it. However Daksha being a generic library has the most complete implementation of the said model, away from project specific contexts and constraints. A Pythonized variant of MEANINGful model model would be included in Arjuna, another project created by Rahul.
 
 Additionaly, Daksha includes common file readers, process launching, configuration management, generic Value abstraction etc to make test automation development easier.
+
+Dodcumentation for Daksha is in progress. You can can find the currrent help doc on Test Mile website at https://testmile.com/daksha/
