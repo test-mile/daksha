@@ -25,7 +25,6 @@ import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.identifier.selenium.SeleniumElementIdentifier;
 import daksha.tpi.TestContext;
-import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class SeleniumWebGuiDriver extends BaseSeleniumWebGuiDriver<WebDriver,WebElement>{
 	

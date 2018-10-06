@@ -19,15 +19,12 @@
 
 package daksha.ex.gettingstarted;
 
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;

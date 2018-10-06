@@ -19,7 +19,6 @@
 package daksha.core.guiauto.namestore;
 
 import java.util.List;
-import java.util.Map;
 
 import daksha.core.problem.ErrorType;
 import daksha.core.problem.Problem;

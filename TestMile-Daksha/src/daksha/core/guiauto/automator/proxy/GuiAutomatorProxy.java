@@ -31,7 +31,6 @@ import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.identifier.GuiElementMetaData;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.automator.GuiAutomator;
-import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.enums.GuiElementType;
 

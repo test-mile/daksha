@@ -19,18 +19,14 @@
 
 package daksha.ex.testng.parameters;
 
-import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
-import daksha.tpi.enums.Browser;
-import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;

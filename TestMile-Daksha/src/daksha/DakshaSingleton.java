@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
@@ -12,22 +11,15 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
 
-import daksha.core.batteries.config.BaseConfiguration;
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
-import daksha.core.batteries.config.ContextConfiguration;
-import daksha.core.batteries.container.ValueContainer;
 import daksha.core.batteries.context.CommonTestContext;
 import daksha.core.batteries.context.DakshaTestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
-import daksha.core.guiauto.enums.OSType;
 import daksha.core.guiauto.namestore.GuiNameStore;
 import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.batteries.console.Console;
-import daksha.tpi.batteries.container.Value;
-import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public enum DakshaSingleton {
 	INSTANCE;

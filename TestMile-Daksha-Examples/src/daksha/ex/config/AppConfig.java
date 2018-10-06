@@ -19,8 +19,6 @@
 
 package daksha.ex.config;
 
-import java.io.File;
-
 public class AppConfig {
 	public static String WP_URL = "http://192.168.56.101";
 	public static String WP_ADMIN_URL = WP_URL + "/wp-admin";

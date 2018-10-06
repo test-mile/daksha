@@ -1,7 +1,5 @@
 package daksha.tpi.guiauto.maker.selenium;
 
-import java.io.File;
-
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;

@@ -26,7 +26,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import daksha.Daksha;
 import daksha.core.guiauto.enums.OSType;
 import daksha.ex.config.AppConfig;
 import daksha.tpi.CentralTestContext;

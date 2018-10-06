@@ -5,8 +5,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import daksha.Daksha;
-import daksha.core.batteries.config.Configuration;
-import daksha.core.batteries.config.ContextConfiguration;
 import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 

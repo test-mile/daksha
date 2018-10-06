@@ -5,7 +5,6 @@ import java.util.Map;
 
 import daksha.Daksha;
 import daksha.core.batteries.config.ContextConfiguration;
-import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
 
 public class DakshaTestContext extends AbstractTestContext implements TestContext {

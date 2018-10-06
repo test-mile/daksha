@@ -19,9 +19,7 @@
 package daksha.core.guiauto.identifier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import daksha.Daksha;
 import daksha.core.guiauto.enums.LocateBy;

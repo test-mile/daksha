@@ -3,7 +3,6 @@ package daksha.core.batteries.config;
 import java.io.File;
 import java.util.Map;
 
-import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;

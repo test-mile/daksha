@@ -1,15 +1,9 @@
 package daksha.core.batteries.context;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import daksha.Daksha;
 import daksha.DakshaSingleton;
-import daksha.core.batteries.config.BaseConfiguration;
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.tpi.CentralTestContext;
-import daksha.tpi.TestContext;
 
 public class CommonTestContext extends AbstractTestContext implements CentralTestContext {
 

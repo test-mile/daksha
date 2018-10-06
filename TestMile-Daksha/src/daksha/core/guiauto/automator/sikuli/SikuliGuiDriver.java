@@ -27,7 +27,6 @@ import daksha.core.guiauto.enums.GuiDriverEngine;
 import daksha.core.guiauto.enums.GuiElementLoaderType;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
-import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public class SikuliGuiDriver extends AbstractGuiAutomator<Screen,Match>{
 	

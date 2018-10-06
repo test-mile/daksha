@@ -25,7 +25,6 @@ import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
-import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 
