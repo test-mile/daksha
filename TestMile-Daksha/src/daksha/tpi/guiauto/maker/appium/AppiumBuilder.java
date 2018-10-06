@@ -124,9 +124,9 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 		capabilities.setCapability("newCommandTimeout", "60000");
 		
 		if (GuiAutomationContext.isMobileNativeContext(this.getAutomationContext())) {
-			setMobileWebCapabilities(platform, capabilities);			
-		} else if (GuiAutomationContext.isMobileWebContext(this.getAutomationContext())) {
 			setMobileNativeCapabilities(platform, capabilities);
+		} else if (GuiAutomationContext.isMobileWebContext(this.getAutomationContext())) {
+			setMobileWebCapabilities(platform, capabilities);
 		} else {
 			throwUnsupportedAutomationContextException(this.getAutomationContext());
 		}
