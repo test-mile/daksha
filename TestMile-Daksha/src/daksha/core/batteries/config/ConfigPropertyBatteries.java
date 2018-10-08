@@ -191,7 +191,7 @@ public class ConfigPropertyBatteries {
 
 	public static ConfigProperty createSimpleProperty(String propPath, Value value) throws Exception {
 		ConfigPropertyBuilder builder = new ConfigPropertyBuilder();
-		return builder.option(propPath).text("NOT_SET").value(value).build();
+		return builder.option(propPath).overridable(true).visible(true).value(value).build();
 	}
 
 }

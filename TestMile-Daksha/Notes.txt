@@ -48,3 +48,8 @@ Later I am planning to support auto-download the correct binary on-the-fly as an
 
 
 guiauto_context. As of now no-automatic decisions are taken based on this although you can retrieve its value and do anything you want in your code. This value is internally used by various automator classes for mostly validation purposes. Current options as WEB (equivalent of DESKTOP_WEB), NATIVE (equivalent of DESKTOP_NATIVE), SCREEN (used for Sikuli integration - image based recognition), ANDROID_WEB, IOS_WEB, ANDROID_NATIVE, IOS_NATIVE, GENERIC. The last one is experimental stuff which is more future oriented and nothing to worry about as of now.
+
+Daksha now supports setting of custom properties.
+DakshaOptions can be got using context.getOptionValue(DakshaOption.<option>) as well as context.getOptionValue(under_scored_name) as well as context.getOptionValue(dotted.name). The names are case insensitive.
+
+Custom user props can be got using context.getOptionValue(under_scored_name) as well as context.getOptionValue(dotted.name). These are case-insensitive.

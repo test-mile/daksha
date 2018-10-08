@@ -24,7 +24,7 @@ import daksha.tpi.batteries.console.Console;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.0.5-b";
+	private String version = "1.0.6-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender

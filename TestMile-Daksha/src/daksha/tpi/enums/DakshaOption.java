@@ -3,6 +3,7 @@ package daksha.tpi.enums;
 public enum DakshaOption {
 	// Daksha Directories
 	ROOT_DIR,
+//	PROJECT_CONF_FILE,
 	LOG_DIR,
 	TOOLS_DIR,
 	APPS_DIR,

@@ -47,7 +47,11 @@ public class BaseConfiguration implements Configuration {
 	 } 
 	
 	public Value value(String option) throws Exception {
-		return this.options.get(Configuration.convertOptionToPath(option)).value();
+		try {
+			return this.options.get(Configuration.convertOptionToPath(option)).value();
+		} catch (NullPointerException e) {
+			return Configuration.notSetValue;
+		}
 	}
 	
 	public Value value(DakshaOption option) throws Exception {

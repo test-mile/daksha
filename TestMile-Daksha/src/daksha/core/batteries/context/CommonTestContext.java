@@ -5,7 +5,7 @@ import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.tpi.CentralTestContext;
 
-public class CommonTestContext extends AbstractTestContext implements CentralTestContext {
+public class CommonTestContext extends BaseTestContext implements CentralTestContext {
 
 	public CommonTestContext(CentralConfiguration config) throws Exception {	
 		super("central");

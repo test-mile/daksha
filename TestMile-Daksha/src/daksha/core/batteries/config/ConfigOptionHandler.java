@@ -136,6 +136,11 @@ public class ConfigOptionHandler {
 		}
 	}
 	
+	private void processCustomUserOption(Map<String, ConfigProperty> options, String propPath, StringValue value) throws Exception {
+		ConfigProperty prop = ConfigPropertyBatteries.createSimpleProperty(propPath, value);
+		options.put(propPath, prop);
+	}
+	
 	private StringValue asStringValue(String str) {
 		return new StringValue(str);
 	}
@@ -282,7 +287,7 @@ public class ConfigOptionHandler {
 				break;
 			}
 		} else {
-			// Treat as user config
+			processCustomUserOption(options, propPath, asStringValue(value));
 		}
 	}
 

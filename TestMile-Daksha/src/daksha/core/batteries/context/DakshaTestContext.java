@@ -7,7 +7,7 @@ import daksha.Daksha;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.tpi.TestContext;
 
-public class DakshaTestContext extends AbstractTestContext implements TestContext {
+public class DakshaTestContext extends BaseTestContext implements TestContext {
 	protected String name;
 	
 	public DakshaTestContext(String name, Map<String, String> map) throws Exception {

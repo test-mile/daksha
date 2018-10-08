@@ -14,12 +14,12 @@ import daksha.tpi.enums.Browser;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
-public class AbstractTestContext implements TestContext {
+public abstract class BaseTestContext implements TestContext {
 	protected String name;
 	protected ContextConfiguration config;
 	private boolean frozen = false;
 
-	public AbstractTestContext(String name) {
+	public BaseTestContext(String name) {
 		this.name = name;
 	}
 	
@@ -84,6 +84,11 @@ public class AbstractTestContext implements TestContext {
 
 	@Override
 	public Value getOptionValue(DakshaOption option) throws Exception {
+		return this.config.value(option);
+	}
+	
+	@Override
+	public Value getOptionValue(String option) throws Exception {
 		return this.config.value(option);
 	}
 

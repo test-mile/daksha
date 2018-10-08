@@ -13,8 +13,10 @@ import daksha.tpi.guiauto.enums.GuiAutomationContext;
 public interface TestContext {
 	
 	void add(DakshaOption option, String value) throws Exception;
-
 	Map<String, ConfigProperty> asMap() throws Exception;
+	
+	Value getOptionValue(DakshaOption option) throws Exception;
+	Value getOptionValue(String string) throws Exception;
 
 	String getName();
 
@@ -36,8 +38,6 @@ public interface TestContext {
 	String getBrowerVersion() throws Exception;
 
 	String getTestRunEnvName() throws Exception;
-
-	Value getOptionValue(DakshaOption option) throws Exception;
 
 	String getScreenshotsDir() throws Exception;
 

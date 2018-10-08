@@ -28,6 +28,7 @@ public class CentralConfiguration extends BaseConfiguration{
 	
 	private void populateDefaults() throws Exception {
 		this.add(DakshaOption.ROOT_DIR,  this.rootDir);
+		this.add("project_conf_file",  this.value(DakshaOption.ROOT_DIR) + File.separator + "config" + File.separator + "project.conf");
 		this.add(DakshaOption.LOG_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "log");
 		this.add(DakshaOption.TOOLS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "tools");
 		this.add(DakshaOption.APPS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "apps");
