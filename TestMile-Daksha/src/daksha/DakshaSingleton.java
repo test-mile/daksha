@@ -24,7 +24,7 @@ import daksha.tpi.batteries.console.Console;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.0.4-b";
+	private String version = "1.0.5-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
@@ -33,10 +33,16 @@ public enum DakshaSingleton {
 	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
 	private GuiNameStore uiRep = GuiNameStore.INSTANCE;
 	private static String defString = "default";
+	private String rootDir = null;
 	 
 	public CentralTestContext init(String rootDir) throws Exception {
+		this.rootDir = rootDir;
 		centralTestContext = new CommonTestContext(new CentralConfiguration(rootDir));
 		return centralTestContext;
+	}
+	
+	public String getRootDir() {
+		return rootDir;
 	}
 	
 	public void actOnFrozenCentralContext() throws Exception {
@@ -123,4 +129,5 @@ public enum DakshaSingleton {
 		this.setConsoleLogger(consoleLevel);
 		this.setFileLogger(fileLevel);
 	}
+
 }

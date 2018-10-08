@@ -24,5 +24,10 @@ public class NotSetValue extends AbstractValue {
 	public boolean isNull() {
 		return true;
 	}
+	
+	@Override
+	public boolean isNotSet() {
+		return true;
+	}
 
 }

@@ -2,6 +2,7 @@ package daksha.tpi;
 
 import java.util.Map;
 
+import daksha.core.batteries.config.ConfigProperty;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.batteries.container.Value;
@@ -13,7 +14,7 @@ public interface TestContext {
 	
 	void add(DakshaOption option, String value) throws Exception;
 
-	Map<DakshaOption, Value> asMap() throws Exception;
+	Map<String, ConfigProperty> asMap() throws Exception;
 
 	String getName();
 

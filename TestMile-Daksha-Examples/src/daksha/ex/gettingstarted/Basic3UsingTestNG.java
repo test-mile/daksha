@@ -34,18 +34,20 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class Basic3UsingTestNG extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void tweakCentralOptions(TestContext centralContext) throws Exception {
+	@Override
+	protected void tweakCentralContext(TestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
+	}
+
+	@Override
+	protected void tweakTestContext(TestContext testContext) throws Exception {
+		testContext.setBrowserType(Browser.HTML_UNIT);
 	}
 	
 	@BeforeClass
 	public void createAutomator() throws Exception {
-		// Get test context
-		TestContext context = this.getContext();
-		context.setBrowserType(Browser.HTML_UNIT);
-		
 		// Create Selenium automator with context options
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(this.getContext());
 		threadWiseAutomator.set(builder.build());
 	}
 	

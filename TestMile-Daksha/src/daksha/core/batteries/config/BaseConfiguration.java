@@ -1,15 +1,13 @@
 package daksha.core.batteries.config;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import daksha.core.batteries.container.OptionContainer;
-import daksha.core.batteries.container.ValueContainer;
 import daksha.tpi.batteries.container.Value;
 import daksha.tpi.enums.DakshaOption;
-import daksha.tpi.sysauto.utils.DataUtils;
 
 public class BaseConfiguration implements Configuration {
-	private ValueContainer<DakshaOption> options = new OptionContainer();
+	private Map<String, ConfigProperty> options = new HashMap<String, ConfigProperty>();
 	
 	 public BaseConfiguration() throws Exception {
 	 }
@@ -22,27 +20,23 @@ public class BaseConfiguration implements Configuration {
 	 
 	 public BaseConfiguration(Configuration conf) throws Exception {
 		 if (conf != null) {
-			 options.add(conf.getAllOptions());
+			 options.putAll(conf.getAllOptions());
 		 }
 	 }
-	 
-		private DakshaOption convertPropertyToOption(String strOption) {
-			return DakshaOption.valueOf(DataUtils.join(DataUtils.split(strOption, "\\."), "_").toUpperCase());
-		}
 
 	@Override
-	public ValueContainer<DakshaOption> getAllOptions(){
+	public Map<String, ConfigProperty> getAllOptions(){
 		 return this.options;
 	 }
 	 
 	@Override
-	public void add(DakshaOption option, String v) throws Exception {
-		 options.add(option, v); 
+	public void add(DakshaOption option, String value) throws Exception {
+		optionsHandler.process(options, option, value);
 	 } 
 	
 	@Override
-	public void add(String k, String v) throws Exception {
-		 options.add(convertPropertyToOption(k), v); 
+	public void add(String option, String value) throws Exception {
+		optionsHandler.process(options, option, value); 
 	 } 
 	 
 	@Override
@@ -52,7 +46,16 @@ public class BaseConfiguration implements Configuration {
 		 } 
 	 } 
 	
-	public Value value(DakshaOption option) throws Exception {
-		return this.options.value(option);
+	public Value value(String option) throws Exception {
+		return this.options.get(Configuration.convertOptionToPath(option)).value();
 	}
+	
+	public Value value(DakshaOption option) throws Exception {
+		try {
+			return this.options.get(Configuration.convertOptionToPath(option)).value();
+		} catch (NullPointerException e) {
+			return Configuration.notSetValue;
+		}
+	}
+	
 }

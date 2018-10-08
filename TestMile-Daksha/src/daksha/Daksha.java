@@ -24,7 +24,6 @@ import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
 import daksha.core.batteries.config.Configuration;
-import daksha.core.batteries.context.DakshaTestContext;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.CentralTestContext;
@@ -48,8 +47,12 @@ public class Daksha {
 		return core.getCentralContext();		
 	}
 	
-	public static void registerContext(DakshaTestContext context) throws Exception {
+	public static void registerContext(TestContext context) throws Exception {
 		core.registerContext(context);
+	}
+	
+	public static String getRootDir() {
+		return core.getRootDir();
 	}
 	
 	public static TestContext getDefaultTestContext() throws Exception{

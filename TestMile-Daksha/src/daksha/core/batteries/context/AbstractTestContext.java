@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import daksha.Daksha;
+import daksha.core.batteries.config.ConfigProperty;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.core.guiauto.enums.OSType;
@@ -43,8 +44,8 @@ public class AbstractTestContext implements TestContext {
 	}
 
 	@Override
-	public Map<DakshaOption, Value> asMap() throws Exception {
-		return this.config.getAllOptions().items();
+	public Map<String, ConfigProperty> asMap() throws Exception {
+		return this.config.getAllOptions();
 	}
 
 	@Override

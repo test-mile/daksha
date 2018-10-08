@@ -25,7 +25,6 @@ import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
@@ -35,7 +34,7 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class AppUrlBasedNavigation extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralContext(TestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	

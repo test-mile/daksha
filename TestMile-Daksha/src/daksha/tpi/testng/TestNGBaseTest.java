@@ -20,11 +20,15 @@ public class TestNGBaseTest {
 		} else {
 			centralContext = Daksha.init(rootDir);
 		}
-		this.tweakCentralOptions(centralContext);
+		this.tweakCentralContext(centralContext);
 		centralContext.freeze();
 	}
 	
-	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralContext(TestContext centralContext) throws Exception {
+		// Proceed with defaults if not overriden.
+	}
+	
+	protected void tweakTestContext(TestContext testContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -37,9 +41,12 @@ public class TestNGBaseTest {
 	public void initContext(ITestContext testContext) throws Exception {
 		if (testContext.getName().toLowerCase().equals("default test")) {
 			this.testContextName.set("default");
+			this.tweakTestContext(Daksha.getDefaultTestContext());
 		} else {
 			this.testContextName.set(testContext.getName());
-			Daksha.registerContext(new TestNGContext(testContext));
+			TestContext testNGContext = new TestNGContext(testContext);
+			this.tweakTestContext(testNGContext);
+			Daksha.registerContext(testNGContext);
 		}
 	}
 	

@@ -29,7 +29,6 @@ import org.testng.annotations.Test;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
 import daksha.ex.config.AppConfig;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;
@@ -40,7 +39,7 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void tweakCentralOptions(CentralTestContext centralContext) throws Exception {
+	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
