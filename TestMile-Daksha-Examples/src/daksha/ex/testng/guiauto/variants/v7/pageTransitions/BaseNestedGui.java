@@ -1,7 +1,6 @@
 package daksha.ex.testng.guiauto.variants.v7.pageTransitions;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import daksha.ex.config.AppConfig;
 
 public abstract class BaseNestedGui extends AbstractWordPressGui{
 	private LeftNavigation leftNav = null;
@@ -32,6 +31,6 @@ public abstract class BaseNestedGui extends AbstractWordPressGui{
 	}
 	
 	public void logout() throws Exception{
-		this.goTo(AppConfig.WP_LOGOUT_URL);
+		this.goTo(this.getTestContext().getValue("wp.logout.url").asString());
 	}
 }

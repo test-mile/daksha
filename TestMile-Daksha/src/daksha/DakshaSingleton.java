@@ -11,15 +11,23 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
 
+import com.typesafe.config.ConfigException;
+import com.typesafe.config.ConfigObject;
+
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.context.CommonTestContext;
 import daksha.core.batteries.context.DakshaTestContext;
+import daksha.core.batteries.hocon.HoconConfigObjectReader;
+import daksha.core.batteries.hocon.HoconFileReader;
+import daksha.core.batteries.hocon.HoconReader;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.namestore.GuiNameStore;
 import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.batteries.console.Console;
+import daksha.tpi.enums.DakshaOption;
+import daksha.tpi.sysauto.utils.SystemUtils;
 
 public enum DakshaSingleton {
 	INSTANCE;
@@ -38,7 +46,42 @@ public enum DakshaSingleton {
 	public CentralTestContext init(String rootDir) throws Exception {
 		this.rootDir = rootDir;
 		centralTestContext = new CommonTestContext(new CentralConfiguration(rootDir));
+		updateFromProjectConf(centralTestContext);
 		return centralTestContext;
+	}
+	
+	private void updateFromProjectConf(TestContext centralContext) throws Exception {
+		// Project's Daksha config file
+		String dakshConfPath = centralContext.getValue(DakshaOption.PROJECT_CONF_FILE).asString();
+
+		HoconReader reader = new HoconFileReader(dakshConfPath);
+		reader.process();
+		
+		try{
+			ConfigObject dakshOptObj = reader.getConfig().getObject("DakshaOptions");
+			HoconReader dakshaOptReader = new HoconConfigObjectReader(dakshOptObj);
+			dakshaOptReader.process();
+			try{
+				centralContext.addAll(dakshaOptReader.getProperties());
+			} catch (Exception e){
+				System.err.println("Fatal Error in processing of Arjuna options in central configuration file");
+				System.err.println("Please check the following exception details and modify the configuration.");
+				e.printStackTrace();
+				SystemUtils.exit();
+			}
+		} catch (ConfigException e){
+			System.out.println(e);
+			// config may not be defined. It's ok. It's optional
+		}
+		
+		try{
+			ConfigObject userOptions = reader.getConfig().getObject("UserOptions");
+			HoconReader userOptionsReader = new HoconConfigObjectReader(userOptions);
+			userOptionsReader.process();
+			centralContext.addAll(userOptionsReader.getProperties());
+		} catch (ConfigException e){
+			// userOptions may not be defined. It's ok. It's optional
+		}		
 	}
 	
 	public String getRootDir() {

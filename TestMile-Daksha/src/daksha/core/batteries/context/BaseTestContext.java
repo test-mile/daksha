@@ -38,9 +38,23 @@ public abstract class BaseTestContext implements TestContext {
 	}
 
 	@Override
-	public void add(DakshaOption option, String value) throws Exception {
+	public void setOption(DakshaOption option, String value) throws Exception {
 		validateFrozen();
 		this.config.add(option, value);
+	}
+	
+	@Override
+	public void setOption(String option, String value) throws Exception {
+		validateFrozen();
+		this.config.add(option, value);
+	}
+	
+	@Override
+	public void addAll(Map<String, Value> properties) throws Exception {
+		validateFrozen();
+		for (String name: properties.keySet()) {
+			this.config.add(name, properties.get(name));
+		}
 	}
 
 	@Override
@@ -60,19 +74,19 @@ public abstract class BaseTestContext implements TestContext {
 
 	@Override
 	public GuiAutomationContext getGuiAutoContext() throws Exception {
-		return GuiAutomationContext.valueOf(getOptionValue(DakshaOption.GUIAUTO_CONTEXT).asString());
+		return GuiAutomationContext.valueOf(getValue(DakshaOption.GUIAUTO_CONTEXT).asString());
 	}
 
 	@Override
 	public void setAutomationContext(GuiAutomationContext context) throws Exception {
-		add(DakshaOption.GUIAUTO_CONTEXT, context.toString());
+		setOption(DakshaOption.GUIAUTO_CONTEXT, context.toString());
 	}
 
 	@Override
 	public String getAppDir() throws Exception {
-		GuiAutomationContext aContext = getOptionValue(DakshaOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
-		Value testOS = this.getOptionValue(DakshaOption.TESTRUN_TARGET_PLATFORM);
-		return getOptionValue(DakshaOption.APPS_DIR).asString() 
+		GuiAutomationContext aContext = getValue(DakshaOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
+		Value testOS = this.getValue(DakshaOption.TESTRUN_TARGET_PLATFORM);
+		return getValue(DakshaOption.APPS_DIR).asString() 
 				+ File.separator 
 				+ testOS.asString().toLowerCase() + File.separator; 
 	}
@@ -83,28 +97,28 @@ public abstract class BaseTestContext implements TestContext {
 	}
 
 	@Override
-	public Value getOptionValue(DakshaOption option) throws Exception {
+	public Value getValue(DakshaOption option) throws Exception {
 		return this.config.value(option);
 	}
 	
 	@Override
-	public Value getOptionValue(String option) throws Exception {
+	public Value getValue(String option) throws Exception {
 		return this.config.value(option);
 	}
 
 	@Override
 	public void setBrowserType(Browser browser) throws Exception {
-		this.add(DakshaOption.BROWSER_NAME, browser.toString());
+		this.setOption(DakshaOption.BROWSER_NAME, browser.toString());
 	}
 
 	@Override
 	public String getBrowerVersion() throws Exception {
-		return getOptionValue(DakshaOption.BROWSER_VERSION).asString();
+		return getValue(DakshaOption.BROWSER_VERSION).asString();
 	}
 
 	@Override
 	public String getBrowserBinaryPath() throws Exception {
-		return getOptionValue(DakshaOption.BROWSER_BIN_PATH).asString();
+		return getValue(DakshaOption.BROWSER_BIN_PATH).asString();
 	}
 
 	private String modifyExeNameForWindows(String name) {
@@ -117,7 +131,7 @@ public abstract class BaseTestContext implements TestContext {
 
 	@Override
 	public String getSeleniumDriverPath(Browser browser) throws Exception {
-		Value driverPathValue = getOptionValue(DakshaOption.SELENIUM_DRIVER_PATH);
+		Value driverPathValue = getValue(DakshaOption.SELENIUM_DRIVER_PATH);
 		if (!driverPathValue.isNotSet()) {
 			return driverPathValue.asString();
 		}
@@ -126,8 +140,8 @@ public abstract class BaseTestContext implements TestContext {
 		Daksha.getSeleniumDriverPathSystemProperty(browser);
 		
 		// Construct and return the path
-		String driversDir = getOptionValue(DakshaOption.SELENIUM_DRIVERS_DIR).asString();
-		String os = getOptionValue(DakshaOption.TESTRUN_TARGET_PLATFORM).asString().toLowerCase();
+		String driversDir = getValue(DakshaOption.SELENIUM_DRIVERS_DIR).asString();
+		String os = getValue(DakshaOption.TESTRUN_TARGET_PLATFORM).asString().toLowerCase();
 		String binName = modifyExeNameForWindows(Daksha.getDriverName(browser));
 		String driverPath = driversDir + File.separator + os + File.separator + binName;
 		return driverPath;
@@ -135,27 +149,32 @@ public abstract class BaseTestContext implements TestContext {
 
 	@Override
 	public String getTestRunEnvName() throws Exception {
-		return getOptionValue(DakshaOption.TESTRUN_ENVIRONMENT).asString();
+		return getValue(DakshaOption.TESTRUN_ENVIRONMENT).asString();
 	}
 
 	@Override
 	public String getScreenshotsDir() throws Exception {
-		return getOptionValue(DakshaOption.SCREENSHOTS_DIR).asString();
+		return getValue(DakshaOption.SCREENSHOTS_DIR).asString();
 	}
 	
 	@Override
 	public String getLogDir() throws Exception {
-		return getOptionValue(DakshaOption.LOG_DIR).asString();
+		return getValue(DakshaOption.LOG_DIR).asString();
 	}
 
 	@Override
 	public void setTargetPlatform(OSType osType) throws Exception {
-		this.add(DakshaOption.TESTRUN_TARGET_PLATFORM, osType.toString());
+		this.setOption(DakshaOption.TESTRUN_TARGET_PLATFORM, osType.toString());
+	}
+	
+	@Override
+	public void setGuiAutoMaxWaitTime(int seconds) throws Exception {
+		this.setOption(DakshaOption.GUIAUTO_MAX_WAIT, String.valueOf(seconds));
 	}
 
 	@Override
 	public int getGuiAutoMaxWaitTime() throws Exception {
-		return getOptionValue(DakshaOption.GUIAUTO_MAX_WAIT).asInt();
+		return getValue(DakshaOption.GUIAUTO_MAX_WAIT).asInt();
 	}
 
 }

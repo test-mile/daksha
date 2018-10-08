@@ -29,7 +29,7 @@ public class UnsupportedRepresentationException extends Exception {
 
 	// Parameterless Constructor
 	public <T extends Value> UnsupportedRepresentationException(String klassUserFriendlyName, String method, String strSourceValue, String targetValueType) {
-		super(String.format("Value.%s(): Can not represent %s value containing >>%s<< as %s.", method, strSourceValue, klassUserFriendlyName, targetValueType));
+		super(String.format("Value.%s(): Can not represent value >>%s<< of type >>%s<< as %s.", method, strSourceValue, klassUserFriendlyName, targetValueType));
 	}
 
 }

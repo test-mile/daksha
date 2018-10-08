@@ -26,7 +26,6 @@ import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
-import daksha.ex.config.AppConfig;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
@@ -36,18 +35,18 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
+	protected void tweakTestContext(TestContext testContext) throws Exception {
+		testContext.setAutomationContext(GuiAutomationContext.ANDROID_NATIVE);
 	}
 	
 	@BeforeClass
 	public void createAutomator(ITestContext testNGContext) throws Exception {
 		TestContext context = this.getContext();
-		context.setAutomationContext(GuiAutomationContext.ANDROID_NATIVE);
-		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(context);
+		
+		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(this.getContext());
 		builder.appPath(context.getAppDir() + "WordPress.apk");
-		builder.appPackage(AppConfig.APP_PKG);
-		builder.appActivity(AppConfig.APP_ACTIVITY);
+		builder.appPackage(context.getValue("app.pkg").asString());
+		builder.appActivity(context.getValue("app.activity").asString());
 		this.threadWiseAutomator.set(builder.build());
 	}
 	
@@ -56,10 +55,10 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
 		automator.elementWithXPath("//android.widget.Button[@text='LOG IN']").click();
 		automator.elementWithXPath("//android.widget.TextView[contains(@text,'your site address.')]").click();
-		automator.elementWithXPath("//android.widget.EditText[@text='Site address']").enterText(AppConfig.WP_URL);
+		automator.elementWithXPath("//android.widget.EditText[@text='Site address']").enterText(this.getContext().getValue("wp.admin.url").asString());
 		automator.elementWithXPath("//android.widget.Button[@text='NEXT']").click();
-		automator.elementWithXPath("//android.widget.EditText[@text='Username']").enterText(AppConfig.USER_NAME);
-		automator.elementWithXPath("//android.widget.EditText[@text='Password']").enterText(AppConfig.PASSWORD);
+		automator.elementWithXPath("//android.widget.EditText[@text='Username']").enterText(this.getContext().getValue("wp.username").asString());
+		automator.elementWithXPath("//android.widget.EditText[@text='Password']").enterText(this.getContext().getValue("wp.password").asString());
 		automator.elementWithXPath("//android.widget.Button[@text='NEXT']").click();	
 		automator.elementWithXPath("//android.widget.Button[@text='CONTINUE']").click();
 	}

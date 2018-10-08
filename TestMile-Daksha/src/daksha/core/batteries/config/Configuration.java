@@ -15,8 +15,10 @@ public interface Configuration {
 	void add(String k, String v) throws Exception;
 	
 	void add(DakshaOption option, String v) throws Exception;
+	
+	void add(String option, Value value) throws Exception;
 
-	void add(Map<String, String> map) throws Exception;
+	void addAll(Map<String, String> map) throws Exception;
 
 	Value value(DakshaOption option) throws Exception;
 	

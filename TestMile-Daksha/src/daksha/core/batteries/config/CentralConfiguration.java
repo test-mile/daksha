@@ -22,13 +22,13 @@ public class CentralConfiguration extends BaseConfiguration{
 	 } 
 	 
 	@Override
-	public void add(Map<String,String> map) throws Exception {
-		super.add(map);
+	public void addAll(Map<String,String> map) throws Exception {
+		super.addAll(map);
 	 } 
 	
 	private void populateDefaults() throws Exception {
 		this.add(DakshaOption.ROOT_DIR,  this.rootDir);
-		this.add("project_conf_file",  this.value(DakshaOption.ROOT_DIR) + File.separator + "config" + File.separator + "project.conf");
+		this.add(DakshaOption.PROJECT_CONF_FILE,  this.value(DakshaOption.ROOT_DIR) + File.separator + "config" + File.separator + "daksha.conf");
 		this.add(DakshaOption.LOG_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "log");
 		this.add(DakshaOption.TOOLS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "tools");
 		this.add(DakshaOption.APPS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "apps");

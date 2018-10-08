@@ -136,7 +136,7 @@ public class ConfigOptionHandler {
 		}
 	}
 	
-	private void processCustomUserOption(Map<String, ConfigProperty> options, String propPath, StringValue value) throws Exception {
+	private void processCustomUserOption(Map<String, ConfigProperty> options, String propPath, Value value) throws Exception {
 		ConfigProperty prop = ConfigPropertyBatteries.createSimpleProperty(propPath, value);
 		options.put(propPath, prop);
 	}
@@ -145,150 +145,157 @@ public class ConfigOptionHandler {
 		return new StringValue(str);
 	}
 	
-	public void process(Map<String, ConfigProperty> options, String option, String value) throws Exception{
+	public void process(Map<String, ConfigProperty> options, String option, Value value) throws Exception{
 		String propPath = Configuration.convertOptionToPath(option);
 		if (pathToEnumMap.containsKey(propPath)){
 			switch(pathToEnumMap.get(propPath)){
 			// Daksha Directories
 			case ROOT_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Root Directory", true);
+				processCoreDirOption(options, propPath, value, "Root Directory", true);
+				break;
+			case PROJECT_CONF_FILE:
+				processCoreDirOption(options, propPath, value, "File Path for project level daksha.conf file.", true);
 				break;
 			case LOG_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Log Directory", true);
+				processCoreDirOption(options, propPath, value, "Log Directory", true);
 				break;
 			case TOOLS_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Tools Directory", true);
+				processCoreDirOption(options, propPath, value, "Tools Directory", true);
 				break;
 			case APPS_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Apps Directory", true);
+				processCoreDirOption(options, propPath, value, "Apps Directory", true);
 				break;
 			case GUIAUTO_NAMESPACE_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Gui Namespace Files Directory", true);
+				processCoreDirOption(options, propPath, value, "Gui Namespace Files Directory", true);
 				break;
 			case SCREENSHOTS_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Screenshots Directory", true);
+				processCoreDirOption(options, propPath, value, "Screenshots Directory", true);
 				break;
 
 			// Test Run
 			case TESTRUN_ENVIRONMENT:
-				processStringOption(options, propPath, asStringValue(value), "Test Run Environment Name", true);
+				processStringOption(options, propPath, value, "Test Run Environment Name", true);
 				break;
 			case TESTRUN_TARGET_PLATFORM:
-				processTargetPlatformOption(options, propPath, asStringValue(value), "Test Run Target Platform Version", true);
+				processTargetPlatformOption(options, propPath, value, "Test Run Target Platform Version", true);
 				break;
 			case TESTRUN_TARGET_PLATFORM_VERSION:
-				processStringOption(options, propPath, asStringValue(value), "Test Run Target Platform Version", true);
+				processStringOption(options, propPath, value, "Test Run Target Platform Version", true);
 				break;
 			
 			// Browser (Common)
 			case BROWSER_NAME:
-				processBrowserNameProperty(options, propPath, asStringValue(value), "Browser Name", true);
+				processBrowserNameProperty(options, propPath, value, "Browser Name", true);
 				break;
 			case BROWSER_VERSION:
-				processStringOption(options, propPath, asStringValue(value), "Browser Version", true);
+				processStringOption(options, propPath, value, "Browser Version", true);
 				break;
 			case BROWSER_MAXIMIZE:
-				processBooleanOption(options, propPath, asStringValue(value), "Should maximize browser?", true);
+				processBooleanOption(options, propPath, value, "Should maximize browser?", true);
 				break;
 			case BROWSER_DIM_WIDTH:
-				processIntOption(options, propPath, asStringValue(value), "Browser Width in Pixels", true);
+				processIntOption(options, propPath, value, "Browser Width in Pixels", true);
 				break;
 			case BROWSER_DIM_HEIGHT:
-				processIntOption(options, propPath, asStringValue(value), "Browser Height in Pixels", true);
+				processIntOption(options, propPath, value, "Browser Height in Pixels", true);
 				break;
 			case BROWSER_BIN_PATH:
-				processCoreDirOption(options, propPath, asStringValue(value), "Browser Binary Path", true);
+				processCoreDirOption(options, propPath, value, "Browser Binary Path", true);
 				break;
 			case BROWSER_MOBILE_PROXY_HOST:
-				processStringOption(options, propPath, asStringValue(value), "Mobile Web Browser Proxy Host Name", true);
+				processStringOption(options, propPath, value, "Mobile Web Browser Proxy Host Name", true);
 				break;
 			case BROWSER_MOBILE_PROXY_ON:
-				processBooleanOption(options, propPath, asStringValue(value), "Should enable proxy for Web Browser on Mobile?", true);
+				processBooleanOption(options, propPath, value, "Should enable proxy for Web Browser on Mobile?", true);
 				break;
 			case BROWSER_MOBILE_PROXY_PORT:
-				processIntOption(options, propPath, asStringValue(value), "Mobile Web Browser Proxy Port Number", true);
+				processIntOption(options, propPath, value, "Mobile Web Browser Proxy Port Number", true);
 				break;
 			case BROWSER_PC_PROXY_HOST:
-				processStringOption(options, propPath, asStringValue(value), "PC Web Browser Proxy Host Name", true);
+				processStringOption(options, propPath, value, "PC Web Browser Proxy Host Name", true);
 				break;
 			case BROWSER_PC_PROXY_ON:
-				processBooleanOption(options, propPath, asStringValue(value), "Should enable proxy for PC Web Browser?", true);
+				processBooleanOption(options, propPath, value, "Should enable proxy for PC Web Browser?", true);
 				break;
 			case BROWSER_PC_PROXY_PORT:
-				processIntOption(options, propPath, asStringValue(value), "PC Web Browser Proxy Port Number", true);
+				processIntOption(options, propPath, value, "PC Web Browser Proxy Port Number", true);
 				break;
 			
 			// Browser Specific
 			case FIREFOX_WINDOWNAME:
-				processStringOption(options, propPath, asStringValue(value), "Firefox Browser Window Name", true);
+				processStringOption(options, propPath, value, "Firefox Browser Window Name", true);
 				break;
 			case CHROME_WINDOWNAME:
-				processStringOption(options, propPath, asStringValue(value), "Chrome Browser Window Name", true);
+				processStringOption(options, propPath, value, "Chrome Browser Window Name", true);
 				break;
 			case SAFARI_WINDOWNAME:
-				processStringOption(options, propPath, asStringValue(value), "Safari Browser Window Name", true);
+				processStringOption(options, propPath, value, "Safari Browser Window Name", true);
 				break;
 			
 			// Application
 			case APP_URL:
-				processStringOption(options, propPath, asStringValue(value), "Web Application URL", true);
+				processStringOption(options, propPath, value, "Web Application URL", true);
 				break;
 			
 			// General Gui Automation
 			case GUIAUTO_CONTEXT:
-				processGuiAutoContextProperty(options, propPath, asStringValue(value), "Gui Automation Context", true);
+				processGuiAutoContextProperty(options, propPath, value, "Gui Automation Context", true);
 				break;
 			case GUIAUTO_SCROLL_PIXELS:
-				processIntOption(options, propPath, asStringValue(value), "Number of Pixels to Scroll", true);
+				processIntOption(options, propPath, value, "Number of Pixels to Scroll", true);
 				break;
 			case GUIAUTO_SWIPE_TOP:
-				processDoubleOption(options, propPath, asStringValue(value), "Top Mobile Screen Fraction for Swipe", true);
+				processDoubleOption(options, propPath, value, "Top Mobile Screen Fraction for Swipe", true);
 				break;
 			case GUIAUTO_SWIPE_BOTTOM:
-				processDoubleOption(options, propPath, asStringValue(value), "Bottom Mobile Screen Fraction for Swipe", true);
+				processDoubleOption(options, propPath, value, "Bottom Mobile Screen Fraction for Swipe", true);
 				break;
 			case GUIAUTO_SWIPE_MAX_WAIT:
-				processDoubleOption(options, propPath, asStringValue(value), "Max Wait Time for Mobile Swipe Action (seconds)", true);
+				processDoubleOption(options, propPath, value, "Max Wait Time for Mobile Swipe Action (seconds)", true);
 				break;
 			case GUIAUTO_MAX_WAIT:
-				processDoubleOption(options, propPath, asStringValue(value), "Max Wait Time for Gui Automation Element Finding and State Readiness (seconds)", true);
+				processDoubleOption(options, propPath, value, "Max Wait Time for Gui Automation Element Finding and State Readiness (seconds)", true);
 				break;
 			
 			// Mobile automation
 			case MOBILE_DEVICE_NAME:
-				processStringOption(options, propPath, asStringValue(value), "Mobile Device Name", true);
+				processStringOption(options, propPath, value, "Mobile Device Name", true);
 				break;
 			case MOBILE_DEVICE_UDID:
-				processStringOption(options, propPath, asStringValue(value), "Mobile Device UDID", true);
+				processStringOption(options, propPath, value, "Mobile Device UDID", true);
 				break;
 			case MOBILE_APP_FILE_PATH:
-				processCoreDirOption(options, propPath, asStringValue(value), "Mobile App File Path", true);
+				processCoreDirOption(options, propPath, value, "Mobile App File Path", true);
 				break;
 
 			// Selenium
 			case SELENIUM_DRIVERS_DIR:
-				processCoreDirOption(options, propPath, asStringValue(value), "Selenium Drivers Directory", true);
+				processCoreDirOption(options, propPath, value, "Selenium Drivers Directory", true);
 				break;
 			case SELENIUM_DRIVER_PATH:
-				processCoreDirOption(options, propPath, asStringValue(value), "Selenium Driver Path", true);
+				processCoreDirOption(options, propPath, value, "Selenium Driver Path", true);
 				break;
 
 			// Appium
 			case APPIUM_HUB_URL:
-				processStringOption(options, propPath, asStringValue(value), "Appiu Hub URL", true);
+				processStringOption(options, propPath, value, "Appiu Hub URL", true);
 				break;
 			case APPIUM_AUTO_LAUNCH:
-				processBooleanOption(options, propPath, asStringValue(value), "Should Daksha launch Appium?", true);
+				processBooleanOption(options, propPath, value, "Should Daksha launch Appium?", true);
 				break;
 			
 			// Image comparison
 			case IMAGE_COMPARISON_MIN_SCORE:
-				processDoubleOption(options, propPath, asStringValue(value), "Minimum Image Comparison Score to Consider Successful Match.", true);
+				processDoubleOption(options, propPath, value, "Minimum Image Comparison Score to Consider Successful Match.", true);
 				break;
 			}
 		} else {
-			processCustomUserOption(options, propPath, asStringValue(value));
+			processCustomUserOption(options, propPath, value);
 		}
+	}
+	
+	public void process(Map<String, ConfigProperty> options, String option, String value) throws Exception {
+		this.process(options, option, asStringValue(value));
 	}
 
 	public void process(Map<String, ConfigProperty> options, DakshaOption option, String value) throws Exception {

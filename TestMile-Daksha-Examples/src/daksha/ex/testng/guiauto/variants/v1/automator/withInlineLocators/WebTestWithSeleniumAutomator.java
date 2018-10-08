@@ -28,7 +28,6 @@ import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
-import daksha.ex.config.AppConfig;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;
@@ -38,10 +37,6 @@ import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
-	
-	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
-	}
 	
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
@@ -53,12 +48,12 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	@Test
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo(AppConfig.WP_ADMIN_URL);	
+		automator.goTo(this.getContext().getValue("wp.admin.url").asString());	
 		
 		GuiElement userTextBox = automator.elementWithId("user_login");
 		userTextBox.waitUntilPresent();
-		userTextBox.enterText(AppConfig.USER_NAME);
-		automator.elementWithId("user_pass").enterText(AppConfig.PASSWORD);
+		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
+		automator.elementWithId("user_pass").enterText(this.getContext().getValue("wp.password").asString());
 		automator.elementWithId("wp-submit").click();
 		
 		automator.elementWithCss(".dashicons-admin-post").hover();
@@ -102,7 +97,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 		
-		automator.goTo(AppConfig.WP_LOGOUT_URL);
+		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
 	@AfterClass

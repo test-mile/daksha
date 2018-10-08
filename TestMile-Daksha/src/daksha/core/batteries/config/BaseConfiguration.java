@@ -14,7 +14,7 @@ public class BaseConfiguration implements Configuration {
 	
 	 public BaseConfiguration(Map<String, String> map) throws Exception {
 		 if (map!= null) {
-			 add(map);
+			 addAll(map);
 		 }
 	 }
 	 
@@ -38,9 +38,14 @@ public class BaseConfiguration implements Configuration {
 	public void add(String option, String value) throws Exception {
 		optionsHandler.process(options, option, value); 
 	 } 
+
+	@Override
+	public void add(String option, Value value) throws Exception {
+		optionsHandler.process(options, option, value);
+	}
 	 
 	@Override
-	public void add(Map<String,String> map) throws Exception {
+	public void addAll(Map<String,String> map) throws Exception {
 		 for (String k : map.keySet()) {
 			 this.add(k, map.get(k));
 		 } 

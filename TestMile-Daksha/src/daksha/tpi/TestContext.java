@@ -12,11 +12,11 @@ import daksha.tpi.guiauto.enums.GuiAutomationContext;
 
 public interface TestContext {
 	
-	void add(DakshaOption option, String value) throws Exception;
+	void setOption(DakshaOption option, String value) throws Exception;
 	Map<String, ConfigProperty> asMap() throws Exception;
 	
-	Value getOptionValue(DakshaOption option) throws Exception;
-	Value getOptionValue(String string) throws Exception;
+	Value getValue(DakshaOption option) throws Exception;
+	Value getValue(String string) throws Exception;
 
 	String getName();
 
@@ -46,4 +46,10 @@ public interface TestContext {
 	void setTargetPlatform(OSType mac) throws Exception;
 
 	int getGuiAutoMaxWaitTime() throws Exception;
+	
+	void addAll(Map<String, Value> properties) throws Exception;
+	
+	void setOption(String option, String value) throws Exception;
+	
+	public void setGuiAutoMaxWaitTime(int seconds) throws Exception;
 }

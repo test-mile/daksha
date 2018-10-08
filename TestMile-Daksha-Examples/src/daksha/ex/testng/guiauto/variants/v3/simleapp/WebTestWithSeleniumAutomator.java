@@ -27,7 +27,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.enums.OSType;
-import daksha.ex.config.AppConfig;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;
@@ -55,12 +54,12 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	public void test() throws Exception{
 		Gui app = this.threadWiseApp.get();
 
-		app.goTo(AppConfig.WP_ADMIN_URL);	
+		app.goTo(this.getContext().getValue("wp.admin.url").asString());	
 
 		GuiElement userTextBox = app.element("LOGIN");
 		userTextBox.waitUntilPresent();
-		userTextBox.enterText(AppConfig.USER_NAME);
-		app.element("PASSWORD").enterText(AppConfig.PASSWORD);
+		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
+		app.element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
 		app.element("SUBMIT").click();		
 		app.waitForBody();
 		
@@ -95,7 +94,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 
-		app.goTo(AppConfig.WP_LOGOUT_URL);
+		app.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
 	@AfterClass

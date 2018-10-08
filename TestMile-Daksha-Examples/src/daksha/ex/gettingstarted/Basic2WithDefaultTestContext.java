@@ -33,7 +33,7 @@ public class Basic2WithDefaultTestContext{
 	public static void main (String args[]) throws Exception {
 		// Initialize and set central configuration
 		CentralTestContext centralContext = Daksha.init();
-		centralContext.setTargetPlatform(OSType.MAC);
+		centralContext.setGuiAutoMaxWaitTime(30);
 		centralContext.freeze();
 		
 		// Get default test context. This has the same values as central context

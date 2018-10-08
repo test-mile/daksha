@@ -32,7 +32,7 @@ public class Basic1WithCentralTestContext{
 	public static void main (String args[]) throws Exception {
 		// Initialize and set central configuration
 		CentralTestContext centralContext = Daksha.init();
-		centralContext.setTargetPlatform(OSType.MAC);
+		centralContext.setGuiAutoMaxWaitTime(30);
 		centralContext.setBrowserType(Browser.HTML_UNIT);
 		centralContext.freeze();
 		// Central Context can not be modified after this point

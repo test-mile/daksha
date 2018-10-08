@@ -27,7 +27,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.enums.OSType;
-import daksha.ex.config.AppConfig;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;
@@ -38,10 +37,6 @@ import daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Gui> threadWiseHome = new ThreadLocal<Gui>();
-	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
-	}
 	
 	@BeforeClass
 	public void createAutomator(ITestContext testContext) throws Exception {
@@ -55,12 +50,12 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	public void test() throws Exception{
 		Gui gui = this.threadWiseHome.get();
 
-		gui.goTo(AppConfig.WP_ADMIN_URL);	
+		gui.goTo(this.getContext().getValue("wp.admin.url").asString());	
 
 		GuiElement userTextBox = gui.element("LOGIN");
 		userTextBox.waitUntilPresent();
-		userTextBox.enterText(AppConfig.USER_NAME);
-		gui.element("PASSWORD").enterText(AppConfig.PASSWORD);
+		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
+		gui.element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
 		gui.element("SUBMIT").click();		
 		gui.waitForBody();
 		
@@ -99,7 +94,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 
-		gui.goTo(AppConfig.WP_LOGOUT_URL);
+		gui.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
 	@AfterClass

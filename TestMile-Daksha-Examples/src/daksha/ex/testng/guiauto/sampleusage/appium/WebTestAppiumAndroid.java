@@ -28,7 +28,6 @@ import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
-import daksha.ex.config.AppConfig;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;
@@ -40,14 +39,14 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
-	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
+	protected void tweakTestContext(TestContext testContext)  throws Exception {
+		testContext.setAutomationContext(GuiAutomationContext.ANDROID_WEB);
 	}
 	
 	@BeforeClass
 	public void createAutomator(ITestContext testNGContext) throws Exception {
 		TestContext context = this.getContext();
-		context.setAutomationContext(GuiAutomationContext.ANDROID_WEB);
+		
 		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(context);
 		this.threadWiseAutomator.set(builder.build());
 	}
@@ -55,12 +54,12 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 	@Test
 	public void test() throws Exception{
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo(AppConfig.WP_ADMIN_URL);	
+		automator.goTo(this.getContext().getValue("wp.admin.url").asString());	
 		
 		GuiElement userTextBox = automator.elementWithId("user_login");
 		userTextBox.waitUntilPresent();
-		userTextBox.enterText(AppConfig.USER_NAME);
-		automator.elementWithId("user_pass").enterText(AppConfig.PASSWORD);
+		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
+		automator.elementWithId("user_pass").enterText(this.getContext().getValue("wp.password").asString());
 		automator.elementWithName("wp-submit").click();
 		
 		automator.elementWithId("wp-admin-bar-menu-toggle").click();
@@ -106,7 +105,7 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		roleDropDown.selectValue("author");
 		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
 		
-		automator.goTo(AppConfig.WP_LOGOUT_URL);
+		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
 	@AfterClass

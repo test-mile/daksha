@@ -36,7 +36,7 @@ public class Basic3UsingTestNG extends TestNGBaseTest {
 	
 	@Override
 	protected void tweakCentralContext(TestContext centralContext) throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
+		centralContext.setGuiAutoMaxWaitTime(30);
 	}
 
 	@Override
