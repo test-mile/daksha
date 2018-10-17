@@ -45,7 +45,7 @@ public abstract class AbstractHoconReader implements HoconReader {
 	}
 	
 
-	private void populatesysProps(){
+	private void populateSysProps(){
 		if (systemSet == null) {
 			systemSet = ConfigFactory.systemProperties().entrySet();
 			Iterator<Entry<String, ConfigValue>> iter = systemSet.iterator();
@@ -62,7 +62,7 @@ public abstract class AbstractHoconReader implements HoconReader {
 	}
 	
 	private AbstractHoconReader(ConfigParseOptions parseOptions, ConfigResolveOptions resolveOptions) {
-		populatesysProps();
+		populateSysProps();
 		this.parseOptions = parseOptions;
 		this.resolveOptions = resolveOptions;
 	}

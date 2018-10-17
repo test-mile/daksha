@@ -31,7 +31,7 @@ public abstract class BaseTestContext implements TestContext {
 		 this.frozen = true;
 	 }
 
-	private void validateFrozen() throws Exception {
+	protected void validateFrozen() throws Exception {
 		if (frozen) {
 			throw new Exception("You can not add/modify options of a context after it is frozen.");
 		}

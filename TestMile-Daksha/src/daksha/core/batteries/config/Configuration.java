@@ -23,7 +23,7 @@ public interface Configuration {
 	Value value(DakshaOption option) throws Exception;
 	
 	static DakshaOption convertToDakshaOption(String strOption) {
-		return DakshaOption.valueOf(strOption.toUpperCase().replace("\\.", "_"));
+		return DakshaOption.valueOf(strOption.toUpperCase().replace(".", "_"));
 	}
 
 	static String convertOptionToPath(String strOption) {

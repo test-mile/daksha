@@ -41,7 +41,7 @@ public class CentralConfiguration extends BaseConfiguration{
 		
 		this.add(DakshaOption.BROWSER_NAME, Browser.CHROME.toString());
 		this.add(DakshaOption.BROWSER_VERSION, "");
-		this.add(DakshaOption.BROWSER_MAXIMIZE, "true");
+		this.add(DakshaOption.BROWSER_MAXIMIZE, "false");
 		this.add(DakshaOption.BROWSER_DIM_HEIGHT, "NOT_SET");
 		this.add(DakshaOption.BROWSER_DIM_WIDTH, "NOT_SET");
 		this.add(DakshaOption.BROWSER_BIN_PATH, "NOT_SET");

@@ -14,6 +14,7 @@ import org.testng.ITestContext;
 import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigObject;
 
+import daksha.core.batteries.config.CLIConfiguration;
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.context.CommonTestContext;
@@ -32,7 +33,7 @@ import daksha.tpi.sysauto.utils.SystemUtils;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.0.6-b";
+	private String version = "1.1.0-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
@@ -42,12 +43,30 @@ public enum DakshaSingleton {
 	private GuiNameStore uiRep = GuiNameStore.INSTANCE;
 	private static String defString = "default";
 	private String rootDir = null;
+	private CLIConfiguration cliConfig = null;
 	 
-	public CentralTestContext init(String rootDir) throws Exception {
+	public CentralTestContext init(String rootDir) throws Exception {	
 		this.rootDir = rootDir;
+		cliConfig = new CLIConfiguration();
 		centralTestContext = new CommonTestContext(new CentralConfiguration(rootDir));
 		updateFromProjectConf(centralTestContext);
 		return centralTestContext;
+	}
+
+	public Map<DakshaOption,String> getDakshaCentralCliOptions(){
+		return cliConfig.getDakshaCentralOptions();
+	}
+	
+	public Map<DakshaOption,String> getDakshaTestCliOptions(){
+		return cliConfig.getDakshaTestOptions();
+	}
+	
+	public Map<String,String> getUserCentralCliOptions(){
+		return cliConfig.getUserCentralOptions();
+	}
+	
+	public Map<String,String> getUserTestCliOptions(){
+		return cliConfig.getUserTestOptions();
 	}
 	
 	private void updateFromProjectConf(TestContext centralContext) throws Exception {
@@ -96,9 +115,11 @@ public enum DakshaSingleton {
 		Console.init();
 		
 		GuiAutoSingleton.INSTANCE.init();
-		this.contexts.put(
-				defString, 
-				new DakshaTestContext(defString));
+		
+		TestContext context = new DakshaTestContext(defString);
+				
+		updateTestContextWithCLiConfig(context);
+		this.contexts.put(defString, context);
 	}
 
 	private void validateFrozenCentralConfig(String suffix) throws Exception {
@@ -111,9 +132,22 @@ public enum DakshaSingleton {
 		validateFrozenCentralConfig("pulling frozen central context");
 		return centralTestContext;
 	}
+
+	private void updateTestContextWithCLiConfig(TestContext context) throws Exception {
+		Map<DakshaOption, String> properties = DakshaSingleton.INSTANCE.getDakshaTestCliOptions();
+		for (DakshaOption name: properties.keySet()) {
+			context.setOption(name, properties.get(name));
+		}
+		
+		Map<String, String> userProps = DakshaSingleton.INSTANCE.getUserTestCliOptions();
+		for (String name: userProps.keySet()) {
+			context.setOption(name, userProps.get(name));
+		}
+	}
 	
 	public void registerContext(TestContext context) throws Exception {
 		validateFrozenCentralConfig("registering custom test context");
+		updateTestContextWithCLiConfig(context);
 		this.contexts.put(context.getName().toLowerCase(), context);
 	}
 	
