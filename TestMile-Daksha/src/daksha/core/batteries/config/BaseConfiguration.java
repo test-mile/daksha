@@ -67,4 +67,12 @@ public class BaseConfiguration implements Configuration {
 		}
 	}
 	
+	public Map<String, String> getAllItems() throws Exception {
+		Map<String,String> items = new HashMap<String,String>();
+		for (String key: options.keySet()) {
+			items.put(key, options.get(key).value().asString());
+		}
+		return items;
+	}
+	
 }

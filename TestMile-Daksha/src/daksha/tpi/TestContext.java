@@ -14,6 +14,7 @@ public interface TestContext {
 	
 	void setOption(DakshaOption option, String value) throws Exception;
 	Map<String, ConfigProperty> asMap() throws Exception;
+	Map<String, String> asRawMap() throws Exception;
 	
 	Value getValue(DakshaOption option) throws Exception;
 	Value getValue(String string) throws Exception;
@@ -52,4 +53,5 @@ public interface TestContext {
 	void setOption(String option, String value) throws Exception;
 	
 	public void setGuiAutoMaxWaitTime(int seconds) throws Exception;
+
 }

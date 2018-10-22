@@ -63,6 +63,11 @@ public abstract class BaseTestContext implements TestContext {
 	}
 
 	@Override
+	public Map<String, String> asRawMap() throws Exception {
+		return this.config.getAllItems();
+	}
+	
+	@Override
 	public String getName() {
 		return this.name;
 	}

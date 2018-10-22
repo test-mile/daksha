@@ -38,10 +38,12 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Gui> threadWiseHome = new ThreadLocal<Gui>();
 	
-	@BeforeClass
-	public void createAutomator(ITestContext testContext) throws Exception {
-		TestContext context = this.getContext();
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
+		centralContext.setTargetPlatform(OSType.MAC);
+	}
+	
+	protected void setUpClass(TestContext testContext) throws Exception {
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
 		Gui home = new Home(builder.build());
 		threadWiseHome.set(home);
 	}
@@ -97,8 +99,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		gui.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseHome.get().close();
 	}
 }

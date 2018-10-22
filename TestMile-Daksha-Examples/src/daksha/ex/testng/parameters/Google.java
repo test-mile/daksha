@@ -37,13 +37,9 @@ public class Google extends TestNGBaseTest {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	@BeforeClass
-	public void createAutomator() throws Exception {
-		// Get test context
-		TestContext context = this.getContext();
-		
+	protected void setUpClass(TestContext testContext) throws Exception {
 		// Create Selenium automator with context options
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
 		threadWiseAutomator.set(builder.build());
 	}
 	
@@ -55,8 +51,7 @@ public class Google extends TestNGBaseTest {
 		automator.takeScreenshot();
 	}
 	
-	@AfterClass
-	public void closeAutomator() throws Exception {
+	protected void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

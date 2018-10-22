@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
 
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
+import daksha.tpi.guiauto.gui.Gui;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;
@@ -33,14 +34,12 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Home> threadWiseHome = new ThreadLocal<Home>();
 	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
+	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	@BeforeClass
-	public void createAutomator(ITestContext testContext) throws Exception {
-		TestContext context = this.getContext();
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+	public void setUpClass(TestContext testContext) throws Exception {
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
 		Home home = new Home(builder.build());
 		threadWiseHome.set(home);
 	}
@@ -56,8 +55,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		settings.logout();
 	}
 	
-	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseHome.get().close();
 	}
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestNG Example Suite - Suite and Test Level Paramerters" verbose="1" parallel="tests" thread-count="2">
+	<parameter name="browser.name" value="Firefox" />
+	
+	<test name="Test Mile">
+		<parameter name="browser.name" value="Chrome" />
+		<parameter name="app.url" value="https://www.testmile.com" />
+		<classes>
+			<class name="daksha.ex.testng.parameters.AppUrlBasedNavigation" />
+		</classes>
+	</test>
+	
+	<test name="Google">
+		<parameter name="app.url" value="https://www.google.com" />
+		<classes>
+			<class name="daksha.ex.testng.parameters.AppUrlBasedNavigation" />
+		</classes>
+	</test>
+
+</suite>

@@ -63,8 +63,7 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 		automator.elementWithXPath("//android.widget.Button[@text='CONTINUE']").click();
 	}
 	
-	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

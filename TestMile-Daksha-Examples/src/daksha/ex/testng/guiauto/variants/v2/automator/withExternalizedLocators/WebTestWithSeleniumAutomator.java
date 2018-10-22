@@ -47,12 +47,10 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	@BeforeClass
-	public void createAutomator(ITestContext testContext) throws Exception {
-		TestContext context = this.getContext();
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+	protected void setUpClass(TestContext testContext) throws Exception {
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
 		this.threadWiseAutomator.set(builder.build());
-		GuiNamespaceLoader loader = GuiNamespaceLoaderFactory.createNamespaceLoader(context, "simpleapp/wordpress.gns");
+		GuiNamespaceLoader loader = GuiNamespaceLoaderFactory.createNamespaceLoader(testContext, "simpleapp/wordpress.gns");
 		loader.load();
 		this.threadWiseNamespace.set(loader.getNamespace());
 	}
@@ -108,8 +106,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

@@ -21,4 +21,11 @@ public class DakshaTestContext extends BaseTestContext implements TestContext {
 		this(name, new HashMap<String, String>());
 	}
 
+	public DakshaTestContext(String name, TestContext parentContext, Map<String, String> overrideParams) throws Exception {
+		this(name, parentContext.asRawMap());
+		for(String key: overrideParams.keySet()) {
+			this.setOption(key, overrideParams.get(key));
+		}
+	}
+
 }

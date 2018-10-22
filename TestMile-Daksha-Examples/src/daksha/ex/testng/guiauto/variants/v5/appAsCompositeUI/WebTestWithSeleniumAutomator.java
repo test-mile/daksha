@@ -39,14 +39,12 @@ import daksha.tpi.testng.TestNGBaseTest;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Gui> threadWiseApp = new ThreadLocal<Gui>();
 	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
+	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	@BeforeClass
-	public void createAutomator(ITestContext testContext) throws Exception {
-		TestContext context = this.getContext();
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
+	protected void setUpClass(TestContext testContext) throws Exception {
+		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
 		Gui app = GuiFactory.createAppFromDir("WordPress", builder.build(), "appwithpages");
 		threadWiseApp.set(app);
 	}
@@ -98,8 +96,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		app.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseApp.get().close();
 	}
 }

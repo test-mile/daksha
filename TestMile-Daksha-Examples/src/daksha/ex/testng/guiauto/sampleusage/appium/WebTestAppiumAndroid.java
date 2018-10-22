@@ -43,11 +43,8 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		testContext.setAutomationContext(GuiAutomationContext.ANDROID_WEB);
 	}
 	
-	@BeforeClass
-	public void createAutomator(ITestContext testNGContext) throws Exception {
-		TestContext context = this.getContext();
-		
-		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(context);
+	protected void setUpClass(TestContext testContext) throws Exception {
+		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(testContext);
 		this.threadWiseAutomator.set(builder.build());
 	}
 	
@@ -108,8 +105,7 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	@AfterClass
-	public void closeAutomator(ITestContext testContext) throws Exception {
+	public void tearDownClass(TestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

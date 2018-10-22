@@ -17,40 +17,47 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.gettingstarted;
+package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
-import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;
 
-public class Basic3UsingTestNG extends TestNGBaseTest {
+public class MethodLevelSetup extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
 	
 	protected void tweakCentralContext(TestContext centralContext) throws Exception {
-		centralContext.setGuiAutoMaxWaitTime(30);
+		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	protected void setUpClass(TestContext testContext) throws Exception {
+	protected void setUpMethod(TestContext testContext) throws Exception {
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
 		threadWiseAutomator.set(builder.build());
 	}
 	
-	@Test
-	public void test() throws Exception{
+	private void goToUrl(String url) throws Exception {
 		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
-		automator.goTo("https://www.google.com");
-		System.out.println(automator.getPageTitle());
-		automator.takeScreenshot();
+		automator.goTo(url);
+		System.out.println(automator.getPageTitle());		
 	}
 	
-	protected void tearDownClass(TestContext testContext) throws Exception {
+	@Test
+	public void test1() throws Exception{
+		goToUrl("https://www.google.com");
+	}
+	
+	@Test
+	public void test2() throws Exception{
+		goToUrl("http://www.testmile.com");
+	}
+	
+	protected void tearDownMethod(TestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

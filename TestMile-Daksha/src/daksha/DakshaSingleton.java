@@ -33,7 +33,7 @@ import daksha.tpi.sysauto.utils.SystemUtils;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.1.0-b";
+	private String version = "1.2.0-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
@@ -153,7 +153,16 @@ public enum DakshaSingleton {
 	
 	public TestContext getTestContext(String name) throws Exception {
 		validateFrozenCentralConfig("getting context");
-		return this.contexts.get(name.toLowerCase());
+		if (name == null) {
+			throw new Exception("Context name was passed as null.");
+		} else {
+			try {
+				return this.contexts.get(name.toLowerCase());
+			} catch (Exception e) {
+				throw new Exception("No context found with name: " + name);
+			}
+		}
+		
 	}
 	
 	public TestContext getTestContext(ITestContext context) throws Exception {
