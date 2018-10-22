@@ -19,8 +19,6 @@
 
 package daksha.ex.testng.parameters;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;

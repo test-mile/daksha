@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import daksha.Daksha;
+import daksha.DakshaSingleton;
 import daksha.core.batteries.config.ContextConfiguration;
 import daksha.tpi.TestContext;
+import daksha.tpi.enums.DakshaOption;
 
 public class DakshaTestContext extends BaseTestContext implements TestContext {
 	protected String name;
@@ -27,5 +29,19 @@ public class DakshaTestContext extends BaseTestContext implements TestContext {
 			this.setOption(key, overrideParams.get(key));
 		}
 	}
+	
+	 public void freeze() throws Exception{
+		validateFrozen();
+		Map<DakshaOption, String> properties = DakshaSingleton.INSTANCE.getDakshaTestCliOptions();
+		for (DakshaOption name: properties.keySet()) {
+			setOption(name, properties.get(name));
+		}
+		
+		Map<String, String> userProps = DakshaSingleton.INSTANCE.getUserTestCliOptions();
+		for (String name: userProps.keySet()) {
+			setOption(name, userProps.get(name));
+		}
+		super.freeze();
+	 }
 
 }

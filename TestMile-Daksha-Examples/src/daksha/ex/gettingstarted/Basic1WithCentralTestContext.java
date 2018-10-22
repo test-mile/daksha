@@ -21,10 +21,8 @@ package daksha.ex.gettingstarted;
 
 import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import daksha.core.guiauto.enums.OSType;
-import daksha.tpi.CentralTestContext;
+import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
-import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 
@@ -32,7 +30,7 @@ public class Basic1WithCentralTestContext{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize and set central configuration
-		CentralTestContext centralContext = Daksha.init();
+		TestContext centralContext = Daksha.init();
 		centralContext.setGuiAutoMaxWaitTime(30);
 		centralContext.setBrowserType(Browser.HTML_UNIT);
 		centralContext.freeze();

@@ -20,12 +20,10 @@
 package daksha.ex.testng.guiauto.sampleusage.appium;
 
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;

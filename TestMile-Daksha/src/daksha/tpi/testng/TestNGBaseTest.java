@@ -1,6 +1,5 @@
 package daksha.tpi.testng;
 
-import org.testng.ISuite;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -12,7 +11,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import daksha.Daksha;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 
 public class TestNGBaseTest {
@@ -48,7 +46,7 @@ public class TestNGBaseTest {
 	public void initDaksha(ITestContext context) throws Exception {
 		if (!onceSetupPerExecutionDone) {
 			String rootDir = this.getRootDir();
-			CentralTestContext centralContext;
+			TestContext centralContext;
 			if (rootDir == null) {
 				centralContext = Daksha.init();
 			} else {

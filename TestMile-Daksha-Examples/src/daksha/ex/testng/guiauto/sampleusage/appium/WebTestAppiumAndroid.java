@@ -21,13 +21,9 @@ package daksha.ex.testng.guiauto.sampleusage.appium;
 
 import static org.testng.Assert.assertTrue;
 
-import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
 import daksha.tpi.guiauto.element.GuiElement;
 import daksha.tpi.guiauto.element.GuiMultiElement;

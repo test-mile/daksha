@@ -21,9 +21,6 @@ package daksha.ex.testng.guiauto.variants.v2.automator.withExternalizedLocators;
 
 import static org.testng.Assert.assertTrue;
 
-import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;

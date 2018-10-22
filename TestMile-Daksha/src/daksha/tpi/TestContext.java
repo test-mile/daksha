@@ -53,5 +53,6 @@ public interface TestContext {
 	void setOption(String option, String value) throws Exception;
 	
 	public void setGuiAutoMaxWaitTime(int seconds) throws Exception;
+	void freeze() throws Exception;
 
 }

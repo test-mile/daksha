@@ -19,14 +19,10 @@
 
 package daksha.ex.testng.guiauto.variants.v7.pageTransitions;
 
-import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import daksha.core.guiauto.enums.OSType;
 import daksha.tpi.TestContext;
-import daksha.tpi.guiauto.gui.Gui;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 import daksha.tpi.testng.TestNGBaseTest;

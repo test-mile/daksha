@@ -26,7 +26,6 @@ import org.testng.ITestContext;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.enums.OSType;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
 import daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -35,15 +34,15 @@ public class Daksha {
 	private static DakshaSingleton core = DakshaSingleton.INSTANCE;
 	private static GuiAutoSingleton guiAuto = GuiAutoSingleton.INSTANCE;
 	
-	public static CentralTestContext init(String rootDir) throws Exception{
+	public static TestContext init(String rootDir) throws Exception{
 		return core.init(rootDir);
 	}
 	
-	public static CentralTestContext init() throws Exception {
+	public static TestContext init() throws Exception {
 		return init(System.getProperty("user.dir"));
 	}
 	
-	public static CentralTestContext getCentralContext() throws Exception {
+	public static TestContext getCentralContext() throws Exception {
 		return core.getCentralContext();		
 	}
 	
@@ -53,10 +52,6 @@ public class Daksha {
 	
 	public static String getRootDir() {
 		return core.getRootDir();
-	}
-	
-	public static TestContext getDefaultTestContext() throws Exception{
-		return core.getDefaultTestContext();
 	}
 		
 	public static TestContext getTestContext(String name) throws Exception {
@@ -117,6 +112,10 @@ public class Daksha {
 	
 	public static String getSeleniumDriverPathSystemProperty(Browser browser) throws Exception {
 		return guiAuto.getSeleniumDriverPathSystemProperty(browser);
+	}
+
+	public static TestContext createTestContext(String name) throws Exception {
+		return core.createTestContext(name);
 	}
 	
 }

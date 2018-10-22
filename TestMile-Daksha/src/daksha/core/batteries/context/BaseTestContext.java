@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import daksha.Daksha;
+import daksha.DakshaSingleton;
 import daksha.core.batteries.config.ConfigProperty;
 import daksha.core.batteries.config.Configuration;
 import daksha.core.batteries.config.ContextConfiguration;
@@ -27,8 +28,17 @@ public abstract class BaseTestContext implements TestContext {
 		this.config = config;
 	}
 	
-	 protected void setFrozen(){
-		 this.frozen = true;
+	 public void freeze() throws Exception{
+		Map<DakshaOption, String> properties = DakshaSingleton.INSTANCE.getDakshaCentralCliOptions();
+		for (DakshaOption name: properties.keySet()) {
+			setOption(name, properties.get(name));
+		}
+		
+		Map<String, String> userProps = DakshaSingleton.INSTANCE.getUserCentralCliOptions();
+		for (String name: userProps.keySet()) {
+			setOption(name, userProps.get(name));
+		}
+		this.frozen = true;
 	 }
 
 	protected void validateFrozen() throws Exception {

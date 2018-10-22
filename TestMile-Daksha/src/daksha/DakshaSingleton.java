@@ -24,7 +24,6 @@ import daksha.core.batteries.hocon.HoconFileReader;
 import daksha.core.batteries.hocon.HoconReader;
 import daksha.core.guiauto.GuiAutoSingleton;
 import daksha.core.guiauto.namestore.GuiNameStore;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.TestContext;
 import daksha.tpi.batteries.console.Console;
 import daksha.tpi.enums.DakshaOption;
@@ -33,19 +32,19 @@ import daksha.tpi.sysauto.utils.SystemUtils;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.2.0-b";
+	private String version = "1.2.1-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender
 	private FileAppender fa = new FileAppender();
-	private CommonTestContext centralTestContext = null;
+	private TestContext centralTestContext = null;
 	private Map<String, TestContext> contexts = new HashMap<String, TestContext>();
 	private GuiNameStore uiRep = GuiNameStore.INSTANCE;
 	private static String defString = "default";
 	private String rootDir = null;
 	private CLIConfiguration cliConfig = null;
 	 
-	public CentralTestContext init(String rootDir) throws Exception {	
+	public TestContext init(String rootDir) throws Exception {	
 		this.rootDir = rootDir;
 		cliConfig = new CLIConfiguration();
 		centralTestContext = new CommonTestContext(new CentralConfiguration(rootDir));
@@ -117,8 +116,7 @@ public enum DakshaSingleton {
 		GuiAutoSingleton.INSTANCE.init();
 		
 		TestContext context = new DakshaTestContext(defString);
-				
-		updateTestContextWithCLiConfig(context);
+		context.freeze();
 		this.contexts.put(defString, context);
 	}
 
@@ -128,26 +126,14 @@ public enum DakshaSingleton {
 		}		
 	}
 	
-	public CommonTestContext getCentralContext() throws Exception {
+	public TestContext getCentralContext() throws Exception {
 		validateFrozenCentralConfig("pulling frozen central context");
 		return centralTestContext;
-	}
-
-	private void updateTestContextWithCLiConfig(TestContext context) throws Exception {
-		Map<DakshaOption, String> properties = DakshaSingleton.INSTANCE.getDakshaTestCliOptions();
-		for (DakshaOption name: properties.keySet()) {
-			context.setOption(name, properties.get(name));
-		}
-		
-		Map<String, String> userProps = DakshaSingleton.INSTANCE.getUserTestCliOptions();
-		for (String name: userProps.keySet()) {
-			context.setOption(name, userProps.get(name));
-		}
 	}
 	
 	public void registerContext(TestContext context) throws Exception {
 		validateFrozenCentralConfig("registering custom test context");
-		updateTestContextWithCLiConfig(context);
+		context.freeze();
 		this.contexts.put(context.getName().toLowerCase(), context);
 	}
 	
@@ -165,12 +151,12 @@ public enum DakshaSingleton {
 		
 	}
 	
-	public TestContext getTestContext(ITestContext context) throws Exception {
-		return getTestContext(context.getName());
+	public TestContext createTestContext(String name) throws Exception {
+		return new DakshaTestContext(name, this.getCentralContext().asRawMap());
 	}
 	
-	public TestContext getDefaultTestContext() throws Exception {
-		return getTestContext(defString);
+	public TestContext getTestContext(ITestContext context) throws Exception {
+		return getTestContext(context.getName());
 	}
 	
 	public Configuration getTestContextConfig(String name) throws Exception {
@@ -215,5 +201,4 @@ public enum DakshaSingleton {
 		this.setConsoleLogger(consoleLevel);
 		this.setFileLogger(fileLevel);
 	}
-
 }

@@ -5,10 +5,9 @@ import java.util.Map;
 import daksha.DakshaSingleton;
 import daksha.core.batteries.config.CentralConfiguration;
 import daksha.core.batteries.config.ContextConfiguration;
-import daksha.tpi.CentralTestContext;
 import daksha.tpi.enums.DakshaOption;
 
-public class CommonTestContext extends BaseTestContext implements CentralTestContext {
+public class CommonTestContext extends BaseTestContext {
 
 	public CommonTestContext(CentralConfiguration config) throws Exception {	
 		super("central");
@@ -26,7 +25,7 @@ public class CommonTestContext extends BaseTestContext implements CentralTestCon
 		for (String name: userProps.keySet()) {
 			setOption(name, userProps.get(name));
 		}
-		super.setFrozen();
+		super.freeze();
 		DakshaSingleton.INSTANCE.actOnFrozenCentralContext();
 	 }
 
