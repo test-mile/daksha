@@ -34,10 +34,11 @@ public class Basic2WithCustomTestContext{
 		centralContext.setGuiAutoMaxWaitTime(30);
 		centralContext.freeze();
 		
-		// Get default test context. This has the same values as central context
-		// The difference is that you can modify it.
+		// Create a custom test context. Contains all values from central context
+		// This helps in creating any number of custom contexts which share common (overridable) properties.
 		TestContext context = Daksha.createTestContext("custom");
 		context.setBrowserType(Browser.HTML_UNIT);
+		Daksha.registerContext(context);
 		
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
