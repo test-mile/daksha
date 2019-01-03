@@ -32,7 +32,7 @@ import daksha.tpi.sysauto.utils.SystemUtils;
 public enum DakshaSingleton {
 	INSTANCE;
 
-	private String version = "1.2.1-b";
+	private String version = "1.3.0-b";
 	private Logger logger = null;
 	private boolean centralConfFrozen = false;
 	private ConsoleAppender console = new ConsoleAppender(); // create appender

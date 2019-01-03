@@ -159,6 +159,9 @@ public class ConfigOptionHandler {
 			case LOG_DIR:
 				processCoreDirOption(options, propPath, value, "Log Directory", true);
 				break;
+			case DATA_SOURCES_DIR:
+				processCoreDirOption(options, propPath, value, "Data Files Directory", true);
+				break;
 			case TOOLS_DIR:
 				processCoreDirOption(options, propPath, value, "Tools Directory", true);
 				break;

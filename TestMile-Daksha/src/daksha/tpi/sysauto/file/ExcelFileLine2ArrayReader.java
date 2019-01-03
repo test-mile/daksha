@@ -47,9 +47,7 @@ public class ExcelFileLine2ArrayReader extends ExcelFileReader {
 			Map<String, Object> zipped = zip(retArray);
 			if (zipped.containsKey("EXCLUDE")) {
 				String exclude = ((String) zipped.get("EXCLUDE")).toLowerCase().trim();
-				if (exclude.equals("y") || exclude.equals("yes") || exclude.equals("true")) {
-					retArray = this.next();
-				}
+				
 				if (retArray != null) {
 					retArray.remove(this.getHeaders().indexOf("EXCLUDE"));
 				}
@@ -59,4 +57,5 @@ public class ExcelFileLine2ArrayReader extends ExcelFileReader {
 			return null;
 		}
 	}
+
 }

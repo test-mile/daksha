@@ -30,6 +30,7 @@ public class CentralConfiguration extends BaseConfiguration{
 		this.add(DakshaOption.ROOT_DIR,  this.rootDir);
 		this.add(DakshaOption.PROJECT_CONF_FILE,  this.value(DakshaOption.ROOT_DIR) + File.separator + "config" + File.separator + "daksha.conf");
 		this.add(DakshaOption.LOG_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "log");
+		this.add(DakshaOption.DATA_SOURCES_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "data" + File.separator + "sources" + File.separator);
 		this.add(DakshaOption.TOOLS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "tools");
 		this.add(DakshaOption.APPS_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "apps");
 		this.add(DakshaOption.GUIAUTO_NAMESPACE_DIR, this.value(DakshaOption.ROOT_DIR) + File.separator + "gui_namespace");
