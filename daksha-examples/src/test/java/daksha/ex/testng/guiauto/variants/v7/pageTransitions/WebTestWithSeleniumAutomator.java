@@ -42,7 +42,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	
 	@Test
 	public void test() throws Exception{
-		Home home = this.threadWiseHome.get();	
+		Home home = this.threadWiseHome.get();
 		Dashboard db = home.login();
 		Categories cat = db.goToCategries();
 		cat.playWithCats();
