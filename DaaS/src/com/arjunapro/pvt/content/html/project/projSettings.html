@@ -1,0 +1,33 @@
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			$(".saveDiv").hide();
+			sendDirectGetRequest("/project/{{PROJECT_NAME}}/settings/view",
+					appendToProjectSettings, console);
+		});
+	</script>
+
+<div class="row">
+	<div class="col-lg-12">
+		<!--Panel-->
+		<form class="arForm" action="#" id="formProjSettings">
+			<div class="btn-group pull-right">
+				<div class="editDiv">
+					<a id="btnEditConf" href="/project/{{PROJECT_NAME}}/settings/edit"
+						class="btn btn-danger edit-btn"
+						onclick='editProjectSettings(event);'>Edit</a>
+				</div>
+
+				<div class="saveDiv">
+					<a id="btnSaveConf" href="/project/{{PROJECT_NAME}}/settings/save"
+						class="btn btn-danger save-btn"
+						onclick='saveProjectSettings(event);'>Save</a>
+				</div>
+			</div>
+	</div>
+	<hr />
+	<div class="panel-body" id="projSettings"></div>
+	</form>
+	<!-- End Panel Body -->
+</div>
+<!--/.Panel-->

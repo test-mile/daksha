@@ -1,0 +1,64 @@
+
+<div class="confWrapper" id="{{CONF_TYPE}}">
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".help").hide();
+			var targetHelp = $("." + $(".confWrapper").attr("id"));
+			$(".help").not(targetHelp).hide();
+			$(targetHelp).show();
+			$(".saveConf").hide();
+		});
+
+	</script>
+				
+	<div class="row">
+		<div class="col-lg-12">
+			<form class="arForm" action="#" id="formProjSettings">
+				<!--Panel-->
+						<div class="btn-group pull-right">
+							<div class="editConf">
+								<a id="btnEditConf" href="#"
+									class="btn btn-danger edit-btn"
+									onclick='editConfig(event);'>Edit</a>
+							</div>
+
+							<div class="saveConf">
+								<a id="btnSaveConf" href="{{CONF_SAVE_LINK}}"
+									class="btn btn-danger save-btn"
+									onclick='saveConfig(event);'>Save</a>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="container-fluid">
+							<div class="row">
+								<form class="arForm">
+									<div class="row">
+										<div class="col-md-12">
+
+											<div class="arjuna help">Using the provisions here, you
+												can override Arjuna's behavior by tweaking the defaults.</div>
+											<div class="userConfig help">Define your own options
+												with names of choice. These are meant to be key-values which
+												have a universal impact on all tests and utilities that you
+												create.</div>
+											<div class="utv help">Although similar to user
+												opptions, user test variables have one significant
+												difference. You can override their values in test classes
+												and test methods. They are meant to be used to tweak
+												behavior of tests.</div>
+											<hr />
+											<textarea name="cfg" class="form-control configText"
+												rows="10" placeholder="Click Edit and get started!"
+												style="margin: 0px -0.25px 0px 0px;" readonly></textarea>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/.Panel-->
+			</form>
+		</div>

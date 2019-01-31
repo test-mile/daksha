@@ -1,0 +1,39 @@
+
+<script type="text/javascript">
+	$(document).ready(function(e) {
+		$('#sectionTitle').html("");
+		$('#sectionTitle').html("Project: {{PROJECT_NAME}}");
+		$('#aProjectOverview').click();
+	});
+
+	function appendToProjectSettings(jdata) {
+		$("#projSettings").html("");
+		$("#projSettings").html(jdata);
+	}
+
+	function setProjDir(path) {
+		$("#idProjPath").val(path);
+	}
+
+	function temp() {
+		confirm("clicked");
+		var p = fxCaller.chooseDirectory();
+		confirm("post click");
+		setProjDir(p);
+	}
+
+	function editProjectSettings(event) {
+		var e = getEvent(event);
+		var target = getTarget(e);
+		enableEdit();
+		getLink($("#" + target.id), e, appendToProjectSettings, displayError);
+	}
+
+	function saveProjectSettings(event) {
+		var e = getEvent(event);
+		var target = getTarget(e);
+		enableSave();
+		postFormWithButtonLink($("#" + target.id), $("#" + target.id).attr(
+				'href'), e, appendToProjectSettings, displayError);
+	}
+</script>

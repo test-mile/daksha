@@ -1,0 +1,49 @@
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#aProjectOverview').click();
+	});
+
+	function handleNavLink(event, mark_parent) {
+		var e = getEvent(event);
+		var target = getTarget(e);
+		if (mark_parent) {
+			markActiveLink(".sidebar-nav", "#"
+					+ target.getAttribute('data-navLink'));
+		} else {
+			markActiveLink(".sidebar-nav", "#" + target.id);
+		}
+		getLink($("#" + target.id), e, appendToProject, displayError);
+	}
+
+	function handleNavLinkInSideBar(event) {
+		handleNavLink(event, false);
+	}
+
+	function handleNavLinkInBody(event) {
+		handleNavLink(event, true);
+	}
+
+	function handleLink(event) {
+		var e = getEvent(event);
+		var target = getTarget(e);
+		getLink($("#" + target.id), e, handlers[target.id], displayError);
+	}
+</script>
+
+<div class="row" style="padding: 10px 0 0px 0;">
+
+	<div class="col-lg-12">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="section-title">Project: {{PROJECT_NAME}}</div>
+			</div>
+		</div>
+		<hr />
+
+		<div id="projContent"></div>
+	</div>
+
+</div>

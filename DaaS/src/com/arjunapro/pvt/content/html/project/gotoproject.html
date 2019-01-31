@@ -1,0 +1,92 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		hideDiv(".projectform");
+		emptyDiv(".projError");
+		hideDiv(".errorContainer");
+		$('.projChoice').click(function() {
+			emptyDiv(".projError");
+			hideDiv(".errorContainer");
+			showFormPerRadioChoice(".projectform", $(this));
+		});
+	});
+</script>
+
+
+<style>
+select:invalid {
+	color: gray;
+}
+</style>
+
+<div class="panel panel-success fixed-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">Projects</h3>
+
+	</div>
+	<div class="panel-body">
+		<div class="arform">
+			<input type="radio" name="projOption" value="existing" id="existing"
+				class="projChoice"><label class="formLabel radioLabel"
+				for="existing"><span class="fa-stack"> <i
+					class="fa fa-circle-o fa-stack-1x"></i> <i
+					class="fa fa-circle fa-stack-1x" style="color: #dd3333"></i>
+			</span> Select Existing Project</label><br /> <input type="radio" name="projOption"
+				value="new" id="new" class="projChoice"><label
+				class="formLabel radioLabel" for="new"> <span
+				class="fa-stack"> <i class="fa fa-circle-o fa-stack-1x"></i>
+					<i class="fa fa-circle fa-stack-1x" style="color: #dd3333"></i>
+			</span> Create New Project
+			</label>
+		</div>
+
+		<hr />
+		<div class="existing projectform">
+			<form autocomplete="off">
+				<div class="form-group"
+					style="border: 1px solid #dd3333; border-radius: 5px; margin-left: 15px;">
+					<select class="form-control" id="existingProjName"
+						style="border: 1px solid #dd3333; border-radius: 5px;">
+						<option value="" disabled selected hidden>Choose Project
+							Name...</option>
+						<option>one</option>
+						<option>two</option>
+						<option>three</option>
+						<option>four</option>
+					</select>
+				</div>
+				<p />
+				<p />
+
+				<a type="button" class="btn btn-danger" style="margin-left: 15px;"
+					onclick="goToProjectHome(event);">Go To Project</a>
+			</form>
+		</div>
+		<div class="new projectform">
+			<form action="/projects/create" autocomplete="off">
+				<div class="form-group"
+					style="border: 1px solid #dd3333; border-radius: 5px; margin-left: 15px;">
+					<input type="text" autocomplete="off" name="newProjName"
+						data-r-name="Project Name"
+						data-rules="<ul><li>Not Blank.</li><li>Max Length: 50</li><li>Allowed Chars: Letters, Numbers, -, _, space</li></ul>"
+						data-regex="^[a-zA-Z0-9\-\_\s]{1,50}$" maxLength="30"
+						placeholder="Enter Project Name" class="form-control"
+						id="newProjName"
+						style="border: 1px solid #dd3333; border-radius: 5px;">
+				</div>
+				<p />
+				<p />
+				<a type="button" class="btn btn-danger" style="margin-left: 15px;"
+					href="/projects/create" id="btnProjName"
+					onclick="createProjectName(event);">Begin Creation</a>
+			</form>
+		</div>
+
+		<div class="errorContainer" style="margin-left: 15px;">
+			<div style="border-radius: 5px; border: 1px solid #dd3333;">
+				<div class="projError" style="padding: 10px;"></div>
+			</div>
+		</div>
+		<!--/.Panel-->
+	</div>
+</div>
+<!--  End of Intro Panels -->

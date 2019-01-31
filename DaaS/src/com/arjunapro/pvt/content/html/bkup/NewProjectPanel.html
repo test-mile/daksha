@@ -1,0 +1,111 @@
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		sendDirectGetRequest("/project/{{PROJECT_NAME}}/settings/view", appendToInfoPanel, displayError);
+	});
+
+	function appendToInfoPanel(jdata) {
+		$("#projectOverview").html("");
+		$("#projectOverview").html(jdata);
+	}
+</script>
+
+<div id="page-content-wrapper">
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-lg-12">
+
+				<div class="row">
+
+					<div class="col-lg-12">
+						<div class="section-title">Project: {{PROJECT_NAME}}</div>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row">
+					<div class="panel with-nav-tabs panel-primary">
+						<div class="panel-heading">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#projectOverview"
+									data-toggle="tab">Overview</a></li>
+								<li><a href="#tab2primary" data-toggle="tab">Execute</a></li>
+								<li class="dropdown"><a href="#" data-toggle="dropdown">Scope
+										<span class="caret"></span>
+								</a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#tabSession" data-toggle="tab">Session
+												Templates</a></li>
+										<li><a href="#tab5primary" data-toggle="tab">Group
+												Templates</a></li>
+									</ul></li>
+								<li class="dropdown"><a href="#" data-toggle="dropdown">Configure
+										<span class="caret"></span>
+								</a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#tab6primary" data-toggle="tab">Primary
+												4</a></li>
+										<li><a href="#tab7primary" data-toggle="tab">Primary
+												5</a></li>
+									</ul></li>
+							</ul>
+						</div>
+
+						<div class="panel-body">
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="projectOverview">Primary
+									1</div>
+								<div class="tab-pane fade" id="tab2primary">Primary 2</div>
+								<div class="tab-pane fade" id="tab3primary">Primary 3</div>
+								<div class="tab-pane fade" id="tabSession">
+									<div class="panel-group" id="accordion">
+										<div class="panel panel-default accordian-panel">
+											<div class="panel-heading"
+												style="color: black; height: 30px;">
+												<div class="panel-title">
+													<a data-toggle="collapse" data-parent="#accordion"
+														href="#collapseOne"><i class="fa fa-navicon"
+														style="color: #black"></i> Session Nodes</a>
+												</div>
+											</div>
+											<div id="collapseOne" class="panel-collapse collapse">
+												<div class="panel-body">Test 1</div>
+											</div>
+										</div>
+										<div class="panel panel-default accordian-panel">
+											<div class="panel-heading">
+												<span class="panel-title"> <a data-toggle="collapse"
+													data-parent="#accordion" href="#collapseTwo"><i
+														class="fa fa-navicon" style="color: #black"></i> User
+														Options</a>
+												</span>
+											</div>
+
+
+											<div id="collapseTwo" class="panel-collapse collapse">
+												<div class="panel-body">Test2</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="tab-pane fade" id="tab5primary">Primary 5</div>
+								<div class="tab-pane fade" id="tab6primary">Primary 6</div>
+								<div class="tab-pane fade" id="tab7primary">Primary 7</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" id="errorContent"></div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12" id="projContent"></div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>AutoCognite Arjuna Pro Web Interface</title>
+<!-- Bootstrap -->
+
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/arjuna.css" rel="stylesheet">
+<!-- Loading Font Awesome -->
+<link href="/static/css/font-awesome.min.css" rel="stylesheet" />
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]> <script src="js/html5shiv.min.js"></script> 
+<script src="js/respond.min.js"></script>
+ <![endif]-->
+<script type="text/javascript" src="/static/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/static/js/ac.js"></script>
+<script type="text/javascript" src="/static/js/arjuna.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/css/bootstrap-multiselect.css"
+	type="text/css">
+<script type="text/javascript" src="/static/js/bootstrap-multiselect.js"></script>
+
+</head>
+<body>
+
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$(".projMenuWrapper").hide();
+					$("#aDashboard").click();
+				});
+	</script>
+
+	<!-- Begin Page Content -->
+	<div class="main">
+		<div id="header" class="navbar navbar-default navbar-fixed-top"
+			style="min-height: 50px;">
+			<div class="container-fluid section">
+				<div class="row">
+
+					<div class="col-lg-1">
+						<div class="nav-title">
+							<img height="50px" src="/static/images/logo.png">
+						</div>
+					</div>
+					<div class="col-lg-11">
+						<div class="nav-title pull-right" style="margin-top: 13px">Arjuna
+							Pro 0.2</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="wrapper" class="toggled">
+			<input id="projType" type="hidden" value="{{PROJ_TYPE}}">
+			<div id="sidebar-wrapper">
+				<ul class="sidebar-nav" style="padding: 60px 0 0px 0;">
+					<li class="nav-item"><a class="nav-link"
+						href="/dashboard/widgets" id="aDashboard" data-title="Dashboard"
+						onclick="handleNavLinkInSideBar(event)">Dashboard</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/projects"
+						id="aProjects" data-title="Go To Project" onclick="handleNavLinkInSideBar(event)">Projects</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/centralconf"
+						id="aCentralConf" data-title="Central Configuration" onclick="handleNavLinkInSideBar(event)">Central
+							Configuration</a></li>
+
+				</ul>
+
+				<div class="projMenuWrapper"
+					style="margin-left: 15px; margin-right: 10px; padding: 200px 0 0 0;">
+				</div>
+
+
+				<!-- End Nav Content -->
+			</div>
+			<!-- /#sidebar-wrapper -->
+			<div id="page-content-wrapper">
+				<div class="container-fluid">
+					<div class="row" style="padding: 40px 0 60px 0;">
+
+						<div class="row" style="padding: 10px 0 0px 0;">
+
+							<div class="col-lg-12">
+
+								<div class="row">
+
+									<div class="col-lg-12">
+										<div class="section-title" id="sectionTitle"></div>
+										<div class="section-sub-title" id="sectionSubTitle"></div>
+									</div>
+								</div>
+								<hr />
+
+								<div class="row">
+
+									<div class="col-lg-12">
+									<div class="inner">
+										<div class="section-content" id="sectionContent"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- End Page Content -->
+
+					<!-- Message Window -->
+					<div id="console" class="navbar navbar-default navbar-fixed-bottom"
+						style="min-height: 100px;">
+						<div class="container-fluid">
+							<div class="row">
+
+								<div class="col-lg-12">
+									<div id="console"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End of Message Window -->
+
+					<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+					<!-- Include all compiled plugins (below), or include individual files as needed -->
+				</div>
+				</div>
+				</div>
+				</div>
+</body>
+</html>

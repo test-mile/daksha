@@ -23,6 +23,7 @@ import daksha.Daksha;
 import daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import daksha.tpi.TestContext;
 import daksha.tpi.enums.Browser;
+import daksha.tpi.enums.DakshaOption;
 import daksha.tpi.guiauto.maker.GuiAutomatorFactory;
 import daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
 
@@ -34,6 +35,7 @@ public class Basic1WithCentralTestContext{
 		centralContext.setGuiAutoMaxWaitTime(30);
 		centralContext.setBrowserType(Browser.HTML_UNIT);
 		centralContext.freeze();
+		centralContext.getAppDir();
 		// Central Context can not be modified after this point
 		
 		// Create Selenium automator with central context options
