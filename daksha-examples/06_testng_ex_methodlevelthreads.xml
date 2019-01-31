@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestNG Example Suite - Suite and Test Level Paramerters" verbose="1" parallel="methods" thread-count="2">
+	<parameter name="browser.name" value="Firefox" />
+	
+	<parameter name="browser.name" value="Firefox" />
+	
+	<test name="Test Mile">
+		<classes>
+			<class name="daksha.ex.testng.parameters.MethodLevelSetup" />
+		</classes>
+	</test>
+
+</suite>

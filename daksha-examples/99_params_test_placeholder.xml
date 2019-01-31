@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestNG Example Suite - Params Test" verbose="1">
+	<parameter name="browser.name" value="Firefox" />
+		<parameter name="testrun.environment" value="PROD" />
+	
+	<test name="Google">
+	<parameter name="screenshots.dir" value="/Users/rahulverma/Documents/github_tm/daksha/TestMile-Daksha-Examples/screenshots/abc" />
+		<classes>
+			<class name="daksha.ex.testng.parameters.Google" />
+		</classes>
+	</test>
+	
+		<test name="Google2">
+		<parameter name="screenshots.dir" value="/Users/rahulverma/Documents/github_tm/daksha/TestMile-Daksha-Examples/screenshots/def" />
+		<classes>
+			<class name="daksha.ex.testng.parameters.Google" />
+		</classes>
+	</test>
+
+</suite>
