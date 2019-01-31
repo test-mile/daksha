@@ -84,3 +84,4 @@ local.properties
 report/results.ini
 
 Ant-Build/**
+daksha/release.properties

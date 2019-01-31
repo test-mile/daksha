@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -7,7 +8,16 @@
 	<packaging>jar</packaging>
 
 	<name>daksha</name>
-	<url>http://maven.apache.org</url>
+
+  <description>Daksha is re-usable Java library for test automation, to be used primarily with TestNG. With minor tweaks, it can be used with any other test engine or custom test automation implementations.</description>
+	<url>https://testmile.com/daksha</url>
+	
+	  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -209,5 +219,37 @@
 			</build>
 		</profile>
 	</profiles>
+	
+	<developers>
+		<developer>
+			<id>rahul_verma</id>
+			<name>Rahul Verma</name>
+			<email>rv@testmile.com</email>
+			<organization>Test Mile</organization>
+			<organizationUrl>http://www.testmile.com</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+5</timezone>
+		</developer>
+	</developers>
 
+	<contributors>
+		<contributor>
+			<name>Chandra Mouli</name>
+			<email>mouli@testmile.com</email>
+			<organization>Test Mile</organization>
+			<organizationUrl>http://www.testmile.com</organizationUrl>
+			<roles>
+				<role>Contributor</role>
+				<role>Tester</role>
+			</roles>
+			<timezone>+5</timezone>
+		</contributor>
+	</contributors>
+	<organization>
+		<name>Test Mile Software Testing Pvt Ltd</name>
+		<url>https://testmile.com</url>
+	</organization>
 </project>
