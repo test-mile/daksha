@@ -1,0 +1,1 @@
+export PATH=/Users/rahulverma/Downloads/apache-maven-3.6.0/bin:$PATH
