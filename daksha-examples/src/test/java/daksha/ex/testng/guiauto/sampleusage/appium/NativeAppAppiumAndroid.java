@@ -23,15 +23,14 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
+import com.testmile.daksha.core.guiauto.maker.appium.AppiumBuilder;
 import com.testmile.daksha.tpi.TestContext;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
-import com.testmile.daksha.tpi.guiauto.maker.GuiAutomatorFactory;
-import com.testmile.daksha.tpi.guiauto.maker.appium.AppiumBuilder;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 
 public class NativeAppAppiumAndroid extends TestNGBaseTest{
-	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
+	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
 	protected void tweakTestContext(TestContext testContext) throws Exception {
 		testContext.setAutomationContext(GuiAutomationContext.ANDROID_NATIVE);
@@ -41,7 +40,7 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	public void createAutomator(ITestContext testNGContext) throws Exception {
 		TestContext context = this.getContext();
 		
-		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(this.getContext());
+		AppiumBuilder builder = new AppiumBuilder(this.getContext());
 		builder.appPath(context.getAppDir() + "WordPress.apk");
 		builder.appPackage(context.getValue("app.pkg").asString());
 		builder.appActivity(context.getValue("app.activity").asString());
@@ -50,7 +49,7 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	
 	@Test
 	public void test() throws Exception{
-		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
+		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
 		automator.elementWithXPath("//android.widget.Button[@text='LOG IN']").click();
 		automator.elementWithXPath("//android.widget.TextView[contains(@text,'your site address.')]").click();
 		automator.elementWithXPath("//android.widget.EditText[@text='Site address']").enterText(this.getContext().getValue("wp.admin.url").asString());

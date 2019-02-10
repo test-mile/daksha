@@ -10,8 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
-import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.TestContext;
+import com.testmile.trishanku.Trishanku;
 
 public class TestNGBaseTest {
 	private static boolean onceSetupPerExecutionDone = false;
@@ -48,9 +48,9 @@ public class TestNGBaseTest {
 			String rootDir = this.getRootDir();
 			TestContext centralContext;
 			if (rootDir == null) {
-				centralContext = Daksha.init();
+				centralContext = Trishanku.init();
 			} else {
-				centralContext = Daksha.init(rootDir);
+				centralContext = Trishanku.init(rootDir);
 			}
 			this.tweakCentralContext(centralContext);
 			centralContext.freeze();
@@ -60,7 +60,7 @@ public class TestNGBaseTest {
 		
 		TestContext suiteContext = new TestNGSuiteContext(context);
 		this.tweakSuiteContext(suiteContext);
-		Daksha.registerContext(suiteContext);
+		Trishanku.registerContext(suiteContext);
 		testContextName.set(suiteContext.getName());
 		
 		this.setUpSuite(suiteContext);
@@ -68,11 +68,11 @@ public class TestNGBaseTest {
 	
 	@AfterSuite
 	public void cleanUpDaksha(ITestContext context) throws Exception {		
-		this.tearDownSuite(Daksha.getTestContext(context.getSuite().getXmlSuite().getName()));
+		this.tearDownSuite(Trishanku.getTestContext(context.getSuite().getXmlSuite().getName()));
 		// To Do: How can it be determined that it's the last suite?
 		// When Daksha on line TestNG would support suite of suites, calling the following after last suite's tear down 
 		// would be critical.
-		this.tearDownOnce(Daksha.getCentralContext());
+		this.tearDownOnce(Trishanku.getCentralContext());
 	}
 	
 	protected void tweakTestContext(TestContext centralContext) throws Exception {
@@ -89,17 +89,17 @@ public class TestNGBaseTest {
 	
 	@BeforeTest
 	public void initContext(ITestContext testContext) throws Exception {
-		TestContext parentContext = Daksha.getTestContext(testContext.getSuite().getXmlSuite().getName());
+		TestContext parentContext = Trishanku.getTestContext(testContext.getSuite().getXmlSuite().getName());
 		TestContext testNGContext = new TestNGTestContext(parentContext, testContext);		
 		this.tweakTestContext(testNGContext);
-		Daksha.registerContext(testNGContext);
+		Trishanku.registerContext(testNGContext);
 		this.setUpTest(testNGContext);
 		testContextName.set(testNGContext.getName());
 	}
 	
 	@AfterTest
 	public void endContext(ITestContext context) throws Exception {
-		this.tearDownTest(Daksha.getTestContext(context.getName()));
+		this.tearDownTest(Trishanku.getTestContext(context.getName()));
 	}
 	
 	protected void setUpClass(TestContext testContext) throws Exception {
@@ -112,12 +112,12 @@ public class TestNGBaseTest {
 	@BeforeClass
 	public void initClass(ITestContext context) throws Exception {
 		this.testContextName.set(context.getName());
-		this.setUpClass(Daksha.getTestContext(context.getName()));
+		this.setUpClass(Trishanku.getTestContext(context.getName()));
 	}
 	
 	@AfterClass
 	public void endClass(ITestContext context) throws Exception {
-		this.tearDownClass(Daksha.getTestContext(context.getName()));
+		this.tearDownClass(Trishanku.getTestContext(context.getName()));
 	}
 	
 	protected void setUpMethod(TestContext testContext) throws Exception {
@@ -131,12 +131,12 @@ public class TestNGBaseTest {
 	@BeforeMethod
 	public void initMethod(ITestContext context) throws Exception {
 		this.testContextName.set(context.getName());
-		this.setUpMethod(Daksha.getTestContext(context.getName()));
+		this.setUpMethod(Trishanku.getTestContext(context.getName()));
 	}
 	
 	@AfterMethod
 	public void endMethod(ITestContext context) throws Exception {
-		this.tearDownMethod(Daksha.getTestContext(context.getName()));
+		this.tearDownMethod(Trishanku.getTestContext(context.getName()));
 	}
 	
 	protected String getRootDir() throws Exception {
@@ -155,7 +155,7 @@ public class TestNGBaseTest {
 	}
 	
 	protected TestContext getContext() throws Exception {
-		return Daksha.getTestContext(this.getTestContextName());
+		return Trishanku.getTestContext(this.getTestContextName());
 	}
 
 }

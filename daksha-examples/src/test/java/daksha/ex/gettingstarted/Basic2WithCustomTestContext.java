@@ -19,30 +19,29 @@
 
 package daksha.ex.gettingstarted;
 
-import com.testmile.daksha.Daksha;
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
+import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.enums.Browser;
-import com.testmile.daksha.tpi.guiauto.maker.GuiAutomatorFactory;
-import com.testmile.daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.trishanku.Trishanku;
 
 public class Basic2WithCustomTestContext{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize and set central configuration
-		TestContext centralContext = Daksha.init();
+		TestContext centralContext = Trishanku.init();
 		centralContext.setGuiAutoMaxWaitTime(30);
 		centralContext.freeze();
 		
 		// Create a custom test context. Contains all values from central context
 		// This helps in creating any number of custom contexts which share common (overridable) properties.
-		TestContext context = Daksha.createTestContext("custom");
-		context.setBrowserType(Browser.HTML_UNIT);
-		Daksha.registerContext(context);
+		TestContext context = Trishanku.createTestContext("custom");
+		context.setBrowserType(Browser.CHROME);
+		Trishanku.registerContext(context);
 		
 		// Create Selenium automator with context options
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(context);
-		GuiAutomatorProxy automator = builder.build();
+		SeleniumBuilder builder = new SeleniumBuilder(context);
+		SetuClientGuiAutomator automator = builder.build();
 
 		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());

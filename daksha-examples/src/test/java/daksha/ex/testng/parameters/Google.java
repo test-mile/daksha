@@ -21,15 +21,14 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import com.testmile.daksha.core.guiauto.enums.OSType;
+import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.maker.GuiAutomatorFactory;
-import com.testmile.daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.trishanku.tpi.guiauto.enums.OSType;
 
 public class Google extends TestNGBaseTest {
-	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
+	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
 	protected void tweakCentralContext(TestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
@@ -37,13 +36,13 @@ public class Google extends TestNGBaseTest {
 	
 	protected void setUpClass(TestContext testContext) throws Exception {
 		// Create Selenium automator with context options
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
+		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		threadWiseAutomator.set(builder.build());
 	}
 	
 	@Test
 	public void test() throws Exception{
-		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
+		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
 		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());
 		automator.takeScreenshot();

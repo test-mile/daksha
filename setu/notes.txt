@@ -1,0 +1,2 @@
+
+From a UUID, Setu should know what is the object it is pointing to.

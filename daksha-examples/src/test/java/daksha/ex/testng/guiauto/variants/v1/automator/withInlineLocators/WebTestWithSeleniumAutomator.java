@@ -23,33 +23,32 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
-import com.testmile.daksha.core.guiauto.enums.OSType;
+import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.element.GuiElement;
-import com.testmile.daksha.tpi.guiauto.element.GuiMultiElement;
-import com.testmile.daksha.tpi.guiauto.maker.GuiAutomatorFactory;
-import com.testmile.daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiElement;
+import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.trishanku.tpi.guiauto.enums.OSType;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
-	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
+	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
 	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
 	protected void setUpClass(TestContext testContext) throws Exception {
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
+		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		this.threadWiseAutomator.set(builder.build());
 	}
 	
 	@Test
 	public void test() throws Exception{
-		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
+		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
 		automator.goTo(this.getContext().getValue("wp.admin.url").asString());	
 		
-		GuiElement userTextBox = automator.elementWithId("user_login");
+		SetuClientGuiElement userTextBox = automator.elementWithId("user_login");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
 		automator.elementWithId("user_pass").enterText(this.getContext().getValue("wp.password").asString());
@@ -58,11 +57,11 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		automator.elementWithCss(".dashicons-admin-post").hover();
 		automator.elementWithLinkText("Categories").click();
 		
-		GuiMultiElement tags = automator.elementsWithName("delete_tags[]");
+		SetuClientGuiMultiElement tags = automator.elementsWithName("delete_tags[]");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 		
-		for (GuiElement element: tags.getAllInstances()){
+		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();
 			element.uncheck();
 		}
@@ -81,14 +80,14 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		automator.elementWithCss(".dashicons-admin-settings").hover();
 		automator.elementWithLinkText("General").click();
 		
-		GuiElement blogNameTextBox = automator.elementWithId("blogname");
+		SetuClientGuiElement blogNameTextBox = automator.elementWithId("blogname");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
 		automator.elementWithId("users_can_register").check();
 
-		GuiElement roleDropDown = automator.elementWithId("default_role").asDropDown();
+		SetuClientGuiElement roleDropDown = automator.elementWithId("default_role");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

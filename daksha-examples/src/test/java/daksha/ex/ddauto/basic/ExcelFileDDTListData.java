@@ -22,17 +22,17 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 import java.util.List;
 
-import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.ddauto.DataRecord;
 import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
 import com.testmile.daksha.tpi.enums.DakshaOption;
+import com.testmile.trishanku.Trishanku;
 
 public class ExcelFileDDTListData{
 	
 	private static DataSource createListDataSource() throws Exception {
-		String fPath = Daksha.getCentralContext().getConfig().value(DakshaOption.DATA_SOURCES_DIR) + "input.xls";
+		String fPath = Trishanku.getCentralContext().getConfig().value(DakshaOption.DATA_SOURCES_DIR) + "input.xls";
 		return DataSourceFactory.createDataSource(fPath);
 	}
 	
@@ -43,7 +43,7 @@ public class ExcelFileDDTListData{
 	}
 	
 	public static void main(String[] args) throws Exception {
-		TestContext context = Daksha.init();
+		TestContext context = Trishanku.init();
 		context.freeze();
 		DataSource container1 = createListDataSource();
 		// List of ListDataRecord

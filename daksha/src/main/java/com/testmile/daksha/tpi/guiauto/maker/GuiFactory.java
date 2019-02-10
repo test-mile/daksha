@@ -22,15 +22,15 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
 import com.testmile.daksha.tpi.enums.DakshaOption;
-import com.testmile.daksha.tpi.guiauto.gui.DefaultGui;
-import com.testmile.daksha.tpi.guiauto.gui.Gui;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.gui.SetuClientDefaultGui;
+import com.testmile.daksha.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.daksha.tpi.sysauto.utils.FileSystemUtils;
 
 public class GuiFactory {
 	
-	public static Gui createAppFromDir(String name, GuiAutomatorProxy automator, String appDefDir) throws Exception{
+	public static SetuClientGui createAppFromDir(String name, SetuClientGuiAutomator automator, String appDefDir) throws Exception{
 		String consideredPath = appDefDir;
 		if (!FileSystemUtils.isDir(consideredPath)){
 			consideredPath = FileSystemUtils.getCanonicalPath(automator.getTestContext().getConfig().value(DakshaOption.GUIAUTO_NAMESPACE_DIR).asString() + "/" + consideredPath);
@@ -38,7 +38,7 @@ public class GuiFactory {
 				throw new Exception(String.format("Provided root definition path is not a directory: %s" ,  consideredPath));			
 			} 
 		}
-		Gui app = new DefaultGui(name, automator, appDefDir + File.separator + "Home.gns");
+		SetuClientGui app = new SetuClientDefaultGui(name, automator, appDefDir + File.separator + "Home.gns");
 		File d = new File(consideredPath + File.separator + "children");
 		if (FileSystemUtils.isDir(d)){
 			for (File path: d.listFiles()){
@@ -48,7 +48,7 @@ public class GuiFactory {
 		return app;
 	}
 
-	public static Gui createGui(GuiAutomatorProxy automator, String defPath) throws Exception {
-		return new DefaultGui(FileSystemUtils.getFileName(defPath), automator, defPath);
+	public static SetuClientGui createGui(SetuClientGuiAutomator automator, String defPath) throws Exception {
+		return new SetuClientDefaultGui(FileSystemUtils.getFileName(defPath), automator, defPath);
 	}
 }

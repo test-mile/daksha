@@ -23,33 +23,32 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
+import com.testmile.daksha.core.guiauto.maker.appium.AppiumBuilder;
 import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.element.GuiElement;
-import com.testmile.daksha.tpi.guiauto.element.GuiMultiElement;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiElement;
+import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
-import com.testmile.daksha.tpi.guiauto.maker.GuiAutomatorFactory;
-import com.testmile.daksha.tpi.guiauto.maker.appium.AppiumBuilder;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 
 public class WebTestAppiumAndroid extends TestNGBaseTest{
-	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
+	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
 	protected void tweakTestContext(TestContext testContext)  throws Exception {
 		testContext.setAutomationContext(GuiAutomationContext.ANDROID_WEB);
 	}
 	
 	protected void setUpClass(TestContext testContext) throws Exception {
-		AppiumBuilder builder = GuiAutomatorFactory.getAppiumBuilder(testContext);
+		AppiumBuilder builder = new AppiumBuilder(testContext);
 		this.threadWiseAutomator.set(builder.build());
 	}
 	
 	@Test
 	public void test() throws Exception{
-		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
+		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
 		automator.goTo(this.getContext().getValue("wp.admin.url").asString());	
 		
-		GuiElement userTextBox = automator.elementWithId("user_login");
+		SetuClientGuiElement userTextBox = automator.elementWithId("user_login");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
 		automator.elementWithId("user_pass").enterText(this.getContext().getValue("wp.password").asString());
@@ -59,11 +58,11 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		automator.elementWithXText("Posts").click();
 		automator.elementWithLinkText("Categories").click();
 		
-		GuiMultiElement tags = automator.elementsWithName("delete_tags[]");
+		SetuClientGuiMultiElement tags = automator.elementsWithName("delete_tags[]");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.getInstanceAtIndex(1).uncheck();
 		
-		for (GuiElement element: tags.getAllInstances()){
+		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();
 			element.uncheck();
 		}
@@ -83,14 +82,14 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		automator.elementWithXText("Settings").click();
 		automator.elementWithLinkText("General").click();
 		
-		GuiElement blogNameTextBox = automator.elementWithId("blogname");
+		SetuClientGuiElement blogNameTextBox = automator.elementWithId("blogname");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
 		automator.elementWithId("users_can_register").check();
 
-		GuiElement roleDropDown = automator.elementWithId("default_role").asDropDown();
+		SetuClientGuiElement roleDropDown = automator.elementWithId("default_role");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

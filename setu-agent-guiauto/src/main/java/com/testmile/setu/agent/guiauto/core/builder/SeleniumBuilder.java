@@ -1,0 +1,129 @@
+package com.testmile.setu.agent.guiauto.core.builder;
+
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
+
+import com.testmile.daksha.core.value.StringValue;
+import com.testmile.daksha.tpi.enums.Browser;
+import com.testmile.daksha.tpi.enums.DakshaOption;
+import com.testmile.setu.agent.SetuAgentConfig;
+import com.testmile.setu.agent.guiauto.core.automator.SeleniumGuiAutomator;
+
+public class SeleniumBuilder extends GuiAutomatorBuilder{
+	private Capabilities capabilities = null;
+	private Browser browser;
+	private WebDriver driver = null;
+	
+	public SeleniumBuilder(SetuAgentConfig config) throws Exception{
+		super(config);
+		createCapabilities();
+		load();
+	}
+	
+	private void createCapabilities() throws Exception {
+		MutableCapabilities browserCaps = new MutableCapabilities();
+		MutableCapabilities otherCaps = new MutableCapabilities();
+//		for(String cap: caps.keySet()) {
+//			otherCaps.setCapability(cap, caps.get(cap));
+//		}
+		
+		browser = getConfig().getBrowser();
+		
+		switch (browser){
+		case FIREFOX:
+			setFirefoxCaps(browserCaps);
+			break;
+		case CHROME:
+			setChromeCaps(browserCaps);
+			break;
+		case SAFARI:
+			setSafariCaps(browserCaps);
+			break;
+		}
+		
+		browserCaps.merge(otherCaps);
+		capabilities = browserCaps;
+	}
+	
+	public void load() throws Exception{
+		setDriverPath();
+		driver = null;
+		String browserBinPath = getConfig().value(DakshaOption.BROWSER_BIN_PATH).asString();
+		switch (this.browser){
+		case FIREFOX:
+			FirefoxOptions fOptions = new FirefoxOptions(capabilities);
+			if (StringValue.isSet(browserBinPath)) {
+				fOptions.setBinary(browserBinPath);
+			}
+			driver = new FirefoxDriver();
+			break;
+		case CHROME:
+			ChromeOptions coptions = new ChromeOptions();
+			if (StringValue.isSet(browserBinPath)) {
+				coptions.setBinary(browserBinPath);
+			}
+			coptions.merge(capabilities);
+			driver = new ChromeDriver(coptions);
+			break;
+		case SAFARI:
+			SafariOptions sOptions = new SafariOptions();
+			sOptions.merge(capabilities);
+			driver = new SafariDriver(sOptions);
+			break;
+		}
+
+	}
+
+	public SeleniumGuiAutomator build() throws Exception{
+		return new SeleniumGuiAutomator(driver, getConfig());
+	}
+
+	private MutableCapabilities getFireFoxCapabilitiesSkeleton() { 
+		return DesiredCapabilities.firefox();
+	}
+
+	private MutableCapabilities getChromeCapabilitiesSkeleton() {
+		return DesiredCapabilities.chrome();
+	}
+
+	private MutableCapabilities getSafariCapabilitiesSkeleton() {
+		return DesiredCapabilities.safari();
+	}
+	
+	private void setBrowserVersion(MutableCapabilities browserCaps) throws Exception{
+		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, getConfig().value(DakshaOption.BROWSER_VERSION).asString());
+	}
+	
+	private void setFirefoxCaps(MutableCapabilities browserCaps) throws Exception {
+		browserCaps = getFireFoxCapabilitiesSkeleton();
+		setBrowserVersion(browserCaps);
+		FirefoxProfile profile = new FirefoxProfile();
+		//profile..setEnableNativeEvents(true);
+		browserCaps.setCapability(FirefoxDriver.PROFILE, profile);
+	}
+
+	private void setDriverPath() throws Exception {
+		String driverPath = getConfig().value(DakshaOption.SELENIUM_DRIVER_PATH).asString();
+		System.setProperty(getConfig().value(DakshaOption.SELENIUM_DRIVER_PROP).asString(), driverPath);
+	}
+	
+	private void setChromeCaps(MutableCapabilities browserCaps) throws Exception {
+		browserCaps = getChromeCapabilitiesSkeleton();
+		setBrowserVersion(browserCaps);
+	}
+
+	private void setSafariCaps(MutableCapabilities browserCaps) throws Exception {
+		browserCaps = getSafariCapabilitiesSkeleton();
+		setBrowserVersion(browserCaps);
+	}
+}

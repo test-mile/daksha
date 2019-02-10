@@ -21,14 +21,13 @@ package daksha.ex.gettingstarted;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.automator.proxy.GuiAutomatorProxy;
+import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.maker.GuiAutomatorFactory;
-import com.testmile.daksha.tpi.guiauto.maker.selenium.SeleniumBuilder;
+import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 
 public class Basic3UsingTestNG extends TestNGBaseTest {
-	private ThreadLocal<GuiAutomatorProxy> threadWiseAutomator = new ThreadLocal<GuiAutomatorProxy>();
+	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
 	protected void tweakCentralContext(TestContext centralContext) throws Exception {
 		centralContext.setGuiAutoMaxWaitTime(30);
@@ -36,13 +35,13 @@ public class Basic3UsingTestNG extends TestNGBaseTest {
 	
 	protected void setUpClass(TestContext testContext) throws Exception {
 		// Create Selenium automator with context options
-		SeleniumBuilder builder = GuiAutomatorFactory.getSeleniumBuilder(testContext);
+		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		threadWiseAutomator.set(builder.build());
 	}
 	
 	@Test
 	public void test() throws Exception{
-		GuiAutomatorProxy automator = this.threadWiseAutomator.get();
+		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
 		automator.goTo("https://www.google.com");
 		System.out.println(automator.getPageTitle());
 		automator.takeScreenshot();
