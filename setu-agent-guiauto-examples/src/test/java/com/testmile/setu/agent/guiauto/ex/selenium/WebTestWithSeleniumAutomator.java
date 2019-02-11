@@ -21,18 +21,16 @@ package com.testmile.setu.agent.guiauto.ex.selenium;
 
 import static org.testng.Assert.assertTrue;
 
-import org.testng.annotations.Test;
-
-import com.testmile.daksha.tpi.TestContext;
 import com.testmile.setu.agent.guiauto.tpi.automator.GuiAutomator;
 import com.testmile.setu.agent.guiauto.tpi.builder.GuiAutomatorFactory;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
+import com.testmile.setu.agent.guiauto.tpi.handler.element.DropdownHandler;
 import com.testmile.trishanku.tpi.webserver.JsonUtils;
 
 
 /*
- * Res-usable values are condigured in Setu Client and Setu.
+ * Re-usable values are condigured in Setu Client and Setu.
  * Agent gets some of them in the SetuAgentConfig.
  * Rest are passed as direct values. They appear hard-coded here, that's because agent does not deal with this complexity.
  */
@@ -55,60 +53,33 @@ public class WebTestWithSeleniumAutomator{
 		
 		// Wait
 		automator.getElementFinder().find("class_name", "welcome-view-site").getStateHandler().waitUntilClickable();
+		
+		automator.getElementFinder().find("link_text", "Posts").getBasicActionsHandler().click();
+		automator.getElementFinder().find("link_text", "Categories").getBasicActionsHandler().click();
+		
+		GuiMultiElement checkboxes = automator.getElementFinder().findAll("name", "delete_tags[]");
+		checkboxes.getInstanceAtIndex(0).getCheckBoxHandler().check();
+		checkboxes.getInstanceAtIndex(0).getCheckBoxHandler().uncheck();
+
+		automator.getElementFinder().find("link_text", "Settings").getBasicActionsHandler().click();
+		GuiElement blogName = automator.getElementFinder().find("id", "blogname");
+		blogName.getBasicActionsHandler().enterText("Hello");
+		blogName.getBasicActionsHandler().enterText("Hello");
+		blogName.getBasicActionsHandler().setText("Hello");
+		
+		automator.getElementFinder().find("id", "users_can_register").getCheckBoxHandler().check();
+		
+		DropdownHandler roleDropDown = automator.getElementFinder().find("id", "default_role").asDropDown();
+
+		roleDropDown.selectText("Author");
+		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
+		roleDropDown.selectAtIndex(0);
+		assertTrue(roleDropDown.hasSelectedIndex(0), "Check Author Role Selected");
+		roleDropDown.selectValue("author");
+		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
+		
+		automator.getBrowserHandler().goTo("http://192.168.56.103/wp-login.php?action=logout");
+		
 		automator.quit();
 	}
-
-//	public void test() throws Exception{
-//		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
-//		automator.goTo(this.getContext().getValue().asString());	
-//		
-//		SetuClientGuiElement userTextBox = automator.elementWithId("user_login");
-//		userTextBox.waitUntilPresent();
-//		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
-//		automator.elementWithId("user_pass").enterText(this.getContext().getValue("wp.password").asString());
-//		automator.elementWithId("wp-submit").click();
-//		
-//		automator.elementWithCss(".dashicons-admin-post").hover();
-//		automator.elementWithLinkText("Categories").click();
-//		
-//		SetuClientGuiMultiElement tags = automator.elementsWithName("delete_tags[]");
-//		tags.getInstanceAtOrdinal(2).check();
-//		tags.getInstanceAtIndex(1).uncheck();
-//		
-//		for (SetuClientGuiElement element: tags.getAllInstances()){
-//			element.check();
-//			element.uncheck();
-//		}
-//		
-//		// Tests for alternate instance methods
-//		tags.getFirstInstance().check();
-//		tags.getFirstInstance().uncheck();
-//		
-//		tags.getLastInstance().check();
-//		tags.getLastInstance().uncheck();
-//		
-//		
-//		tags.getRandomInstance().check();
-//		tags.getRandomInstance().uncheck();
-//	
-//		automator.elementWithCss(".dashicons-admin-settings").hover();
-//		automator.elementWithLinkText("General").click();
-//		
-//		SetuClientGuiElement blogNameTextBox = automator.elementWithId("blogname");
-//		blogNameTextBox.enterText("Hello");
-//		blogNameTextBox.enterText("Hello");
-//		blogNameTextBox.setText("Hello");
-//		
-//		automator.elementWithId("users_can_register").check();
-//
-//		SetuClientGuiElement roleDropDown = automator.elementWithId("default_role");
-//		roleDropDown.selectText("Author");
-//		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
-//		roleDropDown.selectAtIndex(0);
-//		assertTrue(roleDropDown.hasSelectedIndex(0), "Check Author Role Selected");
-//		roleDropDown.selectValue("author");
-//		assertTrue(roleDropDown.hasSelectedValue("author"), "Check Author Role Selected");
-//		
-//		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
-//	}
 }

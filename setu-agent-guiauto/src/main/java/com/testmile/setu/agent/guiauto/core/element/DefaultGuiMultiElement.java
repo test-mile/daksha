@@ -12,6 +12,7 @@ public class DefaultGuiMultiElement implements GuiMultiElement {
 
 	public DefaultGuiMultiElement(List<GuiElement> elements) {
 		super();
+		this.elements = elements;
 	}
 
 	/* (non-Javadoc)
