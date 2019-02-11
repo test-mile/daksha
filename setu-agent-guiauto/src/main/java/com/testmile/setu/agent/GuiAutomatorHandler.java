@@ -20,4 +20,20 @@ public class GuiAutomatorHandler {
 		this.automator.quit();
 	}
 
+	public String takeAction(String jsonStr) throws Exception {
+		AutomatorAction action = new AutomatorAction(jsonStr);
+		switch(action.getActionType()) {
+		case GO_TO_URL:
+			System.out.println(action.getArgs().get("url").asString());
+			this.automator.getBrowserHandler().goTo(action.getArgs().get("url").asString());
+			break;
+		}
+		return "Success";
+	}
+
+}
+
+class Action{
+	String action;
+	String args;
 }

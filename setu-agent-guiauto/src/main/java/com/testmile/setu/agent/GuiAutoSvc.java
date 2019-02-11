@@ -81,6 +81,14 @@ public class GuiAutoSvc extends HttpServlet {
 				retContent = e.getMessage();
 			}
 			break;
+		case "/automator/action":
+			try {
+				retContent = guiAutoHandler.takeAction(req.getJsonStr());
+			} catch (Exception e) {
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+				retContent = e.getMessage();
+			}
+			break;
 //		case "/settings/save":
 //			// Here we need to create the DB entry and dir structure in projects directory.
 //			//Then redirect to project/<project_name>
@@ -286,7 +294,5 @@ class GuiAutoRequest{
 
 	public String getJsonStr() {
 		return jsonStr;
-	}
-
-	
+	}	
 }
