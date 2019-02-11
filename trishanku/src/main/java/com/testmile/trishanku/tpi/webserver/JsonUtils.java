@@ -38,6 +38,13 @@ public class JsonUtils {
     	return parser.parse(theString).getAsJsonObject();
     }
     
+    public static String asJsonString(ServletInputStream stream) throws IOException{
+    	StringWriter writer = new StringWriter();
+    	IOUtils.copy(stream, writer, "UTF-8");
+    	String theString = writer.toString();
+    	return theString;
+    }
+    
     public static String readMavenResource(String path) throws Exception{
     	String result = "";
 		

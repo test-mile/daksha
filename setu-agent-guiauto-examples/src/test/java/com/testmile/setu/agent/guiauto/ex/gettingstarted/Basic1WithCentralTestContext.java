@@ -27,7 +27,6 @@ public class Basic1WithCentralTestContext{
 	
 	public static void main (String args[]) throws Exception {
 		// Create Selenium automator with central context options
-		System.out.println();
 		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
 
 		automator.getBrowserHandler().goTo("https://www.google.com");
