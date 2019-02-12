@@ -1,4 +1,4 @@
-package com.testmile.setu.agent;
+package com.testmile.setu.agent.core.websvc.guiauto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ public class SetuWebService extends AbstractJettyServer{
 
 	protected List<Handler> getHandlers() throws Exception {
 		List<Handler> handlers = new ArrayList<Handler>();
-		ServletContextHandler project = new ServletContextHandler();
-		project.setContextPath(this.getRootContextPath());
-		project.addServlet(ConnectSvc.class, "/*");
-		handlers.add(project);
+//		ServletContextHandler project = new ServletContextHandler();
+//		project.setContextPath(this.getRootContextPath());
+//		project.addServlet(InfoSvc.class, "/*");
+//		handlers.add(project);
 
 		ServletContextHandler guiauto = new ServletContextHandler();
 		guiauto.setContextPath("/guiauto");

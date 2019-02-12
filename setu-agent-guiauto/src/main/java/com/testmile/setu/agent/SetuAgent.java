@@ -1,5 +1,7 @@
 package com.testmile.setu.agent;
 
+import com.testmile.setu.agent.core.websvc.guiauto.SetuWebService;
+
 /**
  * Hello world!
  *

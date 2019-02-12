@@ -1,4 +1,4 @@
-package com.testmile.setu.agent;
+package com.testmile.setu.agent.core.websvc.guiauto;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -12,35 +12,121 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.http.HttpStatus;
 
 import com.google.gson.JsonObject;
+import com.testmile.setu.agent.core.websvc.guiauto.helpers.GuiAutomatorHandler;
+import com.testmile.setu.agent.guiauto.SetuAgentGuiAutoSingleton;
 import com.testmile.trishanku.tpi.webserver.JsonUtils;
 
-public class ConnectSvc extends HttpServlet {
+public class GuiAutoSvc extends HttpServlet {
+	private static GuiAutomatorHandler guiAutoHandler = null;
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3372756574410648998L;
-
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String fullPath = request.getPathInfo();
-		System.out.println(fullPath);
-		String patternString1 = "(/.*)";
-        Pattern pattern = Pattern.compile(patternString1);
-        Matcher matcher = pattern.matcher(fullPath);
-        matcher.matches();
-        //String projName = matcher.group(1);
-        String path = matcher.group(1);
 		String retContent =  null;
-		System.out.println(path);
-		System.out.println(path.equals("/hello"));
+		GuiAutoRequest req = new GuiAutoRequest(request);
+		String path = req.getTarget() + req.getCommand();
 		switch (path){
-		case "/hello":
-			System.out.println("here");
-			retContent = "Hello";
-			response.setStatus(HttpStatus.OK_200);
+		case "/automator/quit":
+			try {
+				guiAutoHandler.quit();
+				retContent = "Success";
+			} catch (Exception e) {
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+				retContent = e.getMessage();
+			}
 			break;
+		default:
+			retContent = String.format("Requested link: %s is invalid.", request.getRequestURI());
+		}
+		
+		response.getWriter().println(retContent);
+		// This is very important, else JavaFX keeps waiting with zero progress.
+		response.flushBuffer();	
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String retContent =  null;
+		GuiAutoRequest req = new GuiAutoRequest(request);
+		String path = req.getTarget() + req.getCommand();
+		switch (path){
+		case "/automator/launch":
+			try {
+				guiAutoHandler = new GuiAutomatorHandler(req.getJsonStr(), req.getUuid());
+				retContent = "Success";
+			} catch (Exception e) {
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+				retContent = e.getMessage();
+			}
+			break;
+		case "/automator/action":
+			try {
+				retContent = guiAutoHandler.takeAction(req.getJsonStr());
+			} catch (Exception e) {
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+				retContent = e.getMessage();
+			}
+			break;
+		case "/element/action":
+			try {
+				retContent = guiAutoHandler.takeElementAction(req.getUuid(), req.getJsonStr());
+			} catch (Exception e) {
+				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+				retContent = e.getMessage();
+			}
+			break;
+//		case "/settings/save":
+//			// Here we need to create the DB entry and dir structure in projects directory.
+//			//Then redirect to project/<project_name>
+//			response.sendRedirect(String.format("/project/%s/settings/view", projName));
+//			return;
+//		case "/conf/arjuna/save":
+//			response.sendRedirect(String.format("/project/%s/conf/arjuna", projName));
+//			return;
+//		case "/conf/userConf/save":
+//			response.sendRedirect(String.format("/project/%s/conf/uo", projName));
+//			return;
+//		case "/conf/utv/save":
+//			response.sendRedirect(String.format("/project/%s/conf/tv", projName));
+//			return;
+//		case "/execute":
+//			retContent = "Executing...";
+//			break;
+		default:
+			retContent = String.format("Requested link: %s is invalid.", request.getRequestURI());
+		}
+		
+		response.getWriter().println(retContent);
+		// This is very important, else JavaFX keeps waiting with zero progress.
+		response.flushBuffer();	
+	}
+	
+//	@Override
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		String fullPath = request.getPathInfo();
+//		System.out.println(fullPath);
+//		String patternString1 = "(/.*)";
+//        Pattern pattern = Pattern.compile(patternString1);
+//        Matcher matcher = pattern.matcher(fullPath);
+//        matcher.matches();
+//        //String projName = matcher.group(1);
+//        String path = matcher.group(1);
+//		String retContent =  null;
+//		System.out.println(path);
+//		System.out.println(path.equals("/hello"));
+//		switch (path){
+//		case "/launch":
+//			System.out.println("here");
+//			retContent = "Hello";
+//			response.setStatus(HttpStatus.OK_200);
+//			break;
 //		case "/home":
 //			retContent = home(projName, request, response);
 //			break;
@@ -86,14 +172,14 @@ public class ConnectSvc extends HttpServlet {
 //		case "/execute":
 //			retContent = execute(projName, request, response);
 //			break;
-		default:
-			retContent = String.format("Requested link: <font color='red'>%s</font> is invalid.", request.getRequestURI());
-		}
-		
-		response.getWriter().println(retContent);
-		// This is very important, else JavaFX keeps waiting with zero progress.
-		response.flushBuffer();	
-	}
+//		default:
+//			retContent = String.format("Requested link: <font color='red'>%s</font> is invalid.", request.getRequestURI());
+//		}
+//		
+//		response.getWriter().println(retContent);
+//		// This is very important, else JavaFX keeps waiting with zero progress.
+//		response.flushBuffer();	
+//	}
 	
 //	private String execute(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 //		String body = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/execProjForm.html");
@@ -115,7 +201,7 @@ public class ConnectSvc extends HttpServlet {
 //		return retHtml;
 //	}
 	
-	private String execute(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+//	private String execute(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 //		String body = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/execProjForm.html");
 //		String common = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/execProjFormCommon.html");
 //		String runid = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/runid.html");
@@ -140,8 +226,8 @@ public class ConnectSvc extends HttpServlet {
 //				.replace("{{PROJECT_NAME}}", projName)
 //				.replace("{{SOURCE_CONFIG_TYPE}}", "Project");
 //		response.setStatus(HttpStatus.OK_200);
-		return "";
-	}
+//		return "";
+//	}
 	
 //	private String home(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 //		String body = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/project/projectSection.html");
@@ -159,53 +245,46 @@ public class ConnectSvc extends HttpServlet {
 //				.replace("{{PROJECT_NAME}}", projName);
 //		response.setStatus(HttpStatus.OK_200);
 //		return retHtml;
-//	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("POST");
-		String fullPath = request.getPathInfo();
-		System.out.println(fullPath);
-		String patternString1 = "/(.*?)(/.*)";
-        Pattern pattern = Pattern.compile(patternString1);
-        Matcher matcher = pattern.matcher(fullPath);
-        matcher.matches();
-        String projName = matcher.group(1);
-        String path = matcher.group(2);
-		String retContent =  null;
-		
-		JsonObject jObj = JsonUtils.getJson(request.getInputStream());
-//		System.out.println("here" + jObj.toString());
-//		System.out.println(path);
-//		switch (path){
-//		case "/settings/save":
-//			// Here we need to create the DB entry and dir structure in projects directory.
-//			//Then redirect to project/<project_name>
-//			response.sendRedirect(String.format("/project/%s/settings/view", projName));
-//			return;
-//		case "/conf/arjuna/save":
-//			response.sendRedirect(String.format("/project/%s/conf/arjuna", projName));
-//			return;
-//		case "/conf/userConf/save":
-//			response.sendRedirect(String.format("/project/%s/conf/uo", projName));
-//			return;
-//		case "/conf/utv/save":
-//			response.sendRedirect(String.format("/project/%s/conf/tv", projName));
-//			return;
-//		case "/execute":
-//			retContent = "Executing...";
-//			break;
-//		default:
-//			retContent = String.format("Requested link: <font color='red'>%s</font> is invalid.", request.getRequestURI());
-//		}
-		
-		response.getWriter().println(retContent);
-		// This is very important, else JavaFX keeps waiting with zero progress.
-		response.flushBuffer();	
-	}
-		
+//	}	
 		
 }
 
+class GuiAutoRequest{
+	private String target;
+	private String uuid;
+	private String command;
+	private String jsonStr;
+	
+	public GuiAutoRequest(HttpServletRequest request) throws IOException {
+		String fullPath = request.getPathInfo();
+		System.out.println(fullPath);
+		String patternString1 = "(/.*?)/(.*?)(/.*?)";
+        Pattern pattern = Pattern.compile(patternString1);
+        Matcher matcher = pattern.matcher(fullPath);
+        matcher.matches();
+        target = matcher.group(1);
+        uuid = matcher.group(2);
+        command = matcher.group(3);
+        System.out.println(target);
+        System.out.println(uuid);
+        System.out.println(command);		
+		jsonStr = JsonUtils.asJsonString(request.getInputStream());
+		System.out.println("JsonInput:" + jsonStr);		
+	}
+	
+	public String getTarget() {
+		return target;
+	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
+	public String getCommand() {
+		return command;
+	}
+
+	public String getJsonStr() {
+		return jsonStr;
+	}	
+}

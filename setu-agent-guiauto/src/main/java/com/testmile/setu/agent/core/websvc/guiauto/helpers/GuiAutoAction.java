@@ -1,4 +1,4 @@
-package com.testmile.setu.agent;
+package com.testmile.setu.agent.core.websvc.guiauto.helpers;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -11,17 +11,18 @@ import com.google.gson.reflect.TypeToken;
 import com.testmile.daksha.core.value.StringValue;
 import com.testmile.daksha.tpi.batteries.container.Value;
 
-class AutomatorAction{
-	private static JsonParser parser = new JsonParser();
-	private static Gson gson = new Gson();
-	private AutomatorActionType action;
-	private Map<String, Value> args;
-	
-	public AutomatorAction(String jsonActionStr) {
+public abstract class GuiAutoAction {
+
+	protected static JsonParser parser = new JsonParser();
+	protected static Gson gson = new Gson();
+	private String action;
+	protected Map<String, Value> args;
+
+	public GuiAutoAction(String jsonActionStr) {
 		JsonObject o = parser.parse(jsonActionStr).getAsJsonObject();
-		setAction(AutomatorActionType.valueOf(o.get("action").getAsString().toUpperCase()));
-		String rawArgsStr = o.get("args").toString();
+		this.action = o.get("action").getAsString().toUpperCase();
 		
+		String rawArgsStr = o.get("args").toString();	
 		args = new HashMap<String, Value>();
 		Type type = new TypeToken<Map<String, String>>(){}.getType();
 		Map<String, String> config = gson.fromJson(rawArgsStr, type); // contains the whole reviews list
@@ -29,16 +30,13 @@ class AutomatorAction{
 			args.put(key, new StringValue(config.get(key)));
 		}
 	}
-
-	public AutomatorActionType getActionType() {
+	
+	protected String getActionTypeStr() {
 		return action;
 	}
 
-	private void setAction(AutomatorActionType action) {
-		this.action = action;
-	}
-	
 	public Map<String, Value> getArgs() {
 		return args;
 	}
+
 }
