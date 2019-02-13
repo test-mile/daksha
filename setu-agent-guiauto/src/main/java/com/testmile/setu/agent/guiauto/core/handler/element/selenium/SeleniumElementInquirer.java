@@ -56,5 +56,10 @@ public class SeleniumElementInquirer extends AbstractWDElementHandler implements
 	public String getAttribute(String attr) throws Exception {
 		return this.getWebElement().getAttribute("attr");
 	}
+	
+	@Override
+	public String getTagName() throws Exception {
+		return this.getWebElement().getTagName();
+	}
 
 }

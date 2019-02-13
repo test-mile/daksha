@@ -11,13 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.http.HttpStatus;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.testmile.setu.agent.core.websvc.guiauto.helpers.GuiAutomatorHandler;
+import com.testmile.setu.agent.core.websvc.guiauto.helpers.Response;
+import com.testmile.setu.agent.core.websvc.guiauto.helpers.ResponseCode;
 import com.testmile.setu.agent.guiauto.SetuAgentGuiAutoSingleton;
 import com.testmile.trishanku.tpi.webserver.JsonUtils;
 
 public class GuiAutoSvc extends HttpServlet {
 	private static GuiAutomatorHandler guiAutoHandler = null;
+	private static Gson gson = new Gson();
 
 	/**
 	 * 
@@ -30,22 +34,26 @@ public class GuiAutoSvc extends HttpServlet {
 		String retContent =  null;
 		GuiAutoRequest req = new GuiAutoRequest(request);
 		String path = req.getTarget() + req.getCommand();
-		switch (path){
-		case "/automator/quit":
-			try {
-				guiAutoHandler.quit();
-				retContent = "Success";
-			} catch (Exception e) {
-				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
-				retContent = e.getMessage();
+		try {
+			switch (path){
+			case "/automator/quit":
+				try {
+					guiAutoHandler.quit();
+					retContent = "Success";
+				} catch (Exception e) {
+					response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+					retContent = e.getMessage();
+				}
+				break;
+			default:
+				throw new Exception(String.format("Requested link: %s is invalid.", request.getRequestURI()));
 			}
-			break;
-		default:
-			retContent = String.format("Requested link: %s is invalid.", request.getRequestURI());
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+			retContent = Response.createErrorResponseString(e);
 		}
 		
 		response.getWriter().println(retContent);
-		// This is very important, else JavaFX keeps waiting with zero progress.
 		response.flushBuffer();	
 	}
 
@@ -55,55 +63,30 @@ public class GuiAutoSvc extends HttpServlet {
 		String retContent =  null;
 		GuiAutoRequest req = new GuiAutoRequest(request);
 		String path = req.getTarget() + req.getCommand();
-		switch (path){
-		case "/automator/launch":
-			try {
+		try {
+			switch (path){
+			case "/automator/launch":
 				guiAutoHandler = new GuiAutomatorHandler(req.getJsonStr(), req.getUuid());
-				retContent = "Success";
-			} catch (Exception e) {
-				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
-				retContent = e.getMessage();
-			}
-			break;
-		case "/automator/action":
-			try {
+				retContent = Response.createSuccessResponseString();
+				break;
+			case "/automator/action":
 				retContent = guiAutoHandler.takeAction(req.getJsonStr());
-			} catch (Exception e) {
-				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
-				retContent = e.getMessage();
-			}
-			break;
-		case "/element/action":
-			try {
+				break;
+			case "/element/action":
 				retContent = guiAutoHandler.takeElementAction(req.getUuid(), req.getJsonStr());
-			} catch (Exception e) {
-				response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
-				retContent = e.getMessage();
+				break;
+			case "/multielement/action":
+				retContent = guiAutoHandler.takeMultiElementAction(req.getUuid(), req.getJsonStr());
+				break;
+			default:
+				throw new Exception(String.format("Requested link: %s is invalid.", request.getRequestURI()));
 			}
-			break;
-//		case "/settings/save":
-//			// Here we need to create the DB entry and dir structure in projects directory.
-//			//Then redirect to project/<project_name>
-//			response.sendRedirect(String.format("/project/%s/settings/view", projName));
-//			return;
-//		case "/conf/arjuna/save":
-//			response.sendRedirect(String.format("/project/%s/conf/arjuna", projName));
-//			return;
-//		case "/conf/userConf/save":
-//			response.sendRedirect(String.format("/project/%s/conf/uo", projName));
-//			return;
-//		case "/conf/utv/save":
-//			response.sendRedirect(String.format("/project/%s/conf/tv", projName));
-//			return;
-//		case "/execute":
-//			retContent = "Executing...";
-//			break;
-		default:
-			retContent = String.format("Requested link: %s is invalid.", request.getRequestURI());
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
+			retContent = Response.createErrorResponseString(e);
 		}
 		
 		response.getWriter().println(retContent);
-		// This is very important, else JavaFX keeps waiting with zero progress.
 		response.flushBuffer();	
 	}
 	

@@ -3,14 +3,20 @@ package com.testmile.setu.agent.guiauto.core.element;
 import java.util.List;
 
 import com.testmile.daksha.tpi.batteries.checks.Checks;
+import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.InquirableElement;
+import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementInquirer;
+import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementStateHandler;
+import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementInquirer;
+import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementStateHandler;
 
-public class DefaultGuiMultiElement implements GuiMultiElement {
+public abstract class AbstractGuiMultiElement implements GuiMultiElement {
 	private List<GuiElement> elements;
+	private MultiElementInquirer inquirer;
+	private MultiElementStateHandler stateHandler;
 
-	public DefaultGuiMultiElement(List<GuiElement> elements) {
+	public AbstractGuiMultiElement(List<GuiElement> elements) {
 		super();
 		this.elements = elements;
 	}
@@ -55,5 +61,23 @@ public class DefaultGuiMultiElement implements GuiMultiElement {
 			}
 		}
 		throw new Exception("None of the element instances has the specified text content.");
+	}
+	
+	public MultiElementInquirer getInquirer() throws Exception {
+		HandlerUtils.throwUnsupportedComponentExceptionForNullObject(inquirer, this.getClass().getSimpleName(), MultiElementInquirer.class.getSimpleName());;
+		return inquirer;
+	}
+
+	protected void setInquirer(MultiElementInquirer inquirer) {
+		this.inquirer = inquirer;
+	}
+	
+	public MultiElementStateHandler getStateHandler() throws Exception {
+		HandlerUtils.throwUnsupportedComponentExceptionForNullObject(stateHandler, this.getClass().getSimpleName(), MultiElementStateHandler.class.getSimpleName());;
+		return stateHandler;
+	}
+
+	protected void setStateHandler(MultiElementStateHandler stateHandler) {
+		this.stateHandler = stateHandler;
 	}
 }

@@ -31,23 +31,13 @@ public class SikuliBasicActionsHandler extends AbstractAutomatorHandler implemen
 	}
 
 	@Override
-	public void enterText(String text)  throws Exception{
+	public void sendText(String text)  throws Exception{
 		getCurrentScreen().type(this.getPattern(), text);
 	}
 	
 	@Override
-	public void setText(String text)  throws Exception{
-		getCurrentScreen().paste(this.getPattern(), text);
-	}
-	
-	@Override
 	public void clearText() throws Exception {
-		this.setText("");
-	}
-
-	@Override
-	public void focus() throws Exception {
-		getCurrentScreen().click();
+		getCurrentScreen().paste(this.getPattern(), "");
 	}
 
 	@Override

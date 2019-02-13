@@ -63,8 +63,8 @@ public class WebTestWithSeleniumAutomator{
 
 		automator.getElementFinder().find("link_text", "Settings").getBasicActionsHandler().click();
 		GuiElement blogName = automator.getElementFinder().find("id", "blogname");
-		blogName.getBasicActionsHandler().enterText("Hello");
-		blogName.getBasicActionsHandler().enterText("Hello");
+		blogName.getBasicActionsHandler().sendText("Hello");
+		blogName.getBasicActionsHandler().sendText("Hello");
 		blogName.getBasicActionsHandler().setText("Hello");
 		
 		automator.getElementFinder().find("id", "users_can_register").getCheckBoxHandler().check();

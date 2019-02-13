@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.testmile.setu.agent.SetuAgentConfig;
-import com.testmile.setu.agent.guiauto.core.element.DefaultGuiMultiElement;
+import com.testmile.setu.agent.guiauto.core.element.AbstractGuiMultiElement;
 import com.testmile.setu.agent.guiauto.core.element.SeleniumGuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;

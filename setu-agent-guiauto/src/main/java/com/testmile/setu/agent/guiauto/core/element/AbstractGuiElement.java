@@ -4,7 +4,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.BasicActionsHandler;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.CheckboxHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.DropdownHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementFrameHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementInquirer;
@@ -13,7 +12,6 @@ import com.testmile.setu.agent.guiauto.tpi.handler.element.RadioButtonHandler;
 
 public class AbstractGuiElement implements GuiElement {
 	private BasicActionsHandler basicActionsHandler;
-	private CheckboxHandler checkBoxHandler;
 	private ElementFrameHandler frameHandler;
 	private ElementInquirer inquirer;
 	private ElementStateHandler stateHandler;
@@ -35,19 +33,6 @@ public class AbstractGuiElement implements GuiElement {
 
 	protected void setBasicActionsHandler(BasicActionsHandler basicActionsHandler) {
 		this.basicActionsHandler = basicActionsHandler;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.testmile.setu.agent.guiauto.core.element.GuiElement#getCheckBoxHandler()
-	 */
-	@Override
-	public CheckboxHandler getCheckBoxHandler() throws Exception {
-		HandlerUtils.throwUnsupportedComponentExceptionForNullObject(checkBoxHandler, this.getClass().getSimpleName(), CheckboxHandler.class.getSimpleName());
-		return checkBoxHandler;
-	}
-
-	protected void setCheckBoxHandler(CheckboxHandler checkBoxHandler) {
-		this.checkBoxHandler = checkBoxHandler;
 	}
 
 	/* (non-Javadoc)

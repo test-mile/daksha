@@ -14,4 +14,6 @@ public interface ElementStateHandler {
 
 	void waitUntilClickable() throws Exception;
 
+	boolean isSelected() throws Exception;
+
 }

@@ -22,4 +22,6 @@ public interface ElementInquirer {
 	 */
 	String getAttribute(String attr) throws Exception;
 
+	String getTagName() throws Exception;
+
 }

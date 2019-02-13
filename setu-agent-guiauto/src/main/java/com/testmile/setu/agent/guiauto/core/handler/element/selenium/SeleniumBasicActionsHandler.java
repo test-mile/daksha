@@ -12,30 +12,12 @@ public class SeleniumBasicActionsHandler extends AbstractWDElementHandler implem
 	public SeleniumBasicActionsHandler(WebDriver driver, WebElement element, SetuAgentConfig config) throws Exception {
 		super(driver, element, config);
 	}
-
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.BasicActionsHandler#focus()
-	 */
-	@Override
-	public void focus() throws Exception {
-		this.getWebElement().sendKeys("");
-	}
 	
 	/* (non-Javadoc)
 	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.BasicActionsHandler#enterText(java.lang.String)
 	 */
 	@Override
-	public void enterText(String text) throws Exception {
-		this.getWebElement().click();
-		this.getWebElement().sendKeys(text);
-	}
-
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.BasicActionsHandler#setText(java.lang.String)
-	 */
-	@Override
-	public void setText(String text) throws Exception {
-		clearText();
+	public void sendText(String text) throws Exception {
 		this.getWebElement().sendKeys(text);
 	}
 
@@ -44,7 +26,6 @@ public class SeleniumBasicActionsHandler extends AbstractWDElementHandler implem
 	 */
 	@Override
 	public void clearText() throws Exception {
-		this.getWebElement().click();
 		this.getWebElement().clear();
 	}
 	

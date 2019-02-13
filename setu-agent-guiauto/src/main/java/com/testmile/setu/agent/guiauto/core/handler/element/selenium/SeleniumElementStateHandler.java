@@ -40,4 +40,8 @@ public class SeleniumElementStateHandler extends AbstractWDElementHandler implem
 	public boolean isClickable() {
 		return this.getWebElement().isEnabled();		
 	}
+	
+	public boolean isSelected() throws Exception{
+		return this.getWebElement().isSelected();		
+	}
 }
