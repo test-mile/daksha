@@ -1,5 +1,6 @@
 package com.testmile.setu.agent.guiauto.core.handler.element.appium;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -39,5 +40,13 @@ public class AppiumMultiElementStateHandler extends AbstractWDHandler implements
 		for (WebElement element: elements) {
 			waiter.until(ExpectedConditions.elementToBeClickable(element));	
 		}
+	}
+	
+	public List<Boolean> areSelected() throws Exception {
+		List<Boolean> out = new ArrayList<Boolean>();
+		for (MobileElement element: elements) {
+			out.add(element.isSelected());
+		}
+		return out;
 	}
 }

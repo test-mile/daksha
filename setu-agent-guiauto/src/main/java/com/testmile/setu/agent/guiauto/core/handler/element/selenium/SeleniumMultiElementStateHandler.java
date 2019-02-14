@@ -1,5 +1,6 @@
 package com.testmile.setu.agent.guiauto.core.handler.element.selenium;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -33,5 +34,13 @@ public class SeleniumMultiElementStateHandler extends AbstractWDHandler implemen
 		for (WebElement element: elements) {
 			waiter.until(ExpectedConditions.elementToBeClickable(element));	
 		}
+	}
+
+	public List<Boolean> areSelected() throws Exception {
+		List<Boolean> out = new ArrayList<Boolean>();
+		for (WebElement element: elements) {
+			out.add(element.isSelected());
+		}
+		return out;
 	}
 }
