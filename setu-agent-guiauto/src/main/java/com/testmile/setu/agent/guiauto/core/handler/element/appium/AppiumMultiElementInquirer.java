@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.AbstractWDHandler;
@@ -19,12 +20,15 @@ public class AppiumMultiElementInquirer extends AbstractWDHandler implements Mul
 		this.elements = elements;
 	}
 
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.InquirableElement#getText()
-	 */
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.ElementInquirer#getText()
-	 */
+	@Override
+	public List<String> getTagNames() throws Exception {
+		List<String> out = new ArrayList<String>();
+		for (MobileElement element: elements) {
+			out.add(element.getTagName());
+		}
+		return out;
+	}
+	
 	@Override
 	public List<String> getTextContent() throws Exception {
 		List<String> out = new ArrayList<String>();

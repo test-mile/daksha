@@ -110,8 +110,12 @@ public class GuiElementHandler {
 				List<String> texts = me.getInquirer().getTextContent();
 				retContent = Response.createSuccessResponseString("attrValues", texts);
 				break;
+			case GET_TAG_NAME:
+				List<String> tagNames = me.getInquirer().getTagNames();
+				retContent = Response.createSuccessResponseString("attrValues", tagNames);
+				break;
 			case GET_ATTR_VALUE:
-				List<String> values = me.getInquirer().getAttribute("value");
+				List<String> values = me.getInquirer().getAttribute(action.getArgs().get("attr").asString());
 				retContent = Response.createSuccessResponseString("attrValues", values);
 				break;
 			case IS_SELECTED:

@@ -17,13 +17,16 @@ public class SeleniumMultiElementInquirer extends AbstractWDHandler implements M
 		super(driver, config);
 		this.elements = elements;
 	}
+	
+	@Override
+	public List<String> getTagNames() throws Exception {
+		List<String> out = new ArrayList<String>();
+		for (WebElement element: elements) {
+			out.add(element.getTagName());
+		}
+		return out;
+	}
 
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.InquirableElement#getText()
-	 */
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.element.selenium.ElementInquirer#getText()
-	 */
 	@Override
 	public List<String> getTextContent() throws Exception {
 		List<String> out = new ArrayList<String>();

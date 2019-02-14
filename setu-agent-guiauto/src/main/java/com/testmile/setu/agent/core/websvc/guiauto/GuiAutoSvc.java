@@ -36,7 +36,7 @@ public class GuiAutoSvc extends HttpServlet {
 			case "/automator/quit":
 				try {
 					guiAutoHandler.quit();
-					retContent = "Success";
+					retContent = Response.createSuccessResponseString();
 				} catch (Exception e) {
 					response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
 					retContent = e.getMessage();

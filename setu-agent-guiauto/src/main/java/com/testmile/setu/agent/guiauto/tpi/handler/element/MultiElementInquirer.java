@@ -8,4 +8,6 @@ public interface MultiElementInquirer {
 
 	List<String> getAttribute(String attr) throws Exception;
 
+	List<String> getTagNames() throws Exception;
+
 }
