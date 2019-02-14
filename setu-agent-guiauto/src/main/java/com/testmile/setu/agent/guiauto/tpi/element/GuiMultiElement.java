@@ -1,6 +1,5 @@
 package com.testmile.setu.agent.guiauto.tpi.element;
 
-import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementStateHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementInquirer;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementStateHandler;
 

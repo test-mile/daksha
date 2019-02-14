@@ -6,8 +6,6 @@ import com.testmile.daksha.tpi.batteries.checks.Checks;
 import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementInquirer;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementStateHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementInquirer;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementStateHandler;
 

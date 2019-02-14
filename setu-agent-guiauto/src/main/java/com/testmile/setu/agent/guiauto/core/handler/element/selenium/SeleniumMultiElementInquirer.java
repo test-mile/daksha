@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.AbstractWDHandler;
-import com.testmile.setu.agent.guiauto.core.handler.element.AbstractWDElementHandler;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementInquirer;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.MultiElementInquirer;
 
 public class SeleniumMultiElementInquirer extends AbstractWDHandler implements MultiElementInquirer {

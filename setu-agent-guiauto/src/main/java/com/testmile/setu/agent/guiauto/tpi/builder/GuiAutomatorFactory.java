@@ -1,7 +1,6 @@
 package com.testmile.setu.agent.guiauto.tpi.builder;
 
 import com.testmile.setu.agent.SetuAgentConfig;
-import com.testmile.setu.agent.guiauto.core.automator.SeleniumGuiAutomator;
 import com.testmile.setu.agent.guiauto.core.builder.AppiumBuilder;
 import com.testmile.setu.agent.guiauto.core.builder.SeleniumBuilder;
 import com.testmile.setu.agent.guiauto.tpi.automator.GuiAutomator;

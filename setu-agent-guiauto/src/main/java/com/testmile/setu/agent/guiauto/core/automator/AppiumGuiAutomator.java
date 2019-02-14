@@ -32,7 +32,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumWaite
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
-import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumNestedElementFinder;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

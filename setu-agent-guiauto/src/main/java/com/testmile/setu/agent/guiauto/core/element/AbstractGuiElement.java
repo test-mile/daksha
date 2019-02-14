@@ -4,7 +4,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.BasicActionsHandler;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.DropdownHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementFrameHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementInquirer;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementStateHandler;
@@ -33,15 +32,6 @@ public class AbstractGuiElement implements GuiElement {
 
 	protected void setBasicActionsHandler(BasicActionsHandler basicActionsHandler) {
 		this.basicActionsHandler = basicActionsHandler;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.testmile.setu.agent.guiauto.core.element.GuiElement#getDropdownHandler()
-	 */
-	@Override
-	public DropdownHandler asDropDown() throws Exception {
-		HandlerUtils.throwUnsupportedComponentExceptionForNullObject(null, this.getClass().getSimpleName(), DropdownHandler.class.getSimpleName());;
-		return null;
 	}
 
 	/* (non-Javadoc)

@@ -1,13 +1,11 @@
 package com.testmile.setu.agent;
 
-import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.testmile.daksha.core.value.StringValue;
 import com.testmile.daksha.tpi.batteries.container.Value;
 import com.testmile.daksha.tpi.enums.Browser;

@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 
 import com.testmile.daksha.tpi.enums.Browser;
 import com.testmile.setu.agent.SetuAgentConfig;
-import com.testmile.setu.agent.guiauto.core.handler.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumAlertHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumBrowserHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumElementFinder;
@@ -17,7 +16,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumS
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumWaiter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumWindowHandler;
-import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumNestedElementFinder;
 
 public class SeleniumGuiAutomator extends BaseGuiAutomator {
 	private WebDriver driver = null;

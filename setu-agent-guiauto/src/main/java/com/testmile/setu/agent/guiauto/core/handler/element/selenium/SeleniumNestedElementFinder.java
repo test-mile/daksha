@@ -12,8 +12,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.AbstractS
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
 
-import io.appium.java_client.MobileElement;
-
 public class SeleniumNestedElementFinder extends AbstractSeleniumFinder{
 	private WebElement webElement;
 

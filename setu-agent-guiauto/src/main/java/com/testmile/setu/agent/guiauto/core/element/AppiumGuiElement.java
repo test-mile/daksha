@@ -1,17 +1,12 @@
 package com.testmile.setu.agent.guiauto.core.element;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.element.appium.AppiumElementFrameHandler;
 import com.testmile.setu.agent.guiauto.core.handler.element.appium.AppiumNestedElementFinder;
 import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumBasicActionsHandler;
-import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumDropdownHandler;
 import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumElementInquirer;
 import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumElementStateHandler;
 import com.testmile.setu.agent.guiauto.core.handler.element.selenium.SeleniumRadioButtonHandler;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.DropdownHandler;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -31,11 +26,6 @@ public class AppiumGuiElement extends AbstractGuiElement{
 		setStateHandler(new SeleniumElementStateHandler(driver, element, config));
 		setRadioHandler(new SeleniumRadioButtonHandler(driver, element, config));
 		setElementFinder(new AppiumNestedElementFinder(driver, element, config));
-	}
-	
-	@Override
-	public DropdownHandler asDropDown() throws Exception {
-		return new SeleniumDropdownHandler(driver, element, config);
 	}
 
 }

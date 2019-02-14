@@ -12,11 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.http.HttpStatus;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.testmile.setu.agent.core.websvc.guiauto.helpers.GuiAutomatorHandler;
 import com.testmile.setu.agent.core.websvc.guiauto.helpers.Response;
-import com.testmile.setu.agent.core.websvc.guiauto.helpers.ResponseCode;
-import com.testmile.setu.agent.guiauto.SetuAgentGuiAutoSingleton;
 import com.testmile.trishanku.tpi.webserver.JsonUtils;
 
 public class GuiAutoSvc extends HttpServlet {
