@@ -1,16 +1,21 @@
 package com.testmile.setu.agent.guiauto.tpi.handler.automator;
 
-public interface WindowHandler {
+import java.util.Map;
+import java.util.Set;
 
-	void resizeWindowAsConfigured() throws Exception;
+public interface WindowHandler {
+	
+	Map<String, Integer> getCurrentWindowSize() throws Exception;
+	
+	Set<String> getAllWindowHandles() throws Exception;
+
+	void setWindowSize(int width, int height) throws Exception;
 
 	void maximizeWindow();
 
-	String getCurrentWindow();
+	String getCurrentWindowHandle();
 
 	void switchToWindow(String windowHandle);
-
-	void switchToNewWindow();
 
 	void closeCurrentWindow();
 

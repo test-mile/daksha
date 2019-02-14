@@ -34,13 +34,12 @@ public class GuiAutoSvc extends HttpServlet {
 		try {
 			switch (path){
 			case "/automator/quit":
-				try {
-					guiAutoHandler.quit();
-					retContent = Response.createSuccessResponseString();
-				} catch (Exception e) {
-					response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
-					retContent = e.getMessage();
-				}
+				guiAutoHandler.quit();
+				retContent = Response.createSuccessResponseString();
+				break;
+			case "/automator/screenshot":
+				String codedImage = guiAutoHandler.takeScreeshot();
+				retContent = Response.createSuccessResponseString("codedImage", codedImage);
 				break;
 			default:
 				throw new Exception(String.format("Requested link: %s is invalid.", request.getRequestURI()));

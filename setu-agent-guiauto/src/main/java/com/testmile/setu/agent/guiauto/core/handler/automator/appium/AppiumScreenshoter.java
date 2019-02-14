@@ -1,7 +1,5 @@
 package com.testmile.setu.agent.guiauto.core.handler.automator.appium;
 
-import java.io.File;
-
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
@@ -22,7 +20,7 @@ public class AppiumScreenshoter extends SeleniumScreenshoter {
 		this.viewHandler = viewHandler;
 	}
 	
-	public File takeScreenshot() throws Exception {
+	public String takeScreenshot() throws Exception {
 		// Mobile Web
 		if (GuiAutomationContext.isMobileWebContext(this.getConfig().getAutomationContext())) {
 			return super.takeScreenshot();
@@ -35,7 +33,7 @@ public class AppiumScreenshoter extends SeleniumScreenshoter {
 				return super.takeScreenshot();
 			} else {
 				this.viewHandler.switchToNativeView();
-				File f = super.takeScreenshot();
+				String f = super.takeScreenshot();
 				this.viewHandler.switchToWebView();
 				return f;
 			}

@@ -1,4 +1,4 @@
-package com.testmile.setu.agent.guiauto.core.handler.automator.selenium;
+package com.testmile.setu.agent.guiauto.core.builder;
 
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;

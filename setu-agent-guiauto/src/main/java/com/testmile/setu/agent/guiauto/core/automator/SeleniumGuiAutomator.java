@@ -14,7 +14,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumF
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
-import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumWaiter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumWindowHandler;
 
 public class SeleniumGuiAutomator extends BaseGuiAutomator {
@@ -22,17 +21,13 @@ public class SeleniumGuiAutomator extends BaseGuiAutomator {
 	protected Capabilities capabilities = null;
 	private Browser browser = null;
 	
-	private SeleniumWaiter waiter = null;
-	
 	public SeleniumGuiAutomator(WebDriver driver, SetuAgentConfig config) throws Exception{
 		super(config);
 		this.driver = driver;
 		initComponents();
-		getWindowHandler().resizeWindowAsConfigured();
 	}
 	
 	private void initComponents() throws Exception{
-		this.setWaiter(new SeleniumWaiter(this.driver, this.getConfig()));
 		if(this.browser != Browser.SAFARI){
 			getWebDriver().manage().timeouts().pageLoadTimeout(this.getConfig().getMaxWaitTime(), TimeUnit.SECONDS);
 		}
@@ -53,14 +48,6 @@ public class SeleniumGuiAutomator extends BaseGuiAutomator {
 	
 	public void quit() throws Exception{
 		this.getBrowserHandler().close();
-	}
-	
-	public SeleniumWaiter getWaiter() {
-		return waiter;
-	}
-
-	private void setWaiter(SeleniumWaiter waiter) {
-		this.waiter = waiter;
 	}
 
 }

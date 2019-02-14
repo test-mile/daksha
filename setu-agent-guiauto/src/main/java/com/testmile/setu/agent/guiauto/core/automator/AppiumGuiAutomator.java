@@ -28,7 +28,6 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumEleme
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumFrameHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumSwiper;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumViewHandler;
-import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumWaiter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
@@ -38,8 +37,6 @@ import io.appium.java_client.MobileElement;
 
 public class AppiumGuiAutomator extends BaseGuiAutomator{
 	private AppiumDriver<MobileElement> appiumDriver;
-
-	private AppiumWaiter waiter = null;
 	
 	public AppiumGuiAutomator(AppiumDriver<MobileElement> driver, SetuAgentConfig config) throws Exception{
 		super(config);
@@ -48,7 +45,6 @@ public class AppiumGuiAutomator extends BaseGuiAutomator{
 	}
 	
 	private void initComponents() throws Exception{
-		this.waiter = new AppiumWaiter(this.appiumDriver, this.getConfig());
 		if(getConfig().getBrowser() != Browser.SAFARI){
 			this.appiumDriver.manage().timeouts().pageLoadTimeout(this.getConfig().getMaxWaitTime(), TimeUnit.SECONDS);
 		}
@@ -62,10 +58,6 @@ public class AppiumGuiAutomator extends BaseGuiAutomator{
 		this.setScroller(new SeleniumScroller(this.appiumDriver, this.getConfig()));
 		this.setSwiper(new AppiumSwiper(this.appiumDriver, this.getConfig()));
 		this.setElementFinder(new AppiumElementFinder(this.appiumDriver, getConfig()));
-	}
-	
-	public AppiumWaiter getWaiter() {
-		return this.waiter;
 	}
 
 	@Override

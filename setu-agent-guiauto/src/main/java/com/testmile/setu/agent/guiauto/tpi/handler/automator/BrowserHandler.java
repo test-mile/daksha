@@ -12,6 +12,6 @@ public interface BrowserHandler {
 
 	void close() throws Exception;
 
-	void validatePageLoad() throws Exception;
+	//void validatePageLoad() throws Exception;
 
 }

@@ -1,13 +1,8 @@
 package com.testmile.setu.agent.guiauto.core.handler.automator.appium;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Dimension;
 
@@ -49,42 +44,6 @@ public class AppiumSwiper extends SeleniumJSExecutor implements Swiper{
 			throw new Exception("Swipe actions are not supported for Web View.");
 		}
 	}
-
-	private String swipeUsingADB(int startx, int starty, int endx, int endy, int duration) {
-        return executeAsString("adb shell input touchscreen swipe "+startx+" "+starty+" "+endx+" "+endy+" "+duration);
-    }
-
-    private String executeAsString(String command) {
-        try {
-            Process pr = execute(command);
-            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = input.readLine()) != null) {
-                if (!line.isEmpty()) {
-                    sb.append(line);
-                }
-            }
-            input.close();
-            pr.destroy();
-            return sb.toString();
-        } catch (Exception e) {
-            throw new RuntimeException("Execution error while executing command" + command, e);
-        }
-    }  
-    
-    private Process execute(String command) throws Exception {
-        List<String> commandP = new ArrayList<String>();
-        String[] com = command.split(" ");
-        for (int i = 0; i < com.length; i++) {
-            commandP.add(com[i]);
-        }
-        ProcessBuilder prb = new ProcessBuilder(commandP);
-        Process pr = prb.start();
-        pr.waitFor(10, TimeUnit.SECONDS);
-        return pr;
-    }
-
 	
 	private void swipe(Direction direction, int count, float startFraction, float endFraction) throws Exception {
 		validateSwipeSupport();

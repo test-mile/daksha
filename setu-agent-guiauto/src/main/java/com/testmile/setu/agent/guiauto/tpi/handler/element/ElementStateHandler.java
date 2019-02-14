@@ -6,8 +6,6 @@ public interface ElementStateHandler {
 
 	void waitUntilVisible() throws Exception;
 
-	boolean isInvisible() throws Exception;
-
 	void waitUntilInvisible() throws Exception;
 
 	boolean isClickable() throws Exception;

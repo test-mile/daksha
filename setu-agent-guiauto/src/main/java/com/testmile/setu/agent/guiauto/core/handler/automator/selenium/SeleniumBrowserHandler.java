@@ -1,10 +1,6 @@
 package com.testmile.setu.agent.guiauto.core.handler.automator.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.testmile.setu.agent.SetuAgentConfig;
@@ -26,28 +22,28 @@ public class SeleniumBrowserHandler extends SeleniumJSExecutor implements Browse
 	public void goTo(String url) throws Exception {
 		validateBrowserSupport();
 		getWebDriver().get(url);
-		validatePageLoad();
+		//validatePageLoad();
 	}
 	
 	@Override
 	public void refresh() throws Exception {
 		validateBrowserSupport();
 		getWebDriver().navigate().refresh();
-		validatePageLoad();
+		//validatePageLoad();
 	}
 	
 	@Override
 	public void back() throws Exception {
 		validateBrowserSupport();
 		getWebDriver().navigate().back();
-		validatePageLoad();
+		//validatePageLoad();
 	}
 	
 	@Override
 	public void forward() throws Exception {
 		validateBrowserSupport();
 		getWebDriver().navigate().forward();
-		validatePageLoad();
+		//validatePageLoad();
 	}
 
 	@Override
@@ -60,19 +56,19 @@ public class SeleniumBrowserHandler extends SeleniumJSExecutor implements Browse
 		return true;
 	}
 
-	@Override
-	public void validatePageLoad() throws Exception {
-		validateBrowserSupport();
-		
-		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver driver) {
-				return ((String) ((JavascriptExecutor) driver).executeScript("return document.readyState"))
-						.equals("complete");
-			}
-		};
-		wait.until(pageLoadCondition);
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
-	}
+//	@Override
+//	public void validatePageLoad() throws Exception {
+//		validateBrowserSupport();
+//		
+//		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
+//			public Boolean apply(WebDriver driver) {
+//				return ((String) ((JavascriptExecutor) driver).executeScript("return document.readyState"))
+//						.equals("complete");
+//			}
+//		};
+//		wait.until(pageLoadCondition);
+//		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+//	}
 	
 	public String getPageTitle() {
 		return getWebDriver().getTitle();
