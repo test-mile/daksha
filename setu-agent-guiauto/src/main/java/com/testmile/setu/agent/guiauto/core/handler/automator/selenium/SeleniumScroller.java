@@ -40,13 +40,6 @@ public class SeleniumScroller extends SeleniumJSExecutor implements Scroller{
 		return this.scrollPixelCount;
 	}
 
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.selenium.Scroller#scrollDown()
-	 */
-	@Override
-	public void scrollDown() throws Exception {
-		scroll(Direction.DOWN, 1);
-	}
 
 	/* (non-Javadoc)
 	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.selenium.Scroller#scrollDown(int)
@@ -54,14 +47,6 @@ public class SeleniumScroller extends SeleniumJSExecutor implements Scroller{
 	@Override
 	public void scrollDown(int count) throws Exception {
 		scroll(Direction.DOWN, count);
-	}
-
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.selenium.Scroller#scrollUp()
-	 */
-	@Override
-	public void scrollUp() throws Exception {
-		scroll(Direction.UP, 1);
 	}
 
 	/* (non-Javadoc)

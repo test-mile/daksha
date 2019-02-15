@@ -7,32 +7,23 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.AbstractAutomatorH
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.Scroller;
 
 public class SikuliScroller extends AbstractAutomatorHandler implements Scroller{
-	private int defaultUpcount = 5;
+	private int defaultMouseCount = 5;
 	
 	public SikuliScroller(SetuAgentConfig config) throws Exception {
 		super(config);
 	}
 	
 	@Override
-	public void scrollDown(int downCount)  throws Exception{
+	public void scrollDown(int times)  throws Exception{
 		Screen screen = new Screen();
-		screen.mouseDown(downCount);
-	}
-
-	@Override
-	public void scrollDown() throws Exception{
-		scrollDown(defaultUpcount);
+		screen.mouseDown(defaultMouseCount* times);
 	}
 	
 
 	@Override
-	public void scrollUp(int upCount)  throws Exception{
+	public void scrollUp(int times)  throws Exception{
 		Screen screen = new Screen();
-		screen.mouseUp(upCount);
+		screen.mouseUp(defaultMouseCount* times);
 	}
-	
-	@Override
-	public void scrollUp() throws Exception{
-		scrollUp(defaultUpcount);
-	}
+
 }
