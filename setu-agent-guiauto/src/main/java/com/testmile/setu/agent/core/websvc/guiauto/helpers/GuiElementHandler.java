@@ -49,6 +49,13 @@ public class GuiElementHandler {
 			this.registerMultiElement(action.getArgs().get("uuid").asString(), mElement);
 			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
+		case RETAIN_FIRST_ELEMENT:
+			String setu_id = action.getArgs().get("uuid").asString();
+			GuiMultiElement foundMultiElement = this.getMultiElementForSetuId(setu_id);
+			this.registerElement(setu_id,  foundMultiElement.getInstanceAtIndex(0));
+			this.deregisterMultiElementForSetuId(setu_id);
+			retContent = Response.createSuccessResponseString();
+			break;
 		case CLICK:
 			element.getBasicActionsHandler().click();
 			retContent = Response.createSuccessResponseString();
