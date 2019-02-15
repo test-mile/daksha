@@ -115,6 +115,26 @@ public class GuiAutomatorHandler {
 			this.automator.getJsExecutor().executeScript(action.getArgs().get("script").asString());
 			retContent = Response.createSuccessResponseString();
 			break;
+		case WAIT_FOR_ALERT:
+			this.automator.getAlertHandler().waitForAlert();
+			retContent = Response.createSuccessResponseString();
+			break;
+		case CONFIRM_ALERT:
+			this.automator.getAlertHandler().confirmAlert();
+			retContent = Response.createSuccessResponseString();
+			break;
+		case DISMISS_ALERT:
+			this.automator.getAlertHandler().dismissAlert();
+			retContent = Response.createSuccessResponseString();
+			break;
+		case SEND_TEXT_TO_ALERT:
+			this.automator.getAlertHandler().sendTextToAlert(action.getArgs().get("text").asString());
+			retContent = Response.createSuccessResponseString();
+			break;
+		case GET_TEXT_FROM_ALERT:
+			String alertText = this.automator.getAlertHandler().getTextFromAlert();
+			retContent = Response.createSuccessResponseString("text", alertText);
+			break;
 		default:
 			throw new Exception(String.format("Unrecognized element action: %s", action.getActionType()));
 		}

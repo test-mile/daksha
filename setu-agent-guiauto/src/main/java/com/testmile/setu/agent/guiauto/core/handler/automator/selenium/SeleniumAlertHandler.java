@@ -40,6 +40,7 @@ public class SeleniumAlertHandler extends AbstractWDHandler implements AlertHand
 	@Override
 	public void sendTextToAlert(String text) throws Exception {
 		validateAlertSupport();
+		System.out.println(text);
 		this.getWebDriver().switchTo().alert().sendKeys(text);
 	}
 
