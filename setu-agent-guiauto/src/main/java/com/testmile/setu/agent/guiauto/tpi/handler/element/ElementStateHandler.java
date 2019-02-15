@@ -4,13 +4,7 @@ public interface ElementStateHandler {
 
 	boolean isVisible() throws Exception;
 
-	void waitUntilVisible() throws Exception;
-
-	void waitUntilInvisible() throws Exception;
-
 	boolean isClickable() throws Exception;
-
-	void waitUntilClickable() throws Exception;
 
 	boolean isSelected() throws Exception;
 

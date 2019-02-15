@@ -1,6 +1,5 @@
 package com.testmile.setu.agent.guiauto.tpi.automator;
 
-import com.testmile.setu.agent.guiauto.core.handler.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.AlertHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.BrowserHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.FrameHandler;

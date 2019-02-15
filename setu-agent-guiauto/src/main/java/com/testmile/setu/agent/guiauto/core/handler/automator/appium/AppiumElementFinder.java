@@ -3,34 +3,33 @@ package com.testmile.setu.agent.guiauto.core.handler.automator.appium;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.testmile.setu.agent.SetuAgentConfig;
+import com.testmile.setu.agent.guiauto.core.element.AppiumGuiElement;
+import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.AbstractSeleniumFinder;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
-import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
-public class AppiumElementFinder extends AbstractAppiumFinder{
+public class AppiumElementFinder extends AbstractSeleniumFinder<MobileElement> {
+	private AppiumDriver<MobileElement> appiumDriver;
+	
 	public AppiumElementFinder(AppiumDriver<MobileElement> driver, SetuAgentConfig config) throws Exception {
 		super(driver, config);
-	}
-	
-	private List<MobileElement> findElements(String by, String value) throws Exception{
-		By finderType = convertToBy(by, value);
-		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(finderType));
-		return getAppiumDriver().findElements(finderType);		
-	}
-	
-	// Ideally SearchContext should work, but it is able to return only List<WebElement>.
-	// Same challenge with WebDriverWait. Here if properly implemented a mobile wait should return List<MobileElement>
-	public GuiMultiElement findAll(String by, String value) throws Exception {
-		return this.convetToMultiGuiElement(findElements(by, value));
+		this.appiumDriver = driver;
 	}
 
-	public GuiElement find(String by, String value) throws Exception {
-		return this.convertToGuiElement(this.findElements(by, value).get(0));
+	protected GuiElement convertToGuiElement(MobileElement element) throws Exception {
+		return new AppiumGuiElement(appiumDriver, element, this.getConfig());
+	}
+	
+	protected List<MobileElement> findAllInContainer(By by) throws Exception{
+		return appiumDriver.findElements(by);
+	}
+	
+	protected By getLocator(String by, String value) throws Exception{
+		return (new AppiumLocator(by, value)).getByObject();
 	}
 	
 }

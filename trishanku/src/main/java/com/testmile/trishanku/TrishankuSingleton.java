@@ -58,7 +58,6 @@ public enum TrishankuSingleton {
 		automationContextNames.put(GuiAutomationContext.IOS_WEB, "IOS Web");
 		automationContextNames.put(GuiAutomationContext.IOS_NATIVE, "IOS Native");
 		automationContextNames.put(GuiAutomationContext.SCREEN, "Screen");
-		automationContextNames.put(GuiAutomationContext.GENERIC, "Generic");
 		
 		return centralTestContext;
 	}

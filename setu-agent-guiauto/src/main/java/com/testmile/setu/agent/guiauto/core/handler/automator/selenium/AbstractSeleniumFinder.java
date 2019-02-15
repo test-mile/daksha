@@ -6,38 +6,36 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.testmile.setu.agent.SetuAgentConfig;
+import com.testmile.setu.agent.guiauto.core.element.DefaultGuiMultiElement;
 import com.testmile.setu.agent.guiauto.core.element.SeleniumGuiElement;
-import com.testmile.setu.agent.guiauto.core.element.SeleniumGuiMultiElement;
 import com.testmile.setu.agent.guiauto.core.handler.automator.AbstractWDHandler;
-import com.testmile.setu.agent.guiauto.core.handler.automator.ElementFinder;
+import com.testmile.setu.agent.guiauto.tpi.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
 
-public abstract class AbstractSeleniumFinder extends AbstractWDHandler implements ElementFinder {
-	protected WebDriverWait wait;
+public abstract class AbstractSeleniumFinder<E extends WebElement> extends AbstractWDHandler implements ElementFinder {
 
 	public AbstractSeleniumFinder(WebDriver driver, SetuAgentConfig config) throws Exception {
 		super(driver, config);
-		wait = new WebDriverWait(driver, this.getConfig().getMaxWaitTime());
-	}
-	
-	protected GuiElement convertToGuiElement(WebElement element) throws Exception {
-		return new SeleniumGuiElement(this.getWebDriver(), element, this.getConfig());
 	}
 
-	protected GuiMultiElement convetToMultiGuiElement(List<WebElement> rawElements) throws Exception {
+	protected GuiMultiElement convetToMultiGuiElement(List<E> rawElements) throws Exception {
 		List<GuiElement> elements = new ArrayList<GuiElement>();
-		for (WebElement element: rawElements) {
+		for (E element: rawElements) {
 			elements.add(convertToGuiElement(element));
 		}
-		return new SeleniumGuiMultiElement(this.getWebDriver(), elements, rawElements, this.getConfig());
+		return new DefaultGuiMultiElement(elements);
 	}
-
-	protected By convertToBy(String by, String value) throws Exception {
-		return (new SeleniumLocator(by, value)).getByObject();
+	
+	protected abstract GuiElement convertToGuiElement(E element) throws Exception;
+	protected abstract List<E> findAllInContainer(By by) throws Exception;
+	protected abstract By getLocator(String by, String value) throws Exception;
+	
+	@Override
+	public GuiMultiElement findAll(String by, String value) throws Exception {
+		return convetToMultiGuiElement(this.findAllInContainer(this.getLocator(by, value)));
 	}
 
 	

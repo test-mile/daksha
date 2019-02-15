@@ -1,7 +1,6 @@
 package com.testmile.setu.agent.core.websvc.guiauto.helpers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
@@ -18,6 +17,10 @@ public class GuiElementHandler {
 	
 	public void registerMultiElement(String uuid, GuiMultiElement element) {
 		this.melementMap.put(uuid, element);
+	}
+
+	public void deregisterMultiElementForSetuId(String uuid) {
+		this.melementMap.remove(uuid);
 	}
 	
 	public GuiElement getElementForSetuId(String uuid) throws Exception {
@@ -59,19 +62,16 @@ public class GuiElementHandler {
 			retContent = Response.createSuccessResponseString();
 			break;
 		case IS_SELECTED:
-			if (element.getStateHandler().isSelected()) {
-				retContent = Response.createSuccessResponseString("check_passed", true);
-			} else {
-				retContent = Response.createSuccessResponseString("check_passed", false);
-			}
+			boolean isSelected = element.getStateHandler().isSelected();
+			retContent = Response.createSuccessResponseString("checkResult", isSelected);
 			break;
-		case WAIT_UNTIL_CLICKABLE:
-			element.getStateHandler().waitUntilClickable();
-			retContent = Response.createSuccessResponseString();
+		case IS_VISIBLE:
+			boolean isVisible = element.getStateHandler().isVisible();
+			retContent = Response.createSuccessResponseString("checkResult", isVisible);
 			break;
-		case WAIT_UNTIL_VISIBLE:
-			element.getStateHandler().waitUntilVisible();
-			retContent = Response.createSuccessResponseString();
+		case IS_CLICKABLE:
+			boolean isClickable = element.getStateHandler().isClickable();
+			retContent = Response.createSuccessResponseString("checkResult", isClickable);
 			break;
 		case GET_TAG_NAME:
 			String tagName = element.getInquirer().getTagName();
@@ -97,36 +97,7 @@ public class GuiElementHandler {
 	public String takeMultiElementAction(String uuid, String jsonStr) throws Exception {
 		GuiMultiElement me = getMultiElementForSetuId(uuid);
 		ElementAction action = new ElementAction(jsonStr);
-		if (action.isInstanceAction()){
-			return this.takeSingleElementAction(me.getInstanceAtIndex(action.getInstanceIndex()), action);
-		} else {
-			String retContent = null;
-			switch(action.getActionType()) {
-			case WAIT_UNTIL_VISIBLE:
-				me.getStateHandler().waitUntilVisible();
-				retContent = Response.createSuccessResponseString();
-				break;
-			case GET_TEXT_CONTENT:
-				List<String> texts = me.getInquirer().getTextContent();
-				retContent = Response.createSuccessResponseString("attrValues", texts);
-				break;
-			case GET_TAG_NAME:
-				List<String> tagNames = me.getInquirer().getTagNames();
-				retContent = Response.createSuccessResponseString("attrValues", tagNames);
-				break;
-			case GET_ATTR_VALUE:
-				List<String> values = me.getInquirer().getAttribute(action.getArgs().get("attr").asString());
-				retContent = Response.createSuccessResponseString("attrValues", values);
-				break;
-			case IS_SELECTED:
-				List<Boolean> selectedList = me.getStateHandler().areSelected();
-				retContent = Response.createSuccessResponseString("attrValues", selectedList);
-				break;
-			default:
-				throw new Exception(String.format("Unrecognized element action for multi-element: %s", action.getActionType()));
-			}
-			return retContent;
-		}
+		return this.takeSingleElementAction(me.getInstanceAtIndex(action.getInstanceIndex()), action);
 	}
 
 }

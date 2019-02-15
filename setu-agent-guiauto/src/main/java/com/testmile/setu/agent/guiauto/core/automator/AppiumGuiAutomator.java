@@ -22,12 +22,12 @@ import java.util.concurrent.TimeUnit;
 
 import com.testmile.daksha.tpi.enums.Browser;
 import com.testmile.setu.agent.SetuAgentConfig;
-import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumAlertHandler;
-import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumBrowserHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumElementFinder;
-import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumFrameHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumSwiper;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumViewHandler;
+import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumAlertHandler;
+import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumBrowserHandler;
+import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumFrameHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
@@ -49,9 +49,9 @@ public class AppiumGuiAutomator extends BaseGuiAutomator{
 			this.appiumDriver.manage().timeouts().pageLoadTimeout(this.getConfig().getMaxWaitTime(), TimeUnit.SECONDS);
 		}
 		
-		this.setAlertHandler(new AppiumAlertHandler(this.appiumDriver, this.getConfig()));
-		this.setBrowserHandler(new AppiumBrowserHandler(this.appiumDriver, this.getConfig()));
-		this.setFrameHandler(new AppiumFrameHandler(this.appiumDriver, this.getConfig()));
+		this.setAlertHandler(new SeleniumAlertHandler(this.appiumDriver, this.getConfig()));
+		this.setBrowserHandler(new SeleniumBrowserHandler(this.appiumDriver, this.getConfig()));
+		this.setFrameHandler(new SeleniumFrameHandler(this.appiumDriver, this.getConfig()));
 		this.setViewHandler(new AppiumViewHandler(this.appiumDriver, this.getConfig()));
 		this.setJsExecutor(new SeleniumJSExecutor(this.appiumDriver, this.getConfig()));
 		this.setScreenshoter(new SeleniumScreenshoter(this.appiumDriver, this.getConfig()));

@@ -29,8 +29,7 @@ public enum GuiAutomationContext {
 	ANDROID_WEB,
 	IOS_WEB,
 	ANDROID_NATIVE,
-	IOS_NATIVE,
-	GENERIC;
+	IOS_NATIVE;
 	
 	private static Set<GuiAutomationContext> desktopContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.NATIVE, GuiAutomationContext.WEB}));
 	private static Set<GuiAutomationContext> mobileWebContexts = new HashSet<GuiAutomationContext>(Arrays.asList(new GuiAutomationContext[]{GuiAutomationContext.ANDROID_WEB, GuiAutomationContext.IOS_WEB}));

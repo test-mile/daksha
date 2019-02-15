@@ -5,36 +5,26 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.testmile.setu.agent.SetuAgentConfig;
+import com.testmile.setu.agent.guiauto.core.element.SeleniumGuiElement;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
-import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
 
-public class SeleniumElementFinder extends AbstractSeleniumFinder{
+public class SeleniumElementFinder extends AbstractSeleniumFinder<WebElement>{
 
 	public SeleniumElementFinder(WebDriver driver, SetuAgentConfig config) throws Exception {
 		super(driver, config);
 	}
 	
-	private List<WebElement> findElements(String by, String value) throws Exception{
-		By finderType = convertToBy(by, value);
-		return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(finderType));	
+	protected GuiElement convertToGuiElement(WebElement element) throws Exception {
+		return new SeleniumGuiElement(this.getWebDriver(), element, this.getConfig());
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.testmile.setu.agent.guiauto.core.handler.automator.selenium.ElementFinder#findAll(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public GuiMultiElement findAll(String by, String value) throws Exception {
-		return convetToMultiGuiElement(this.findElements(by, value));
+	protected List<WebElement> findAllInContainer(By by) throws Exception{
+		return this.getWebDriver().findElements(by);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.testmile.setu.agent.guiauto.core.handler.automator.selenium.ElementFinder#find(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public GuiElement find(String by, String value) throws Exception {
-		return this.convertToGuiElement(this.findElements(by, value).get(0));
+	
+	protected By getLocator(String by, String value) throws Exception{
+		return (new SeleniumLocator(by, value)).getByObject();
 	}
 }

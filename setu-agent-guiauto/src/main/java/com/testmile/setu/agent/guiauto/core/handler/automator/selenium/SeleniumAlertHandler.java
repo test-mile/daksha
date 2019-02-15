@@ -1,5 +1,7 @@
 package com.testmile.setu.agent.guiauto.core.handler.automator.selenium;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,7 +15,7 @@ public class SeleniumAlertHandler extends AbstractWDHandler implements AlertHand
 	
 	public SeleniumAlertHandler(WebDriver driver, SetuAgentConfig config) throws Exception {
 		super(driver, config);
-		this.waiter = new WebDriverWait(driver, config.getMaxWaitTime());
+		this.waiter = new WebDriverWait(driver, 1);
 	}
 	
 	protected void validateAlertSupport() throws Exception{
@@ -21,8 +23,13 @@ public class SeleniumAlertHandler extends AbstractWDHandler implements AlertHand
 	}
 	
 	@Override
-	public void waitForAlert() throws Exception {
-		this.waiter.until(ExpectedConditions.alertIsPresent());
+	public boolean isAlertPresent() throws Exception {
+		try {
+			this.waiter.until(ExpectedConditions.alertIsPresent());
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override

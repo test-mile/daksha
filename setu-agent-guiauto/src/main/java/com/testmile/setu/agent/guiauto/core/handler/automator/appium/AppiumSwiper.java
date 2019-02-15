@@ -39,14 +39,7 @@ public class AppiumSwiper extends SeleniumJSExecutor implements Swiper{
 		return this.appiumDriver;
 	}
 	
-	private void validateSwipeSupport() throws Exception {
-		if (HandlerUtils.isWebContextOrWebView(this.getConfig().getAutomationContext(), appiumDriver)){
-			throw new Exception("Swipe actions are not supported for Web View.");
-		}
-	}
-	
 	private void swipe(Direction direction, int count, float startFraction, float endFraction) throws Exception {
-		validateSwipeSupport();
 		Dimension size = this.getAppiumDriver().manage().window().getSize();
 		int x1 = (int) (0.5 * size.width);
 		int y1 = (int) (size.height * startFraction);
@@ -70,36 +63,14 @@ public class AppiumSwiper extends SeleniumJSExecutor implements Swiper{
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.appium.Swiper#swipeUp(int)
-	 */
 	@Override
 	public void swipeUp(int count) throws Exception {
 		swipe(Direction.UP, count, swipeBottom, swipeTop);
 	}
 
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.appium.Swiper#swipeUp()
-	 */
-	@Override
-	public void swipeUp() throws Exception {
-		swipeUp(1);
-	}
-
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.appium.Swiper#swipeDown(int)
-	 */
 	@Override
 	public void swipeDown(int count) throws Exception {
 		swipe(Direction.DOWN, count, swipeTop, swipeBottom);
-	}
-
-	/* (non-Javadoc)
-	 * @see a.com.testmile.setu.agent.guiauto.ca.core.handlers.appium.Swiper#swipeDown()
-	 */
-	@Override
-	public void swipeDown() throws Exception {
-		swipeDown(1);
 	}
 	
 }

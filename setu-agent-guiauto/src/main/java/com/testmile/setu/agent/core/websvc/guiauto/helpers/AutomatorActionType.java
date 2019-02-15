@@ -2,8 +2,8 @@ package com.testmile.setu.agent.core.websvc.guiauto.helpers;
 
 public enum AutomatorActionType {
 	GO_TO_URL,
-	FIND_ELEMENT,
 	FIND_MULTIELEMENT, 
+	RETAIN_FIRST_ELEMENT,
 	SWITCH_TO_FRAME,
 	
 	// Window Actions
@@ -17,10 +17,14 @@ public enum AutomatorActionType {
 	CLOSE_CURRENT_WINDOW, 
 	
 	EXECUTE_JAVASCRIPT, 
-	
-    WAIT_FOR_ALERT,
+
+	IS_ALERT_PRESENT,
     CONFIRM_ALERT,
     DISMISS_ALERT,
     SEND_TEXT_TO_ALERT,
-    GET_TEXT_FROM_ALERT
+    GET_TEXT_FROM_ALERT,
+    
+    GET_CURRENT_VIEW_CONTEXT,
+    GET_ALL_VIEW_CONTEXTS,
+    SWITCH_TO_VIEW_CONTEXT
 }

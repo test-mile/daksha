@@ -39,14 +39,6 @@ public class GuiAutomatorHandler {
 			this.automator.getBrowserHandler().goTo(action.getArgs().get("url").asString());
 			retContent = Response.createSuccessResponseString();
 			break;
-		case FIND_ELEMENT:
-			GuiElement element = this.automator.getElementFinder().find(
-					action.getArgs().get("byType").asString(),
-					action.getArgs().get("byValue").asString()
-			);
-			getElementHandler().registerElement(action.getArgs().get("uuid").asString(), element);
-			retContent = Response.createSuccessResponseString();
-			break;
 		case FIND_MULTIELEMENT:
 			GuiMultiElement mElement = this.automator.getElementFinder().findAll(
 					action.getArgs().get("byType").asString(),
@@ -54,6 +46,13 @@ public class GuiAutomatorHandler {
 			);
 			getElementHandler().registerMultiElement(action.getArgs().get("uuid").asString(), mElement);
 			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
+			break;
+		case RETAIN_FIRST_ELEMENT:
+			String setu_id = action.getArgs().get("uuid").asString();
+			GuiMultiElement foundMultiElement = this.getElementHandler().getMultiElementForSetuId(setu_id);
+			this.getElementHandler().registerElement(setu_id,  foundMultiElement.getInstanceAtIndex(0));
+			this.getElementHandler().deregisterMultiElementForSetuId(setu_id);
+			retContent = Response.createSuccessResponseString();
 			break;
 		case SWITCH_TO_FRAME:
 			SwitchFrameType swType = action.getArgs().get("byType").asEnum(SwitchFrameType.class);
@@ -115,10 +114,10 @@ public class GuiAutomatorHandler {
 			this.automator.getJsExecutor().executeScript(action.getArgs().get("script").asString());
 			retContent = Response.createSuccessResponseString();
 			break;
-		case WAIT_FOR_ALERT:
-			this.automator.getAlertHandler().waitForAlert();
-			retContent = Response.createSuccessResponseString();
-			break;
+		case IS_ALERT_PRESENT:
+			boolean alertPresent = this.automator.getAlertHandler().isAlertPresent();
+			retContent = Response.createSuccessResponseString("checkResult", alertPresent);
+			break;			
 		case CONFIRM_ALERT:
 			this.automator.getAlertHandler().confirmAlert();
 			retContent = Response.createSuccessResponseString();
@@ -135,6 +134,18 @@ public class GuiAutomatorHandler {
 			String alertText = this.automator.getAlertHandler().getTextFromAlert();
 			retContent = Response.createSuccessResponseString("text", alertText);
 			break;
+		case GET_CURRENT_VIEW_CONTEXT:
+			String viewContext = this.automator.getViewHandler().getCurrentViewContext();
+			retContent = Response.createSuccessResponseString("viewContext", viewContext);
+			break;
+		case GET_ALL_VIEW_CONTEXTS:
+			Set<String> viewContexts = this.automator.getViewHandler().getAllViewContexts();
+			retContent = Response.createSuccessResponseString("viewContexts", viewContexts);		
+			break;
+		case SWITCH_TO_VIEW_CONTEXT:
+			this.automator.getViewHandler().switchToViewContext(action.getArgs().get("viewContext").asString());
+			retContent = Response.createSuccessResponseString();
+			break;			
 		default:
 			throw new Exception(String.format("Unrecognized element action: %s", action.getActionType()));
 		}

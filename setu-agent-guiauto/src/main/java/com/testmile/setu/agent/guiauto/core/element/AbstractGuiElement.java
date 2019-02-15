@@ -1,7 +1,7 @@
 package com.testmile.setu.agent.guiauto.core.element;
 
-import com.testmile.setu.agent.guiauto.core.handler.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
+import com.testmile.setu.agent.guiauto.tpi.automator.ElementFinder;
 import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.BasicActionsHandler;
 import com.testmile.setu.agent.guiauto.tpi.handler.element.ElementInquirer;

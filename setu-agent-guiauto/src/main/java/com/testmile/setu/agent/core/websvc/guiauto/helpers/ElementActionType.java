@@ -2,16 +2,14 @@ package com.testmile.setu.agent.core.websvc.guiauto.helpers;
 
 public enum ElementActionType {
 	// Single element actions
+	FIND_MULTIELEMENT, 
+	RETAIN_FIRST_ELEMENT,
 	CLICK,
 	CLEAR_TEXT,
 	SEND_TEXT,
-	FIND_MULTIELEMENT,
-	FIND_ELEMENT,
-	
-	// Single and Multi-element actions
-	WAIT_UNTIL_CLICKABLE,
-	WAIT_UNTIL_VISIBLE,
 	IS_SELECTED,
+	IS_VISIBLE,
+	IS_CLICKABLE,
 	GET_TAG_NAME,
 	GET_ATTR_VALUE,
 	GET_TEXT_CONTENT
