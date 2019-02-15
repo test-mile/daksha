@@ -3,7 +3,7 @@ package com.testmile.setu.agent.core.websvc.guiauto.helpers;
 public enum AutomatorActionType {
 	GO_TO_URL,
 	FIND_MULTIELEMENT, 
-	RETAIN_FIRST_ELEMENT,
+	FIND_ELEMENT,
 	SWITCH_TO_FRAME,
 	
 	// Window Actions

@@ -3,7 +3,7 @@ package com.testmile.setu.agent.core.websvc.guiauto.helpers;
 public enum ElementActionType {
 	// Single element actions
 	FIND_MULTIELEMENT, 
-	RETAIN_FIRST_ELEMENT,
+	FIND_ELEMENT,
 	CLICK,
 	CLEAR_TEXT,
 	SEND_TEXT,

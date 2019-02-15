@@ -38,5 +38,9 @@ public abstract class AbstractSeleniumFinder<E extends WebElement> extends Abstr
 		return convetToMultiGuiElement(this.findAllInContainer(this.getLocator(by, value)));
 	}
 
+	@Override
+	public GuiElement find(String by, String value) throws Exception {
+		return this.convertToGuiElement(this.findAllInContainer(this.getLocator(by, value)).get(0));
+	}
 	
 }

@@ -47,11 +47,13 @@ public class GuiAutomatorHandler {
 			getElementHandler().registerMultiElement(action.getArgs().get("uuid").asString(), mElement);
 			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
-		case RETAIN_FIRST_ELEMENT:
+		case FIND_ELEMENT:
+			GuiElement foundElement = this.automator.getElementFinder().find(
+					action.getArgs().get("byType").asString(),
+					action.getArgs().get("byValue").asString()
+			);
 			String setu_id = action.getArgs().get("uuid").asString();
-			GuiMultiElement foundMultiElement = this.getElementHandler().getMultiElementForSetuId(setu_id);
-			this.getElementHandler().registerElement(setu_id,  foundMultiElement.getInstanceAtIndex(0));
-			this.getElementHandler().deregisterMultiElementForSetuId(setu_id);
+			this.getElementHandler().registerElement(setu_id,  foundElement);
 			retContent = Response.createSuccessResponseString();
 			break;
 		case SWITCH_TO_FRAME:
