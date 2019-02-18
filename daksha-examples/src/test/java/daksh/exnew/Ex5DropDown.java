@@ -18,7 +18,7 @@ public class Ex5DropDown {
 		automator.element(With.CLASS_NAME, "welcome-view-site").waitUntilClickable();
 		
 		automator.element(With.LINK_TEXT,"Settings").click();
-		DropDown roleSelect = automator.element(With.ID,"default_role").asDropDown();
+		DropDown roleSelect = automator.dropdown(With.ID,"default_role");
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
 		System.out.println(roleSelect.hasValueSelected("subscriber"));
 		System.out.println(roleSelect.hasIndexSelected(2));

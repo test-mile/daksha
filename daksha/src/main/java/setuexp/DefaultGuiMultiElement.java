@@ -20,9 +20,4 @@ public class DefaultGuiMultiElement extends DefaultSetuObject implements GuiMult
 		return new DefaultGuiElement(this.automator, this.getSetuId(), index, baseActionUri);
 	}
 
-	@Override
-	public RadioGroup asRadioGroup() throws Exception {
-		return this.getAutomator().convertToRadioGroup(this);
-	}
-
 }

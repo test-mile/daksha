@@ -16,6 +16,4 @@ public interface GuiElement extends SetuManagedObject{
 	
 	boolean isPartial() throws Exception;
 
-	DropDown asDropDown() throws Exception;
-
 }

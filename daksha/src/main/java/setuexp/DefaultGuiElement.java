@@ -62,9 +62,4 @@ public class DefaultGuiElement extends DefaultSetuObject implements GuiElement {
 		return this.partial;
 	}
 
-	@Override
-	public DropDown asDropDown() throws Exception {
-		return this.getAutomator().convertToDropDown(this);
-	}
-
 }

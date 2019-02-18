@@ -42,6 +42,24 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 		String elemSetuId = (String) response.getData().get("multiElementSetuId");
 		return new DefaultGuiMultiElement(this, elemSetuId);
 	}
+	
+	@Override
+	public DropDown dropdown(With with, String value) throws Exception {
+		GuiElement element = this.element(with, value);
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_DROPDOWN);
+		action.addArg("elementSetuId", element.getSetuId());
+		Response response = this.setuClient.post("/action", action);
+		return new DefaultDropDown(this, (String) response.getData().get("dropdownSetuId"));
+	}
+
+	@Override
+	public RadioGroup radioGroup(With with, String value) throws Exception {
+		GuiMultiElement mElement = this.multiElement(with, value);
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_RADIOGROUP);
+		action.addArg("elementSetuId", mElement.getSetuId());
+		Response response = this.setuClient.post("/action", action);
+		return new DefaultRadioGroup(this, (String) response.getData().get("radiogroupSetuId"));
+	}
 
 	@Override
 	public void goToUrl(String url) throws Exception {
@@ -122,22 +140,6 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_WINDOWS);
 		action.addArg("handleType", WindowActionType.CLOSE_ALL_CHILD_WINDOWS.toString());
 		this.setuClient.post("/action", action);
-	}
-
-	@Override
-	public DropDown convertToDropDown(GuiElement element) throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_DROPDOWN);
-		action.addArg("elementSetuId", element.getSetuId());
-		Response response = this.setuClient.post("/action", action);
-		return new DefaultDropDown(this, (String) response.getData().get("dropdownSetuId"));
-	}
-
-	@Override
-	public RadioGroup convertToRadioGroup(GuiMultiElement element) throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_RADIOGROUP);
-		action.addArg("elementSetuId", element.getSetuId());
-		Response response = this.setuClient.post("/action", action);
-		return new DefaultRadioGroup(this, (String) response.getData().get("radiogroupSetuId"));
 	}
 
 }

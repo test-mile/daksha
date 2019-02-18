@@ -19,7 +19,7 @@ public class Ex6RadioGroup {
 		automator.element(With.CLASS_NAME, "welcome-view-site").waitUntilClickable();
 		
 		automator.element(With.LINK_TEXT,"Settings").click();
-		RadioGroup dateFormat = automator.multiElement(With.NAME, "date_format").asRadioGroup();
+		RadioGroup dateFormat = automator.radioGroup(With.NAME, "date_format");
 		System.out.println(dateFormat.hasValueSelected("Y-m-d"));
 		System.out.println(dateFormat.hasIndexSelected(1));
 		System.out.println(dateFormat.getFirstSelectedOptionValue());

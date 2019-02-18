@@ -5,14 +5,18 @@ public interface GuiAutomator extends SetuManagedObject{
 	void launch() throws Exception;
 
 	GuiElement element(With with, String value) throws Exception;
+	
+	GuiMultiElement multiElement(With with, String value) throws Exception;
+	
+	DropDown dropdown(With with, String value) throws Exception;
+
+	RadioGroup radioGroup(With with, String value) throws Exception;
 
 	void goToUrl(String url) throws Exception;
 
 	void quit() throws Exception;
 
 	SetuGuiAutoSvcClient getSetuClient();
-
-	GuiMultiElement multiElement(With with, String value) throws Exception;
 
 	void executeJavaScript(String string) throws Exception;
 
@@ -33,9 +37,5 @@ public interface GuiAutomator extends SetuManagedObject{
 	void closeCurrentWindow() throws Exception;
 
 	void closeAllChildWindows() throws Exception;
-
-	DropDown convertToDropDown(GuiElement element) throws Exception;
-
-	RadioGroup convertToRadioGroup(GuiMultiElement element) throws Exception;
 
 }

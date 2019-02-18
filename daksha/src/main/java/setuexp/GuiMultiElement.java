@@ -6,6 +6,4 @@ public interface GuiMultiElement extends SetuManagedObject{
 
 	GuiElement getInstanceAtIndex(int index);
 
-	RadioGroup asRadioGroup() throws Exception;
-
 }
