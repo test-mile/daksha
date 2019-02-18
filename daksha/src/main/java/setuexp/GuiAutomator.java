@@ -36,4 +36,6 @@ public interface GuiAutomator extends SetuManagedObject{
 
 	DropDown convertToDropDown(GuiElement element) throws Exception;
 
+	RadioGroup convertToRadioGroup(GuiMultiElement element) throws Exception;
+
 }

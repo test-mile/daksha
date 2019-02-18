@@ -1,0 +1,10 @@
+package setuexp;
+
+public enum RadioGroupActionType {
+	HAS_VALUE_SELECTED,
+	HAS_INDEX_SELECTED,
+	GET_FIRST_SELECTED_OPTION_VALUE,
+	SELECT_BY_VALUE,
+	SELECT_BY_INDEX
+
+}

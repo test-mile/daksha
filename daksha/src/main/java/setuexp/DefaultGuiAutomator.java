@@ -132,4 +132,12 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 		return new DefaultDropDown(this, (String) response.getData().get("dropdownSetuId"));
 	}
 
+	@Override
+	public RadioGroup convertToRadioGroup(GuiMultiElement element) throws Exception {
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_RADIOGROUP);
+		action.addArg("elementSetuId", element.getSetuId());
+		Response response = this.setuClient.post("/action", action);
+		return new DefaultRadioGroup(this, (String) response.getData().get("radiogroupSetuId"));
+	}
+
 }
