@@ -90,6 +90,10 @@ public class GuiElementHandler {
 			String attrValue = element.getInquirer().getAttribute(action.getArgs().get("attr").asString());
 			retContent = Response.createSuccessResponseString("attrValue", attrValue);
 			break;
+		case GET_TEXT_CONTENT:
+			String text = element.getInquirer().getTextContent();
+			retContent = Response.createSuccessResponseString("attrValue", text);
+			break;
 		default:
 			throw new Exception(String.format("Unrecognized element action: %s", action.getActionType()));
 		}

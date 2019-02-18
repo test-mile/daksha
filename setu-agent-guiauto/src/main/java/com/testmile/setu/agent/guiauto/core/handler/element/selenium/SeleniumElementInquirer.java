@@ -14,13 +14,13 @@ public class SeleniumElementInquirer extends AbstractWDElementHandler implements
 	}
 
 	@Override
-	public String getText() throws Exception {
+	public String getTextContent() throws Exception {
 		return this.getWebElement().getText();
 	}
 
 	@Override
 	public String getAttribute(String attr) throws Exception {
-		return this.getWebElement().getAttribute("attr");
+		return this.getWebElement().getAttribute(attr);
 	}
 	
 	@Override

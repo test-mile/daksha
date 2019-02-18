@@ -1,0 +1,9 @@
+package setuexp;
+
+public enum WindowActionType {
+	MAXIMIZE_WINDOW,
+	GET_WINDOW_TITLE,
+	SWITCH_TO_NEW_WINDOW,
+	CLOSE_CURRENT_WINDOW,
+	CLOSE_ALL_CHILD_WINDOWS
+}

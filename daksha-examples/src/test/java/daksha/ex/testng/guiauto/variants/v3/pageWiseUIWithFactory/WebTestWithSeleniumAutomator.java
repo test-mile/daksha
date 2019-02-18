@@ -27,8 +27,8 @@ import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiElement;
 import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;
+import com.testmile.daksha.tpi.guiauto.gui.GuiFactory;
 import com.testmile.daksha.tpi.guiauto.gui.SetuClientGui;
-import com.testmile.daksha.tpi.guiauto.maker.GuiFactory;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 import com.testmile.trishanku.tpi.guiauto.enums.OSType;
 
