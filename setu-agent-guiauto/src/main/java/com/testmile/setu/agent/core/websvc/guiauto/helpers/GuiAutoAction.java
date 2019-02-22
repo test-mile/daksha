@@ -21,13 +21,14 @@ public abstract class GuiAutoAction {
 	public GuiAutoAction(String jsonActionStr) {
 		JsonObject o = parser.parse(jsonActionStr).getAsJsonObject();
 		this.action = o.get("action").getAsString().toUpperCase();
-		
-		String rawArgsStr = o.get("args").toString();	
-		args = new HashMap<String, Value>();
-		Type type = new TypeToken<Map<String, String>>(){}.getType();
-		Map<String, String> config = gson.fromJson(rawArgsStr, type); // contains the whole reviews list
-		for (String key: config.keySet()) {
-			args.put(key, new StringValue(config.get(key)));
+		if(o.has("args")) {
+			String rawArgsStr = o.get("args").toString();	
+			args = new HashMap<String, Value>();
+			Type type = new TypeToken<Map<String, String>>(){}.getType();
+			Map<String, String> config = gson.fromJson(rawArgsStr, type); // contains the whole reviews list
+			for (String key: config.keySet()) {
+				args.put(key, new StringValue(config.get(key)));
+			}
 		}
 	}
 	
