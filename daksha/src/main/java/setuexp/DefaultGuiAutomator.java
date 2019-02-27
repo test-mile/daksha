@@ -2,8 +2,9 @@ package setuexp;
 
 public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomator {
 	private SetuGuiAutoSvcClient setuClient;
+	private MainWindow mainWindow;
 	
-	public DefaultGuiAutomator() {
+	public DefaultGuiAutomator() throws Exception {
 		this.setuClient = new SetuGuiAutoSvcClient();
 	}
 	
@@ -16,6 +17,9 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 		Response response = this.setuClient.post("/launch", new GuiAutomatorAction(GuiAutomatorActionType.LAUNCH));
 		System.out.println((String) response.getData().get("automatorSetuId"));
 		this.setSetuId((String) response.getData().get("automatorSetuId"));
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.GET_MAIN_WINDOW);
+		response = this.setuClient.post("/action", action);
+		mainWindow = new DefaultMainWindow (this, (String) response.getData().get("elementSetuId"));
 	}
 	
 	@Override
@@ -53,6 +57,30 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 	public RadioGroup radioGroup(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_RADIOGROUP, with, value);
 		return new DefaultRadioGroup(this, elemSetuId);
+	}
+	
+	@Override
+	public Frame frame(With with, String value) throws Exception {
+		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_FRAME, with, value);
+		return new DefaultFrame(this, elemSetuId);
+	}
+	
+	@Override
+	public ChildWindow childWindow(With with, String value) throws Exception {
+		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_CHILD_WINDOW, with, value);
+		return new DefaultChildWindow(this, elemSetuId);
+	}
+	
+	@Override
+	public MainWindow mainWindow() throws Exception {
+		return this.mainWindow;
+	}
+	
+	@Override
+	public ChildWindow newChildWindow() throws Exception {
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CREATE_NEW_CHILD_WINDOW);
+		Response response = this.setuClient.post("/action", action);
+		return new DefaultChildWindow (this, (String) response.getData().get("elementSetuId"));
 	}
 
 	@Override
@@ -101,38 +129,8 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 	}
 
 	@Override
-	public void maximizeWindow() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_WINDOWS);
-		action.addArg("handleType", WindowActionType.MAXIMIZE_WINDOW.toString());
-		this.setuClient.post("/action", action);
-	}
-
-	@Override
-	public String getWindowTitle() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_WINDOWS);
-		action.addArg("handleType", WindowActionType.GET_WINDOW_TITLE.toString());
-		Response response = this.setuClient.post("/action", action);
-		return (String) response.getData().get("title");
-	}
-
-	@Override
-	public void switchToNewWindow() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_WINDOWS);
-		action.addArg("handleType", WindowActionType.SWITCH_TO_NEW_WINDOW.toString());
-		this.setuClient.post("/action", action);
-	}
-
-	@Override
-	public void closeCurrentWindow() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_WINDOWS);
-		action.addArg("handleType", WindowActionType.CLOSE_CURRENT_WINDOW.toString());
-		this.setuClient.post("/action", action);
-	}
-
-	@Override
 	public void closeAllChildWindows() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_WINDOWS);
-		action.addArg("handleType", WindowActionType.CLOSE_ALL_CHILD_WINDOWS.toString());
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CLOSE_ALL_CHILD_WINDOWS);
 		this.setuClient.post("/action", action);
 	}
 

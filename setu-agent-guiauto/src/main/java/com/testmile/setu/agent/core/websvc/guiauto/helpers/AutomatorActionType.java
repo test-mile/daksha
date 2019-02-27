@@ -4,7 +4,6 @@ public enum AutomatorActionType {
 	GO_TO_URL,
 	FIND_MULTIELEMENT, 
 	FIND_ELEMENT,
-	SWITCH_TO_FRAME,
 	
 	// Window Actions
 	GET_CURRENT_WINDOW_HANDLE,
@@ -26,5 +25,9 @@ public enum AutomatorActionType {
     
     GET_CURRENT_VIEW_CONTEXT,
     GET_ALL_VIEW_CONTEXTS,
-    SWITCH_TO_VIEW_CONTEXT
+    SWITCH_TO_VIEW_CONTEXT,
+    
+    JUMP_TO_FRAME,
+    JUMP_TO_PARENT_FRAME,
+    JUMP_TO_HTML_ROOT
 }

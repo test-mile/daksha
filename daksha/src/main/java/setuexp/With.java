@@ -6,6 +6,8 @@ public enum With {
 	ID,
 	NAME,
 	CLASS_NAME, 
-	LINK_TEXT
+	LINK_TEXT, 
+	XPATH,
+	CSS_SELECTOR
 
 }

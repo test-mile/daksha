@@ -1,7 +1,9 @@
 package daksh.exnew;
 
+import setuexp.ChildWindow;
 import setuexp.DefaultGuiAutomator;
 import setuexp.GuiAutomator;
+import setuexp.MainWindow;
 import setuexp.With;
 
 public class Ex4WindowHandling {
@@ -10,16 +12,19 @@ public class Ex4WindowHandling {
 		GuiAutomator automator = new DefaultGuiAutomator();
 		WPLoginLogout.login(automator);
 		
-		automator.maximizeWindow();
-		System.out.println(automator.getWindowTitle());
+		MainWindow mainWin = automator.mainWindow();
+		mainWin.maximize();
+		System.out.println(mainWin.getTitle());
 		automator.executeJavaScript("window.open('/abc')");
-		automator.switchToNewWindow();
-		System.out.println(automator.getWindowTitle());
-		automator.closeCurrentWindow();
+		ChildWindow win = automator.newChildWindow();
+		win.jump();
+		System.out.println(win.getTitle());
+		win.close();
 		automator.executeJavaScript("window.open('/def')");
 		automator.executeJavaScript("window.open('/xyz')");
 		automator.closeAllChildWindows();
-		System.out.println(automator.getWindowTitle());
+		mainWin.jump();
+		System.out.println(mainWin.getTitle());
 		
 		WPLoginLogout.logout(automator);
 	}

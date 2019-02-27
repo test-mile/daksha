@@ -56,26 +56,24 @@ public class GuiAutomatorHandler {
 			this.getElementHandler().registerElement(setu_id,  foundElement);
 			retContent = Response.createSuccessResponseString();
 			break;
-		case SWITCH_TO_FRAME:
-			SwitchFrameType swType = action.getArgs().get("byType").asEnum(SwitchFrameType.class);
-			switch(swType) {
-			case ELEMENT_SETU_ID:
-				GuiElement fElement = this.getElementHandler().getElementForSetuId(action.getArgs().get("byValue").asString());
-				this.automator.getFrameHandler().switchToFrameOfElement(fElement);
-				break;
-			case INDEX:
-				this.automator.getFrameHandler().switchToFrameByIndex(action.getArgs().get("byValue").asInt());
-				break;
-			case NAME:
-				this.automator.getFrameHandler().switchToFrameByName(action.getArgs().get("byValue").asString());
-				break;
-			case PARENT:
-				this.automator.getFrameHandler().switchToParentFrame();
-				break;
-			case ROOT:
-				this.automator.getFrameHandler().switchToDefaultFrame();
-				break;
+		case JUMP_TO_FRAME:
+			boolean isInstanceAction = action.getArgs().get("isInstanceAction").asBoolean();
+			GuiElement fElement;
+			if (isInstanceAction) {
+				GuiMultiElement mfElement = this.getElementHandler().getMultiElementForSetuId(action.getArgs().get("byValue").asString());
+				fElement = mfElement.getInstanceAtIndex(action.getArgs().get("instanceIndex").asInt());
+			} else {
+				fElement = this.getElementHandler().getElementForSetuId(action.getArgs().get("byValue").asString());
 			}
+			this.automator.getFrameHandler().jumpToFrame(fElement);
+			retContent = Response.createSuccessResponseString();
+			break;
+		case JUMP_TO_PARENT_FRAME:
+			this.automator.getFrameHandler().jumpToParentFrame();
+			retContent = Response.createSuccessResponseString();
+			break;
+		case JUMP_TO_HTML_ROOT:
+			this.automator.getFrameHandler().jumpToHtmlRoot();
 			retContent = Response.createSuccessResponseString();
 			break;
 		case CLOSE_CURRENT_WINDOW:

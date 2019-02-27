@@ -1,7 +1,6 @@
 package setuexp;
 
 public interface DropDown {
-
 	boolean hasVisibleTextSelected(String text) throws Exception;
 	boolean hasValueSelected(String value) throws Exception;
 	boolean hasIndexSelected(int index) throws Exception;
@@ -11,5 +10,4 @@ public interface DropDown {
 	void selectByIndex(int index) throws Exception;
 	GuiAutomator getAutomator();
 	String getSetuId();
-
 }

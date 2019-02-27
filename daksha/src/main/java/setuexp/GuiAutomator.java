@@ -11,6 +11,14 @@ public interface GuiAutomator extends SetuManagedObject{
 	DropDown dropdown(With with, String value) throws Exception;
 
 	RadioGroup radioGroup(With with, String value) throws Exception;
+	
+	Frame frame(With with, String value) throws Exception;
+	
+	ChildWindow childWindow(With with, String value) throws Exception;
+	
+	ChildWindow newChildWindow() throws Exception;
+	
+	MainWindow mainWindow() throws Exception;
 
 	void goToUrl(String url) throws Exception;
 
@@ -27,14 +35,6 @@ public interface GuiAutomator extends SetuManagedObject{
 	String getTextFromAlert() throws Exception;
 
 	void sendTextToAlert(String string) throws Exception;
-
-	void maximizeWindow() throws Exception;
-
-	String getWindowTitle() throws Exception;
-
-	void switchToNewWindow() throws Exception;
-
-	void closeCurrentWindow() throws Exception;
 
 	void closeAllChildWindows() throws Exception;
 

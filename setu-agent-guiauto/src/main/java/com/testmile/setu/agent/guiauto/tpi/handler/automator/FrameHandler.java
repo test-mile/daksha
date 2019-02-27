@@ -8,10 +8,10 @@ public interface FrameHandler {
 
 	void switchToFrameByName(String name) throws Exception;
 
-	void switchToDefaultFrame() throws Exception;
+	void jumpToHtmlRoot() throws Exception;
 
-	void switchToParentFrame() throws Exception;
+	void jumpToParentFrame() throws Exception;
 
-	void switchToFrameOfElement(GuiElement element) throws Exception;
+	void jumpToFrame(GuiElement element) throws Exception;
 
 }
