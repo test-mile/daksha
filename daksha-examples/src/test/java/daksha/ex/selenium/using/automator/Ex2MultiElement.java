@@ -17,22 +17,29 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.guiauto.automator;
+package daksha.ex.selenium.using.automator;
 
-import com.testmile.daksha.core.guiauto.setu.AbstractGuiAutoAction;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
+import com.testmile.daksha.tpi.guiauto.With;
 
-public class GuiAutomatorAction extends AbstractGuiAutoAction {
-	
-	public GuiAutomatorAction(GuiAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-	}
+public class Ex2MultiElement {
 
-	public GuiAutomatorAction(GuiAutomator automator, GuiAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-		this.getActionRequest().addArg("automatorSetuId", automator.getSetuId());
+	public static void main(String[] args) throws Exception {
+		GuiAutomator automator = new DefaultGuiAutomator();
+		WPLoginLogout.login(automator);
+		
+		automator.element(With.LINK_TEXT,"Posts").click();
+		automator.element(With.LINK_TEXT,"Categories").click();
+		
+		GuiMultiElement checkboxes = automator.multiElement(With.NAME,"delete_tags[]");
+		checkboxes.getInstanceAtIndex(0).uncheck();
+		checkboxes.getInstanceAtIndex(0).check();
+		checkboxes.getInstanceAtIndex(0).check();
+		checkboxes.getInstanceAtIndex(1).check();		
+		
+		WPLoginLogout.logout(automator);
 	}
 
 }

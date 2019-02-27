@@ -17,22 +17,34 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.guiauto.automator;
+package daksha.ex.selenium.using.automator;
 
-import com.testmile.daksha.core.guiauto.setu.AbstractGuiAutoAction;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.Alert;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 
-public class GuiAutomatorAction extends AbstractGuiAutoAction {
-	
-	public GuiAutomatorAction(GuiAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-	}
+public class Ex3Alerts {
 
-	public GuiAutomatorAction(GuiAutomator automator, GuiAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-		this.getActionRequest().addArg("automatorSetuId", automator.getSetuId());
+	public static void main(String[] args) throws Exception {
+		GuiAutomator automator = new DefaultGuiAutomator();
+		WPLoginLogout.login(automator);
+		
+		automator.executeJavaScript("alert('dummy')");
+		automator.alert().confirm();
+		automator.executeJavaScript("alert('dummy')");
+		automator.alert().dismiss();
+		
+		automator.executeJavaScript("alert('Sample')");
+		Alert alert = automator.alert();
+		assert alert.getText() == "Sample";
+		alert.confirm();
+		
+		automator.executeJavaScript("prompt('Are You Sure?')");
+		alert = automator.alert();
+		alert.sendText("Yes");	
+		alert.confirm();
+		
+		WPLoginLogout.logout(automator);
 	}
 
 }

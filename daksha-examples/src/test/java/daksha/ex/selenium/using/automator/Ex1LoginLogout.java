@@ -17,11 +17,17 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.guiauto.alert;
+package daksha.ex.selenium.using.automator;
 
-public enum AlertActionType {
-	CONFIRM,
-	DISMISS,
-	GET_TEXT,
-	SEND_TEXT
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+
+public class Ex1LoginLogout {
+
+	public static void main(String[] args) throws Exception {
+		GuiAutomator automator = new DefaultGuiAutomator();
+		WPLoginLogout.login(automator);
+		WPLoginLogout.logout(automator);
+	}
+
 }
