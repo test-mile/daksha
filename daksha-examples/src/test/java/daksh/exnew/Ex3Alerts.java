@@ -1,5 +1,6 @@
 package daksh.exnew;
 
+import setuexp.Alert;
 import setuexp.DefaultGuiAutomator;
 import setuexp.GuiAutomator;
 import setuexp.GuiMultiElement;
@@ -12,15 +13,19 @@ public class Ex3Alerts {
 		WPLoginLogout.login(automator);
 		
 		automator.executeJavaScript("alert('dummy')");
-		automator.confirmAlert();
+		automator.alert().confirm();
 		automator.executeJavaScript("alert('dummy')");
-		automator.dismissAlert();
+		automator.alert().dismiss();
+		
 		automator.executeJavaScript("alert('Sample')");
-		assert automator.getTextFromAlert() == "Sample";
-		automator.confirmAlert();
+		Alert alert = automator.alert();
+		assert alert.getText() == "Sample";
+		alert.confirm();
+		
 		automator.executeJavaScript("prompt('Are You Sure?')");
-		automator.sendTextToAlert("Yes");	
-		automator.confirmAlert();
+		alert = automator.alert();
+		alert.sendText("Yes");	
+		alert.confirm();
 		
 		WPLoginLogout.logout(automator);
 	}

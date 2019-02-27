@@ -23,7 +23,6 @@ public class Ex4WindowHandling {
 		automator.executeJavaScript("window.open('/def')");
 		automator.executeJavaScript("window.open('/xyz')");
 		automator.closeAllChildWindows();
-		mainWin.jump();
 		System.out.println(mainWin.getTitle());
 		
 		WPLoginLogout.logout(automator);

@@ -66,6 +66,13 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 	}
 	
 	@Override
+	public Alert alert() throws Exception {
+		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CREATE_ALERT);
+		Response response = this.setuClient.post("/action", action);
+		return new DefaultAlert(this, (String) response.getData().get("elementSetuId"));
+	}
+	
+	@Override
 	public ChildWindow childWindow(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_CHILD_WINDOW, with, value);
 		return new DefaultChildWindow(this, elemSetuId);
@@ -95,36 +102,6 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 	public void executeJavaScript(String script) throws Exception {
 		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.EXECUTE_JAVASCRIPT);
 		action.addArg("script", script);
-		this.setuClient.post("/action", action);
-	}
-
-	@Override
-	public void confirmAlert() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_ALERT);
-		action.addArg("handleType", AlertHandlingType.CONFIRM_ALERT.toString());
-		this.setuClient.post("/action", action);
-	}
-
-	@Override
-	public void dismissAlert() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_ALERT);
-		action.addArg("handleType", AlertHandlingType.DISMISS_ALERT.toString());
-		this.setuClient.post("/action", action);
-	}
-
-	@Override
-	public String getTextFromAlert() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_ALERT);
-		action.addArg("handleType", AlertHandlingType.GET_TEXT_FROM_ALERT.toString());
-		Response response = this.setuClient.post("/action", action);
-		return (String) response.getData().get("text");
-	}
-
-	@Override
-	public void sendTextToAlert(String text) throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.HANDLE_ALERT);
-		action.addArg("handleType", AlertHandlingType.GET_TEXT_FROM_ALERT.toString());
-		action.addArg("text", text);
 		this.setuClient.post("/action", action);
 	}
 

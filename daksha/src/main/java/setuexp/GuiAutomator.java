@@ -20,6 +20,8 @@ public interface GuiAutomator extends SetuManagedObject{
 	
 	MainWindow mainWindow() throws Exception;
 
+	Alert alert() throws Exception;
+
 	void goToUrl(String url) throws Exception;
 
 	void quit() throws Exception;
@@ -27,14 +29,6 @@ public interface GuiAutomator extends SetuManagedObject{
 	SetuGuiAutoSvcClient getSetuClient();
 
 	void executeJavaScript(String string) throws Exception;
-
-	void confirmAlert() throws Exception;
-
-	void dismissAlert() throws Exception;
-
-	String getTextFromAlert() throws Exception;
-
-	void sendTextToAlert(String string) throws Exception;
 
 	void closeAllChildWindows() throws Exception;
 
