@@ -6,7 +6,7 @@ public class DropDownAction extends AbstractGuiAction {
 		super();		
 		this.getActionRequest().setAction(action.toString());
 		this.getActionRequest().addArg("automatorSetuId", element.getAutomator().getSetuId());
-		this.getActionRequest().addArg("dropdownSetuId", element.getSetuId());
+		this.getActionRequest().addArg("elementSetuId", element.getSetuId());
 	}
 
 }

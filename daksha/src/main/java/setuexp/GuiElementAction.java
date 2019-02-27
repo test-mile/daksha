@@ -6,12 +6,10 @@ public class GuiElementAction extends AbstractGuiAction {
 		super();		
 		this.getActionRequest().setAction(action.toString());
 		this.getActionRequest().addArg("automatorSetuId", element.getAutomator().getSetuId());
+		this.getActionRequest().addArg("elementSetuId", element.getSetuId());
 		if (element.isPartial()) {
-			this.getActionRequest().addArg("multiElementSetuId", element.getSetuId());
 			this.getActionRequest().addArg("isInstanceAction", true);
 			this.getActionRequest().addArg("instanceIndex", true);
-		} else {
-			this.getActionRequest().addArg("elementSetuId", element.getSetuId());
 		}
 	}
 

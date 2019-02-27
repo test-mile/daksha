@@ -23,42 +23,36 @@ public class DefaultGuiAutomator extends DefaultSetuObject implements GuiAutomat
 		this.setuClient.post("/quit", new GuiAutomatorAction(this, GuiAutomatorActionType.QUIT));
 	}
 	
-	@Override
-	public GuiElement element(With with, String value) throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CREATE_ELEMENT);
+	private String createGenericElement(GuiAutomatorActionType actionType, With with, String value) throws Exception {
+		GuiAutomatorAction action = new GuiAutomatorAction(this, actionType);
 		action.addArg("withType", with);
 		action.addArg("withValue", value);
 		Response response = this.setuClient.post("/action", action);
-		String elemSetuId = (String) response.getData().get("elementSetuId");
+		return (String) response.getData().get("elementSetuId");		
+	}
+	
+	@Override
+	public GuiElement element(With with, String value) throws Exception {
+		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_ELEMENT, with, value);
 		return new DefaultGuiElement(this, elemSetuId);
 	}
 	
 	@Override
 	public GuiMultiElement multiElement(With with, String value) throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CREATE_MULTIELEMENT);
-		action.addArg("withType", with);
-		action.addArg("withValue", value);
-		Response response = this.setuClient.post("/action", action);
-		String elemSetuId = (String) response.getData().get("multiElementSetuId");
+		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_MULTIELEMENT, with, value);
 		return new DefaultGuiMultiElement(this, elemSetuId);
 	}
 	
 	@Override
 	public DropDown dropdown(With with, String value) throws Exception {
-		GuiElement element = this.element(with, value);
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_DROPDOWN);
-		action.addArg("elementSetuId", element.getSetuId());
-		Response response = this.setuClient.post("/action", action);
-		return new DefaultDropDown(this, (String) response.getData().get("dropdownSetuId"));
+		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_DROPDOWN, with, value);
+		return new DefaultDropDown(this, elemSetuId);
 	}
 
 	@Override
 	public RadioGroup radioGroup(With with, String value) throws Exception {
-		GuiMultiElement mElement = this.multiElement(with, value);
-		GuiAutomatorAction action = new GuiAutomatorAction(this, GuiAutomatorActionType.CONVERT_ELEMENT_TO_RADIOGROUP);
-		action.addArg("elementSetuId", mElement.getSetuId());
-		Response response = this.setuClient.post("/action", action);
-		return new DefaultRadioGroup(this, (String) response.getData().get("radiogroupSetuId"));
+		String elemSetuId = createGenericElement(GuiAutomatorActionType.CREATE_RADIOGROUP, with, value);
+		return new DefaultRadioGroup(this, elemSetuId);
 	}
 
 	@Override

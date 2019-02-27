@@ -6,7 +6,7 @@ public class RadioGroupAction extends AbstractGuiAction {
 		super();		
 		this.getActionRequest().setAction(action.toString());
 		this.getActionRequest().addArg("automatorSetuId", element.getAutomator().getSetuId());
-		this.getActionRequest().addArg("radiogroupSetuId", element.getSetuId());
+		this.getActionRequest().addArg("elementSetuId", element.getSetuId());
 	}
 
 }

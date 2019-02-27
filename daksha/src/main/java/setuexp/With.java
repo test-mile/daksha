@@ -1,7 +1,9 @@
 package setuexp;
 
 public enum With {
-	ID, 
+	INDEX,
+	CHILD_LOCATOR,
+	ID,
 	NAME,
 	CLASS_NAME, 
 	LINK_TEXT
