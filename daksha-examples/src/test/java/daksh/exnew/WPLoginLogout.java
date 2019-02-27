@@ -1,7 +1,7 @@
 package daksh.exnew;
 
-import setuexp.GuiAutomator;
-import setuexp.With;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.guiauto.With;
 
 public class WPLoginLogout {
 	

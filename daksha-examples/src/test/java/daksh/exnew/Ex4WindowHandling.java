@@ -1,10 +1,9 @@
 package daksh.exnew;
 
-import setuexp.ChildWindow;
-import setuexp.DefaultGuiAutomator;
-import setuexp.GuiAutomator;
-import setuexp.MainWindow;
-import setuexp.With;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.ChildWindow;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.guiauto.MainWindow;
 
 public class Ex4WindowHandling {
 

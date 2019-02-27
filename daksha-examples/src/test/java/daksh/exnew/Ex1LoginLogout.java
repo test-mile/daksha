@@ -1,8 +1,7 @@
 package daksh.exnew;
 
-import setuexp.DefaultGuiAutomator;
-import setuexp.GuiAutomator;
-import setuexp.With;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 
 public class Ex1LoginLogout {
 

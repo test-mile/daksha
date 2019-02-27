@@ -1,10 +1,9 @@
 package daksh.exnew;
 
-import setuexp.DefaultGuiAutomator;
-import setuexp.DropDown;
-import setuexp.GuiAutomator;
-import setuexp.RadioGroup;
-import setuexp.With;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.guiauto.RadioGroup;
+import com.testmile.daksha.tpi.guiauto.With;
 
 public class Ex6RadioGroup {
 

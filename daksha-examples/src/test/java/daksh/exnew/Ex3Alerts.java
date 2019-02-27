@@ -1,10 +1,8 @@
 package daksh.exnew;
 
-import setuexp.Alert;
-import setuexp.DefaultGuiAutomator;
-import setuexp.GuiAutomator;
-import setuexp.GuiMultiElement;
-import setuexp.With;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.Alert;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 
 public class Ex3Alerts {
 

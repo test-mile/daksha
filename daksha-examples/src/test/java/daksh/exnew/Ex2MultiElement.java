@@ -1,9 +1,9 @@
 package daksh.exnew;
 
-import setuexp.DefaultGuiAutomator;
-import setuexp.GuiAutomator;
-import setuexp.GuiMultiElement;
-import setuexp.With;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
+import com.testmile.daksha.tpi.guiauto.With;
 
 public class Ex2MultiElement {
 
