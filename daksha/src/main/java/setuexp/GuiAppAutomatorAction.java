@@ -1,13 +1,13 @@
 package setuexp;
 
-public class GuiAutomatorAction extends AbstractGuiAutoAction {
+public class GuiAppAutomatorAction extends AbstractGuiAutoAction {
 	
-	public GuiAutomatorAction(GuiAutomatorActionType action) {
+	public GuiAppAutomatorAction(GuiAppAutomatorActionType action) {
 		super();
 		this.getActionRequest().setAction(action.toString());
 	}
 
-	public GuiAutomatorAction(GuiAutomator automator, GuiAutomatorActionType action) {
+	public GuiAppAutomatorAction(AppAutomator automator, GuiAppAutomatorActionType action) {
 		super();
 		this.getActionRequest().setAction(action.toString());
 		this.getActionRequest().addArg("automatorSetuId", automator.getSetuId());

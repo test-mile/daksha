@@ -8,6 +8,6 @@ public interface DropDown {
 	void selectByValue(String value) throws Exception;
 	void selectByVisibleText(String text) throws Exception;
 	void selectByIndex(int index) throws Exception;
-	GuiAutomator getAutomator();
+	AppAutomator getAutomator();
 	String getSetuId();
 }

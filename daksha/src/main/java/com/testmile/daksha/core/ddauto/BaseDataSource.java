@@ -25,8 +25,6 @@ import java.util.List;
 
 import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.DataSourceFinishedException;
-import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 
 public abstract class BaseDataSource implements DataSource {
 	private String name = null;

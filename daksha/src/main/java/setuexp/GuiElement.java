@@ -8,7 +8,7 @@ public interface GuiElement extends SetuManagedObject{
 
 	void waitUntilClickable() throws Exception;
 
-	GuiAutomator getAutomator() throws Exception;
+	AppAutomator getAutomator() throws Exception;
 
 	void check() throws Exception;
 	

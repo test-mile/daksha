@@ -13,6 +13,7 @@ public class Ex2MultiElement {
 		
 		automator.element(With.LINK_TEXT,"Posts").click();
 		automator.element(With.LINK_TEXT,"Categories").click();
+		
 		GuiMultiElement checkboxes = automator.multiElement(With.NAME,"delete_tags[]");
 		checkboxes.getInstanceAtIndex(0).uncheck();
 		checkboxes.getInstanceAtIndex(0).check();

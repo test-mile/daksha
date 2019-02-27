@@ -1,11 +1,11 @@
 package setuexp;
 
 public class DefaultAlert extends DefaultSetuObject implements Alert {
-	private GuiAutomator automator;
+	private AppAutomator automator;
 	private SetuGuiAutoSvcClient setuClient;
 	private String baseActionUri = "/alert/action";
 
-	public DefaultAlert(DefaultGuiAutomator automator, String elemSetuId) {
+	public DefaultAlert(AppAutomator automator, String elemSetuId) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
@@ -38,7 +38,7 @@ public class DefaultAlert extends DefaultSetuObject implements Alert {
 	}
 
 	@Override
-	public GuiAutomator getAutomator() {
+	public AppAutomator getAutomator() {
 		return this.automator;
 	}
 

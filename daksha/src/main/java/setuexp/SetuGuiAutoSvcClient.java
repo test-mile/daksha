@@ -7,10 +7,10 @@ public class SetuGuiAutoSvcClient {
 	private BasicRestClient restClient;
 	
 	public SetuGuiAutoSvcClient() {
-		this.restClient = new BasicRestClient("http://localhost:9000/guiautomator");
+		this.restClient = new BasicRestClient("http://localhost:9000/guiauto");
 	}
 
-	public Response post(String uri, GuiAction action) throws Exception {
+	public Response post(String uri, GuiAutoAction action) throws Exception {
 		System.out.println(uri);
 		System.out.println(action.asJsonString());
 		try {

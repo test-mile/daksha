@@ -19,8 +19,6 @@
 
 package com.testmile.daksha.tpi.ddauto;
 
-import java.util.Arrays;
-
 import com.testmile.daksha.core.ddauto.BaseDataRecordContainer;
 import com.testmile.daksha.core.ddauto.DataRecord;
 

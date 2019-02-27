@@ -1,11 +1,11 @@
 package setuexp;
 
 public class DefaultFrame extends DefaultSetuObject implements Frame {
-	private GuiAutomator automator;
+	private AppAutomator automator;
 	private SetuGuiAutoSvcClient setuClient;
 	private String baseActionUri = "/frame/action";
 
-	public DefaultFrame(DefaultGuiAutomator automator, String elemSetuId) {
+	public DefaultFrame(AppAutomator automator, String elemSetuId) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
@@ -30,7 +30,7 @@ public class DefaultFrame extends DefaultSetuObject implements Frame {
 	}
 
 	@Override
-	public GuiAutomator getAutomator() {
+	public AppAutomator getAutomator() {
 		return this.automator;
 	}
 

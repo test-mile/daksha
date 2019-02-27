@@ -1,6 +1,6 @@
 package setuexp;
 
-public class DropDownAction extends AbstractGuiAction {
+public class DropDownAction extends AbstractGuiAutoAction {
 	
 	public DropDownAction(DropDown element, DropDownActionType action) throws Exception {
 		super();		

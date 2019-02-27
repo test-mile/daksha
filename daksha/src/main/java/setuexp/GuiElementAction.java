@@ -1,6 +1,6 @@
 package setuexp;
 
-public class GuiElementAction extends AbstractGuiAction {
+public class GuiElementAction extends AbstractGuiAutoAction {
 	
 	public GuiElementAction(GuiElement element, GuiElementActionType action) throws Exception {
 		super();		

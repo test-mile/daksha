@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.testmile.daksha.tpi.guiauto.maker;
+package com.testmile.daksha.tpi.guiauto.gui;
 
 import java.io.File;
 

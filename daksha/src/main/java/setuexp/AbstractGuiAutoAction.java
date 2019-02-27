@@ -2,11 +2,11 @@ package setuexp;
 
 import com.google.gson.Gson;
 
-public abstract class AbstractGuiAction implements GuiAction {
+public abstract class AbstractGuiAutoAction implements GuiAutoAction {
 	private static Gson gson = new Gson();
 	private GuiActionRequest actionRequest;
 	
-	public AbstractGuiAction() {
+	public AbstractGuiAutoAction() {
 		this.actionRequest = new GuiActionRequest();
 	}
 	

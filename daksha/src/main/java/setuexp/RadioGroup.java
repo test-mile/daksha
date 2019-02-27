@@ -7,7 +7,7 @@ public interface RadioGroup {
 	String getFirstSelectedOptionValue() throws Exception;
 	void selectByValue(String value) throws Exception;
 	void selectByIndex(int index) throws Exception;
-	GuiAutomator getAutomator();
+	AppAutomator getAutomator();
 	String getSetuId();
 
 }

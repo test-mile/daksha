@@ -1,11 +1,11 @@
 package setuexp;
 
 public class DefaultDropDown extends DefaultSetuObject implements DropDown {
-	private GuiAutomator automator;
+	private AppAutomator automator;
 	private SetuGuiAutoSvcClient setuClient;
 	private String baseActionUri = "/dropdown/action";
 
-	public DefaultDropDown(DefaultGuiAutomator automator, String elemSetuId) {
+	public DefaultDropDown(AppAutomator automator, String elemSetuId) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
@@ -64,7 +64,7 @@ public class DefaultDropDown extends DefaultSetuObject implements DropDown {
 	}
 
 	@Override
-	public GuiAutomator getAutomator() {
+	public AppAutomator getAutomator() {
 		return this.automator;
 	}
 

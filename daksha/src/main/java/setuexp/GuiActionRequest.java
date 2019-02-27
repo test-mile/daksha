@@ -3,10 +3,6 @@ package setuexp;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
-import com.google.gson.Gson;
-
 public class GuiActionRequest {
 	private String action;
 	private String setuId;

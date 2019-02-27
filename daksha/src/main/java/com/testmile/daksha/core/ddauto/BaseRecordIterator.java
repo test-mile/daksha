@@ -4,9 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.testmile.daksha.tpi.ddauto.DataSource;
-import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-
 public abstract class BaseRecordIterator implements Iterator<Object[]>{
 	private List<DataRecord> records;
 

@@ -1,11 +1,11 @@
 package setuexp;
 
 public class AbstractBasicWindow extends DefaultSetuObject implements BasicWindow {
-	private GuiAutomator automator;
+	private AppAutomator automator;
 	private SetuGuiAutoSvcClient setuClient;
 	private String baseActionUri = "/window/action";
 
-	public AbstractBasicWindow(DefaultGuiAutomator automator, String elemSetuId) {
+	public AbstractBasicWindow(AppAutomator automator, String elemSetuId) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
@@ -33,7 +33,7 @@ public class AbstractBasicWindow extends DefaultSetuObject implements BasicWindo
 	}
 
 	@Override
-	public GuiAutomator getAutomator() {
+	public AppAutomator getAutomator() {
 		return this.automator;
 	}
 }

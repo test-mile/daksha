@@ -1,6 +1,6 @@
 package setuexp;
 
-public class FrameAction extends AbstractGuiAction {
+public class FrameAction extends AbstractGuiAutoAction {
 	
 	public FrameAction(Frame element, FrameActionType action) throws Exception {
 		super();		

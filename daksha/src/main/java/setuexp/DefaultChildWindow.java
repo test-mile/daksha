@@ -2,7 +2,7 @@ package setuexp;
 
 public class DefaultChildWindow extends AbstractBasicWindow implements ChildWindow {
 
-	public DefaultChildWindow(DefaultGuiAutomator automator, String elemSetuId) {
+	public DefaultChildWindow(AppAutomator automator, String elemSetuId) {
 		super(automator, elemSetuId);
 	}
 

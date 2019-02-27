@@ -1,11 +1,11 @@
 package setuexp;
 
 public class DefaultRadioGroup extends DefaultSetuObject implements RadioGroup {
-	private GuiAutomator automator;
+	private AppAutomator automator;
 	private SetuGuiAutoSvcClient setuClient;
 	private String baseActionUri = "/radiogroup/action";
 
-	public DefaultRadioGroup(DefaultGuiAutomator automator, String elemSetuId) {
+	public DefaultRadioGroup(AppAutomator automator, String elemSetuId) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
@@ -49,7 +49,7 @@ public class DefaultRadioGroup extends DefaultSetuObject implements RadioGroup {
 	}
 
 	@Override
-	public GuiAutomator getAutomator() {
+	public AppAutomator getAutomator() {
 		return this.automator;
 	}
 

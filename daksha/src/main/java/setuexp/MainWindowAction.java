@@ -1,6 +1,6 @@
 package setuexp;
 
-public class MainWindowAction extends AbstractGuiAction {
+public class MainWindowAction extends AbstractGuiAutoAction {
 	
 	public MainWindowAction(ChildWindow element, WindowActionType action) throws Exception {
 		super();		

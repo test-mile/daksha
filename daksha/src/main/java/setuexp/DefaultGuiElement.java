@@ -1,19 +1,19 @@
 package setuexp;
 
 public class DefaultGuiElement extends DefaultSetuObject implements GuiElement {
-	private GuiAutomator automator;
+	private AppAutomator automator;
 	private SetuGuiAutoSvcClient setuClient;
 	private String baseActionUri = "/element/action";
 	private boolean partial = false;
 	private int index = 0;
 
-	public DefaultGuiElement(GuiAutomator automator, String elemSetuId) {
+	public DefaultGuiElement(AppAutomator automator, String elemSetuId) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
 	}
 	
-	public DefaultGuiElement(GuiAutomator automator, String elemSetuId, int index, String baseUri) {
+	public DefaultGuiElement(AppAutomator automator, String elemSetuId, int index, String baseUri) {
 		this.automator = automator;
 		this.setSetuId(elemSetuId);
 		setuClient = this.automator.getSetuClient();
@@ -22,7 +22,7 @@ public class DefaultGuiElement extends DefaultSetuObject implements GuiElement {
 		this.baseActionUri = baseUri;
 	}
 
-	public GuiAutomator getAutomator() {
+	public AppAutomator getAutomator() {
 		return this.automator;
 	}
 	

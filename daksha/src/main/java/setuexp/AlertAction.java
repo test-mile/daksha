@@ -1,6 +1,6 @@
 package setuexp;
 
-public class AlertAction extends AbstractGuiAction {
+public class AlertAction extends AbstractGuiAutoAction {
 	
 	public AlertAction(Alert element, AlertActionType action) throws Exception {
 		super();		

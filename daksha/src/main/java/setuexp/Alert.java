@@ -6,7 +6,7 @@ public interface Alert {
 	void dismiss() throws Exception;
 	String getText() throws Exception;
 	void sendText(String text) throws Exception;
-	GuiAutomator getAutomator();
+	AppAutomator getAutomator();
 	String getSetuId();
 	
 }

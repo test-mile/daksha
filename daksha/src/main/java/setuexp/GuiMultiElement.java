@@ -2,7 +2,7 @@ package setuexp;
 
 public interface GuiMultiElement extends SetuManagedObject{
 
-	GuiAutomator getAutomator() throws Exception;
+	AppAutomator getAutomator() throws Exception;
 
 	GuiElement getInstanceAtIndex(int index);
 

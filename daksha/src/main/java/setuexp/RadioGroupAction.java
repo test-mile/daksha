@@ -1,6 +1,6 @@
 package setuexp;
 
-public class RadioGroupAction extends AbstractGuiAction {
+public class RadioGroupAction extends AbstractGuiAutoAction {
 	
 	public RadioGroupAction(RadioGroup element, RadioGroupActionType action) throws Exception {
 		super();		
