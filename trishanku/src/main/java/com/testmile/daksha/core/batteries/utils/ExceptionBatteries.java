@@ -24,8 +24,6 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import com.testmile.daksha.tpi.sysauto.utils.SystemUtils;
-
 public class ExceptionBatteries {
 	private static boolean internalBuild = false;
 	
@@ -61,7 +59,7 @@ public class ExceptionBatteries {
 	}
 
 	private static String cleanTrace(String trace) {
-		String lineSep = SystemUtils.getLineSeparator();
+		String lineSep = System.getProperty("line.separator");
 		StringReader stringReader = new StringReader(trace);
 		BufferedReader bufferedReader = new BufferedReader(stringReader);
 		StringBuffer buf = new StringBuffer();

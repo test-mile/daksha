@@ -22,20 +22,23 @@ package com.testmile.daksha.core.guiauto.automator;
 import com.testmile.daksha.core.guiauto.window.DefaultMainWindow;
 import com.testmile.daksha.core.setu.Response;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
 
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
 	
-	public DefaultGuiAutomator() throws Exception {
-		super("/automator/");
+	public DefaultGuiAutomator(TestConfig config) throws Exception {
+		super("/automator/", config);
 	}
 	
 	@Override
 	public void launch() throws Exception {
-		Response response = this.setuClient.post(baseUri + "launch", new GuiAutomatorAction(GuiAutomatorActionType.LAUNCH));
-		System.out.println((String) response.getData().get("automatorSetuId"));
+		GuiAutomatorAction action = new GuiAutomatorAction(this.getTestSessionSetuId(), GuiAutomatorActionType.LAUNCH);
+		action.addArg("configSetuId", this.getConfig().getSetuId());
+		Response response = this.setuClient.post(baseUri + "launch", action);
 		this.setSetuId((String) response.getData().get("automatorSetuId"));
-		GuiAppAutomatorAction action = new GuiAppAutomatorAction(this, GuiAppAutomatorActionType.GET_MAIN_WINDOW);
-		mainWindow = new DefaultMainWindow (this, this.takeElementFindingAction(action));
+		
+		GuiAppAutomatorAction windowAction = new GuiAppAutomatorAction(this, GuiAppAutomatorActionType.GET_MAIN_WINDOW);
+		mainWindow = new DefaultMainWindow (this, this.takeElementFindingAction(windowAction));
 	}
 	
 	@Override

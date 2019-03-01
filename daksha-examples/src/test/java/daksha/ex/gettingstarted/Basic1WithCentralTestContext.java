@@ -21,9 +21,9 @@ package daksha.ex.gettingstarted;
 
 import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.enums.Browser;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.trishanku.Trishanku;
+import com.testmile.trishanku.tpi.enums.Browser;
 
 public class Basic1WithCentralTestContext{
 	

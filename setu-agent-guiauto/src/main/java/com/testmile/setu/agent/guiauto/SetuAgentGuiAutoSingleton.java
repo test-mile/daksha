@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.testmile.daksha.tpi.enums.Browser;
 import com.testmile.daksha.tpi.sysauto.utils.DataUtils;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.enums.AppiumAndroidBrowserType;
 import com.testmile.setu.agent.guiauto.core.launcher.appium.AppiumDriverServerLauncher;
-import com.testmile.trishanku.tpi.guiauto.enums.AppiumIosBrowserType;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.AppiumIosBrowserType;
+import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.OSType;
 
 public enum SetuAgentGuiAutoSingleton {
 	INSTANCE;

@@ -20,7 +20,6 @@ package com.testmile.setu.agent.guiauto.core.automator;
 
 import java.util.concurrent.TimeUnit;
 
-import com.testmile.daksha.tpi.enums.Browser;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumElementFinder;
 import com.testmile.setu.agent.guiauto.core.handler.automator.appium.AppiumSwiper;
@@ -31,6 +30,7 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumF
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
+import com.testmile.trishanku.tpi.enums.Browser;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

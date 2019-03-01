@@ -20,44 +20,26 @@
 package com.testmile.daksha.core.guiauto.window;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
-import com.testmile.daksha.core.guiauto.setu.SetuGuiAutoSvcClient;
+import com.testmile.daksha.core.guiauto.setu.GenericElement;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
+import com.testmile.daksha.core.setu.SetuRequest;
+import com.testmile.daksha.core.setu.SetuSvcRequester;
 
-public class AbstractBasicWindow extends DefaultSetuObject implements BasicWindow {
-	private AppAutomator automator;
-	private SetuGuiAutoSvcClient setuClient;
-	private String baseActionUri = "/window/action";
+public class AbstractBasicWindow extends GenericElement implements BasicWindow {
 
-	public AbstractBasicWindow(AppAutomator automator, String elemSetuId) {
-		this.automator = automator;
-		this.setSetuId(elemSetuId);
-		setuClient = this.automator.getSetuClient();
-	}
-	
-	protected SetuGuiAutoSvcClient getSetuClient() {
-		return this.setuClient;
-	}
-	
-	protected String getBaseActionUri() {
-		return this.baseActionUri;
+	public AbstractBasicWindow(AppAutomator automator, String setuId) {
+		super(automator, setuId, "/window/action");
 	}
 	
 	@Override
 	public String getTitle() throws Exception {
-		WindowAction action = new WindowAction(this, WindowActionType.GET_TITLE);
-		Response response = this.getSetuClient().post(this.getBaseActionUri(), action);
+		Response response = this.takeAction(WindowActionType.GET_TITLE.toString());
 		return (String) response.getData().get("title");
 	}
 	
 	@Override
 	public void jump() throws Exception {
-		WindowAction action = new WindowAction(this, WindowActionType.JUMP);
-		this.setuClient.post(baseActionUri, action);
-	}
-
-	@Override
-	public AppAutomator getAutomator() {
-		return this.automator;
+		this.takeAction(WindowActionType.JUMP.toString());
 	}
 }

@@ -23,7 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 import com.testmile.daksha.core.ddauto.DsvFileDataSource;
 import com.testmile.daksha.core.ddauto.ExcelFileDataSource;
 import com.testmile.daksha.core.ddauto.IniFileDataSource;
-import com.testmile.daksha.tpi.enums.DataFileFormat;
+import com.testmile.trishanku.tpi.enums.DataFileFormat;
 
 public class DataSourceFactory {
 	

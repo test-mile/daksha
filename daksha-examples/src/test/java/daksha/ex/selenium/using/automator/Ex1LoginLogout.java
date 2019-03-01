@@ -19,13 +19,18 @@
 
 package daksha.ex.selenium.using.automator;
 
+import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.core.testsession.DefaultTestSession;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.test.TestSession;
 
 public class Ex1LoginLogout {
 
 	public static void main(String[] args) throws Exception {
-		GuiAutomator automator = new DefaultGuiAutomator();
+		TestConfig config = Daksha.init();
+		GuiAutomator automator = new DefaultGuiAutomator(config);
 		WPLoginLogout.login(automator);
 		WPLoginLogout.logout(automator);
 	}

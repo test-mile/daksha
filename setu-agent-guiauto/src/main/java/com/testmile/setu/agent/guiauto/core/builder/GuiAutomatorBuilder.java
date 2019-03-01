@@ -19,9 +19,9 @@
 
 package com.testmile.setu.agent.guiauto.core.builder;
 
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.setu.agent.SetuAgentConfig;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class GuiAutomatorBuilder {
 	private SetuAgentConfig config;
@@ -35,6 +35,6 @@ public class GuiAutomatorBuilder {
 	}
 	
 	protected GuiAutomationContext getAutomationContext() throws Exception {
-		return config.value(DakshaOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
+		return config.value(SetuOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
 	}
 }

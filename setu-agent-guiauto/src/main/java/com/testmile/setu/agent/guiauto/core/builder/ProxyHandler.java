@@ -22,9 +22,9 @@ package com.testmile.setu.agent.guiauto.core.builder;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;
 
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.AbstractAutomatorHandler;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ProxyHandler extends AbstractAutomatorHandler {
 	
@@ -33,9 +33,9 @@ public class ProxyHandler extends AbstractAutomatorHandler {
 	}
 	
 	public void configureProxy(MutableCapabilities caps) throws Exception {
-		if (getConfig().value(DakshaOption.BROWSER_PROXY_ON).asBoolean()){
+		if (getConfig().value(SetuOption.BROWSER_PROXY_ON).asBoolean()){
 			Proxy proxy = new Proxy();
-			String p = getConfig().value(DakshaOption.BROWSER_PROXY_HOST).asString() + ":" + getConfig().value(DakshaOption.BROWSER_PROXY_PORT).asString();
+			String p = getConfig().value(SetuOption.BROWSER_PROXY_HOST).asString() + ":" + getConfig().value(SetuOption.BROWSER_PROXY_PORT).asString();
 			setHttpProxy(proxy, p);
 			setSslProxy(proxy, p);
 			caps.setCapability("proxy", proxy);

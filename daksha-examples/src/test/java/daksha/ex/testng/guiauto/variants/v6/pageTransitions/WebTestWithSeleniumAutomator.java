@@ -24,7 +24,7 @@ import org.testng.annotations.Test;
 import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.OSType;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Home> threadWiseHome = new ThreadLocal<Home>();

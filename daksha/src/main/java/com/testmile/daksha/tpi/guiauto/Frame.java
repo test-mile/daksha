@@ -20,11 +20,11 @@
 package com.testmile.daksha.tpi.guiauto;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
+import com.testmile.daksha.core.setu.SetuManagedObject;
 
-public interface Frame {
+public interface Frame extends SetuManagedObject{
 	void jump() throws Exception;
 	void jumpToParent() throws Exception;
 	void jumpToRoot() throws Exception;
 	AppAutomator getAutomator();
-	String getSetuId();
 }

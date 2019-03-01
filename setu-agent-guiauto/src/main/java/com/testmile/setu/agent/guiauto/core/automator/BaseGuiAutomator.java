@@ -19,7 +19,6 @@
 
 package com.testmile.setu.agent.guiauto.core.automator;
 
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.core.tpi.image.ImageComprator;
 import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
@@ -34,6 +33,7 @@ import com.testmile.setu.agent.guiauto.tpi.handler.automator.Screenshoter;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.Scroller;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.Swiper;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.WindowHandler;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public abstract class BaseGuiAutomator implements GuiAutomator {
 	private SetuAgentConfig config;
@@ -52,7 +52,7 @@ public abstract class BaseGuiAutomator implements GuiAutomator {
 	
 	public BaseGuiAutomator(SetuAgentConfig config) throws Exception{
 		this.config = config;
-		this.imageComprator = new ImageComprator(getConfig().value(DakshaOption.IMAGE_COMPARISON_MIN_SCORE).asDouble());
+		this.imageComprator = new ImageComprator(getConfig().value(SetuOption.IMAGE_COMPARISON_MIN_SCORE).asDouble());
 	}
 	
 	/* (non-Javadoc)

@@ -26,13 +26,13 @@ import com.testmile.daksha.core.ddauto.DataRecord;
 import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.trishanku.Trishanku;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ExcelFileDDTMapData{
 	
 	private static DataSource createMapDataSource() throws Exception {
-		String fPath = Trishanku.getCentralContext().getConfig().value(DakshaOption.DATA_SOURCES_DIR) + "input.xls";
+		String fPath = Trishanku.getCentralContext().getConfig().value(SetuOption.DATA_SOURCES_DIR) + "input.xls";
 		return DataSourceFactory.createDataSource(fPath);
 	}
 	

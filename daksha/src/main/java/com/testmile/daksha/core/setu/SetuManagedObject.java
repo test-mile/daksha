@@ -22,5 +22,9 @@ package com.testmile.daksha.core.setu;
 public interface SetuManagedObject {
 	
 	String getSetuId();
+	
+	String getTestSessionSetuId();
+	
+	void setTestSessionSetuId(String id);
 
 }

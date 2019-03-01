@@ -23,10 +23,10 @@ import org.testng.annotations.Test;
 
 import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
 import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.OSType;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class AppUrlBasedNavigation extends TestNGBaseTest {
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
@@ -44,7 +44,7 @@ public class AppUrlBasedNavigation extends TestNGBaseTest {
 	@Test
 	public void test() throws Exception{
 		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goTo(this.getContext().getValue(DakshaOption.APP_URL).asString());
+		automator.goTo(this.getContext().getValue(SetuOption.APP_URL).asString());
 		System.out.println(automator.getPageTitle());
 	}
 	

@@ -1,0 +1,103 @@
+package com.testmile.daksha;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+import org.testng.ITestContext;
+
+import com.testmile.daksha.core.batteries.config.ConfigPropertyBuilder;
+import com.testmile.daksha.core.batteries.context.DakshaTestContext;
+import com.testmile.daksha.core.config.CLIConfiguration;
+import com.testmile.daksha.core.config.ConfigurationBuilder;
+import com.testmile.daksha.core.testsession.DefaultTestSession;
+import com.testmile.daksha.tpi.TestContext;
+import com.testmile.daksha.tpi.batteries.console.Console;
+import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.trishanku.Trishanku;
+import com.testmile.trishanku.tpi.enums.SetuOption;
+
+public enum DakshaSingleton {
+	INSTANCE;
+	private String rootDir = null;
+	
+	private TestSession session;
+	private TestConfig centralConfig;
+	private CLIConfiguration cliConfig = null;	
+	
+	private Logger logger = null;
+
+	
+	private Map<String, TestConfig> testContextConfigMap = new HashMap<String, TestConfig>();
+
+	public TestConfig init(String rootDir) throws Exception {
+		rootDir = rootDir;
+		session = new DefaultTestSession();
+		centralConfig = session.init(rootDir);
+		cliConfig = new CLIConfiguration();
+		
+		// Finalize logger
+		Trishanku.createLogger("daksha", this.getCentralConfig().getLogDir() + File.separator + "daksha.log");
+		logger = Logger.getLogger("daksha");
+		Console.init();
+		
+		return this.centralConfig;
+	}
+	
+	public TestConfig getCentralConfig() throws Exception {
+		return centralConfig;
+	}
+	
+	public void registerTestContextConfig(TestConfig config) throws Exception {
+		this.testContextConfigMap.put(config.getName().toLowerCase(), config);
+	}
+	
+	public TestConfig getTestContextConfig(String name) throws Exception {
+		if (name == null) {
+			throw new Exception("Config name was passed as null.");
+		} else {
+			try {
+				return this.testContextConfigMap.get(name.toLowerCase());
+			} catch (Exception e) {
+				throw new Exception("No context config found with name: " + name);
+			}
+		}
+		
+	}
+	
+	public ConfigurationBuilder createConfigBuilder(String name) throws Exception {
+		return new ConfigurationBuilder(name);
+	}
+	
+	public TestConfig getTestConfig(ITestContext context) throws Exception {
+		return getTestContextConfig(context.getName());
+	}
+	
+	public String getRootDir() {
+		return this.rootDir;
+	}
+	
+	public Logger getLogger() { 
+		return logger; 
+	}
+
+	
+	
+	private CLIConfiguration getCliConfig() {
+		return this.cliConfig;
+	}
+	
+	public String normalizeUserOption(String option) {
+		return option.trim().toUpperCase().replace("\\.", "_");
+	}
+	
+	public SetuOption normalizeSetuOption(String option) {
+		return SetuOption.valueOf(normalizeUserOption(option));
+	}
+}

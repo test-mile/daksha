@@ -19,14 +19,17 @@
 
 package daksha.ex.selenium.using.automator;
 
+import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.Alert;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
 
 public class Ex3Alerts {
 
 	public static void main(String[] args) throws Exception {
-		GuiAutomator automator = new DefaultGuiAutomator();
+		TestConfig config = Daksha.init();
+		GuiAutomator automator = new DefaultGuiAutomator(config);
 		WPLoginLogout.login(automator);
 		
 		automator.executeJavaScript("alert('dummy')");

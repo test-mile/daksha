@@ -20,51 +20,43 @@
 package com.testmile.daksha.core.guiauto.alert;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
-import com.testmile.daksha.core.guiauto.setu.SetuGuiAutoSvcClient;
+import com.testmile.daksha.core.guiauto.setu.GenericElement;
+import com.testmile.daksha.core.guiauto.setu.GenericElementAction;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
+import com.testmile.daksha.core.setu.SetuRequest;
+import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.guiauto.Alert;
 
-public class DefaultAlert extends DefaultSetuObject implements Alert {
-	private AppAutomator automator;
-	private SetuGuiAutoSvcClient setuClient;
-	private String baseActionUri = "/alert/action";
+public class DefaultAlert extends GenericElement implements Alert {
 
-	public DefaultAlert(AppAutomator automator, String elemSetuId) {
-		this.automator = automator;
-		this.setSetuId(elemSetuId);
-		setuClient = this.automator.getSetuClient();
+	public DefaultAlert(AppAutomator automator, String setuId) {
+		super(automator, setuId, "/alert/action");
 	}
 
 	@Override
 	public void confirm() throws Exception {
-		AlertAction action = new AlertAction(this, AlertActionType.CONFIRM);
-		this.setuClient.post(baseActionUri, action);
+		takeAction(AlertActionType.CONFIRM.toString());
 	}
 
 	@Override
 	public void dismiss() throws Exception {
-		AlertAction action = new AlertAction(this, AlertActionType.DISMISS);
-		this.setuClient.post(baseActionUri, action);
+		takeAction(AlertActionType.DISMISS.toString());
 	}
 
 	@Override
 	public String getText() throws Exception {
-		AlertAction action = new AlertAction(this, AlertActionType.GET_TEXT);
-		Response response = this.setuClient.post(baseActionUri, action);
+		Response response = this.takeAction(AlertActionType.GET_TEXT.toString());
 		return (String) response.getData().get("text");
 	}
 
 	@Override
 	public void sendText(String text) throws Exception {
-		AlertAction action = new AlertAction(this, AlertActionType.SEND_TEXT);
-		action.addArg("text", text);
-		this.setuClient.post(baseActionUri, action);
+		SetuRequest request = this.createRequest(AlertActionType.SEND_TEXT.toString());
+		request.addArg("text", text);
+		this.takeAction(request);
 	}
 
-	@Override
-	public AppAutomator getAutomator() {
-		return this.automator;
-	}
+
 
 }

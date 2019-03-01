@@ -25,10 +25,11 @@ import com.testmile.daksha.core.guiauto.element.DefaultGuiElement;
 import com.testmile.daksha.core.guiauto.frame.DefaultFrame;
 import com.testmile.daksha.core.guiauto.multielement.DefaultGuiMultiElement;
 import com.testmile.daksha.core.guiauto.radiogroup.DefaultRadioGroup;
-import com.testmile.daksha.core.guiauto.setu.SetuGuiAutoSvcClient;
+import com.testmile.daksha.core.guiauto.setu.SetuGuiAutoRequester;
 import com.testmile.daksha.core.guiauto.window.DefaultChildWindow;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
+import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.guiauto.Alert;
 import com.testmile.daksha.tpi.guiauto.ChildWindow;
 import com.testmile.daksha.tpi.guiauto.DropDown;
@@ -39,17 +40,25 @@ import com.testmile.daksha.tpi.guiauto.MainWindow;
 import com.testmile.daksha.tpi.guiauto.RadioGroup;
 import com.testmile.daksha.tpi.guiauto.With;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
+import com.testmile.daksha.tpi.test.TestConfig;
 
 public class AbstractAppAutomator extends DefaultSetuObject implements AppAutomator {
-	protected SetuGuiAutoSvcClient setuClient;
+	protected SetuSvcRequester setuClient;
 	protected MainWindow mainWindow;
 	protected String baseUri;
 	private GuiAutomationContext autoContext;
-
+	private TestConfig config;
+	
 	public AbstractAppAutomator(String baseUri) {
 		super();
-		this.setuClient = new SetuGuiAutoSvcClient();
+		this.setuClient = new SetuGuiAutoRequester();
 		this.baseUri = baseUri;
+	}
+
+	public AbstractAppAutomator(String baseUri, TestConfig config) {
+		this(baseUri);
+		this.setConfig(config);
+		this.setTestSessionSetuId(config.getTestSessionSetuId());
 	}
 	
 	protected void setAutomationContext(GuiAutomationContext context) {
@@ -60,7 +69,7 @@ public class AbstractAppAutomator extends DefaultSetuObject implements AppAutoma
 		return autoContext;
 	}
 
-	public SetuGuiAutoSvcClient getSetuClient() {
+	public SetuSvcRequester getSetuClient() {
 		return this.setuClient;
 	}
 
@@ -152,6 +161,14 @@ public class AbstractAppAutomator extends DefaultSetuObject implements AppAutoma
 	public void closeAllChildWindows() throws Exception {
 		GuiAppAutomatorAction action = new GuiAppAutomatorAction(this, GuiAppAutomatorActionType.CLOSE_ALL_CHILD_WINDOWS);
 		this.takeAction(action);
+	}
+
+	public TestConfig getConfig() {
+		return config;
+	}
+
+	protected void setConfig(TestConfig config) {
+		this.config = config;
 	}
 
 }

@@ -19,17 +19,12 @@
 
 package com.testmile.daksha.core.guiauto.automator;
 
-import com.testmile.daksha.core.guiauto.setu.AbstractGuiAutoAction;
+import com.testmile.daksha.core.setu.AbstractAction;
 
-public class GuiAppAutomatorAction extends AbstractGuiAutoAction {
-	
-	public GuiAppAutomatorAction(GuiAppAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-	}
+public class GuiAppAutomatorAction extends AbstractAction {
 
 	public GuiAppAutomatorAction(AppAutomator automator, GuiAppAutomatorActionType action) {
-		super();
+		super(automator);
 		this.getActionRequest().setAction(action.toString());
 		this.getActionRequest().addArg("automatorSetuId", automator.getSetuId());
 	}

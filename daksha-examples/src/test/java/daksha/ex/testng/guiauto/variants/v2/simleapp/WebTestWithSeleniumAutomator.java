@@ -30,7 +30,7 @@ import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;
 import com.testmile.daksha.tpi.guiauto.gui.SetuClientDefaultGui;
 import com.testmile.daksha.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.OSType;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGui> threadWiseApp = new ThreadLocal<SetuClientGui>();

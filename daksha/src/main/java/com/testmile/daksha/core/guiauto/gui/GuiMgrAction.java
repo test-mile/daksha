@@ -20,18 +20,13 @@
 package com.testmile.daksha.core.guiauto.gui;
 
 import com.testmile.daksha.core.guiauto.automator.GuiAppAutomatorActionType;
-import com.testmile.daksha.core.guiauto.setu.AbstractGuiAutoAction;
+import com.testmile.daksha.core.setu.AbstractAction;
 import com.testmile.daksha.tpi.guiauto.Gui;
 
-public class GuiMgrAction extends AbstractGuiAutoAction {
-	
-	public GuiMgrAction(GuiAppAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-	}
+public class GuiMgrAction extends AbstractAction {
 
 	public GuiMgrAction(Gui gui, GuiMgrActionType action) {
-		super();
+		super(gui);
 		this.getActionRequest().setAction(action.toString());
 		this.getActionRequest().addArg("guiName", gui.getClass().getSimpleName());
 		this.getActionRequest().addArg("guiQualifiedName", gui.getClass().getName());

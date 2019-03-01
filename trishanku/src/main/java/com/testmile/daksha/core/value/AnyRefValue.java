@@ -9,33 +9,30 @@ import java.util.Set;
 import com.rits.cloning.Cloner;
 
 import com.testmile.daksha.tpi.batteries.container.Value;
-import com.testmile.daksha.tpi.enums.ValueType;
+import com.testmile.daksha.tpi.exceptions.UnsupportedRepresentationException;
+import com.testmile.trishanku.tpi.enums.ValueType;
 
-public class AnyRefValue extends AbstractValue {
+public class AnyRefValue implements Value {
+	private String object = null;
 	private static Set<String> trues = new HashSet<String>(Arrays.asList("YES", "TRUE", "ON", "1"));
 	private static Set<String> falses = new HashSet<String>(Arrays.asList("NO", "FALSE", "OFF", "0"));
 	
 	public AnyRefValue(Object object) {
-		super(ValueType.ANYREF, object);
+		this.object = object.toString();
 	}
 
-	@Override
-	public Value clone() {
-		return new AnyRefValue(this.clone(this.object()));
-	}
-
-	private Object clone(Object o){
-		Object clone = null;
-		try {
-			Cloner cloner= new Cloner();
-			clone = cloner.deepClone(o);
-	    } catch (Exception f) {
-	        f.printStackTrace();
-	    }
-		
-		return clone;
+	protected void throwUnsupportedException(ValueType targetType, String callingMethodName) throws Exception{
+		throw new UnsupportedRepresentationException(this.valueType().toString(), callingMethodName, this.toString(), targetType.toString());
 	}
 	
+	protected void throwUnsupportedForEnumException(ValueType targetType, String enumClassName, String callingMethodName) throws Exception{
+		throw new UnsupportedRepresentationException(this.valueType().toString(), callingMethodName, this.toString(), targetType.toString() + " of enum type " + enumClassName);
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asString()
+	 */
 	@Override
 	public String asString() {
 		if (this.object() != null) {
@@ -44,11 +41,49 @@ public class AnyRefValue extends AbstractValue {
 			return "null";
 		}
 	}
+	
+	public static boolean isSet(String value) {
+		return !value.toUpperCase().trim().equals("NOT_SET");
+	}
+	
 
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#isNotSet()
+	 */
+	@Override
+	public boolean isNotSet() {
+		return this.asString().toUpperCase().trim().equals("NOT_SET");
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#isNull()
+	 */
+	@Override
+	public boolean isNull() {
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#isNA()
+	 */
+	@Override
+	public boolean isNA() {
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#process(java.lang.Object, java.lang.reflect.Method)
+	 */
+	@Override
 	public void process(Object formatterObject, Method formatter) throws Exception {
 		this.setObject((String) formatter.invoke(formatterObject, this.asString()));
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asEnum(java.lang.Class)
+	 */
 	@Override
 	public <T2 extends Enum<T2>> T2 asEnum(Class<T2> enumClass) throws Exception {
 		try {
@@ -59,6 +94,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 	
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asBoolean()
+	 */
 	@Override
 	public boolean asBoolean() throws Exception {
 		String uStr = this.asString().toUpperCase().trim();
@@ -70,6 +109,10 @@ public class AnyRefValue extends AbstractValue {
 		throw new Exception(String.format(">>%s<< can not be represented as a boolean.", this.asString()));
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asNumber()
+	 */
 	@Override
 	public Number asNumber() throws Exception {
 		try{
@@ -92,6 +135,10 @@ public class AnyRefValue extends AbstractValue {
 		throw new Exception(String.format("Not supported for %s", this.getClass().getSimpleName()));
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asInt()
+	 */
 	@Override
 	public int asInt() throws Exception {
 		try{
@@ -101,6 +148,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asLong()
+	 */
 	@Override
 	public long asLong() throws Exception {
 		try{
@@ -110,6 +161,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asDouble()
+	 */
 	@Override
 	public double asDouble() throws Exception {
 		try{
@@ -119,6 +174,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asFloat()
+	 */
 	@Override
 	public float asFloat() throws Exception {
 		try{
@@ -128,6 +187,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asEnumList(java.lang.Class)
+	 */
 	@Override
 	public <T extends Enum<T>> List<T> asEnumList(Class<T> klass) throws Exception {
 		try{
@@ -137,6 +200,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asNumberList()
+	 */
 	@Override
 	public List<Number> asNumberList() throws Exception {
 		try{
@@ -146,6 +213,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asIntList()
+	 */
 	@Override
 	public List<Integer> asIntList() throws Exception {
 		try{
@@ -155,6 +226,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asStringList()
+	 */
 	@Override
 	public List<String> asStringList() throws Exception {
 		try{
@@ -164,6 +239,10 @@ public class AnyRefValue extends AbstractValue {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.testmile.daksha.core.value.Value#asList()
+	 */
+	@Override
 	public List<?> asList() throws Exception {
 		return this.asStringList();
 	}

@@ -21,17 +21,17 @@ package com.testmile.setu.agent.guiauto.core.handler.automator.selenium;
 
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.Scroller;
-import com.testmile.trishanku.tpi.guiauto.enums.Direction;
+import com.testmile.trishanku.tpi.enums.Direction;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class SeleniumScroller extends SeleniumJSExecutor implements Scroller{
 	private int scrollPixelCount;
 	
 	public SeleniumScroller(WebDriver driver, SetuAgentConfig config) throws Exception {
 		super(driver, config);
-		scrollPixelCount = getConfig().value(DakshaOption.GUIAUTO_SCROLL_PIXELS).asInt();
+		scrollPixelCount = getConfig().value(SetuOption.GUIAUTO_SCROLL_PIXELS).asInt();
 	}
 	
 	protected void validateScrollSupport() throws Exception{

@@ -19,15 +19,18 @@
 
 package daksha.ex.selenium.using.automator;
 
+import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.ChildWindow;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 import com.testmile.daksha.tpi.guiauto.MainWindow;
+import com.testmile.daksha.tpi.test.TestConfig;
 
 public class Ex4WindowHandling {
 
 	public static void main(String[] args) throws Exception {
-		GuiAutomator automator = new DefaultGuiAutomator();
+		TestConfig config = Daksha.init();
+		GuiAutomator automator = new DefaultGuiAutomator(config);
 		WPLoginLogout.login(automator);
 		
 		MainWindow mainWin = automator.mainWindow();

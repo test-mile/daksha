@@ -36,7 +36,4 @@ public interface Gui extends AppAutomator{
 	Frame frame(String name) throws Exception;
 
 	ChildWindow childWindow(String name) throws Exception;
-	
-	
-
 }

@@ -21,6 +21,7 @@ package com.testmile.daksha.core.setu;
 
 public class DefaultSetuObject implements SetuManagedObject{
 	private String setuId;
+	private String testSessionSetuId;
 
 	@Override
 	public String getSetuId() {
@@ -29,6 +30,14 @@ public class DefaultSetuObject implements SetuManagedObject{
 	
 	protected void setSetuId(String id) {
 		this.setuId = id;
+	}
+	
+	public String getTestSessionSetuId() {
+		return this.testSessionSetuId;
+	}
+	
+	public void setTestSessionSetuId(String id) {
+		this.testSessionSetuId = id;
 	}
 
 }

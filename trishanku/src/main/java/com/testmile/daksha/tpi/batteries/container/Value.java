@@ -2,7 +2,7 @@ package com.testmile.daksha.tpi.batteries.container;
 
 import java.util.List;
 
-import com.testmile.daksha.tpi.enums.ValueType;
+import com.testmile.trishanku.tpi.enums.ValueType;
 
 public interface Value extends Cloneable {
 	

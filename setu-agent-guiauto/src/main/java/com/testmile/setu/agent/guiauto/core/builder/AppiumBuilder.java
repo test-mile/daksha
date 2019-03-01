@@ -28,14 +28,13 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import com.testmile.daksha.core.problem.ErrorType;
 import com.testmile.daksha.core.problem.Problem;
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.SetuAgentGuiAutoSingleton;
 import com.testmile.setu.agent.guiauto.core.automator.AppiumGuiAutomator;
 import com.testmile.setu.agent.guiauto.core.launcher.appium.AppiumServer;
-import com.testmile.trishanku.Trishanku;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.OSType;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -63,17 +62,17 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	
 	private void populateCommonCaps(MutableCapabilities caps) throws Exception {
 		setProxy(caps);
-		String platform = getConfig().value(DakshaOption.TESTRUN_TARGET_PLATFORM).asString();
+		String platform = getConfig().value(SetuOption.TESTRUN_TARGET_PLATFORM).asString();
 		if (!SetuAgentGuiAutoSingleton.INSTANCE.isAllowedAppiumPlatform(platform)){
 			throwUnsupportedPlatformException("constructor", platform);
 		}
 		this.platformType = OSType.valueOf(platform.toUpperCase());	
 		caps.setCapability(MobileCapabilityType.PLATFORM_NAME, SetuAgentGuiAutoSingleton.INSTANCE.getAppiumPlatformString(this.platformType));
-		caps.setCapability(MobileCapabilityType.PLATFORM_VERSION,  getConfig().value(DakshaOption.TESTRUN_TARGET_PLATFORM_VERSION).asString());
+		caps.setCapability(MobileCapabilityType.PLATFORM_VERSION,  getConfig().value(SetuOption.TESTRUN_TARGET_PLATFORM_VERSION).asString());
 		caps.setCapability("newCommandTimeout", "60000");
-		caps.setCapability(MobileCapabilityType.DEVICE_NAME, getConfig().value(DakshaOption.MOBILE_DEVICE_NAME).asString());
-		if (!getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).isNull()){
-			caps.setCapability(MobileCapabilityType.UDID, getConfig().value(DakshaOption.MOBILE_DEVICE_UDID).asString());
+		caps.setCapability(MobileCapabilityType.DEVICE_NAME, getConfig().value(SetuOption.MOBILE_DEVICE_NAME).asString());
+		if (!getConfig().value(SetuOption.MOBILE_DEVICE_UDID).isNull()){
+			caps.setCapability(MobileCapabilityType.UDID, getConfig().value(SetuOption.MOBILE_DEVICE_UDID).asString());
 		}
 	}
 	
@@ -90,9 +89,9 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	}
 	
 	private void setProxy(MutableCapabilities capabilities) throws Exception {
-		if (getConfig().value(DakshaOption.BROWSER_PROXY_ON).asBoolean()){
+		if (getConfig().value(SetuOption.BROWSER_PROXY_ON).asBoolean()){
 			Proxy proxy = new Proxy();
-			String p = getConfig().value(DakshaOption.BROWSER_PROXY_HOST).asString() + ":" + getConfig().value(DakshaOption.BROWSER_PROXY_PORT).asString();
+			String p = getConfig().value(SetuOption.BROWSER_PROXY_HOST).asString() + ":" + getConfig().value(SetuOption.BROWSER_PROXY_PORT).asString();
 			setHttpProxy(proxy, p);
 			setSslProxy(proxy, p);
 			capabilities.setCapability("proxy", proxy);
@@ -113,10 +112,10 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	public void load() throws Exception{
 		AppiumDriver<MobileElement> driver = null;
 		AppiumServer server = null;
-		if (getConfig().value(DakshaOption.APPIUM_AUTO_LAUNCH).asBoolean() == true) {
+		if (getConfig().value(SetuOption.APPIUM_AUTO_LAUNCH).asBoolean() == true) {
 			server = SetuAgentGuiAutoSingleton.INSTANCE.getDriverServerLauncher().startServer();
 		} else {
-			server = new AppiumServer(getConfig().value(DakshaOption.APPIUM_HUB_URL).asString());
+			server = new AppiumServer(getConfig().value(SetuOption.APPIUM_HUB_URL).asString());
 		}
 		URL hubUrl = server.getURL();
 		try{
@@ -142,14 +141,14 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 				ErrorType.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
 				String.format(
 						ErrorType.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
-						Trishanku.getAutomationContextName(context))
+						context.toString())
 			);		
 	}
 	
 	private void setMobileNativeCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {		
-		capabilities.setCapability(MobileCapabilityType.APP, getConfig().value(DakshaOption.MOBILE_APP_FILE_PATH).asString());
-		capabilities.setCapability("appPackage", getConfig().value(DakshaOption.MOBILE_APP_PACKAGE).asString());
-		capabilities.setCapability("appActivity", getConfig().value(DakshaOption.MOBILE_APP_ACTIVITY).asString());
+		capabilities.setCapability(MobileCapabilityType.APP, getConfig().value(SetuOption.MOBILE_APP_FILE_PATH).asString());
+		capabilities.setCapability("appPackage", getConfig().value(SetuOption.MOBILE_APP_PACKAGE).asString());
+		capabilities.setCapability("appActivity", getConfig().value(SetuOption.MOBILE_APP_ACTIVITY).asString());
 		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "");
 		
 		if (platform == OSType.ANDROID) {
@@ -160,7 +159,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	}
 
 	private void setMobileWebCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {
-		String browser = getConfig().value(DakshaOption.BROWSER_NAME).asString();
+		String browser = getConfig().value(SetuOption.BROWSER_NAME).asString();
 		if (!SetuAgentGuiAutoSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser)){
 			throwUnsupportedBrowserException("setMobileCapabilities", platform, browser);
 		}

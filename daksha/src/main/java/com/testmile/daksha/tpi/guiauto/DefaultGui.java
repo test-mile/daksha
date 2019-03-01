@@ -43,6 +43,7 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 	
 	public DefaultGui(GuiAutomator automator) throws Exception {
 		super("/gui/");
+		this.setConfig(automator.getConfig());
 		this.pagUri = "/gui/";
 		this.automator = automator;
 		this.autoContext = automator.getAutomationContext();

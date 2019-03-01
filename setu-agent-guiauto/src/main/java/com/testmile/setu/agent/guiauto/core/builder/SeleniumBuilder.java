@@ -33,10 +33,10 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
 import com.testmile.daksha.core.value.StringValue;
-import com.testmile.daksha.tpi.enums.Browser;
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.automator.SeleniumGuiAutomator;
+import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private Capabilities capabilities = null;
@@ -77,7 +77,7 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	public void load() throws Exception{
 		setDriverPath();
 		driver = null;
-		String browserBinPath = getConfig().value(DakshaOption.BROWSER_BIN_PATH).asString();
+		String browserBinPath = getConfig().value(SetuOption.BROWSER_BIN_PATH).asString();
 		switch (this.browser){
 		case FIREFOX:
 			FirefoxOptions fOptions = new FirefoxOptions(capabilities);
@@ -120,7 +120,7 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	}
 	
 	private void setBrowserVersion(MutableCapabilities browserCaps) throws Exception{
-		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, getConfig().value(DakshaOption.BROWSER_VERSION).asString());
+		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, getConfig().value(SetuOption.BROWSER_VERSION).asString());
 	}
 	
 	private void setFirefoxCaps(MutableCapabilities browserCaps) throws Exception {
@@ -132,8 +132,8 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	}
 
 	private void setDriverPath() throws Exception {
-		String driverPath = getConfig().value(DakshaOption.SELENIUM_DRIVER_PATH).asString();
-		System.setProperty(getConfig().value(DakshaOption.SELENIUM_DRIVER_PROP).asString(), driverPath);
+		String driverPath = getConfig().value(SetuOption.SELENIUM_DRIVER_PATH).asString();
+		System.setProperty(getConfig().value(SetuOption.SELENIUM_DRIVER_PROP).asString(), driverPath);
 	}
 	
 	private void setChromeCaps(MutableCapabilities browserCaps) throws Exception {

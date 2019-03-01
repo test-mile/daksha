@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.daksha.tpi.enums.Browser;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumAlertHandler;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumBrowserHandler;
@@ -34,6 +33,7 @@ import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJ
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScreenshoter;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumScroller;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumWindowHandler;
+import com.testmile.trishanku.tpi.enums.Browser;
 
 public class SeleniumGuiAutomator extends BaseGuiAutomator {
 	private WebDriver driver = null;

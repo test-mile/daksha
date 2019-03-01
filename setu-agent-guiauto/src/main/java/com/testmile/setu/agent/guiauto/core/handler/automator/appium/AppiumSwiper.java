@@ -25,13 +25,13 @@ import java.util.Map;
 
 import org.openqa.selenium.Dimension;
 
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.agent.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.agent.guiauto.tpi.handler.automator.Swiper;
-import com.testmile.trishanku.tpi.guiauto.enums.Direction;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.Direction;
+import com.testmile.trishanku.tpi.enums.OSType;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -49,9 +49,9 @@ public class AppiumSwiper extends SeleniumJSExecutor implements Swiper{
 	public AppiumSwiper(AppiumDriver<MobileElement> driver, SetuAgentConfig config) throws Exception {
 		super(driver, config);
 		appiumDriver = driver;
-		swipeTop = getConfig().value(DakshaOption.GUIAUTO_SWIPE_TOP).asFloat();
-		swipeBottom = getConfig().value(DakshaOption.GUIAUTO_SWIPE_BOTTOM).asFloat();
-		swipeMaxWait = getConfig().value(DakshaOption.GUIAUTO_SWIPE_MAX_WAIT).asInt();
+		swipeTop = getConfig().value(SetuOption.GUIAUTO_SWIPE_TOP).asFloat();
+		swipeBottom = getConfig().value(SetuOption.GUIAUTO_SWIPE_BOTTOM).asFloat();
+		swipeMaxWait = getConfig().value(SetuOption.GUIAUTO_SWIPE_MAX_WAIT).asInt();
 	}
 	
 	private AppiumDriver<MobileElement> getAppiumDriver(){

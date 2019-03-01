@@ -20,8 +20,9 @@
 package com.testmile.daksha.tpi.guiauto;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
+import com.testmile.daksha.core.setu.SetuManagedObject;
 
-public interface DropDown {
+public interface DropDown extends SetuManagedObject{
 	boolean hasVisibleTextSelected(String text) throws Exception;
 	boolean hasValueSelected(String value) throws Exception;
 	boolean hasIndexSelected(int index) throws Exception;
@@ -30,5 +31,4 @@ public interface DropDown {
 	void selectByVisibleText(String text) throws Exception;
 	void selectByIndex(int index) throws Exception;
 	AppAutomator getAutomator();
-	String getSetuId();
 }

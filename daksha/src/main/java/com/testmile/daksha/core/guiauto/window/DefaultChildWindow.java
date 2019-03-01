@@ -24,13 +24,12 @@ import com.testmile.daksha.tpi.guiauto.ChildWindow;
 
 public class DefaultChildWindow extends AbstractBasicWindow implements ChildWindow {
 
-	public DefaultChildWindow(AppAutomator automator, String elemSetuId) {
-		super(automator, elemSetuId);
+	public DefaultChildWindow(AppAutomator automator, String setuId) {
+		super(automator, setuId);
 	}
 
 	@Override
 	public void close() throws Exception {
-		WindowAction action = new WindowAction(this, WindowActionType.CLOSE);
-		this.getSetuClient().post(this.getBaseActionUri(), action);
+		this.takeAction(WindowActionType.CLOSE.toString());
 	}
 }

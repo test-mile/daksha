@@ -24,49 +24,65 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.testmile.daksha.core.value.StringValue;
 import com.testmile.daksha.tpi.batteries.container.Value;
-import com.testmile.daksha.tpi.enums.Browser;
-import com.testmile.daksha.tpi.enums.DakshaOption;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
-import com.testmile.trishanku.tpi.guiauto.enums.GuiAutomatorName;
-import com.testmile.trishanku.tpi.guiauto.enums.OSType;
+import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.GuiAutomatorName;
+import com.testmile.trishanku.tpi.enums.OSType;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class SetuAgentConfig {
-	private Map<DakshaOption, Value> options = new HashMap<DakshaOption, Value>();
+	private Map<SetuOption, Value> options = new HashMap<SetuOption, Value>();
+	private Map<String, Value> userOptions = new HashMap<String, Value>();
 	
 	public SetuAgentConfig(String strJsonConfig) throws Exception {
 		Gson gson = new Gson();
+		JsonParser parser = new JsonParser();
+		JsonObject jObj = parser.parse(strJsonConfig).getAsJsonObject();
+		
+		JsonElement sOptions = jObj.get("setuOptions").getAsJsonObject();
+		JsonElement uOptions = jObj.get("userOptions").getAsJsonObject();
+		
 		Type type = new TypeToken<Map<String, String>>(){}.getType();
-		Map<String, String> config = gson.fromJson(strJsonConfig, type); // contains the whole reviews list
-		for (String key: config.keySet()) {
-			this.options.put(DakshaOption.valueOf(key.toUpperCase()), new StringValue(config.get(key)));
+		
+		Map<String, Object> sOptionDict = gson.fromJson(sOptions, type);
+		for (String key: sOptionDict.keySet()) {
+			this.options.put(SetuOption.valueOf(key.toUpperCase()), new StringValue((String) sOptionDict.get(key)));
+		}
+		
+		Map<String, Object> uOptionDict = gson.fromJson(uOptions, type);
+		for (String key: uOptionDict.keySet()) {
+			this.userOptions.put(key.toUpperCase(), new StringValue((String) sOptionDict.get(key)));
 		}
 	}
 	
-	public Value value(DakshaOption option) {
+	public Value value(SetuOption option) {
 		return this.options.get(option);
 	}
 
 	public Browser getBrowser() throws Exception {
-		return value(DakshaOption.BROWSER_NAME).asEnum(Browser.class);
+		return value(SetuOption.BROWSER_NAME).asEnum(Browser.class);
 	}
 
 	public int getMaxWaitTime() throws Exception {
-		return value(DakshaOption.GUIAUTO_MAX_WAIT).asInt();
+		return value(SetuOption.GUIAUTO_MAX_WAIT).asInt();
 	}
 
 	public GuiAutomationContext getAutomationContext() throws Exception {
-		return value(DakshaOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
+		return value(SetuOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
 	}
 
 	public OSType getOSType() throws Exception {
-		return value(DakshaOption.TESTRUN_TARGET_PLATFORM).asEnum(OSType.class);
+		return value(SetuOption.TESTRUN_TARGET_PLATFORM).asEnum(OSType.class);
 	}
 
 	public GuiAutomatorName getAutomatorName() throws Exception {
-		return value(DakshaOption.GUI_AUTOMATOR_NAME).asEnum(GuiAutomatorName.class);
+		return value(SetuOption.GUIAUTO_AUTOMATOR_NAME).asEnum(GuiAutomatorName.class);
 	}
 
 }

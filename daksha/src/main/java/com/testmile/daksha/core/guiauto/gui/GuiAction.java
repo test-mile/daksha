@@ -20,20 +20,15 @@
 package com.testmile.daksha.core.guiauto.gui;
 
 import com.testmile.daksha.core.guiauto.automator.GuiAppAutomatorActionType;
-import com.testmile.daksha.core.guiauto.setu.AbstractGuiAutoAction;
+import com.testmile.daksha.core.setu.AbstractAction;
 import com.testmile.daksha.tpi.guiauto.Gui;
 
-public class GuiAction extends AbstractGuiAutoAction {
-	
-	public GuiAction(GuiAppAutomatorActionType action) {
-		super();
-		this.getActionRequest().setAction(action.toString());
-	}
+public class GuiAction extends AbstractAction {
 
-	public GuiAction(Gui parentGui, GuiActionType action) {
-		super();
+	public GuiAction(Gui gui, GuiActionType action) {
+		super(gui);
 		this.getActionRequest().setAction(action.toString());
-		this.getActionRequest().addArg("guiSetuId", parentGui.getSetuId());
+		this.getActionRequest().addArg("guiSetuId", gui.getSetuId());
 	}
 
 }

@@ -24,13 +24,12 @@ import com.testmile.daksha.tpi.guiauto.MainWindow;
 
 public class DefaultMainWindow extends AbstractBasicWindow implements MainWindow {
 
-	public DefaultMainWindow(DefaultGuiAutomator automator, String elemSetuId) {
-		super(automator, elemSetuId);
+	public DefaultMainWindow(DefaultGuiAutomator automator, String setuId) {
+		super(automator, setuId);
 	}
 	
 	@Override
 	public void maximize() throws Exception {
-		WindowAction action = new WindowAction(this, WindowActionType.MAXIMIZE);
-		this.getSetuClient().post(this.getBaseActionUri(), action);
+		this.takeAction(WindowActionType.MAXIMIZE.toString());
 	}
 }

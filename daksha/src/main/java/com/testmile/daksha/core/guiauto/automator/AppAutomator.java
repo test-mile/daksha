@@ -19,8 +19,8 @@
 
 package com.testmile.daksha.core.guiauto.automator;
 
-import com.testmile.daksha.core.guiauto.setu.SetuGuiAutoSvcClient;
 import com.testmile.daksha.core.setu.SetuManagedObject;
+import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.guiauto.Alert;
 import com.testmile.daksha.tpi.guiauto.ChildWindow;
 import com.testmile.daksha.tpi.guiauto.DropDown;
@@ -31,8 +31,10 @@ import com.testmile.daksha.tpi.guiauto.MainWindow;
 import com.testmile.daksha.tpi.guiauto.RadioGroup;
 import com.testmile.daksha.tpi.guiauto.With;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
+import com.testmile.daksha.tpi.test.TestConfig;
 
 public interface AppAutomator extends SetuManagedObject{
+	TestConfig getConfig();
 
 	GuiElement element(With with, String value) throws Exception;
 
@@ -54,7 +56,7 @@ public interface AppAutomator extends SetuManagedObject{
 
 	void goToUrl(String url) throws Exception;
 
-	SetuGuiAutoSvcClient getSetuClient();
+	SetuSvcRequester getSetuClient();
 
 	void executeJavaScript(String string) throws Exception;
 

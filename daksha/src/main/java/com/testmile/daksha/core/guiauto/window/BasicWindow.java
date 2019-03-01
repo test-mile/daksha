@@ -20,10 +20,10 @@
 package com.testmile.daksha.core.guiauto.window;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
+import com.testmile.daksha.core.setu.SetuManagedObject;
 
-public interface BasicWindow {
+public interface BasicWindow extends SetuManagedObject{
 	String getTitle() throws Exception;
 	void jump() throws Exception;
 	AppAutomator getAutomator();
-	String getSetuId();
 }
