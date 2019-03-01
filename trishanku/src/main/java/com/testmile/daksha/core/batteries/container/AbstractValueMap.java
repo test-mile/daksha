@@ -38,27 +38,25 @@ public abstract class AbstractValueMap<T> implements RWValueMap<T>{
 		
 		return outMap;
 	}
-
-	@Override
-	public Map<String, String> strItems() throws Exception {
+	
+	private Map<String, String> convertToStringMap(Map<T, Value> inMap){
 		Map<String, String> outMap = new HashMap<String, String>();
-		for (T key: map.keySet()) {
+		for (T key: inMap.keySet()) {
 			outMap.put(this.formatKeyAsStr(key), map.get(key).toString());
 		}
 		
-		return outMap;
+		return outMap;		
+	}
+
+	@Override
+	public Map<String, String> strItems() throws Exception {
+		return this.convertToStringMap(this.map); 
 	}
 
 	@Override
 	public Map<String, String> strItems(List<T> filterKeys) throws Exception {
-		Map<String, String> outMap = new HashMap<String, String>();
-		for (T key: map.keySet()) {
-			if (filterKeys.contains(key)) {
-				outMap.put(this.formatKeyAsStr(key), map.get(key).toString());
-			}
-		}
-		
-		return outMap;
+		Map<T, Value> inMap = this.items(filterKeys);
+		return this.convertToStringMap(inMap);
 	}
 
 	@Override

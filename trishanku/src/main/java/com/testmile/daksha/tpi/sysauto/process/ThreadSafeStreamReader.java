@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.testmile.daksha.tpi.sysauto.utils.SystemUtils;
-
 public class ThreadSafeStreamReader extends Thread {
 	InputStream is;
 	String type;
@@ -41,7 +39,7 @@ public class ThreadSafeStreamReader extends Thread {
 			BufferedReader br = new BufferedReader(isr);
 			String line = null;
 			while ((line = br.readLine()) != null)
-				output.append(line + SystemUtils.getLineSeparator());
+				output.append(line + System.getProperty("line.separator"));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}

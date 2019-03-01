@@ -3,7 +3,6 @@ package com.testmile.daksha.tpi.batteries.console;
 import org.apache.log4j.Logger;
 
 import com.testmile.daksha.core.batteries.utils.ExceptionBatteries;
-import com.testmile.daksha.tpi.sysauto.utils.SystemUtils;
 
 public class Console {
 	private static Logger logger = null;
@@ -14,7 +13,7 @@ public class Console {
 		if (done)
 			return;
 		//logger = Daksha.getLogger();
-		separator = SystemUtils.getLineSeparator();
+		separator = System.getProperty("line.separator");
 		done = true;
 	}
 

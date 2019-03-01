@@ -8,7 +8,7 @@ import com.testmile.daksha.tpi.batteries.container.Value;
 public interface RWValueList extends ROValueList{
 	void addAll(List<Value> map);
 	
-	void addAll(ValueList map);
+	void addAll(ValueList map) throws Exception;
 	
 	void add(Value value);
 	

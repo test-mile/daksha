@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.testmile.daksha.tpi.sysauto.utils.SystemUtils;
-
 public class CommandExecutor {
 	private String command = null;
 	private List<String> args = null;
@@ -57,7 +55,7 @@ public class CommandExecutor {
 		String[] windows = { "cmd.exe", "/C" };
 		String[] empty = {};
 
-		if (SystemUtils.getOSName().contains("Windows")) {
+		if (System.getProperty("os.name").toLowerCase().contains("win")) {
 			commandList.addAll(Arrays.asList(windows));
 		}
 	}
@@ -84,7 +82,7 @@ public class CommandExecutor {
 
 	public void execute() throws IOException {
 		try {
-			Process proc = SystemUtils.getRunTime().exec(getCommandArray());
+			Process proc = Runtime.getRuntime().exec(getCommandArray());
 			// any error message?
 			ThreadSafeStreamReader errorGobbler = new ThreadSafeStreamReader(proc.getErrorStream(), "ERROR");
 

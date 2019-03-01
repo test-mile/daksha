@@ -3,6 +3,7 @@ package com.testmile.daksha.core.batteries.container;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.daksha.tpi.batteries.container.Value;
 
 public class AbstractValueList implements RWValueList{
@@ -15,62 +16,69 @@ public class AbstractValueList implements RWValueList{
 
 	@Override
 	public List<Value> values() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.values;
 	}
 
 	@Override
 	public List<Value> values(List<Integer> indices) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Value> outValues = new ArrayList<Value>();
+		for (int i=0; i < this.values.size(); i++) {
+			if (indices.contains(i)) {
+				outValues.add(this.values.get(i));
+			}
+		}
+		
+		return outValues;
+	}
+	
+	private List<String> convertToStringList(List<Value> inValues){
+		List<String> outValues = new ArrayList<String>();
+		for (Value value: inValues) {
+			outValues.add(value.toString());
+		}
+		
+		return outValues;		
 	}
 
 	@Override
 	public List<String> strings() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.convertToStringList(this.values);
 	}
 
 	@Override
 	public List<String> strings(List<Integer> indices) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Value> inValues = this.values(indices);
+		return this.convertToStringList(inValues);
 	}
 
 	@Override
 	public Value value(int index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.values.get(index);
 	}
 
 	@Override
 	public String string(int index) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.values.get(index).toString();
 	}
 
 	@Override
-	public void addAll(List<Value> map) {
-		// TODO Auto-generated method stub
-		
+	public void addAll(List<Value> list) {
+		this.values.addAll(list);
 	}
 
 	@Override
-	public void addAll(ValueList map) {
-		// TODO Auto-generated method stub
-		
+	public void addAll(ValueList list) throws Exception {
+		this.addAll(list.values());
 	}
 
 	@Override
 	public void add(Value value) {
-		// TODO Auto-generated method stub
-		
+		this.add(value);
 	}
 
 	@Override
-	public void addObject(Object o) {
-		// TODO Auto-generated method stub
-		
+	public void addObject(Object obj) {
+		this.add(new AnyRefValue(obj));
 	}
 
 }

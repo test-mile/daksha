@@ -13,91 +13,67 @@ import com.testmile.daksha.tpi.exceptions.UnsupportedRepresentationException;
 import com.testmile.trishanku.tpi.enums.ValueType;
 
 public class AnyRefValue implements Value {
-	private String object = null;
+	private Object object = null;
+	private String strObject = null;
 	private static Set<String> trues = new HashSet<String>(Arrays.asList("YES", "TRUE", "ON", "1"));
 	private static Set<String> falses = new HashSet<String>(Arrays.asList("NO", "FALSE", "OFF", "0"));
 	
 	public AnyRefValue(Object object) {
-		this.object = object.toString();
-	}
-
-	protected void throwUnsupportedException(ValueType targetType, String callingMethodName) throws Exception{
-		throw new UnsupportedRepresentationException(this.valueType().toString(), callingMethodName, this.toString(), targetType.toString());
-	}
-	
-	protected void throwUnsupportedForEnumException(ValueType targetType, String enumClassName, String callingMethodName) throws Exception{
-		throw new UnsupportedRepresentationException(this.valueType().toString(), callingMethodName, this.toString(), targetType.toString() + " of enum type " + enumClassName);
+		this.object = object;
+		if (isNull()) {
+			this.strObject = "null";
+		} else {
+			this.strObject = object.toString().trim();
+		}
 	}
 	
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asString()
-	 */
+	protected void throwWrongReprException(String valueType) throws Exception{
+		throw new UnsupportedRepresentationException(this.toString(), valueType);
+	}
+	
+	public Object object() {
+		return this.object;
+	}
+	
+	@Override
+	public String toString() {
+		return this.strObject;
+	}
+	
 	@Override
 	public String asString() {
-		if (this.object() != null) {
-			return this.object().toString();
-		} else {
-			return "null";
-		}
+		return this.strObject;
 	}
 	
 	public static boolean isSet(String value) {
 		return !value.toUpperCase().trim().equals("NOT_SET");
 	}
 	
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#isNotSet()
-	 */
 	@Override
 	public boolean isNotSet() {
-		return this.asString().toUpperCase().trim().equals("NOT_SET");
+		return this.asString().toUpperCase().equals("NOT_SET");
 	}
-	
 
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#isNull()
-	 */
 	@Override
 	public boolean isNull() {
-		return true;
+		return this.object() == null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#isNA()
-	 */
 	@Override
 	public boolean isNA() {
-		return true;
+		return this.asString().toUpperCase().equals("NA");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#process(java.lang.Object, java.lang.reflect.Method)
-	 */
-	@Override
-	public void process(Object formatterObject, Method formatter) throws Exception {
-		this.setObject((String) formatter.invoke(formatterObject, this.asString()));
-	}
-
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asEnum(java.lang.Class)
-	 */
 	@Override
 	public <T2 extends Enum<T2>> T2 asEnum(Class<T2> enumClass) throws Exception {
 		try {
 			return Enum.valueOf(enumClass, this.asString().toUpperCase());
 		} catch (Exception e) {
-			this.throwUnsupportedForEnumException(ValueType.ENUM, enumClass.getSimpleName(), "asEnum");
+			this.throwWrongReprException("enum constant of type " + enumClass.getSimpleName());
 			return null;
 		}
 	}
 	
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asBoolean()
-	 */
 	@Override
 	public boolean asBoolean() throws Exception {
 		String uStr = this.asString().toUpperCase().trim();
@@ -106,13 +82,10 @@ public class AnyRefValue implements Value {
 		} else if (falses.contains(uStr)){
 			return false;
 		}
-		throw new Exception(String.format(">>%s<< can not be represented as a boolean.", this.asString()));
+		throwWrongReprException("boolean");
+		return false;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asNumber()
-	 */
 	@Override
 	public Number asNumber() throws Exception {
 		try{
@@ -130,99 +103,83 @@ public class AnyRefValue implements Value {
 				}				
 			}
 		} catch (Exception e){
-			// do nothing. The subsequent exception is alright.
+			throwWrongReprException("number");
 		}
-		throw new Exception(String.format("Not supported for %s", this.getClass().getSimpleName()));
+		
+		return null;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asInt()
-	 */
 	@Override
 	public int asInt() throws Exception {
 		try{
 			return Integer.valueOf(this.asString());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as an integer.", this.asString()));
+			throwWrongReprException("int");
 		}
+		
+		return 0;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asLong()
-	 */
 	@Override
 	public long asLong() throws Exception {
 		try{
 			return Long.valueOf(this.asString());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a long int.", this.asString()));
+			throwWrongReprException("long");
 		}
+		
+		return 0L;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asDouble()
-	 */
 	@Override
 	public double asDouble() throws Exception {
 		try{
 			return Double.valueOf(this.asString());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a double.", this.asString()));
+			throwWrongReprException("double");
 		}
+		
+		return 0.0;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asFloat()
-	 */
 	@Override
 	public float asFloat() throws Exception {
 		try{
 			return Float.valueOf(this.asString());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a float.", this.asString()));
+			throwWrongReprException("float");
 		}
+		
+		return 0.0f;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asEnumList(java.lang.Class)
-	 */
 	@Override
 	public <T extends Enum<T>> List<T> asEnumList(Class<T> klass) throws Exception {
 		try{
 			return Arrays.asList(this.asEnum(klass));
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a list of enum of type %s.", this.asString(), klass.getName()));
+			this.throwWrongReprException("enum constant list of type " + klass.getSimpleName());
+			return null;
 		}
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asNumberList()
-	 */
 	@Override
 	public List<Number> asNumberList() throws Exception {
 		try{
 			return Arrays.asList(this.asNumber());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a list of numbers.", this.asString()));
+			this.throwWrongReprException("number list");
+			return null;
 		}
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asIntList()
-	 */
 	@Override
 	public List<Integer> asIntList() throws Exception {
 		try{
 			return Arrays.asList(this.asInt());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a list of integers.", this.asString()));
+			this.throwWrongReprException("int list");
+			return null;
 		}
 	}
 
@@ -235,15 +192,9 @@ public class AnyRefValue implements Value {
 		try{
 			return Arrays.asList(this.asString());
 		} catch (Exception e){
-			throw new Exception(String.format(">>%s<< can not be represented as a list of strings.", this.asString()));
+			this.throwWrongReprException("string list");
+			return null;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.core.value.Value#asList()
-	 */
-	@Override
-	public List<?> asList() throws Exception {
-		return this.asStringList();
-	}
 }

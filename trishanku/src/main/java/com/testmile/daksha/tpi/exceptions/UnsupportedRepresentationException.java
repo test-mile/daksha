@@ -28,8 +28,8 @@ public class UnsupportedRepresentationException extends Exception {
 	private static final long serialVersionUID = 669734988933529307L;
 
 	// Parameterless Constructor
-	public <T extends Value> UnsupportedRepresentationException(String klassUserFriendlyName, String method, String strSourceValue, String targetValueType) {
-		super(String.format("Value.%s(): Can not represent value >>%s<< of type >>%s<< as %s.", method, strSourceValue, klassUserFriendlyName, targetValueType));
+	public <T extends Value> UnsupportedRepresentationException(String strSourceValue, String targetValueType) {
+		super(String.format("Value: Can not represent value >>%s<< as %s.", strSourceValue, targetValueType));
 	}
 
 }

@@ -1,16 +1,19 @@
 package com.testmile.daksha.tpi.batteries.container;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import com.testmile.trishanku.tpi.enums.ValueType;
 
-public interface Value extends Cloneable {
-	
-	ValueType valueType();
+public interface Value{
 
 	Object object();
 
+	boolean isNotSet();
+	
 	boolean isNull();
+	
+	boolean isNA();
 
 	boolean asBoolean() throws Exception;
 
@@ -34,12 +37,6 @@ public interface Value extends Cloneable {
 
 	List<String> asStringList() throws Exception;
 
-	public List<?> asList() throws Exception;
-
 	float asFloat() throws Exception;
-
-	Value clone();
-
-	boolean isNotSet();
 
 }
