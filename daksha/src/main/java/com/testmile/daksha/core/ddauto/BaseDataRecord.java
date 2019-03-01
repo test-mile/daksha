@@ -21,10 +21,10 @@ package com.testmile.daksha.core.ddauto;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.testmile.daksha.core.batteries.container.StringKeyValueMap;
 import com.testmile.daksha.core.batteries.container.ReadOnlyContainer;
 import com.testmile.daksha.core.value.AnyRefValue;
-import com.testmile.daksha.tpi.batteries.container.Value;
+import com.testmile.trishanku.tpi.value.StringKeyValueMap;
+import com.testmile.trishanku.tpi.value.Value;
 
 public abstract class BaseDataRecord extends StringKeyValueMap implements ReadOnlyContainer<String, Value>, DataRecord {
 	Map<Integer, String> indexToKeyMap = new HashMap<Integer, String>();

@@ -8,6 +8,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
+import com.testmile.daksha.tpi.test.TestConfig;
+
 public class Trishanku {
 	
 	public static void createLogger(String loggerName, String logFilePath) {
@@ -31,5 +33,4 @@ public class Trishanku {
 		fa.activateOptions();
 		Logger.getLogger(loggerName).addAppender(fa);
 	}
-
 }

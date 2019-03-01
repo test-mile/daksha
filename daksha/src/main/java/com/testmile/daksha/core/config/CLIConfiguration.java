@@ -7,11 +7,12 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.testmile.daksha.DakshaSingleton;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class CLIConfiguration {
 	Pattern dPattern = Pattern.compile("(?i)(DCentral|DTest)\\s*:\\s*(\\S+)\\s*");
-	Pattern uPattern = Pattern.compile("(?i)(UCentral|UTest)\\s*:\\s*(\\S+)\\s*");
+	Pattern uPattern = Pattern.compile("(?i)(DCentral|DTest)\\s*:\\s*(\\S+)\\s*");
 	Map<ConfigPropertyType, Map<SetuOption,String>> cliDakshaOptionsMap = new HashMap<>();
 	Map<ConfigPropertyType, Map<String,String>> cliUserOptionsMap = new HashMap<>();
 	
@@ -20,7 +21,7 @@ public class CLIConfiguration {
 		Enumeration keys = props.keys();
 		
 		cliDakshaOptionsMap.put(ConfigPropertyType.DCENTRAL, new HashMap<SetuOption,String>());
-		cliDakshaOptionsMap.put(ConfigPropertyType.DTEST, new HashMap<SetuOption,String>());
+		cliDakshaOptionsMap.put(ConfigPropertyType.DCONTEXT, new HashMap<SetuOption,String>());
 		cliUserOptionsMap.put(ConfigPropertyType.UCENTRAL, new HashMap<String,String>());
 		cliUserOptionsMap.put(ConfigPropertyType.UTEST, new HashMap<String,String>());
 		
@@ -42,7 +43,7 @@ public class CLIConfiguration {
 		    	}
 		    	
 		    	try {
-		    		dOption = Configuration.convertToDakshaOption(dMatcher.group(2));
+		    		dOption = DakshaSingleton.INSTANCE.normalizeSetuOption(dMatcher.group(2));
 		    	} catch (Exception e) {
 		    		throw new Exception(String.format("You have provided an invalid Daksha Option in CLI: %s", key));
 		    	}
@@ -57,7 +58,7 @@ public class CLIConfiguration {
 		    	String uProp;
 		    	
 		    	try {
-		    		uProp = uMatcher.group(2).replace("_", "\\.").toLowerCase();
+		    		uProp = DakshaSingleton.INSTANCE.normalizeUserOption(uMatcher.group(2));
 		    	} catch (Exception e) {
 		    		throw new Exception(String.format("Empty User Option key provided in CLI: %s", key));
 		    	}
@@ -73,7 +74,7 @@ public class CLIConfiguration {
 	}
 	
 	public Map<SetuOption,String> getDakshaTestOptions(){
-		return this.cliDakshaOptionsMap.get(ConfigPropertyType.DTEST);
+		return this.cliDakshaOptionsMap.get(ConfigPropertyType.DCONTEXT);
 	}
 	
 	public Map<String,String> getUserCentralOptions(){

@@ -28,7 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.testmile.daksha.core.value.StringValue;
-import com.testmile.daksha.tpi.batteries.container.Value;
+import com.testmile.trishanku.tpi.value.Value;
 
 public abstract class GuiAutoAction {
 

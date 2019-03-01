@@ -18,7 +18,7 @@
  ******************************************************************************/
 package com.testmile.daksha.tpi.exceptions;
 
-import com.testmile.daksha.tpi.batteries.container.Value;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class UnsupportedRepresentationException extends Exception {
 

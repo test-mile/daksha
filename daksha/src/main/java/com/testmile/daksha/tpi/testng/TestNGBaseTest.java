@@ -29,23 +29,20 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
-import com.testmile.daksha.tpi.TestContext;
-import com.testmile.trishanku.Trishanku;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.test.TestContext;
 
 public class TestNGBaseTest {
 	private static boolean onceSetupPerExecutionDone = false;
 	private static boolean onceTearDownPerExecutionDone = false;
-	private ThreadLocal<String> testContextName = new ThreadLocal<String>();
+	private ThreadLocal<String> testConfigName = new ThreadLocal<String>();
 	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
+	protected void setUpOnce(TestConfig centralConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void setUpOnce(TestContext centralContext) throws Exception {
-		// Proceed with defaults if not overriden.
-	}
-	
-	protected void tearDownOnce(TestContext centralContext) throws Exception {
+	protected void tearDownOnce(TestConfig suiteConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -53,11 +50,11 @@ public class TestNGBaseTest {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void setUpSuite(TestContext suiteContext) throws Exception {
+	protected void setUpSuite(TestConfig suiteContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownSuite(TestContext suiteContext) throws Exception {
+	protected void tearDownSuite(TestConfig suiteConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -65,97 +62,96 @@ public class TestNGBaseTest {
 	public void initDaksha(ITestContext context) throws Exception {
 		if (!onceSetupPerExecutionDone) {
 			String rootDir = this.getRootDir();
-			TestContext centralContext;
+			TestConfig centralConfig;
 			if (rootDir == null) {
-				centralContext = Trishanku.init();
+				centralConfig = Daksha.init();
 			} else {
-				centralContext = Trishanku.init(rootDir);
+				centralConfig = Daksha.init(rootDir);
 			}
-			this.tweakCentralContext(centralContext);
-			centralContext.freeze();
-			this.setUpOnce(centralContext);
+			this.setUpOnce(centralConfig);
 			onceSetupPerExecutionDone = true;
 		}
 		
 		TestContext suiteContext = new TestNGSuiteContext(context);
 		this.tweakSuiteContext(suiteContext);
-		Trishanku.registerContext(suiteContext);
-		testContextName.set(suiteContext.getName());
-		
-		this.setUpSuite(suiteContext);
+		TestConfig suiteConfig = suiteContext.build();
+		Daksha.registerTestContextConfig(suiteConfig);
+		this.setUpSuite(suiteConfig);
+		testConfigName.set(suiteConfig.getName());
 	}
 	
 	@AfterSuite
 	public void cleanUpDaksha(ITestContext context) throws Exception {		
-		this.tearDownSuite(Trishanku.getTestContext(context.getSuite().getXmlSuite().getName()));
+		this.tearDownSuite(Daksha.getTestContextConfig(context.getSuite().getXmlSuite().getName()));
 		// To Do: How can it be determined that it's the last suite?
 		// When Daksha on line TestNG would support suite of suites, calling the following after last suite's tear down 
 		// would be critical.
-		this.tearDownOnce(Trishanku.getCentralContext());
+		this.tearDownOnce(Daksha.getCentralConfig());
 	}
 	
 	protected void tweakTestContext(TestContext centralContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void setUpTest(TestContext testContext) throws Exception {
+	protected void setUpTest(TestConfig testContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownTest(TestContext testContext) throws Exception {
+	protected void tearDownTest(TestConfig testContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
 	@BeforeTest
 	public void initContext(ITestContext testContext) throws Exception {
-		TestContext parentContext = Trishanku.getTestContext(testContext.getSuite().getXmlSuite().getName());
+		TestConfig parentContext = Daksha.getTestContextConfig(testContext.getSuite().getXmlSuite().getName());
 		TestContext testNGContext = new TestNGTestContext(parentContext, testContext);		
 		this.tweakTestContext(testNGContext);
-		Trishanku.registerContext(testNGContext);
-		this.setUpTest(testNGContext);
-		testContextName.set(testNGContext.getName());
+		TestConfig contextConfig = testNGContext.build();
+		Daksha.registerTestContextConfig(contextConfig);
+		this.setUpTest(contextConfig);
+		testConfigName.set(contextConfig.getName());
 	}
 	
 	@AfterTest
 	public void endContext(ITestContext context) throws Exception {
-		this.tearDownTest(Trishanku.getTestContext(context.getName()));
+		this.tearDownTest(Daksha.getTestContextConfig(context.getName()));
 	}
 	
-	protected void setUpClass(TestContext testContext) throws Exception {
+	protected void setUpClass(TestConfig testConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownClass(TestContext testContext) throws Exception {
+	protected void tearDownClass(TestConfig testConfig) throws Exception {
 	}
 	
 	@BeforeClass
 	public void initClass(ITestContext context) throws Exception {
-		this.testContextName.set(context.getName());
-		this.setUpClass(Trishanku.getTestContext(context.getName()));
+		this.testConfigName.set(context.getName());
+		this.setUpClass(Daksha.getTestContextConfig(context.getName()));
 	}
 	
 	@AfterClass
 	public void endClass(ITestContext context) throws Exception {
-		this.tearDownClass(Trishanku.getTestContext(context.getName()));
+		this.tearDownClass(Daksha.getTestContextConfig(context.getName()));
 	}
 	
-	protected void setUpMethod(TestContext testContext) throws Exception {
+	protected void setUpMethod(TestConfig testConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownMethod(TestContext testContext) throws Exception {
+	protected void tearDownMethod(TestConfig testConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
 	@BeforeMethod
 	public void initMethod(ITestContext context) throws Exception {
-		this.testContextName.set(context.getName());
-		this.setUpMethod(Trishanku.getTestContext(context.getName()));
+		this.testConfigName.set(context.getName());
+		this.setUpMethod(Daksha.getTestContextConfig(context.getName()));
 	}
 	
 	@AfterMethod
 	public void endMethod(ITestContext context) throws Exception {
-		this.tearDownMethod(Trishanku.getTestContext(context.getName()));
+		this.tearDownMethod(Daksha.getTestContextConfig(context.getName()));
 	}
 	
 	protected String getRootDir() throws Exception {
@@ -164,7 +160,7 @@ public class TestNGBaseTest {
 	}
 	
 	private String getTestContextName() throws Exception {
-		String name = this.testContextName.get();
+		String name = this.testConfigName.get();
 		if (name == null) {
 			String msg = String.format("No context was registered for thread %s", Thread.currentThread().getName());
 			throw new Exception(msg);
@@ -173,8 +169,8 @@ public class TestNGBaseTest {
 		}
 	}
 	
-	protected TestContext getContext() throws Exception {
-		return Trishanku.getTestContext(this.getTestContextName());
+	protected TestConfig getConfig() throws Exception {
+		return Daksha.getTestContextConfig(this.getTestContextName());
 	}
 
 }

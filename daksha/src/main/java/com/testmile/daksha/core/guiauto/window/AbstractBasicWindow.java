@@ -21,10 +21,7 @@ package com.testmile.daksha.core.guiauto.window;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
 import com.testmile.daksha.core.guiauto.setu.GenericElement;
-import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
-import com.testmile.daksha.core.setu.SetuRequest;
-import com.testmile.daksha.core.setu.SetuSvcRequester;
 
 public class AbstractBasicWindow extends GenericElement implements BasicWindow {
 

@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.rits.cloning.Cloner;
-
-import com.testmile.daksha.tpi.batteries.container.Value;
 import com.testmile.daksha.tpi.exceptions.UnsupportedRepresentationException;
 import com.testmile.trishanku.tpi.enums.ValueType;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class AnyRefValue implements Value {
 	private Object object = null;

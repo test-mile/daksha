@@ -20,7 +20,6 @@
 package com.testmile.daksha.core.guiauto.setu;
 
 import com.testmile.daksha.core.setu.AbstractAction;
-import com.testmile.daksha.tpi.guiauto.Alert;
 
 public class GenericElementAction extends AbstractAction {
 	

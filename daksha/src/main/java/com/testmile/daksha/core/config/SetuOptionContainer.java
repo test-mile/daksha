@@ -17,16 +17,15 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha;
-
-import com.testmile.daksha.core.batteries.container.EnumKeyValueMap;
+package com.testmile.daksha.core.config;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.AbstractValueMap;
 
-public class DakshaOptionContainer extends EnumKeyValueMap<SetuOption> {
-	
+public class SetuOptionContainer extends AbstractValueMap<SetuOption> {
+
 	@Override
-	public SetuOption key(String strKey) {
-		return SetuOption.valueOf(strKey.toUpperCase());
+	protected String formatKeyAsStr(SetuOption key) {
+		return key.toString();
 	}
 
 }

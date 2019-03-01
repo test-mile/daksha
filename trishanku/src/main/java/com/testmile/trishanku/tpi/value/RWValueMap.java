@@ -1,8 +1,6 @@
-package com.testmile.daksha.core.batteries.container;
+package com.testmile.trishanku.tpi.value;
 
 import java.util.Map;
-
-import com.testmile.daksha.tpi.batteries.container.Value;
 
 public interface RWValueMap<T> extends ROValueMap<T>{
 	

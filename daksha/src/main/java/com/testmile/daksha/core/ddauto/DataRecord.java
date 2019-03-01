@@ -20,7 +20,7 @@
 package com.testmile.daksha.core.ddauto;
 
 import com.testmile.daksha.core.batteries.container.ReadOnlyStringKeyValueContainer;
-import com.testmile.daksha.tpi.batteries.container.Value;
+import com.testmile.trishanku.tpi.value.Value;
 
 public interface DataRecord extends ReadOnlyStringKeyValueContainer {
 

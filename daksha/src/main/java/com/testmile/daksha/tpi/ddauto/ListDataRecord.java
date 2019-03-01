@@ -24,7 +24,7 @@ import java.util.Map;
 import com.testmile.daksha.core.batteries.container.ReadOnlyContainer;
 import com.testmile.daksha.core.ddauto.BaseDataRecord;
 import com.testmile.daksha.core.ddauto.DataRecord;
-import com.testmile.daksha.tpi.batteries.container.Value;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class ListDataRecord extends BaseDataRecord implements ReadOnlyContainer<String, Value>, DataRecord {
 	

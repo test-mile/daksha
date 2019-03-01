@@ -2,7 +2,7 @@ package com.testmile.daksha.core.config;
 
 public enum ConfigPropertyType {
 	DCENTRAL,
-	DTEST,
+	DCONTEXT,
 	UCENTRAL,
 	UTEST
 }

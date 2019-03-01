@@ -1,14 +1,13 @@
 package com.testmile.daksha.core.config;
 
-import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.value.AnyRefValue;
-import com.testmile.daksha.tpi.batteries.container.Value;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
 	private String name;

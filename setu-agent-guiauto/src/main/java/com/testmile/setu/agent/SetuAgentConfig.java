@@ -29,12 +29,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.testmile.daksha.core.value.StringValue;
-import com.testmile.daksha.tpi.batteries.container.Value;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomatorName;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class SetuAgentConfig {
 	private Map<SetuOption, Value> options = new HashMap<SetuOption, Value>();

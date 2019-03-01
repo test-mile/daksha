@@ -18,7 +18,7 @@
  ******************************************************************************/
 package com.testmile.daksha.core.value;
 
-import com.testmile.daksha.tpi.batteries.container.Value;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class IncompatibleInputForValueException extends Exception {
 

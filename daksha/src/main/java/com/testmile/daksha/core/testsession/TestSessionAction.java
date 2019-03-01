@@ -20,7 +20,6 @@
 package com.testmile.daksha.core.testsession;
 
 import com.testmile.daksha.core.setu.AbstractAction;
-import com.testmile.daksha.tpi.guiauto.RadioGroup;
 import com.testmile.daksha.tpi.test.TestSession;
 
 public class TestSessionAction extends AbstractAction {

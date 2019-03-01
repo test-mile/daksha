@@ -4,21 +4,14 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
 
-import com.testmile.daksha.core.batteries.config.ConfigPropertyBuilder;
-import com.testmile.daksha.core.batteries.context.DakshaTestContext;
 import com.testmile.daksha.core.config.CLIConfiguration;
-import com.testmile.daksha.core.config.ConfigurationBuilder;
 import com.testmile.daksha.core.testsession.DefaultTestSession;
-import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.batteries.console.Console;
 import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.daksha.tpi.test.TestSession;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.enums.SetuOption;
@@ -71,8 +64,8 @@ public enum DakshaSingleton {
 		
 	}
 	
-	public ConfigurationBuilder createConfigBuilder(String name) throws Exception {
-		return new ConfigurationBuilder(name);
+	public TestContext createConfigBuilder(String name) throws Exception {
+		return new TestContext(name);
 	}
 	
 	public TestConfig getTestConfig(ITestContext context) throws Exception {

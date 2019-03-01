@@ -20,12 +20,7 @@
 package com.testmile.daksha.core.guiauto.radiogroup;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
-import com.testmile.daksha.core.guiauto.setu.GenericElement;
 import com.testmile.daksha.core.guiauto.setu.SelectableMultiElement;
-import com.testmile.daksha.core.setu.DefaultSetuObject;
-import com.testmile.daksha.core.setu.Response;
-import com.testmile.daksha.core.setu.SetuSvcRequester;
-import com.testmile.daksha.tpi.guiauto.DropDown;
 import com.testmile.daksha.tpi.guiauto.RadioGroup;
 
 public class DefaultRadioGroup extends SelectableMultiElement implements RadioGroup {

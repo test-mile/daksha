@@ -1,6 +1,5 @@
 package com.testmile.daksha.core.guiauto.setu;
 
-import com.testmile.daksha.core.guiauto.alert.AlertActionType;
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;

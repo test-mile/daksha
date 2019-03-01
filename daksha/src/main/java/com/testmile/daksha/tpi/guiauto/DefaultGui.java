@@ -31,7 +31,6 @@ import com.testmile.daksha.core.problem.ErrorType;
 import com.testmile.daksha.core.problem.Problem;
 import com.testmile.daksha.core.setu.Response;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
-import com.testmile.daksha.tpi.sysauto.utils.DataUtils;
 import com.testmile.trishanku.Trishanku;
 
 public class DefaultGui extends AbstractAppAutomator implements Gui{
@@ -126,7 +125,7 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 				ErrorType.GUI_NULL_AUTOMATOR,
 				String.format(
 						ErrorType.GUI_NULL_AUTOMATOR,
-						Trishanku.getAutomationContextName(this.autoContext)
+						this.autoContext.toString()
 						)
 				);
 	}
@@ -138,7 +137,7 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 				String.format(
 						ErrorType.GUI_UNDEFINED_ELEMENT,
 						elementName,
-						DataUtils.toTitleCase(this.autoContext.toString())
+						this.autoContext.toString()
 						)
 				);
 	}

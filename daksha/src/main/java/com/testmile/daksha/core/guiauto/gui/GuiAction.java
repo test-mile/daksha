@@ -19,7 +19,6 @@
 
 package com.testmile.daksha.core.guiauto.gui;
 
-import com.testmile.daksha.core.guiauto.automator.GuiAppAutomatorActionType;
 import com.testmile.daksha.core.setu.AbstractAction;
 import com.testmile.daksha.tpi.guiauto.Gui;
 

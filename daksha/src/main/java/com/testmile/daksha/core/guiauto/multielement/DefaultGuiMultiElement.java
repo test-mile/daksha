@@ -22,8 +22,6 @@ package com.testmile.daksha.core.guiauto.multielement;
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
 import com.testmile.daksha.core.guiauto.element.DefaultGuiElement;
 import com.testmile.daksha.core.guiauto.setu.GenericElement;
-import com.testmile.daksha.core.setu.DefaultSetuObject;
-import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.guiauto.GuiElement;
 import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
 

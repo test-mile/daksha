@@ -21,9 +21,7 @@ package com.testmile.daksha.core.guiauto.element;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
 import com.testmile.daksha.core.guiauto.setu.GenericElement;
-import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.SetuRequest;
-import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.guiauto.GuiElement;
 
 public class DefaultGuiElement extends GenericElement implements GuiElement {

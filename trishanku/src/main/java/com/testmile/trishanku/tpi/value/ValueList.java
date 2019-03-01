@@ -1,8 +1,6 @@
-package com.testmile.daksha.core.batteries.container;
+package com.testmile.trishanku.tpi.value;
 
 import java.util.List;
-
-import com.testmile.daksha.tpi.batteries.container.Value;
 
 public interface ValueList {
 

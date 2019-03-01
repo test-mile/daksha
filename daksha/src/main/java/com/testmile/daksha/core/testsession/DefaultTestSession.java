@@ -21,14 +21,13 @@ package com.testmile.daksha.core.testsession;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.config.DefaultTestConfig;
-import com.testmile.daksha.core.guiauto.automator.AppAutomator;
-import com.testmile.daksha.core.guiauto.automator.GuiAutomatorAction;
-import com.testmile.daksha.core.guiauto.automator.GuiAutomatorActionType;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
 import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestSession extends DefaultSetuObject implements TestSession {
 	private SetuSvcRequester setuRequester;
@@ -47,7 +46,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		
 		TestSessionAction actionProjectConf = new TestSessionAction(this, TestSessionActionType.LOAD_PROJECT_CONF);
 		Response confResponse = this.setuRequester.post("/action", actionProjectConf);		
-		TestConfig config = new DefaultTestConfig(Daksha.DEF_CONF_NAME, (String) confResponse.getData().get("configSetuId"));
+		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, (String) confResponse.getData().get("configSetuId"));
 		config.setTestSessionSetuId(this.getSetuId());
 		return config;
 	}
@@ -60,6 +59,12 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 
 	public void setSetuRequester(SetuSvcRequester setuRequester) {
 		this.setuRequester = setuRequester;
+	}
+
+	@Override
+	public Value getSetuConfValue(SetuOption option) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

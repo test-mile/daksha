@@ -19,10 +19,7 @@
 package com.testmile.daksha.core.guiauto.frame;
 
 import com.testmile.daksha.core.guiauto.automator.AppAutomator;
-import com.testmile.daksha.core.guiauto.element.GuiElementActionType;
 import com.testmile.daksha.core.guiauto.setu.GenericElement;
-import com.testmile.daksha.core.setu.DefaultSetuObject;
-import com.testmile.daksha.core.setu.SetuSvcRequester;
 import com.testmile.daksha.tpi.guiauto.Frame;
 
 public class DefaultFrame extends GenericElement implements Frame {

@@ -21,12 +21,13 @@ package com.testmile.daksha.tpi.testng;
 
 import org.testng.ITestContext;
 
-import com.testmile.daksha.core.batteries.context.DakshaTestContext;
+import com.testmile.daksha.tpi.test.TestContext;
 
-public class TestNGSuiteContext extends DakshaTestContext{
+public class TestNGSuiteContext extends TestContext{
 	
 	public TestNGSuiteContext(ITestContext context) throws Exception {
-		super(context.getSuite().getName(), context.getSuite().getXmlSuite().getAllParameters());
+		super(context.getSuite().getName());
+		this.addOptions(context.getSuite().getXmlSuite().getAllParameters());
 	}
 
 }
