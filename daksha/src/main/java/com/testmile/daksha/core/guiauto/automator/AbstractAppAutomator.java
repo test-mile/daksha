@@ -39,8 +39,8 @@ import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
 import com.testmile.daksha.tpi.guiauto.MainWindow;
 import com.testmile.daksha.tpi.guiauto.RadioGroup;
 import com.testmile.daksha.tpi.guiauto.With;
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class AbstractAppAutomator extends DefaultSetuObject implements AppAutomator {
 	protected SetuSvcRequester setuClient;

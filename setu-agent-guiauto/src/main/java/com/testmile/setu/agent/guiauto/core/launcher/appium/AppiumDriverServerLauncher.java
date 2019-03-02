@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
+import com.testmile.trishanku.Trishanku;
+
 /*
  * The code in this file is a modified version of Roland Castelino's example here:
  * https://www.linkedin.com/pulse/start-stop-appium-server-programatically-mac-roland-castelino/

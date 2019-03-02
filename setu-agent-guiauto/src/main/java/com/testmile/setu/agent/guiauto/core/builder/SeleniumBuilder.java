@@ -32,7 +32,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
-import com.testmile.daksha.core.value.StringValue;
+import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.automator.SeleniumGuiAutomator;
 import com.testmile.trishanku.tpi.enums.Browser;
@@ -81,14 +81,14 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 		switch (this.browser){
 		case FIREFOX:
 			FirefoxOptions fOptions = new FirefoxOptions(capabilities);
-			if (StringValue.isSet(browserBinPath)) {
+			if (AnyRefValue.isSet(browserBinPath)) {
 				fOptions.setBinary(browserBinPath);
 			}
 			driver = new FirefoxDriver();
 			break;
 		case CHROME:
 			ChromeOptions coptions = new ChromeOptions();
-			if (StringValue.isSet(browserBinPath)) {
+			if (AnyRefValue.isSet(browserBinPath)) {
 				coptions.setBinary(browserBinPath);
 			}
 			coptions.merge(capabilities);

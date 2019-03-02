@@ -2,8 +2,8 @@ package com.testmile.daksha.tpi.test;
 
 import java.util.Map;
 
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 

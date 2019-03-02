@@ -3,11 +3,11 @@ package com.testmile.daksha.core.config;
 import java.util.Map;
 
 import com.testmile.daksha.DakshaSingleton;
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.daksha.tpi.test.TestSession;
 import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 import com.testmile.trishanku.tpi.value.StringKeyValueMap;
@@ -19,8 +19,8 @@ public class DefaultTestContext implements TestContext {
 	private SetuOptionContainer setuOptions = new SetuOptionContainer();
 	private StringKeyValueMap userOptions = new StringKeyValueMap();
 
-	public DefaultTestContext(TestSession testsession, String name) {
-		this.testSession = testSession;
+	public DefaultTestContext(TestSession session, String name) {
+		this.testSession = session;
 		this.name = name;
 	}
 	

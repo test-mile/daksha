@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.testmile.daksha.tpi.sysauto.utils.DataUtils;
 import com.testmile.setu.agent.SetuAgentConfig;
 import com.testmile.setu.agent.guiauto.core.enums.AppiumAndroidBrowserType;
 import com.testmile.setu.agent.guiauto.core.launcher.appium.AppiumDriverServerLauncher;
@@ -107,7 +105,8 @@ public enum SetuAgentGuiAutoSingleton {
 	}
 
 	public String getAppiumBrowserString(String rawName) throws Exception{
-		return DataUtils.toTitleCase(rawName);
+		// Need to fix
+		return rawName;
 	}
 	
 	public String getDriverName(Browser browser) throws Exception {

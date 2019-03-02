@@ -33,7 +33,6 @@ import com.testmile.daksha.tpi.test.TestSession;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestSession extends DefaultSetuObject implements TestSession {
-	Gson gsonObj = new Gson();
 	private SetuSvcRequester setuRequester;
 	private String baseActionUri = "/action";
 
@@ -68,10 +67,8 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	@Override
 	public String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
 		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.REGISTER_CONFIG);
-		String sOptions = gsonObj.toJson(setuOptions);
-		String uOptions = gsonObj.toJson(userOptions);
-		action.addArg("setuOptions", sOptions);
-		action.addArg("userOptions", uOptions);
+		action.addArg("setuOptions", setuOptions);
+		action.addArg("userOptions", userOptions);
 		Response response = this.setuRequester.post("/action", action);
 		return (String) response.getData().get("configSetuId");
 	}

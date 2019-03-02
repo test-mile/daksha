@@ -16,18 +16,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.testmile.daksha.tpi.guiauto.enums;
+package com.testmile.trishanku.tpi.enums;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-public enum GuiAutomationContext {
-	WEB,
-	NATIVE,
-	SCREEN,
-	ANDROID_WEB,
-	IOS_WEB,
-	ANDROID_NATIVE,
-	IOS_NATIVE
+public enum GuiElementType {
+	TEXTBOX, LINK, BUTTON, DROPDOWN, CHECKBOX, RADIO, URL, IMAGE, TITLE, GENERIC, PASSWORD, SUBMIT_BUTTON;
+	
 }

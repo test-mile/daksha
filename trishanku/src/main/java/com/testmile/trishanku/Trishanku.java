@@ -1,7 +1,5 @@
 package com.testmile.trishanku;
 
-import java.io.File;
-
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Level;
@@ -9,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 public class Trishanku {
+	private static Logger logger;
 	
 	public static void createLogger(String loggerName, String logFilePath) {
 		Logger.getLogger(loggerName).getLoggerRepository().resetConfiguration();
@@ -30,5 +29,13 @@ public class Trishanku {
 		fa.setAppend(false);
 		fa.activateOptions();
 		Logger.getLogger(loggerName).addAppender(fa);
+	}
+
+	public static Logger getLogger() {
+		if (logger == null) {
+			createLogger("trishanku", "trishanku.log");
+			logger = Logger.getLogger("trishanku");
+		}
+		return logger;
 	}
 }

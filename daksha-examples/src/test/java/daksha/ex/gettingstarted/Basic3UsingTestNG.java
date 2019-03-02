@@ -36,6 +36,7 @@ public class Basic3UsingTestNG extends TestNGBaseTest {
 	@Test
 	public void test() throws Exception{
 		GuiAutomator automator = this.threadWiseAutomator.get();
+		automator.launch();
 		automator.goToUrl("https://www.google.com");
 		System.out.println(automator.mainWindow().getTitle());
 	}

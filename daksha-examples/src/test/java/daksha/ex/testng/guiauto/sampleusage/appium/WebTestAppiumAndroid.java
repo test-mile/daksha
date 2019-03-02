@@ -28,8 +28,8 @@ import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiElement;
 import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class WebTestAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();

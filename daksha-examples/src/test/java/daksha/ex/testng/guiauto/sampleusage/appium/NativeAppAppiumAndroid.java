@@ -26,8 +26,8 @@ import org.testng.annotations.Test;
 import com.testmile.daksha.core.guiauto.maker.appium.AppiumBuilder;
 import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();

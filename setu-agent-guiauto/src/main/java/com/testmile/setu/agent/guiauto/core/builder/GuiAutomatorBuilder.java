@@ -19,8 +19,8 @@
 
 package com.testmile.setu.agent.guiauto.core.builder;
 
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
 import com.testmile.setu.agent.SetuAgentConfig;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class GuiAutomatorBuilder {

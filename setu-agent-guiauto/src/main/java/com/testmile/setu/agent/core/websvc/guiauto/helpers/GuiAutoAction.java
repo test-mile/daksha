@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.testmile.daksha.core.value.StringValue;
+import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
 public abstract class GuiAutoAction {
@@ -46,7 +46,7 @@ public abstract class GuiAutoAction {
 		Type type = new TypeToken<Map<String, String>>(){}.getType();
 		Map<String, String> config = gson.fromJson(rawArgsStr, type); // contains the whole reviews list
 		for (String key: config.keySet()) {
-			args.put(key, new StringValue(config.get(key)));
+			args.put(key, new AnyRefValue(config.get(key)));
 		}
 	}
 	

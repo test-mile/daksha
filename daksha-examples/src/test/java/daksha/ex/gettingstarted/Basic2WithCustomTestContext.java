@@ -47,6 +47,7 @@ public class Basic2WithCustomTestContext{
 
 		// Create Automator (default is Selenium) with context config
 		GuiAutomator automator = new DefaultGuiAutomator(config);
+		automator.launch();
 
 		// Basic flow in Firefox, as per the context config
 		automator.goToUrl("https://www.google.com");

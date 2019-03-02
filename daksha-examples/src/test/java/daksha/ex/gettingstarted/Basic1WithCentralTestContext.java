@@ -32,7 +32,8 @@ public class Basic1WithCentralTestContext{
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = new DefaultGuiAutomator(centralConfig);
-
+		automator.launch();
+		
 		// Basic flow in chrome
 		automator.goToUrl("https://www.google.com");
 		System.out.println(automator.mainWindow().getTitle());

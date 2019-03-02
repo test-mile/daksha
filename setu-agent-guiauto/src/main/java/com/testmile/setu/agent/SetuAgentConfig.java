@@ -28,9 +28,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.testmile.daksha.core.value.StringValue;
-import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
+import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.GuiAutomatorName;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
@@ -52,12 +52,12 @@ public class SetuAgentConfig {
 		
 		Map<String, Object> sOptionDict = gson.fromJson(sOptions, type);
 		for (String key: sOptionDict.keySet()) {
-			this.options.put(SetuOption.valueOf(key.toUpperCase()), new StringValue((String) sOptionDict.get(key)));
+			this.options.put(SetuOption.valueOf(key.toUpperCase()), new AnyRefValue((String) sOptionDict.get(key)));
 		}
 		
 		Map<String, Object> uOptionDict = gson.fromJson(uOptions, type);
 		for (String key: uOptionDict.keySet()) {
-			this.userOptions.put(key.toUpperCase(), new StringValue((String) sOptionDict.get(key)));
+			this.userOptions.put(key.toUpperCase(), new AnyRefValue((String) sOptionDict.get(key)));
 		}
 	}
 	
