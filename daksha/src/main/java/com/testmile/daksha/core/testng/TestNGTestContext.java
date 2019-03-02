@@ -28,7 +28,7 @@ import com.testmile.daksha.tpi.test.TestSession;
 public class TestNGTestContext extends DefaultTestContext{
 	
 	public TestNGTestContext(TestSession testsession, TestConfig parentConfig, ITestContext context) throws Exception {
-		super(testsession, context.getSuite().getName());
+		super(testsession, context.getName());
 		this.setParentConfig(parentConfig);
 		this.addOptions(context.getCurrentXmlTest().getAllParameters());
 	}

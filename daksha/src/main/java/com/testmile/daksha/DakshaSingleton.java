@@ -51,10 +51,12 @@ public enum DakshaSingleton {
 	}
 	
 	public void registerTestContextConfig(TestConfig config) throws Exception {
+		System.out.println(config.getName().toLowerCase());
 		this.testContextConfigMap.put(config.getName().toLowerCase(), config);
 	}
 	
 	public TestConfig getTestContextConfig(String name) throws Exception {
+		System.out.println(this.testContextConfigMap);
 		if (name == null) {
 			throw new Exception("Config name was passed as null.");
 		} else {
