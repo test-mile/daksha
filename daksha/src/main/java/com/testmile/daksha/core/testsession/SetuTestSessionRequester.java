@@ -21,9 +21,9 @@ package com.testmile.daksha.core.testsession;
 
 import com.testmile.daksha.core.setu.AbstractSetuSvcRequester;
 
-public class SetuTestCycleRequester extends AbstractSetuSvcRequester {
+public class SetuTestSessionRequester extends AbstractSetuSvcRequester {
 	
-	public SetuTestCycleRequester() {
+	public SetuTestSessionRequester() {
 		super("/testsession");
 	}
 

@@ -34,9 +34,10 @@ import com.testmile.trishanku.tpi.value.Value;
 public class DefaultTestSession extends DefaultSetuObject implements TestSession {
 	private SetuSvcRequester setuRequester;
 	private String baseActionUri = "/action";
+	private String baseConfActionUri = "/conf/action";
 
 	public DefaultTestSession() {
-		setSetuRequester(new SetuTestCycleRequester());
+		setSetuRequester(new SetuTestSessionRequester());
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		this.setSetuId((String) response.getData().get("testSessionSetuId"));
 		
 		TestSessionAction actionProjectConf = new TestSessionAction(this, TestSessionActionType.LOAD_PROJECT_CONF);
-		Response confResponse = this.setuRequester.post("/action", actionProjectConf);		
+		Response confResponse = this.setuRequester.post(baseConfActionUri, actionProjectConf);		
 		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, (String) confResponse.getData().get("configSetuId"));
 		config.setTestSessionSetuId(this.getSetuId());
 		return config;
@@ -69,7 +70,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		action.addArg("parentConfigId", parentConfigId);
 		action.addArg("setuOptions", setuOptions);
 		action.addArg("userOptions", userOptions);
-		Response response = this.setuRequester.post("/action", action);
+		Response response = this.setuRequester.post(baseConfActionUri, action);
 		return (String) response.getData().get("configSetuId");
 	}
 	
@@ -87,7 +88,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		TestSessionAction action = new TestSessionAction(this, actionType);
 		action.addArg("configSetuId", configSetuId);
 		action.addArg("option", option);
-		Response response = this.setuRequester.post("/action", action);
+		Response response = this.setuRequester.post(baseConfActionUri, action);
 		return new AnyRefValue(response.getData().get("value"));		
 	}
 	

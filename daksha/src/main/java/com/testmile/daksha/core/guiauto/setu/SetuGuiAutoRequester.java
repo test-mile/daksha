@@ -24,7 +24,7 @@ import com.testmile.daksha.core.setu.AbstractSetuSvcRequester;
 public class SetuGuiAutoRequester extends AbstractSetuSvcRequester {
 	
 	public SetuGuiAutoRequester() {
-		super("/guiauto");
+		super("/testsession/guiauto");
 	}
 
 }
