@@ -16,17 +16,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.testmile.daksha.tpi.ddauto;
+package com.testmile.trishanku.tpi.value;
 
-public class ListDataRecordLookUpException extends Exception {
+public class EmptyValueMapLookUpException extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1328715061248005907L;
-	
+	private static final long serialVersionUID = 42902228332478132L;
+
 	// Constructor that accepts a message
-	public ListDataRecordLookUpException(String index, int maxIndex) {
-		super(String.format("Invalid index [%s] used for list data record lookup. Use indices between 0 and %d", index, maxIndex));
+	public EmptyValueMapLookUpException(String key) {
+		super(String.format("Invalid key [%s] used for ValueMap lookup. It is empty.", key));
 	}
 }

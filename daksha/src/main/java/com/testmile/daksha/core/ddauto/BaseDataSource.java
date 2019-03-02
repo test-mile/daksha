@@ -25,6 +25,8 @@ import java.util.List;
 
 import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.DataSourceFinishedException;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 
 public abstract class BaseDataSource implements DataSource {
 	private String name = null;
@@ -63,16 +65,16 @@ public abstract class BaseDataSource implements DataSource {
 		return new MapDataRecordIterator(this);
 	}
 	
-	protected DataRecord nextListRecord() throws DataSourceFinishedException, Exception{
+	protected ListDataRecord nextListRecord() throws DataSourceFinishedException, Exception{
 		throw new Exception("This data source does not support list record representation.");
 	}
 	
-	protected DataRecord nextMapRecord() throws DataSourceFinishedException, Exception{
+	protected MapDataRecord nextMapRecord() throws DataSourceFinishedException, Exception{
 		throw new Exception("This data source does not support map record representation.");
 	}
 	
-	public synchronized List<DataRecord> allListRecords(){
-		List<DataRecord> all = new ArrayList<DataRecord>();
+	public synchronized List<ListDataRecord> allListRecords(){
+		List<ListDataRecord> all = new ArrayList<ListDataRecord>();
 		while(true) {
 			try {
 				all.add(this.nextListRecord());
@@ -83,11 +85,11 @@ public abstract class BaseDataSource implements DataSource {
 		return all;
 	}
 	
-	public synchronized List<DataRecord> allMapRecords(){
-		List<DataRecord> all = new ArrayList<DataRecord>();
+	public synchronized List<MapDataRecord> allMapRecords(){
+		List<MapDataRecord> all = new ArrayList<MapDataRecord>();
 		while(true) {
 			try {
-				DataRecord r = this.nextMapRecord();
+				MapDataRecord r = this.nextMapRecord();
 				all.add(r);
 			} catch (Exception e) {
 				break;

@@ -30,8 +30,8 @@ public class Daksha {
 		return internal.getTestContextConfig(name);		
 	}
 	
-	public static TestContext createConfigBuilder(String name) throws Exception {
-		return internal.createConfigBuilder(name);
+	public static TestContext createTestContext(String name) throws Exception {
+		return internal.createTestContext(name);
 	}
 	
 	public static TestConfig getTestConfig(ITestContext context) throws Exception {

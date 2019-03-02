@@ -16,10 +16,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.trishanku.tpi.value;
 
-package com.testmile.daksha.tpi.ddauto;
-
-public class MapDataRecordLookUpException extends Exception {
+public class EmptyValueListLookUpException extends Exception {
 
 	/**
 	 * 
@@ -27,7 +26,7 @@ public class MapDataRecordLookUpException extends Exception {
 	private static final long serialVersionUID = 1328715061248005907L;
 	
 	// Constructor that accepts a message
-	public MapDataRecordLookUpException(String key) {
-		super(String.format("Invalid Key/header [%s] used for map data record lookup.", key));
+	public EmptyValueListLookUpException(int index) {
+		super(String.format("Invalid index [%d] used for ValueList lookup. It is empty.", index));
 	}
 }

@@ -22,9 +22,9 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 import java.util.List;
 
-import com.testmile.daksha.core.ddauto.DataRecord;
 import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
 import com.testmile.daksha.tpi.ddauto.DataSource;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.ddauto.MapDataRecordContainer;
 
 public class MapDataRecordContainerExample{
@@ -48,7 +48,7 @@ public class MapDataRecordContainerExample{
 		return container;
 	}
 	
-	private static void printMapDataRecord(DataRecord record) throws Exception {
+	private static void printDataRecord(MapDataRecord record) throws Exception {
 		System.out.println(record.value("left").asInt());
 		System.out.println(record.value("right").asInt());
 		System.out.println(record.value("sum").asInt());	
@@ -58,20 +58,20 @@ public class MapDataRecordContainerExample{
 		DataSource container1 =  createMapDataSource();
 		
 		// List of MapDataRecord
-		List<DataRecord> recordList = container1.allMapRecords();
-		System.out.println("Printing using a list");
-		for(DataRecord mapRecord1: recordList) {
-			printMapDataRecord(mapRecord1);
+		List<MapDataRecord> recordList = container1.allMapRecords();
+		System.out.println("Without custom iterator.");
+		for(MapDataRecord mapRecord1: recordList) {
+			printDataRecord(mapRecord1);
 		}
 		
 		DataSource container2 =  createMapDataSource();
 		// Iterator of MapDataRecord: Created for TestNG compatibility
 		Iterator<Object[]> recordIter = container2.iterMapRecords();
-		System.out.println("Printing using an iterator");
+		System.out.println("With custom iterator.");
 		while(recordIter.hasNext()) {
 			Object[] recordArray = recordIter.next();
-			DataRecord mapRecord2 = (DataRecord) recordArray[0];
-			printMapDataRecord(mapRecord2);
+			MapDataRecord mapRecord2 = (MapDataRecord) recordArray[0];
+			printDataRecord(mapRecord2);
 		}
 	}
 }

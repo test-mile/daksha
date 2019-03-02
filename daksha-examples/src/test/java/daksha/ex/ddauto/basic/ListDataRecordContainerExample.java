@@ -22,9 +22,9 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 import java.util.List;
 
-import com.testmile.daksha.core.ddauto.DataRecord;
 import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
 import com.testmile.daksha.tpi.ddauto.DataSource;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
 import com.testmile.daksha.tpi.ddauto.ListDataRecordContainer;
 
 public class ListDataRecordContainerExample{
@@ -45,7 +45,7 @@ public class ListDataRecordContainerExample{
 		return container;
 	}
 	
-	private static void printListDataRecord(DataRecord record) throws Exception {
+	private static void printDataRecord(ListDataRecord record) throws Exception {
 		System.out.println(record.valueAt(0).asInt());
 		System.out.println(record.valueAt(1).asInt());
 		System.out.println(record.valueAt(2).asInt());		
@@ -54,20 +54,20 @@ public class ListDataRecordContainerExample{
 	public static void main(String[] args) throws Exception {
 		DataSource container1 = createListDataSource();
 		// List of ListDataRecord
-		List<DataRecord> recordList = container1.allListRecords();
-		System.out.println("Printing using a list");
-		for(DataRecord listDataRec1: recordList) {
-			printListDataRecord(listDataRec1);
+		List<ListDataRecord> recordList = container1.allListRecords();
+		System.out.println("Without custom iterator.");
+		for(ListDataRecord listDataRec1: recordList) {
+			printDataRecord(listDataRec1);
 		}
 		
 		DataSource container2 = createListDataSource();
 		// Iterator of ListDataRecord: Created for TestNG compatibility
 		Iterator<Object[]> recordIter = container2.iterListRecords();
-		System.out.println("Printing using an iterator");
+		System.out.println("With custom iterator.");
 		while(recordIter.hasNext()) {
 			Object[] recordArray = recordIter.next();
-			DataRecord listDataRec2 = (DataRecord) recordArray[0];
-			printListDataRecord(listDataRec2);
+			ListDataRecord listDataRec2 = (ListDataRecord) recordArray[0];
+			printDataRecord(listDataRec2);
 		}
 	}
 }

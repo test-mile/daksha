@@ -21,11 +21,7 @@ package com.testmile.daksha.tpi.ddauto;
 import java.util.Iterator;
 import java.util.List;
 
-import com.testmile.daksha.core.ddauto.DataRecord;
-
 public interface DataSource {
-
-	DataRecord next() throws DataSourceFinishedException, Exception;
 
 	String getName();
 	
@@ -41,7 +37,7 @@ public interface DataSource {
 	
 	Iterator<Object[]> iterMapRecords() throws Exception;
 
-	List<DataRecord> allListRecords();
+	List<ListDataRecord> allListRecords();
 	
-	List<DataRecord> allMapRecords();
+	List<MapDataRecord> allMapRecords();
 }

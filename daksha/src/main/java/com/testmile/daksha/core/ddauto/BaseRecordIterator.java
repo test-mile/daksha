@@ -23,10 +23,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public abstract class BaseRecordIterator implements Iterator<Object[]>{
-	private List<DataRecord> records;
+public abstract class BaseRecordIterator<T> implements Iterator<Object[]>{
+	private List<T> records;
 
-	public BaseRecordIterator(List<DataRecord> records) {
+	public BaseRecordIterator(List<T> records) {
 		this.records = records;
 	}
 

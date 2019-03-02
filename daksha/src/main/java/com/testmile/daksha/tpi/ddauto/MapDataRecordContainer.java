@@ -20,7 +20,6 @@
 package com.testmile.daksha.tpi.ddauto;
 
 import com.testmile.daksha.core.ddauto.BaseDataRecordContainer;
-import com.testmile.daksha.core.ddauto.DataRecord;
 
 public class MapDataRecordContainer extends BaseDataRecordContainer {
 	
@@ -30,9 +29,5 @@ public class MapDataRecordContainer extends BaseDataRecordContainer {
 			throw new Exception("You can not use a Map Data Record container without defining appropriate headers.");
 		}
 	}
-	
-	protected synchronized DataRecord nextListRecord() throws DataSourceFinishedException, Exception{
-		throw new Exception("ListDataRecordContainer does not support list records. Use ListDataRecordContainer.");
-	}
-	
+
 }

@@ -16,18 +16,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.trishanku.tpi.value;
 
-package com.testmile.daksha.core.ddauto;
+public class ValueListLookUpException extends Exception {
 
-import com.testmile.daksha.core.batteries.container.ReadOnlyStringKeyValueContainer;
-import com.testmile.trishanku.tpi.value.Value;
-
-public interface DataRecord extends ReadOnlyStringKeyValueContainer {
-
-	Value valueAt(int index) throws Exception;
-
-	String stringAt(int index) throws Exception;
-
-	Object objectAt(int index) throws Exception;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1328715061248005907L;
+	
+	// Constructor that accepts a message
+	public ValueListLookUpException(int index, int maxIndex) {
+		super(String.format("Invalid index [%d] used for ValueList lookup. Use indices between 0 and %d", index, maxIndex));
+	}
 }

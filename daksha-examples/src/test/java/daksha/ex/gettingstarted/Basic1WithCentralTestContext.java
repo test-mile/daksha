@@ -19,30 +19,24 @@
 
 package daksha.ex.gettingstarted;
 
-import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
-import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.trishanku.Trishanku;
-import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
 
 public class Basic1WithCentralTestContext{
 	
 	public static void main (String args[]) throws Exception {
-		// Initialize and set central configuration
-		TestContext centralContext = Trishanku.init();
-		centralContext.setGuiAutoMaxWaitTime(30);
-		centralContext.setBrowserType(Browser.CHROME);
-		centralContext.freeze();
-		centralContext.getAppDir();
-		// Central Context can not be modified after this point
+		// Initialize Daksha
+		TestConfig centralConfig = Daksha.init();
 		
-		// Create Selenium automator with central context options
-		SeleniumBuilder builder = new SeleniumBuilder(centralContext);
-		SetuClientGuiAutomator automator = builder.build();
+		// Create Automator (default is Selenium) with default options
+		GuiAutomator automator = new DefaultGuiAutomator(centralConfig);
 
-		automator.goTo("https://www.google.com");
-		System.out.println(automator.getPageTitle());
-		automator.close();
+		// Basic flow in chrome
+		automator.goToUrl("https://www.google.com");
+		System.out.println(automator.mainWindow().getTitle());
+		automator.quit();
 	}
 
 }

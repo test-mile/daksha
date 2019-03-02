@@ -64,7 +64,7 @@ public enum DakshaSingleton {
 		
 	}
 	
-	public TestContext createConfigBuilder(String name) throws Exception {
+	public TestContext createTestContext(String name) throws Exception {
 		return new TestContext(name);
 	}
 	

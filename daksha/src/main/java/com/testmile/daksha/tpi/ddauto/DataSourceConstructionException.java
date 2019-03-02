@@ -22,9 +22,6 @@ public class DataSourceConstructionException extends Exception {
 	private Throwable e =  null;
 	private String name = null;
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1328715061248005907L;
 	
 	// Constructor that accepts a message

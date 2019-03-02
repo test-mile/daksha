@@ -12,8 +12,11 @@ public interface ValueList {
 
 	List<String> strings(List<Integer> indices) throws Exception;
 
-	Value value(int index) throws Exception;
+	Value valueAt(int index) throws Exception;
 
-	String string(int index) throws Exception;
-
+	String stringAt(int index) throws Exception;
+	
+	Object objectAt(int index) throws Exception;
+	
+	boolean hasIndex(int index)  throws Exception;
 }

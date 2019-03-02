@@ -101,16 +101,16 @@ public abstract class BaseDataRecordContainer extends BaseDataSource implements 
 			return this.queue.remove(0);
 		}		
 	}
-
-	@Override
-	public DataRecord next() throws DataSourceFinishedException, Exception {
-		Object[] n = nextRaw();
-		if (this.headersDone){
-			return new MapDataRecord(headers, n);
-		} else {
-			return new ListDataRecord(n);
-		}
-	}
+//
+//	@Override
+//	public DataRecord next() throws DataSourceFinishedException, Exception {
+//		Object[] n = nextRaw();
+//		if (this.headersDone){
+//			return new MapDataRecord(headers, n);
+//		} else {
+//			return new ListDataRecord(n);
+//		}
+//	}
 	
 	public boolean hasNext(){
 		if (isTerminated()){
@@ -124,12 +124,12 @@ public abstract class BaseDataRecordContainer extends BaseDataSource implements 
 		return false;
 	}
 	
-	protected synchronized DataRecord nextListRecord() throws DataSourceFinishedException, Exception{
+	protected synchronized ListDataRecord nextListRecord() throws DataSourceFinishedException, Exception{
 		Object[] n = nextRaw();
 		return new ListDataRecord(n);
 	}
 	
-	protected synchronized DataRecord nextMapRecord() throws DataSourceFinishedException, Exception{
+	protected synchronized MapDataRecord nextMapRecord() throws DataSourceFinishedException, Exception{
 		Object[] n = nextRaw();
 		if (this.headersDone){
 			return new MapDataRecord(headers, n);

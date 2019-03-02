@@ -17,14 +17,17 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.ddauto;
+package com.testmile.trishanku.tpi.value;
 
-import java.util.Set;
+public class ValueMapLookUpException extends Exception {
 
-public interface DataReference {
-
-	DataRecord record(String key) throws Exception;
-
-	Set<String> keys();
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1328715061248005907L;
+	
+	// Constructor that accepts a message
+	public ValueMapLookUpException(String key) {
+		super(String.format("Invalid Key/header [%s] used for ValueMap lookup.", key));
+	}
 }

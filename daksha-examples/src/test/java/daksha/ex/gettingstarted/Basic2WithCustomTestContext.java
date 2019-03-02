@@ -19,33 +19,39 @@
 
 package daksha.ex.gettingstarted;
 
-import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
-import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.enums.Browser;
 
 public class Basic2WithCustomTestContext{
 	
 	public static void main (String args[]) throws Exception {
-		// Initialize and set central configuration
-		TestContext centralContext = Trishanku.init();
-		centralContext.setGuiAutoMaxWaitTime(30);
-		centralContext.freeze();
+		// Initialize Daksha
+		Daksha.init();
 		
-		// Create a custom test context. Contains all values from central context
-		// This helps in creating any number of custom contexts which share common (overridable) properties.
-		TestContext context = Trishanku.createTestContext("custom");
-		context.setBrowserType(Browser.CHROME);
-		Trishanku.registerContext(context);
+		// Create a custom test context. Contains all values from central config
+		// A context assists you in creating a new configuration programmatically.
+		String contextName = "custom";
+		TestContext context = Daksha.createTestContext(contextName);
 		
-		// Create Selenium automator with context options
-		SeleniumBuilder builder = new SeleniumBuilder(context);
-		SetuClientGuiAutomator automator = builder.build();
+		// Changing an option in context config as different from central option
+		// You can tweak any number of options
+		context.browserType(Browser.FIREFOX);
+		
+		// The build step sends information to Setu and creates a unique frozen config
+		TestConfig config = context.build(); 
 
-		automator.goTo("https://www.google.com");
-		System.out.println(automator.getPageTitle());
-		automator.close();
+		// Create Automator (default is Selenium) with context config
+		GuiAutomator automator = new DefaultGuiAutomator(config);
+
+		// Basic flow in Firefox, as per the context config
+		automator.goToUrl("https://www.google.com");
+		System.out.println(automator.mainWindow().getTitle());
+		automator.quit();
 	}
 
 }

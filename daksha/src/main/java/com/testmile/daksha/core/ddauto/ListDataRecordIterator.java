@@ -20,8 +20,9 @@
 package com.testmile.daksha.core.ddauto;
 
 import com.testmile.daksha.tpi.ddauto.DataSource;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
 
-public class ListDataRecordIterator extends BaseRecordIterator{
+public class ListDataRecordIterator extends BaseRecordIterator<ListDataRecord>{
 	public ListDataRecordIterator(DataSource source) {
 		super(source.allListRecords());
 	}

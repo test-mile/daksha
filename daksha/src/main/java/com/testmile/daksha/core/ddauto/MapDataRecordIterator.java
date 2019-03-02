@@ -20,8 +20,9 @@
 package com.testmile.daksha.core.ddauto;
 
 import com.testmile.daksha.tpi.ddauto.DataSource;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 
-public class MapDataRecordIterator extends BaseRecordIterator{
+public class MapDataRecordIterator extends BaseRecordIterator<MapDataRecord>{
 	public MapDataRecordIterator(DataSource source) {
 		super(source.allMapRecords());
 	}
