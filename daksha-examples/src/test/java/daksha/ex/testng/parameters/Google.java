@@ -21,34 +21,30 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
-import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 import com.testmile.trishanku.tpi.enums.OSType;
+import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class Google extends TestNGBaseTest {
-	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
+	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	protected void tweakCentralContext(DefaultTestContext centralContext) throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
-	}
-	
-	protected void setUpClass(DefaultTestContext testContext) throws Exception {
-		// Create Selenium automator with context options
-		SeleniumBuilder builder = new SeleniumBuilder(testContext);
-		threadWiseAutomator.set(builder.build());
+	protected void setUpClass(TestConfig testConfig) throws Exception {
+		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
+		threadWiseAutomator.set(automator);
+		automator.launch();
 	}
 	
 	@Test
 	public void test() throws Exception{
-		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goTo("https://www.google.com");
-		System.out.println(automator.getPageTitle());
-		automator.takeScreenshot();
+		GuiAutomator automator = this.threadWiseAutomator.get();
+		automator.goToUrl("https://www.google.com");
+		System.out.println(automator.mainWindow().getTitle());
 	}
 	
-	protected void tearDownClass(DefaultTestContext testContext) throws Exception {
-		this.threadWiseAutomator.get().close();
+	public void tearDownClass(TestConfig testConfig) throws Exception {
+		this.threadWiseAutomator.get().quit();
 	}
 }

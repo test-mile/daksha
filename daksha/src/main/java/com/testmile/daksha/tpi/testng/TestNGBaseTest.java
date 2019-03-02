@@ -30,8 +30,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.core.testng.TestNGSuiteContext;
-import com.testmile.daksha.core.testng.TestNGTestContext;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 

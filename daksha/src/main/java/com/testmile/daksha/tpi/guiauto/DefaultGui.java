@@ -30,7 +30,6 @@ import com.testmile.daksha.core.guiauto.gui.GuiMgrActionType;
 import com.testmile.daksha.core.problem.ErrorType;
 import com.testmile.daksha.core.problem.Problem;
 import com.testmile.daksha.core.setu.Response;
-import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class DefaultGui extends AbstractAppAutomator implements Gui{

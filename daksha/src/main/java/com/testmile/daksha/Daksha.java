@@ -3,8 +3,6 @@ package com.testmile.daksha;
 import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
-import com.testmile.daksha.core.testng.TestNGSuiteContext;
-import com.testmile.daksha.core.testng.TestNGTestContext;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 

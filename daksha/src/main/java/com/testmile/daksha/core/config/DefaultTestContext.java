@@ -50,6 +50,7 @@ public class DefaultTestContext implements TestContext {
 	@Override
 	public void addOption(String option, Object obj) throws Exception {
 		String normalizedOption = DakshaSingleton.INSTANCE.normalizeUserOption(option);
+		System.out.println(normalizedOption);
 		try {
 			SetuOption sOption = SetuOption.valueOf(normalizedOption);
 			this.setuOptions.addObject(sOption, obj);
@@ -109,7 +110,13 @@ public class DefaultTestContext implements TestContext {
 	 */
 	@Override
 	public TestConfig build() throws Exception {
-		String configSetuId = this.testSession.registerConfig(setuOptions.strItems(), userOptions.items());
+		String configSetuId;
+		System.out.println(parentConfigSetuId);
+		if (this.parentConfigSetuId == null) {
+			configSetuId = this.testSession.registerConfig(setuOptions.strItems(), userOptions.items());
+		} else {
+			configSetuId = this.testSession.registerConfig(this.parentConfigSetuId, setuOptions.strItems(), userOptions.items());
+		}
 		return new DefaultTestConfig(this.testSession, this.name, configSetuId);
 	}
 }

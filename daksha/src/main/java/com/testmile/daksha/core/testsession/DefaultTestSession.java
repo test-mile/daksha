@@ -21,7 +21,6 @@ package com.testmile.daksha.core.testsession;
 
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.config.DefaultTestConfig;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
@@ -64,13 +63,24 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		this.setuRequester = setuRequester;
 	}
 	
-	@Override
-	public String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
+	private String registerConfig(boolean hasParent, String parentConfigId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
 		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.REGISTER_CONFIG);
+		action.addArg("hasParent", hasParent);
+		action.addArg("parentConfigId", parentConfigId);
 		action.addArg("setuOptions", setuOptions);
 		action.addArg("userOptions", userOptions);
 		Response response = this.setuRequester.post("/action", action);
 		return (String) response.getData().get("configSetuId");
+	}
+	
+	@Override
+	public String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
+		return registerConfig(false, null, setuOptions, userOptions);
+	}
+	
+	@Override
+	public String registerConfig(String parentConfigId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
+		return registerConfig(true, parentConfigId, setuOptions, userOptions);
 	}
 
 	private Value fetchConfOptionValue(TestSessionActionType actionType, String configSetuId, String option) throws Exception {
@@ -78,7 +88,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		action.addArg("configSetuId", configSetuId);
 		action.addArg("option", option);
 		Response response = this.setuRequester.post("/action", action);
-		return new AnyRefValue(response.getData().get("configSetuId"));		
+		return new AnyRefValue(response.getData().get("value"));		
 	}
 	
 	@Override

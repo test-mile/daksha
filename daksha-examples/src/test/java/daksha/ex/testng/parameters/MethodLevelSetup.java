@@ -21,29 +21,24 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.guiauto.maker.selenium.SeleniumBuilder;
-import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.guiauto.GuiAutomator;
+import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.trishanku.tpi.enums.OSType;
 
 public class MethodLevelSetup extends TestNGBaseTest {
-	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
+	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	protected void tweakCentralContext(DefaultTestContext centralContext) throws Exception {
-		centralContext.setTargetPlatform(OSType.MAC);
-	}
-	
-	protected void setUpMethod(DefaultTestContext testContext) throws Exception {
-		// Create Selenium automator with context options
-		SeleniumBuilder builder = new SeleniumBuilder(testContext);
-		threadWiseAutomator.set(builder.build());
+	protected void setUpMethod(TestConfig testConfig) throws Exception {
+		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
+		threadWiseAutomator.set(automator);
+		automator.launch();
 	}
 	
 	private void goToUrl(String url) throws Exception {
-		SetuClientGuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goTo(url);
-		System.out.println(automator.getPageTitle());		
+		GuiAutomator automator = this.threadWiseAutomator.get();
+		automator.goToUrl(url);
+		System.out.println(automator.mainWindow().getTitle());	
 	}
 	
 	@Test
@@ -56,7 +51,7 @@ public class MethodLevelSetup extends TestNGBaseTest {
 		goToUrl("http://www.testmile.com");
 	}
 	
-	protected void tearDownMethod(DefaultTestContext testContext) throws Exception {
-		this.threadWiseAutomator.get().close();
+	protected void tearDownMethod(TestConfig testConfig) throws Exception {
+		this.threadWiseAutomator.get().quit();
 	}
 }
