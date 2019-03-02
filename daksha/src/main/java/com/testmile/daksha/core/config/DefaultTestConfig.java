@@ -17,7 +17,7 @@ public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
 	public DefaultTestConfig(TestSession testSession, String name, String setuId) {
 		this.setSetuId(setuId);
 		this.setTestSessionSetuId(testSession.getSetuId());
-		this.session = session;
+		this.session = testSession;
 		this.name = name;
 	}
 	

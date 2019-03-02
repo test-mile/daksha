@@ -21,17 +21,19 @@ package com.testmile.daksha.core.testsession;
 
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.config.DefaultTestConfig;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
 import com.testmile.daksha.core.setu.SetuSvcRequester;
+import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.trishanku.tpi.enums.SetuOption;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestSession extends DefaultSetuObject implements TestSession {
+	Gson gsonObj = new Gson();
 	private SetuSvcRequester setuRequester;
 	private String baseActionUri = "/action";
 
@@ -65,19 +67,30 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	
 	@Override
 	public String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.REGISTER_CONFIG);
+		String sOptions = gsonObj.toJson(setuOptions);
+		String uOptions = gsonObj.toJson(userOptions);
+		action.addArg("setuOptions", sOptions);
+		action.addArg("userOptions", uOptions);
+		Response response = this.setuRequester.post("/action", action);
+		return (String) response.getData().get("configSetuId");
+	}
+
+	private Value fetchConfOptionValue(TestSessionActionType actionType, String configSetuId, String option) throws Exception {
+		TestSessionAction action = new TestSessionAction(this, actionType);
+		action.addArg("configSetuId", configSetuId);
+		action.addArg("option", option);
+		Response response = this.setuRequester.post("/action", action);
+		return new AnyRefValue(response.getData().get("configSetuId"));		
+	}
+	
+	@Override
+	public Value getSetuOptionValue(String configSetuId, String option) throws Exception {
+		return this.fetchConfOptionValue(TestSessionActionType.GET_SETU_OPTION_VALUE, configSetuId, option);
 	}
 
 	@Override
-	public Value getSetuOptionValue(String configSetuId, String option) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value getUserOptionValue(String configSetuId, String option) {
-		// TODO Auto-generated method stub
-		return null;
+	public Value getUserOptionValue(String configSetuId, String option) throws Exception {
+		return this.fetchConfOptionValue(TestSessionActionType.GET_USER_OPTION_VALUE, configSetuId, option);
 	}
 }

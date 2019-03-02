@@ -22,5 +22,8 @@ package com.testmile.daksha.core.testsession;
 public enum TestSessionActionType {
 	INIT,
 	LOAD_PROJECT_CONF,
-	FINISH
+	REGISTER_CONFIG,
+	GET_SETU_OPTION_VALUE,
+	GET_USER_OPTION_VALUE,
+	FINISH,
 }

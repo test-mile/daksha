@@ -10,8 +10,8 @@ public interface TestSession extends SetuManagedObject {
 
 	TestConfig init(String rootDir) throws Exception;
 	void finish() throws Exception;
-	Value getSetuOptionValue(String configSetuId, String option);
-	Value getUserOptionValue(String configSetuId, String option);
+	Value getSetuOptionValue(String configSetuId, String option) throws Exception;
+	Value getUserOptionValue(String configSetuId, String option) throws Exception;
 	String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception;
 	
 }
