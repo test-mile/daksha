@@ -34,11 +34,11 @@ import com.testmile.trishanku.tpi.enums.OSType;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
-	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	protected void setUpClass(TestContext testContext) throws Exception {
+	protected void setUpClass(DefaultTestContext testContext) throws Exception {
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		this.threadWiseAutomator.set(builder.build());
 	}
@@ -98,7 +98,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	public void tearDownClass(TestContext testContext) throws Exception {
+	public void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

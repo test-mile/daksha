@@ -30,11 +30,11 @@ import com.testmile.trishanku.tpi.enums.OSType;
 public class MethodLevelSetup extends TestNGBaseTest {
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	protected void setUpMethod(TestContext testContext) throws Exception {
+	protected void setUpMethod(DefaultTestContext testContext) throws Exception {
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		threadWiseAutomator.set(builder.build());
@@ -56,7 +56,7 @@ public class MethodLevelSetup extends TestNGBaseTest {
 		goToUrl("http://www.testmile.com");
 	}
 	
-	protected void tearDownMethod(TestContext testContext) throws Exception {
+	protected void tearDownMethod(DefaultTestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

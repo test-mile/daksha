@@ -19,6 +19,8 @@
 
 package com.testmile.daksha.core.testsession;
 
+import java.util.Map;
+
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.config.DefaultTestConfig;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
@@ -60,11 +62,22 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	public void setSetuRequester(SetuSvcRequester setuRequester) {
 		this.setuRequester = setuRequester;
 	}
-
+	
 	@Override
-	public Value getSetuConfValue(SetuOption option) {
+	public String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public Value getSetuOptionValue(String configSetuId, String option) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Value getUserOptionValue(String configSetuId, String option) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

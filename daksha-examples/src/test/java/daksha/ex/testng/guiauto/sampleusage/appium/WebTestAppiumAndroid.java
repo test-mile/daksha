@@ -34,11 +34,11 @@ import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 public class WebTestAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
-	protected void tweakTestContext(TestContext testContext)  throws Exception {
+	protected void tweakTestContext(DefaultTestContext testContext)  throws Exception {
 		testContext.setAutomationContext(GuiAutomationContext.ANDROID_WEB);
 	}
 	
-	protected void setUpClass(TestContext testContext) throws Exception {
+	protected void setUpClass(DefaultTestContext testContext) throws Exception {
 		AppiumBuilder builder = new AppiumBuilder(testContext);
 		this.threadWiseAutomator.set(builder.build());
 	}
@@ -100,7 +100,7 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		automator.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	public void tearDownClass(TestContext testContext) throws Exception {
+	public void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

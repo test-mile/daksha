@@ -17,17 +17,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.tpi.testng;
+package com.testmile.daksha.core.testng;
 
 import org.testng.ITestContext;
 
+import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.daksha.tpi.test.TestContext;
+import com.testmile.daksha.tpi.test.TestSession;
 
-public class TestNGTestContext extends TestContext{
+public class TestNGTestContext extends DefaultTestContext{
 	
-	public TestNGTestContext(TestConfig parentConfig, ITestContext context) throws Exception {
-		super(context.getSuite().getName());
+	public TestNGTestContext(TestSession testsession, TestConfig parentConfig, ITestContext context) throws Exception {
+		super(testsession, context.getSuite().getName());
 		this.setParentConfig(parentConfig);
 		this.addOptions(context.getCurrentXmlTest().getAllParameters());
 	}

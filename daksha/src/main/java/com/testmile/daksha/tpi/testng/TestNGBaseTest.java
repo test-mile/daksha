@@ -30,6 +30,8 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.testmile.daksha.Daksha;
+import com.testmile.daksha.core.testng.TestNGSuiteContext;
+import com.testmile.daksha.core.testng.TestNGTestContext;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 
@@ -72,7 +74,7 @@ public class TestNGBaseTest {
 			onceSetupPerExecutionDone = true;
 		}
 		
-		TestContext suiteContext = new TestNGSuiteContext(context);
+		TestContext suiteContext = Daksha.createTestNGSuiteContext(context);
 		this.tweakSuiteContext(suiteContext);
 		TestConfig suiteConfig = suiteContext.build();
 		Daksha.registerTestContextConfig(suiteConfig);
@@ -103,8 +105,8 @@ public class TestNGBaseTest {
 	
 	@BeforeTest
 	public void initContext(ITestContext testContext) throws Exception {
-		TestConfig parentContext = Daksha.getTestContextConfig(testContext.getSuite().getXmlSuite().getName());
-		TestContext testNGContext = new TestNGTestContext(parentContext, testContext);		
+		TestConfig parentConfig = Daksha.getTestContextConfig(testContext.getSuite().getXmlSuite().getName());
+		TestContext testNGContext = Daksha.createTestNGTestContext(parentConfig, testContext);		
 		this.tweakTestContext(testNGContext);
 		TestConfig contextConfig = testNGContext.build();
 		Daksha.registerTestContextConfig(contextConfig);

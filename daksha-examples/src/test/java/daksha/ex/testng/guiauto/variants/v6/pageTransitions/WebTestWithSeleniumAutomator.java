@@ -29,11 +29,11 @@ import com.testmile.trishanku.tpi.enums.OSType;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Home> threadWiseHome = new ThreadLocal<Home>();
 	
-	protected void tweakCentralContext(TestContext centralContext)  throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	public void setUpClass(TestContext testContext) throws Exception {
+	public void setUpClass(DefaultTestContext testContext) throws Exception {
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		Home home = new Home(builder.build());
 		threadWiseHome.set(home);
@@ -50,7 +50,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		settings.logout();
 	}
 	
-	public void tearDownClass(TestContext testContext) throws Exception {
+	public void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseHome.get().close();
 	}
 }

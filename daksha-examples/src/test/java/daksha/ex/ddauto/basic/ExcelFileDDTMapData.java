@@ -43,7 +43,7 @@ public class ExcelFileDDTMapData{
 	}
 	
 	public static void main(String[] args) throws Exception {
-		TestContext context = Trishanku.init();
+		DefaultTestContext context = Trishanku.init();
 		context.freeze();
 		DataSource container1 =  createMapDataSource();
 		

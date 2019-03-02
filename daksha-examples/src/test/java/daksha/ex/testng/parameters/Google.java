@@ -30,11 +30,11 @@ import com.testmile.trishanku.tpi.enums.OSType;
 public class Google extends TestNGBaseTest {
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
-	protected void tweakCentralContext(TestContext centralContext) throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext) throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	protected void setUpClass(TestContext testContext) throws Exception {
+	protected void setUpClass(DefaultTestContext testContext) throws Exception {
 		// Create Selenium automator with context options
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		threadWiseAutomator.set(builder.build());
@@ -48,7 +48,7 @@ public class Google extends TestNGBaseTest {
 		automator.takeScreenshot();
 	}
 	
-	protected void tearDownClass(TestContext testContext) throws Exception {
+	protected void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

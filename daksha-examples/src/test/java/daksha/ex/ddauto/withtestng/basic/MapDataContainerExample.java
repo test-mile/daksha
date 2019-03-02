@@ -26,12 +26,12 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.ddauto.DataRecord;
 import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.ddauto.MapDataRecordContainer;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 
-public class MapDataContainerExample extends TestNGBaseTest {
+public class MapDataContainerExample {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
@@ -54,7 +54,7 @@ public class MapDataContainerExample extends TestNGBaseTest {
 	}
 	
 	@Test(dataProvider="dp")
-	public void repeat(DataRecord record) throws Exception {
+	public void repeat(MapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();

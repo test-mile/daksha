@@ -43,7 +43,7 @@ public class ExcelFileDDTListData{
 	}
 	
 	public static void main(String[] args) throws Exception {
-		TestContext context = Trishanku.init();
+		DefaultTestContext context = Trishanku.init();
 		context.freeze();
 		DataSource container1 = createListDataSource();
 		// List of ListDataRecord

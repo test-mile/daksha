@@ -1,5 +1,6 @@
 package com.testmile.daksha.core.config;
 
+import com.testmile.daksha.DakshaSingleton;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext;
@@ -20,12 +21,25 @@ public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
 		this.name = name;
 	}
 	
-	public Value value(SetuOption option) throws Exception {
-		return new AnyRefValue(this.session.getSetuConfValue(option));
+	public Value getSetuOptionValue(String option) throws Exception{
+		return this.session.getSetuOptionValue(
+				this.getSetuId(),
+				DakshaSingleton.INSTANCE.normalizeSetuOption(option).toString()
+		);
+	}	
+	
+	public Value getSetuOptionValue(SetuOption option) throws Exception{
+		return this.session.getSetuOptionValue(
+				this.getSetuId(),
+				option.toString()
+		);
 	}
 	
-	public Value getValue(SetuOption option) throws Exception{
-		return this.value(option);
+	public Value getUserOptionValue(String option) throws Exception{
+		return this.session.getUserOptionValue(
+				this.getSetuId(),
+				DakshaSingleton.INSTANCE.normalizeUserOption(option)
+		);
 	}
 
 	@Override
@@ -34,41 +48,41 @@ public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
 	}
 	
 	public GuiAutomationContext getGuiAutoContext() throws Exception {
-		return GuiAutomationContext.valueOf(value(SetuOption.GUIAUTO_CONTEXT).asString());
+		return GuiAutomationContext.valueOf(getSetuOptionValue(SetuOption.GUIAUTO_CONTEXT).asString());
 	}
 	
 	@Override
 	public Browser getBrowserType() throws Exception {
-		return value(SetuOption.BROWSER_NAME).asEnum(Browser.class);
+		return getSetuOptionValue(SetuOption.BROWSER_NAME).asEnum(Browser.class);
 	}
 
 	@Override
 	public String getBrowerVersion() throws Exception {
-		return value(SetuOption.BROWSER_VERSION).asString();
+		return getSetuOptionValue(SetuOption.BROWSER_VERSION).asString();
 	}
 
 	@Override
 	public String getBrowserBinaryPath() throws Exception {
-		return value(SetuOption.BROWSER_BIN_PATH).asString();
+		return getSetuOptionValue(SetuOption.BROWSER_BIN_PATH).asString();
 	}
 	
 	@Override
 	public String getTestRunEnvName() throws Exception {
-		return value(SetuOption.TESTRUN_ENVIRONMENT).asString();
+		return getSetuOptionValue(SetuOption.TESTRUN_ENVIRONMENT).asString();
 	}
 
 	@Override
 	public String getScreenshotsDir() throws Exception {
-		return value(SetuOption.SCREENSHOTS_DIR).asString();
+		return getSetuOptionValue(SetuOption.SCREENSHOTS_DIR).asString();
 	}
 	
 	@Override
 	public String getLogDir() throws Exception {
-		return value(SetuOption.LOG_DIR).asString();
+		return getSetuOptionValue(SetuOption.LOG_DIR).asString();
 	}
 	
 	public int getGuiAutoMaxWaitTime() throws Exception {
-		return value(SetuOption.GUIAUTO_MAX_WAIT).asInt();
+		return getSetuOptionValue(SetuOption.GUIAUTO_MAX_WAIT).asInt();
 	}
 	
 	// For Setu

@@ -3,6 +3,8 @@ package com.testmile.daksha;
 import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
+import com.testmile.daksha.core.testng.TestNGSuiteContext;
+import com.testmile.daksha.core.testng.TestNGTestContext;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 
@@ -32,6 +34,14 @@ public class Daksha {
 	
 	public static TestContext createTestContext(String name) throws Exception {
 		return internal.createTestContext(name);
+	}
+	
+	public static TestContext createTestNGSuiteContext(ITestContext testngContext) throws Exception {
+		return internal.createTestNGSuiteContext(testngContext);
+	}
+	
+	public static TestContext createTestNGTestContext(TestConfig parentConfig, ITestContext testngContext) throws Exception {
+		return internal.createTestNGTestContext(parentConfig, testngContext);
 	}
 	
 	public static TestConfig getTestConfig(ITestContext context) throws Exception {

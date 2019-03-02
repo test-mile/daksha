@@ -8,6 +8,9 @@ import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
 import com.testmile.daksha.core.config.CLIConfiguration;
+import com.testmile.daksha.core.config.DefaultTestContext;
+import com.testmile.daksha.core.testng.TestNGSuiteContext;
+import com.testmile.daksha.core.testng.TestNGTestContext;
 import com.testmile.daksha.core.testsession.DefaultTestSession;
 import com.testmile.daksha.tpi.batteries.console.Console;
 import com.testmile.daksha.tpi.test.TestConfig;
@@ -65,7 +68,15 @@ public enum DakshaSingleton {
 	}
 	
 	public TestContext createTestContext(String name) throws Exception {
-		return new TestContext(name);
+		return new DefaultTestContext(session, name);
+	}
+	
+	public TestContext createTestNGSuiteContext(ITestContext testngContext) throws Exception {
+		return new TestNGSuiteContext(session, testngContext);
+	}
+	
+	public TestContext createTestNGTestContext(TestConfig parentConfig, ITestContext testngContext) throws Exception {
+		return new TestNGTestContext(session, parentConfig, testngContext);
 	}
 	
 	public TestConfig getTestConfig(ITestContext context) throws Exception {
