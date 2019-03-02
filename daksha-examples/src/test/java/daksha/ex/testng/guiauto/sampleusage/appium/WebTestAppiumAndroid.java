@@ -23,8 +23,8 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
+import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.core.guiauto.maker.appium.AppiumBuilder;
-import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiElement;
 import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;

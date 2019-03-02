@@ -16,21 +16,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.testmile.daksha.tpi.ddauto;
 
-public class DataSourceFinishedException extends Exception {
+package com.testmile.daksha.core.databroker;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1328715061248005907L;
+import com.testmile.daksha.core.setu.AbstractAction;
 
-	// Parameterless Constructor
-	public DataSourceFinishedException() {
+public class DataBrokerAction extends AbstractAction {
+	
+	public DataBrokerAction(DefaultDataBroker dataBroker, DataBrokerActionType action) throws Exception {
+		super(dataBroker);		
+		this.getActionRequest().setAction(action.toString());
 	}
 
-	// Constructor that accepts a message
-	public DataSourceFinishedException(String message) {
-		super(message);
-	}
 }

@@ -23,8 +23,8 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.core.guiauto.maker.appium.AppiumBuilder;
-import com.testmile.daksha.tpi.TestContext;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;

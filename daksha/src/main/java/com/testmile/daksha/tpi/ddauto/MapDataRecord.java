@@ -18,28 +18,11 @@
  ******************************************************************************/
 package com.testmile.daksha.tpi.ddauto;
 
-import java.util.List;
 import java.util.Map;
 
 import com.testmile.trishanku.tpi.value.StringKeyValueMap;
 
 public class MapDataRecord extends StringKeyValueMap{
-	
-	public MapDataRecord() {
-		super();
-	}
-	
-	public MapDataRecord(List<String> names, List<Object> objects){
-		super(names, objects);		
-	}
-	
-	public MapDataRecord(String[] headers, List<Object> objList) {
-		super(headers, objList);	
-	}
-
-	public MapDataRecord(String[] names, Object[] objects){
-		super(names, objects);	
-	}
 	
 	public MapDataRecord(Map<String, Object> nvMap){
 		super(nvMap);	

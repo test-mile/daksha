@@ -20,20 +20,17 @@
 package daksha.ex.ddauto.basic;
 
 import java.util.Iterator;
-import java.util.List;
 
-import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
-import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.ddauto.MapDataRecordContainer;
+import com.testmile.daksha.tpi.ddauto.MapDataSource;
 
 public class MapDataRecordContainerExample{
 	
-	private static DataSource createMapDataSource() throws Exception {
-		DataRecordContainer container = new MapDataRecordContainer();
+	private static MapDataSource createMapDataSource() throws Exception {
 		// Create headers and assign to container
 		String[] names = {"left", "right", "sum"};
-		container.setHeaders(names);
+		MapDataRecordContainer container = new MapDataRecordContainer(names);
 		
 		// Adding single record
 		Object[] record = {1,2,3};	
@@ -55,23 +52,23 @@ public class MapDataRecordContainerExample{
 	}
 	
 	public static void main(String[] args) throws Exception {
-		DataSource container1 =  createMapDataSource();
+		MapDataSource container = createMapDataSource();
 		
-		// List of MapDataRecord
-		List<MapDataRecord> recordList = container1.allMapRecords();
-		System.out.println("Without custom iterator.");
-		for(MapDataRecord mapRecord1: recordList) {
-			printDataRecord(mapRecord1);
+		// Using default Java Iterator
+		Iterator<MapDataRecord> recordIter1 = container.iterRecords();
+		System.out.println("With Java iterator.");
+		while(recordIter1.hasNext()) {
+			MapDataRecord record = recordIter1.next();
+			printDataRecord(record);			
 		}
-		
-		DataSource container2 =  createMapDataSource();
-		// Iterator of MapDataRecord: Created for TestNG compatibility
-		Iterator<Object[]> recordIter = container2.iterMapRecords();
-		System.out.println("With custom iterator.");
-		while(recordIter.hasNext()) {
-			Object[] recordArray = recordIter.next();
-			MapDataRecord mapRecord2 = (MapDataRecord) recordArray[0];
-			printDataRecord(mapRecord2);
+
+		// Iterator of ListDataRecord: Created for TestNG compatibility
+		Iterator<Object[]> recordIter2 = container.iterRecordsForTestNG();
+		System.out.println("With custom Java iterator for Test NG.");
+		while(recordIter2.hasNext()) {
+			Object[] recordArray = recordIter2.next();
+			MapDataRecord record = (MapDataRecord) recordArray[0];
+			printDataRecord(record);
 		}
 	}
 }

@@ -19,13 +19,24 @@
 
 package com.testmile.daksha.tpi.ddauto;
 
-import com.testmile.daksha.core.ddauto.BaseDataRecordContainer;
+import com.testmile.daksha.core.databroker.BaseDataSource;
 
-public class ListDataRecordContainer extends BaseDataRecordContainer {
-
-	@Override
-	public void setHeaders(String[] names) throws Exception {
-		throw new Exception("setHeaders() method is not supported for List Data Record Container.");
+public class ListDataRecordContainer extends BaseDataSource<ListDataRecord> implements ListDataSource{
+	
+	public ListDataRecordContainer() throws Exception {
+		super();
+	}
+	
+	public ListDataRecordContainer(Object[][] records) throws Exception {
+		super();
+		this.addAll(records);
+	}
+	
+	public void add(Object[] record) throws Exception {
+		if (record.length == 0){
+			throw new Exception("Empty record can not be added.");					
+		}
+		super.addSingleRecord(new ListDataRecord(record));
 	}
 
 }

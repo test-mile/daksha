@@ -24,10 +24,6 @@ import com.testmile.trishanku.tpi.value.AbstractValueList;
 
 public class ListDataRecord extends AbstractValueList{
 	
-	public ListDataRecord() {
-		super();
-	}
-	
 	public ListDataRecord(Object[] values) {
 		super(values);
 	}

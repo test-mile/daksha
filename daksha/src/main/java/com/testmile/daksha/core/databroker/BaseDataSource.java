@@ -17,16 +17,66 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.ddauto;
+package com.testmile.daksha.core.databroker;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public abstract class BaseRecordIterator<T> implements Iterator<Object[]>{
+public abstract class BaseDataSource<T> implements DataSource<T> {
+	private List<T> records = new ArrayList<T>();
+	private String name = null;
+	private boolean ended = false;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void terminate(){
+		this.ended = true;
+	}
+	
+	@Override
+	public boolean isTerminated(){
+		return this.ended;
+	}
+	
+	protected void addSingleRecord(T record) {
+		this.records.add(record);
+	}
+	
+	protected abstract void add(Object[] record) throws Exception;
+	
+	public void addAll(Object[][] records) throws Exception {
+		for (Object[] record : records) {
+			this.add(record);
+		}
+	}
+	
+	private List<T> allRecords(){
+		return this.records;
+	}
+	
+	@Override
+	public Iterator<Object[]> iterRecordsForTestNG() throws Exception {
+		return new DataRecordIteratorForTestNG<T>(this.allRecords());
+	}
+	
+	@Override
+	public Iterator<T> iterRecords() throws Exception {
+		return this.records.iterator();
+	}	
+}
+
+class DataRecordIteratorForTestNG<T> implements Iterator<Object[]>{
 	private List<T> records;
 
-	public BaseRecordIterator(List<T> records) {
+	public DataRecordIteratorForTestNG(List<T> records) {
 		this.records = records;
 	}
 
@@ -43,7 +93,4 @@ public abstract class BaseRecordIterator<T> implements Iterator<Object[]>{
 			return new Object[] {records.remove(0)};
 		}
 	}
-
-
-
 }

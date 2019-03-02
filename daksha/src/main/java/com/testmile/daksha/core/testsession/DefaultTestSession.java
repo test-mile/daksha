@@ -39,6 +39,11 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	public DefaultTestSession() {
 		setSetuRequester(new SetuTestSessionRequester());
 	}
+	
+	@Override
+	public SetuSvcRequester getSetuRequester() {
+		return this.setuRequester;
+	}
 
 	@Override
 	public TestConfig init(String rootDir) throws Exception {

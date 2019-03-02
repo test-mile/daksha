@@ -26,19 +26,16 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
 import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.ddauto.MapDataRecordContainer;
-import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 
 public class MapDataContainerExample {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		DataRecordContainer container = new MapDataRecordContainer();
 		// Create headers and assign to container
 		String[] names = {"left", "right", "sum"};
-		container.setHeaders(names);
+		MapDataRecordContainer container = new MapDataRecordContainer(names);
 		
 		// Adding single record
 		Object[] record = {1,2,3};	
@@ -50,7 +47,7 @@ public class MapDataContainerExample {
 				{7,8,12},
 		};
 		container.addAll(records);
-		return container.iterMapRecords();
+		return container.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")

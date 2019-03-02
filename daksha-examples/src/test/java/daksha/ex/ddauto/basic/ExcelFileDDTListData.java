@@ -22,9 +22,8 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 import java.util.List;
 
+import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.core.ddauto.DataRecord;
-import com.testmile.daksha.tpi.TestContext;
-import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.enums.SetuOption;

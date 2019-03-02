@@ -24,7 +24,6 @@ import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
-import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.enums.Browser;
 
 public class Basic2WithCustomTestContext{

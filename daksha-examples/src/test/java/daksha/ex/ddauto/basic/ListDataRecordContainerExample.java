@@ -20,17 +20,15 @@
 package daksha.ex.ddauto.basic;
 
 import java.util.Iterator;
-import java.util.List;
 
-import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
-import com.testmile.daksha.tpi.ddauto.DataSource;
 import com.testmile.daksha.tpi.ddauto.ListDataRecord;
 import com.testmile.daksha.tpi.ddauto.ListDataRecordContainer;
+import com.testmile.daksha.tpi.ddauto.ListDataSource;
 
 public class ListDataRecordContainerExample{
 	
-	private static DataSource createListDataSource() throws Exception {
-		DataRecordContainer container = new ListDataRecordContainer();
+	private static ListDataSource createListDataSource() throws Exception {
+		ListDataRecordContainer container = new ListDataRecordContainer();
 
 		// Adding single record
 		Object[] record = {1,2,3};	
@@ -52,22 +50,23 @@ public class ListDataRecordContainerExample{
 	}
 	
 	public static void main(String[] args) throws Exception {
-		DataSource container1 = createListDataSource();
-		// List of ListDataRecord
-		List<ListDataRecord> recordList = container1.allListRecords();
-		System.out.println("Without custom iterator.");
-		for(ListDataRecord listDataRec1: recordList) {
-			printDataRecord(listDataRec1);
-		}
+		ListDataSource container = createListDataSource();
 		
-		DataSource container2 = createListDataSource();
+		// Using default Java Iterator
+		Iterator<ListDataRecord> recordIter1 = container.iterRecords();
+		System.out.println("With Java iterator.");
+		while(recordIter1.hasNext()) {
+			ListDataRecord record = recordIter1.next();
+			printDataRecord(record);			
+		}
+
 		// Iterator of ListDataRecord: Created for TestNG compatibility
-		Iterator<Object[]> recordIter = container2.iterListRecords();
-		System.out.println("With custom iterator.");
-		while(recordIter.hasNext()) {
-			Object[] recordArray = recordIter.next();
-			ListDataRecord listDataRec2 = (ListDataRecord) recordArray[0];
-			printDataRecord(listDataRec2);
+		Iterator<Object[]> recordIter2 = container.iterRecordsForTestNG();
+		System.out.println("With custom Java iterator for Test NG.");
+		while(recordIter2.hasNext()) {
+			Object[] recordArray = recordIter2.next();
+			ListDataRecord record = (ListDataRecord) recordArray[0];
+			printDataRecord(record);
 		}
 	}
 }

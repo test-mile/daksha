@@ -21,10 +21,8 @@ package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
-import com.testmile.daksha.core.testsession.DefaultTestSession;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.daksha.tpi.test.TestSession;
 
 public class Ex1LoginLogout {
 

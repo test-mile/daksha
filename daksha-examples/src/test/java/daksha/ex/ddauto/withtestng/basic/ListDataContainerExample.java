@@ -26,7 +26,6 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.tpi.ddauto.DataRecordContainer;
 import com.testmile.daksha.tpi.ddauto.ListDataRecord;
 import com.testmile.daksha.tpi.ddauto.ListDataRecordContainer;
 
@@ -34,7 +33,7 @@ public class ListDataContainerExample{
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		DataRecordContainer container = new ListDataRecordContainer();
+		ListDataRecordContainer container = new ListDataRecordContainer();
 
 		// Adding single record
 		Object[] record = {1,2,3};	
@@ -46,7 +45,7 @@ public class ListDataContainerExample{
 				{7,8,12},
 		};
 		container.addAll(records);
-		return container.iterListRecords();
+		return container.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")

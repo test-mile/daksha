@@ -17,15 +17,8 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.tpi.ddauto;
+package com.testmile.daksha.core.databroker;
 
-public interface DataRecordContainer extends DataSource {
-
-	void setHeaders(String[] names) throws Exception;
-
-	void add(Object[] record) throws Exception;
-
-	void addAll(Object[][] records) throws Exception;
-	
-	boolean hasNext();
+public enum DataBrokerActionType {
+	CREATE_DATA_SOURCE
 }
