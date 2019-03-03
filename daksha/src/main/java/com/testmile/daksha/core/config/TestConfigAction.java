@@ -17,14 +17,16 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.daksha.core.config;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import com.testmile.daksha.core.setu.AbstractAction;
+import com.testmile.daksha.tpi.test.TestConfig;
+
+public class TestConfigAction extends AbstractAction {
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+	public TestConfigAction(TestConfig testConfig, TestConfigActionType action) throws Exception {
+		super(testConfig);		
+		this.getActionRequest().setAction(action.toString());
+	}
+
 }

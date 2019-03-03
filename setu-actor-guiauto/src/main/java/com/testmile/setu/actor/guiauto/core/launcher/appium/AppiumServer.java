@@ -17,14 +17,31 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.launcher.appium;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class AppiumServer {
+	private int port;
+	private URL hubUrl = null;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public AppiumServer(int port) throws MalformedURLException {
+		this.port = port;
+		hubUrl = new URL(String.format("http://127.0.0.1:%d/wd/hub", this.port));
+	}
+
+	public AppiumServer(String url) throws Exception {
+		this.hubUrl = new URL(url);
+		port = this.hubUrl.getPort();
+	}
+
+	public int getPort() {
+		return this.port;
+	}
 	
-	CREATE_DATA_SOURCE,
+	public URL getURL() {
+		return this.hubUrl;
+	}
+
 }

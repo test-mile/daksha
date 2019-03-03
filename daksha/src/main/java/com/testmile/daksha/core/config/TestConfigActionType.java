@@ -17,14 +17,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.daksha.core.config;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+public enum TestConfigActionType {
+	GET_SETU_OPTION_VALUE,
+	GET_USER_OPTION_VALUE,
 }

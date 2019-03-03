@@ -17,14 +17,11 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.element;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+public interface GuiMultiElement {
+
+	int getInstanceCount() throws Exception;
+
+	GuiElement getInstanceAtIndex(int index) throws Exception;
 }

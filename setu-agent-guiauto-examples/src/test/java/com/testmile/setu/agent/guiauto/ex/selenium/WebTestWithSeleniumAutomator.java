@@ -21,11 +21,11 @@ package com.testmile.setu.agent.guiauto.ex.selenium;
 
 import static org.testng.Assert.assertTrue;
 
-import com.testmile.setu.agent.guiauto.tpi.automator.GuiAutomator;
-import com.testmile.setu.agent.guiauto.tpi.builder.GuiAutomatorFactory;
-import com.testmile.setu.agent.guiauto.tpi.element.GuiElement;
-import com.testmile.setu.agent.guiauto.tpi.element.GuiMultiElement;
-import com.testmile.setu.agent.guiauto.tpi.handler.element.DropdownHandler;
+import com.testmile.setu.actor.guiauto.tpi.automator.GuiAutomator;
+import com.testmile.setu.actor.guiauto.tpi.builder.GuiAutomatorFactory;
+import com.testmile.setu.actor.guiauto.tpi.element.GuiElement;
+import com.testmile.setu.actor.guiauto.tpi.element.GuiMultiElement;
+import com.testmile.setu.actor.guiauto.tpi.handler.element.DropdownHandler;
 import com.testmile.trishanku.tpi.webserver.JsonUtils;
 
 

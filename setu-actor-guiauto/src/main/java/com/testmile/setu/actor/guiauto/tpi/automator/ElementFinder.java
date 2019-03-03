@@ -17,14 +17,15 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import com.testmile.setu.actor.guiauto.tpi.element.GuiElement;
+import com.testmile.setu.actor.guiauto.tpi.element.GuiMultiElement;
+
+public interface ElementFinder {
+
+	GuiElement find(String by, String value) throws Exception;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+	GuiMultiElement findAll(String by, String value) throws Exception;
+
 }

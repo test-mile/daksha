@@ -17,14 +17,16 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.handler.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import java.util.Set;
+
+public interface HybridViewHandler {
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	void switchToViewContext(String view) throws Exception ;
+
+	String getCurrentViewContext() throws Exception;
 	
-	CREATE_DATA_SOURCE,
+	Set<String> getAllViewContexts() throws Exception;
+
 }

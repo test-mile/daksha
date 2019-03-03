@@ -17,14 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.handler.element;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+public interface ElementInquirer {
+
+	String getTextContent() throws Exception;
+
+	String getAttribute(String attr) throws Exception;
+
+	String getTagName() throws Exception;
+
 }

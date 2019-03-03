@@ -2,6 +2,11 @@ package com.testmile.daksha.core.config;
 
 import com.testmile.daksha.DakshaSingleton;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
+import com.testmile.daksha.core.setu.Response;
+import com.testmile.daksha.core.setu.SetuSvcRequester;
+import com.testmile.daksha.core.testsession.TestSessionAction;
+import com.testmile.daksha.core.testsession.TestSessionActionType;
+import com.testmile.daksha.core.value.AnyRefValue;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
 import com.testmile.trishanku.tpi.enums.Browser;
@@ -12,31 +17,42 @@ import com.testmile.trishanku.tpi.value.Value;
 public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
 	private String name;
 	private TestSession session;
+	private String baseConfActionUri = "/conf/action";
+	private SetuSvcRequester setuRequester;
 
 	public DefaultTestConfig(TestSession testSession, String name, String setuId) {
 		this.setSetuId(setuId);
 		this.setTestSessionSetuId(testSession.getSetuId());
+		this.setuRequester = testSession.getSetuRequester();
 		this.session = testSession;
 		this.name = name;
 	}
 	
+	private Value fetchConfOptionValue(TestConfigActionType actionType, String option) throws Exception {
+		TestConfigAction action = new TestConfigAction(this, actionType);
+		action.addArg("configSetuId", this.getSetuId());
+		action.addArg("option", option);
+		Response response = this.setuRequester.post(baseConfActionUri, action);
+		return new AnyRefValue(response.getData().get("value"));		
+	}
+	
 	public Value getSetuOptionValue(String option) throws Exception{
-		return this.session.getSetuOptionValue(
-				this.getSetuId(),
+		return this.fetchConfOptionValue(
+				TestConfigActionType.GET_SETU_OPTION_VALUE,
 				DakshaSingleton.INSTANCE.normalizeSetuOption(option).toString()
 		);
 	}	
 	
 	public Value getSetuOptionValue(SetuOption option) throws Exception{
-		return this.session.getSetuOptionValue(
-				this.getSetuId(),
+		return this.fetchConfOptionValue(
+				TestConfigActionType.GET_SETU_OPTION_VALUE,
 				option.toString()
 		);
 	}
 	
 	public Value getUserOptionValue(String option) throws Exception{
-		return this.session.getUserOptionValue(
-				this.getSetuId(),
+		return this.fetchConfOptionValue(
+				TestConfigActionType.GET_USER_OPTION_VALUE,
 				DakshaSingleton.INSTANCE.normalizeUserOption(option)
 		);
 	}

@@ -26,25 +26,6 @@ import java.util.NoSuchElementException;
 
 public abstract class BaseDataSource<T> implements DataSource<T> {
 	private List<T> records = new ArrayList<T>();
-	private String name = null;
-	private boolean ended = false;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void terminate(){
-		this.ended = true;
-	}
-	
-	@Override
-	public boolean isTerminated(){
-		return this.ended;
-	}
 	
 	protected void addSingleRecord(T record) {
 		this.records.add(record);
@@ -71,26 +52,28 @@ public abstract class BaseDataSource<T> implements DataSource<T> {
 	public Iterator<T> iterRecords() throws Exception {
 		return this.records.iterator();
 	}	
-}
-
-class DataRecordIteratorForTestNG<T> implements Iterator<Object[]>{
-	private List<T> records;
-
-	public DataRecordIteratorForTestNG(List<T> records) {
-		this.records = records;
-	}
-
-	@Override
-	public boolean hasNext() {
-		return records.size() > 0;
-	}
 	
-	@Override
-	public Object[] next() {
-		if (!hasNext()) {
-			throw new NoSuchElementException();
-		} else {
-			return new Object[] {records.remove(0)};
+	private class DataRecordIteratorForTestNG<T> implements Iterator<Object[]>{
+		private List<T> records;
+
+		public DataRecordIteratorForTestNG(List<T> records) {
+			this.records = records;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return records.size() > 0;
+		}
+		
+		@Override
+		public Object[] next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			} else {
+				return new Object[] {records.remove(0)};
+			}
 		}
 	}
+
 }
+

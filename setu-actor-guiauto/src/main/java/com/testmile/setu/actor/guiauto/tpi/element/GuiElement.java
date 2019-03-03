@@ -17,14 +17,23 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.element;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+import com.testmile.setu.actor.guiauto.tpi.automator.ElementFinder;
+import com.testmile.setu.actor.guiauto.tpi.handler.element.BasicActionsHandler;
+import com.testmile.setu.actor.guiauto.tpi.handler.element.ElementInquirer;
+import com.testmile.setu.actor.guiauto.tpi.handler.element.ElementStateHandler;
+
+public interface GuiElement {
+
+	BasicActionsHandler getBasicActionsHandler() throws Exception;
+
+	ElementInquirer getInquirer() throws Exception;
+
+	ElementStateHandler getStateHandler() throws Exception;
+
+	ElementFinder getElementFinder() throws Exception;
+
+	void switchToFrame() throws Exception;
+
 }

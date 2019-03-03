@@ -17,14 +17,20 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.handler.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+import com.testmile.setu.actor.guiauto.tpi.element.GuiElement;
+
+public interface FrameHandler {
+
+	void switchToFrameByIndex(int index) throws Exception;
+
+	void switchToFrameByName(String name) throws Exception;
+
+	void jumpToHtmlRoot() throws Exception;
+
+	void jumpToParentFrame() throws Exception;
+
+	void jumpToFrame(GuiElement element) throws Exception;
+
 }

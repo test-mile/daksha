@@ -17,14 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+public class HandlerUtils {
+
+	public static void throwUnsupportedComponentExceptionForNullObject(Object obj, String name, String componentName) throws Exception {
+		if (obj == null) {
+			throw new Exception(String.format("%s does not contain %s component.", name, componentName));
+		}
+	}
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
 }

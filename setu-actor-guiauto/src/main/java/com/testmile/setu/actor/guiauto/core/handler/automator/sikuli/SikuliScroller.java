@@ -17,14 +17,32 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator.sikuli;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import org.sikuli.script.Screen;
+
+import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractAutomatorHandler;
+import com.testmile.setu.actor.guiauto.tpi.handler.automator.Scroller;
+
+public class SikuliScroller extends AbstractAutomatorHandler implements Scroller{
+	private int defaultMouseCount = 5;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public SikuliScroller(SetuAgentConfig config) throws Exception {
+		super(config);
+	}
 	
-	CREATE_DATA_SOURCE,
+	@Override
+	public void scrollDown(int times)  throws Exception{
+		Screen screen = new Screen();
+		screen.mouseDown(defaultMouseCount* times);
+	}
+	
+
+	@Override
+	public void scrollUp(int times)  throws Exception{
+		Screen screen = new Screen();
+		screen.mouseUp(defaultMouseCount* times);
+	}
+
 }

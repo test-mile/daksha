@@ -17,14 +17,19 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import com.testmile.setu.actor.SetuAgentConfig;
+
+public abstract class AbstractAutomatorHandler {
+	private SetuAgentConfig config;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public AbstractAutomatorHandler(SetuAgentConfig config) throws Exception {
+		this.config = config;
+	}
 	
-	CREATE_DATA_SOURCE,
+	protected SetuAgentConfig getConfig() {
+		return this.config;
+	}
+
 }

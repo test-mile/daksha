@@ -17,14 +17,26 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator.selenium;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
+import com.testmile.setu.actor.guiauto.tpi.handler.automator.Screenshoter;
+
+public class SeleniumScreenshoter extends AbstractWDHandler implements Screenshoter{
+	private TakesScreenshot screenshotDriver;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+	public SeleniumScreenshoter(WebDriver driver, SetuAgentConfig config) throws Exception {
+		super(driver, config);
+		this.screenshotDriver = (TakesScreenshot) driver;
+	}
+
+	@Override
+	public String takeScreenshot() throws Exception {
+        return screenshotDriver.getScreenshotAs(OutputType.BASE64);
+	}
 }

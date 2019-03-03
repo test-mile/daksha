@@ -17,14 +17,24 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.builder;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
+import com.testmile.trishanku.tpi.enums.SetuOption;
+
+public class GuiAutomatorBuilder {
+	private SetuAgentConfig config;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public GuiAutomatorBuilder(SetuAgentConfig config) {
+		this.config = config;
+	}
 	
-	CREATE_DATA_SOURCE,
+	protected SetuAgentConfig getConfig() {
+		return this.config;
+	}
+	
+	protected GuiAutomationContext getAutomationContext() throws Exception {
+		return config.value(SetuOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
+	}
 }

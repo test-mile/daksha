@@ -17,14 +17,21 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+import org.openqa.selenium.WebDriver;
+
+import com.testmile.setu.actor.SetuAgentConfig;
+
+public class AbstractWDHandler extends AbstractAutomatorHandler {
+	private WebDriver driver;
+
+	public AbstractWDHandler(WebDriver driver, SetuAgentConfig config) throws Exception {
+		super(config);
+		this.driver = driver;
+	}
+
+	protected WebDriver getWebDriver() {
+		return driver;
+	}
 }

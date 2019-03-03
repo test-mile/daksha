@@ -23,6 +23,7 @@ import java.util.Map;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.config.DefaultTestConfig;
+import com.testmile.daksha.core.databroker.DataRecordType;
 import com.testmile.daksha.core.setu.DefaultSetuObject;
 import com.testmile.daksha.core.setu.Response;
 import com.testmile.daksha.core.setu.SetuSvcRequester;
@@ -34,7 +35,6 @@ import com.testmile.trishanku.tpi.value.Value;
 public class DefaultTestSession extends DefaultSetuObject implements TestSession {
 	private SetuSvcRequester setuRequester;
 	private String baseActionUri = "/action";
-	private String baseConfActionUri = "/conf/action";
 
 	public DefaultTestSession() {
 		setSetuRequester(new SetuTestSessionRequester());
@@ -53,7 +53,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		this.setSetuId((String) response.getData().get("testSessionSetuId"));
 		
 		TestSessionAction actionProjectConf = new TestSessionAction(this, TestSessionActionType.LOAD_PROJECT_CONF);
-		Response confResponse = this.setuRequester.post(baseConfActionUri, actionProjectConf);		
+		Response confResponse = this.setuRequester.post(baseActionUri, actionProjectConf);		
 		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, (String) confResponse.getData().get("configSetuId"));
 		config.setTestSessionSetuId(this.getSetuId());
 		return config;
@@ -75,7 +75,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		action.addArg("parentConfigId", parentConfigId);
 		action.addArg("setuOptions", setuOptions);
 		action.addArg("userOptions", userOptions);
-		Response response = this.setuRequester.post(baseConfActionUri, action);
+		Response response = this.setuRequester.post(baseActionUri, action);
 		return (String) response.getData().get("configSetuId");
 	}
 	
@@ -88,22 +88,19 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	public String registerConfig(String parentConfigId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
 		return registerConfig(true, parentConfigId, setuOptions, userOptions);
 	}
-
-	private Value fetchConfOptionValue(TestSessionActionType actionType, String configSetuId, String option) throws Exception {
-		TestSessionAction action = new TestSessionAction(this, actionType);
-		action.addArg("configSetuId", configSetuId);
-		action.addArg("option", option);
-		Response response = this.setuRequester.post(baseConfActionUri, action);
-		return new AnyRefValue(response.getData().get("value"));		
-	}
 	
 	@Override
-	public Value getSetuOptionValue(String configSetuId, String option) throws Exception {
-		return this.fetchConfOptionValue(TestSessionActionType.GET_SETU_OPTION_VALUE, configSetuId, option);
+	public String createFileDataSource(DataRecordType recordType, String fileName, Map<String, Object> argPairs) throws Exception {
+		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.CREATE_DATA_SOURCE);
+		action.addArg("sourceType", "FILE");
+		action.addArg("fileName", fileName);
+		action.addArg("recordType", recordType);
+		for(String arg: argPairs.keySet()) {
+			action.addArg(arg, argPairs.get(arg));	
+		}
+		Response response = this.setuRequester.post(baseActionUri, action);
+		return (String) response.getData().get("dataSourceSetuId");
 	}
 
-	@Override
-	public Value getUserOptionValue(String configSetuId, String option) throws Exception {
-		return this.fetchConfOptionValue(TestSessionActionType.GET_USER_OPTION_VALUE, configSetuId, option);
-	}
+
 }

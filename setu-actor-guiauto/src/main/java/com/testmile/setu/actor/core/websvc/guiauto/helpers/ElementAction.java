@@ -17,14 +17,32 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.core.websvc.guiauto.helpers;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+class ElementAction extends GuiAutoAction{
+	private ElementActionType action;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public ElementAction(String jsonActionStr) {
+		super(jsonActionStr);
+		this.action = ElementActionType.valueOf(this.getActionTypeStr());
+	}
+
+	public ElementActionType getActionType() {
+		return action;
+	}
 	
-	CREATE_DATA_SOURCE,
+	public boolean isInstanceAction() throws Exception {
+		if (this.getArgs().containsKey("isInstanceAction")){
+			return this.getArgs().get("isInstanceAction").asBoolean();
+		} else {
+			return false;
+		}
+	}
+
+	public int getInstanceIndex() throws Exception {
+		if (!isInstanceAction()) {
+			throw new Exception("This is not an instnce action.");
+		}
+		return this.getArgs().get("instanceIndex").asInt();
+	}
 }

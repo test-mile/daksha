@@ -17,14 +17,29 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.element;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import java.util.List;
+
+import com.testmile.setu.actor.guiauto.tpi.element.GuiElement;
+import com.testmile.setu.actor.guiauto.tpi.element.GuiMultiElement;
+
+public class DefaultGuiMultiElement implements GuiMultiElement {
+	private List<GuiElement> elements;
+
+	public DefaultGuiMultiElement(List<GuiElement> elements) {
+		super();
+		this.elements = elements;
+	}
+
+	@Override
+	public int getInstanceCount() throws Exception {
+		return this.elements.size();
+	}
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+	@Override
+	public GuiElement getInstanceAtIndex(int index) throws Exception {
+		return this.elements.get(index);
+	}
+
 }

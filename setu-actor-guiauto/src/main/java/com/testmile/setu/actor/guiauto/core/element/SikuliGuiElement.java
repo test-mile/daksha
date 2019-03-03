@@ -17,14 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.element;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.guiauto.core.handler.element.sikuli.SikuliBasicActionsHandler;
+
+public class SikuliGuiElement extends AbstractGuiElement{
+	public SikuliGuiElement(String idImagePath, SetuAgentConfig config) throws Exception {
+		setBasicActionsHandler(new SikuliBasicActionsHandler(idImagePath, config));
+	}
+
 }

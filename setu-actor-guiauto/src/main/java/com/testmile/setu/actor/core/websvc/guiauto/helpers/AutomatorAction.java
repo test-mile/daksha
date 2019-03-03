@@ -17,14 +17,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.core.websvc.guiauto.helpers;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+class AutomatorAction extends GuiAutoAction{
+	private AutomatorActionType action;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+	public AutomatorAction(String jsonActionStr) {
+		super(jsonActionStr);
+		this.action = AutomatorActionType.valueOf(this.getActionTypeStr());
+	}
+
+	public AutomatorActionType getActionType() {
+		return action;
+	}
+
 }

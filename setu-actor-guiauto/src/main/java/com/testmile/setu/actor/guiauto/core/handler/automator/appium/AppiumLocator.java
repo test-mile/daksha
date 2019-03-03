@@ -17,14 +17,27 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator.appium;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+import org.openqa.selenium.By;
+
+import com.testmile.setu.actor.guiauto.core.handler.automator.selenium.SeleniumLocator;
+
+import io.appium.java_client.MobileBy;
+
+public class AppiumLocator extends SeleniumLocator{
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public AppiumLocator(String by, String value) {
+		super(by, value);
+	}
 	
-	CREATE_DATA_SOURCE,
+	public By getByObject() throws Exception {
+		switch(this.getBy().toUpperCase()) {
+		case "ACCESSIBILITY_ID": return MobileBy.AccessibilityId(this.getValue());
+		default:
+			return super.getByObject();	
+		}
+		
+	}
+
 }

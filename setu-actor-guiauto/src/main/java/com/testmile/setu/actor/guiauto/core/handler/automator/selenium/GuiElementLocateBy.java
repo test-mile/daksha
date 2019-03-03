@@ -17,14 +17,25 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.core.handler.automator.selenium;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+public abstract class GuiElementLocateBy<B> {
+	private String by;
+	private String value;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public GuiElementLocateBy(String by, String value) {
+		this.by = by;
+		this.value = value;
+	}
 	
-	CREATE_DATA_SOURCE,
+	public abstract B getByObject() throws Exception;
+	
+	protected String getBy() {
+		return this.by;
+	}
+	
+	public String getValue() {
+		return value;
+	}
+
 }

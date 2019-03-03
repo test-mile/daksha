@@ -16,15 +16,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.setu.actor.guiauto.core.automator;
 
-package com.testmile.daksha.core.testsession;
+import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.guiauto.core.handler.automator.sikuli.SikuliScroller;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+public class SikuliGuiAutomator extends BaseGuiAutomator{
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	public SikuliGuiAutomator(SetuAgentConfig config) throws Exception{
+		super(config);
+	}
+
+	public void load() throws Exception{		
+		initComponents();
+	}
 	
-	CREATE_DATA_SOURCE,
+	private void initComponents() throws Exception{
+		this.setScroller(new SikuliScroller(this.getConfig()));
+	}
+
+	@Override
+	public void quit() throws Exception {
+	}
 }

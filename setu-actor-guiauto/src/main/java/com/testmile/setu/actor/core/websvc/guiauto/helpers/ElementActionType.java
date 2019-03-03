@@ -17,14 +17,19 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.core.websvc.guiauto.helpers;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+public enum ElementActionType {
+	// Single element actions
+	FIND_MULTIELEMENT, 
+	FIND_ELEMENT,
+	CLICK,
+	CLEAR_TEXT,
+	SEND_TEXT,
+	IS_SELECTED,
+	IS_VISIBLE,
+	IS_CLICKABLE,
+	GET_TAG_NAME,
+	GET_ATTR_VALUE,
+	GET_TEXT_CONTENT
 }

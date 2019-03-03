@@ -17,14 +17,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor.guiauto.tpi.handler.automator;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
+public interface AlertHandler {
+
+	void confirmAlert() throws Exception;
 	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
+	void dismissAlert() throws Exception;
 	
-	CREATE_DATA_SOURCE,
+	void sendTextToAlert(String text) throws Exception;
+	
+	String getTextFromAlert() throws Exception;
+
+	boolean isAlertPresent() throws Exception;
+
 }

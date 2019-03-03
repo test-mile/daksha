@@ -17,14 +17,21 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.core.testsession;
+package com.testmile.setu.actor;
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_DATA_SOURCE,
+import com.testmile.setu.actor.core.websvc.guiauto.SetuWebService;
+
+public class SetuAgent 
+{
+	public static void main(String[] args) throws Exception{
+		String contextPath = "/setu/connect";
+		SetuWebService ws = null;
+		if (args.length == 0){
+			ws = new SetuWebService(9898, contextPath);
+		} else {
+			ws = new SetuWebService(Integer.parseInt(args[0].trim()), contextPath);
+		}
+		
+		ws.launch();
+	}
 }
