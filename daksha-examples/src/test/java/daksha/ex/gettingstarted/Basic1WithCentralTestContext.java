@@ -20,9 +20,9 @@
 package daksha.ex.gettingstarted;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.core.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 
 public class Basic1WithCentralTestContext{
 	

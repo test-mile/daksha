@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.testmile.daksha.core.databroker.BaseDataSource;
+import com.testmile.setu.requester.databroker.BaseDataSource;
 
 public class MapDataRecordContainer extends BaseDataSource<MapDataRecord> implements MapDataSource {
 	private String[] headers = null;

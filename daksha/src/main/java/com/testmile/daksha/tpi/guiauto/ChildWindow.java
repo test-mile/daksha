@@ -19,7 +19,7 @@
 
 package com.testmile.daksha.tpi.guiauto;
 
-import com.testmile.daksha.core.guiauto.window.BasicWindow;
+import com.testmile.setu.requester.guiauto.window.BasicWindow;
 
 public interface ChildWindow extends BasicWindow{
 	void close() throws Exception;

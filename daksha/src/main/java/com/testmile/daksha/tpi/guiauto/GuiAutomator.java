@@ -19,7 +19,7 @@
 
 package com.testmile.daksha.tpi.guiauto;
 
-import com.testmile.daksha.core.guiauto.automator.AppAutomator;
+import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface GuiAutomator extends AppAutomator{
 

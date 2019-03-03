@@ -26,12 +26,12 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
-import com.testmile.daksha.core.problem.ErrorType;
-import com.testmile.daksha.core.problem.Problem;
 import com.testmile.setu.actor.SetuAgentConfig;
 import com.testmile.setu.actor.guiauto.SetuAgentGuiAutoSingleton;
 import com.testmile.setu.actor.guiauto.core.automator.AppiumGuiAutomator;
 import com.testmile.setu.actor.guiauto.core.launcher.appium.AppiumServer;
+import com.testmile.trishanku.core.problem.ErrorType;
+import com.testmile.trishanku.core.problem.Problem;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;

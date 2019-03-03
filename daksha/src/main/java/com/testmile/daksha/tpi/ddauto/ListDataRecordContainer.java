@@ -19,7 +19,7 @@
 
 package com.testmile.daksha.tpi.ddauto;
 
-import com.testmile.daksha.core.databroker.BaseDataSource;
+import com.testmile.setu.requester.databroker.BaseDataSource;
 
 public class ListDataRecordContainer extends BaseDataSource<ListDataRecord> implements ListDataSource{
 	

@@ -22,14 +22,14 @@ package com.testmile.daksha.tpi.guiauto;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.testmile.daksha.core.guiauto.automator.AbstractAppAutomator;
-import com.testmile.daksha.core.guiauto.gui.GuiAction;
-import com.testmile.daksha.core.guiauto.gui.GuiActionType;
-import com.testmile.daksha.core.guiauto.gui.GuiMgrAction;
-import com.testmile.daksha.core.guiauto.gui.GuiMgrActionType;
-import com.testmile.daksha.core.problem.ErrorType;
-import com.testmile.daksha.core.problem.Problem;
-import com.testmile.daksha.core.setu.Response;
+import com.testmile.setu.requester.Response;
+import com.testmile.setu.requester.guiauto.automator.AbstractAppAutomator;
+import com.testmile.setu.requester.guiauto.gui.GuiAction;
+import com.testmile.setu.requester.guiauto.gui.GuiActionType;
+import com.testmile.setu.requester.guiauto.gui.GuiMgrAction;
+import com.testmile.setu.requester.guiauto.gui.GuiMgrActionType;
+import com.testmile.trishanku.core.problem.ErrorType;
+import com.testmile.trishanku.core.problem.Problem;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class DefaultGui extends AbstractAppAutomator implements Gui{

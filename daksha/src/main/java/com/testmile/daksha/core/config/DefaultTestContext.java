@@ -6,6 +6,7 @@ import com.testmile.daksha.DakshaSingleton;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.setu.requester.config.DefaultTestConfig;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;

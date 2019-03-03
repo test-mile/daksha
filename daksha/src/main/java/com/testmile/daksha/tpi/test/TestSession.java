@@ -2,9 +2,9 @@ package com.testmile.daksha.tpi.test;
 
 import java.util.Map;
 
-import com.testmile.daksha.core.databroker.DataRecordType;
-import com.testmile.daksha.core.setu.SetuManagedObject;
-import com.testmile.daksha.core.setu.SetuSvcRequester;
+import com.testmile.setu.requester.SetuManagedObject;
+import com.testmile.setu.requester.SetuSvcRequester;
+import com.testmile.setu.requester.databroker.DataRecordType;
 import com.testmile.trishanku.tpi.value.Value;
 
 public interface TestSession extends SetuManagedObject {

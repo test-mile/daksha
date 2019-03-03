@@ -11,12 +11,12 @@ import com.testmile.daksha.core.config.CLIConfiguration;
 import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.core.testng.TestNGSuiteContext;
 import com.testmile.daksha.core.testng.TestNGTestContext;
-import com.testmile.daksha.core.testsession.DefaultTestSession;
-import com.testmile.daksha.tpi.batteries.console.Console;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.setu.requester.testsession.DefaultTestSession;
 import com.testmile.trishanku.Trishanku;
+import com.testmile.trishanku.tpi.batteries.console.Console;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public enum DakshaSingleton {

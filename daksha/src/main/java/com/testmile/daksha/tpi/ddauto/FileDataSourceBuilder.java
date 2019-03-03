@@ -3,10 +3,10 @@ package com.testmile.daksha.tpi.ddauto;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.testmile.daksha.core.databroker.DataRecordType;
-import com.testmile.daksha.core.databroker.SetuListDataSource;
-import com.testmile.daksha.core.databroker.SetuMapDataSource;
 import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.setu.requester.databroker.DataRecordType;
+import com.testmile.setu.requester.databroker.SetuListDataSource;
+import com.testmile.setu.requester.databroker.SetuMapDataSource;
 
 public class FileDataSourceBuilder {
 	private TestSession testSession;

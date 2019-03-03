@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.testmile.daksha.core.value.AnyRefValue;
+import com.testmile.trishanku.core.value.AnyRefValue;
 
 public abstract class AbstractValueMap<T> implements RWValueMap<T>{
 	

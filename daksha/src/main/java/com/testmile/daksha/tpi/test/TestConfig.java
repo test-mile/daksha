@@ -1,6 +1,6 @@
 package com.testmile.daksha.tpi.test;
 
-import com.testmile.daksha.core.setu.SetuManagedObject;
+import com.testmile.setu.requester.SetuManagedObject;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;

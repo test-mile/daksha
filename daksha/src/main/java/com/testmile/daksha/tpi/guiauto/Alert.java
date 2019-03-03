@@ -19,8 +19,8 @@
 
 package com.testmile.daksha.tpi.guiauto;
 
-import com.testmile.daksha.core.guiauto.automator.AppAutomator;
-import com.testmile.daksha.core.setu.SetuManagedObject;
+import com.testmile.setu.requester.SetuManagedObject;
+import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface Alert extends SetuManagedObject{
 	
