@@ -22,13 +22,13 @@ package com.testmile.setu.actor.guiauto.core.handler.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.element.AbstractWDElementHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.element.ElementInquirer;
 
 public class SeleniumElementInquirer extends AbstractWDElementHandler implements ElementInquirer {
 
-	public SeleniumElementInquirer(WebDriver driver, WebElement element, SetuAgentConfig config) throws Exception {
+	public SeleniumElementInquirer(WebDriver driver, WebElement element, SetuActorConfig config) throws Exception {
 		super(driver, element, config);
 	}
 

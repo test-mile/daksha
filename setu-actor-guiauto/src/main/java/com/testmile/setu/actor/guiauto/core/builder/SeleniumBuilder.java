@@ -32,7 +32,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.automator.SeleniumGuiAutomator;
 import com.testmile.trishanku.core.value.AnyRefValue;
 import com.testmile.trishanku.tpi.enums.Browser;
@@ -43,7 +43,7 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private Browser browser;
 	private WebDriver driver = null;
 	
-	public SeleniumBuilder(SetuAgentConfig config) throws Exception{
+	public SeleniumBuilder(SetuActorConfig config) throws Exception{
 		super(config);
 		createCapabilities();
 		load();

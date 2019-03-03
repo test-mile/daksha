@@ -19,18 +19,18 @@
 
 package com.testmile.setu.actor.guiauto.core.builder;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class GuiAutomatorBuilder {
-	private SetuAgentConfig config;
+	private SetuActorConfig config;
 	
-	public GuiAutomatorBuilder(SetuAgentConfig config) {
+	public GuiAutomatorBuilder(SetuActorConfig config) {
 		this.config = config;
 	}
 	
-	protected SetuAgentConfig getConfig() {
+	protected SetuActorConfig getConfig() {
 		return this.config;
 	}
 	

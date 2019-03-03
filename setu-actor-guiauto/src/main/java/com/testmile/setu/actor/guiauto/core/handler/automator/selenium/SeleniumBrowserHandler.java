@@ -22,13 +22,13 @@ package com.testmile.setu.actor.guiauto.core.handler.automator.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.BrowserHandler;
 
 public class SeleniumBrowserHandler extends SeleniumJSExecutor implements BrowserHandler {
 	private WebDriverWait wait;
 
-	public SeleniumBrowserHandler(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumBrowserHandler(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		wait = new WebDriverWait(driver, this.getConfig().getMaxWaitTime());
 	}

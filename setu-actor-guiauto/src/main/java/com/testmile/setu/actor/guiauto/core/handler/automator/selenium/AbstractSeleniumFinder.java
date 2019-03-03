@@ -26,7 +26,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.element.DefaultGuiMultiElement;
 import com.testmile.setu.actor.guiauto.core.element.SeleniumGuiElement;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
@@ -36,7 +36,7 @@ import com.testmile.setu.actor.guiauto.tpi.element.GuiMultiElement;
 
 public abstract class AbstractSeleniumFinder<E extends WebElement> extends AbstractWDHandler implements ElementFinder {
 
-	public AbstractSeleniumFinder(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public AbstractSeleniumFinder(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 	}
 

@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.openqa.selenium.Dimension;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.actor.guiauto.core.handler.automator.selenium.SeleniumJSExecutor;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.Swiper;
@@ -46,7 +46,7 @@ public class AppiumSwiper extends SeleniumJSExecutor implements Swiper{
 	private int swipeMaxWait;
 	private AppiumDriver<MobileElement> appiumDriver;
 	
-	public AppiumSwiper(AppiumDriver<MobileElement> driver, SetuAgentConfig config) throws Exception {
+	public AppiumSwiper(AppiumDriver<MobileElement> driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		appiumDriver = driver;
 		swipeTop = getConfig().value(SetuOption.GUIAUTO_SWIPE_TOP).asFloat();

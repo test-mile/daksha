@@ -22,13 +22,13 @@ package com.testmile.setu.actor.guiauto.core.builder;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractAutomatorHandler;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ProxyHandler extends AbstractAutomatorHandler {
 	
-	public ProxyHandler(SetuAgentConfig config) throws Exception {
+	public ProxyHandler(SetuActorConfig config) throws Exception {
 		super(config);
 	}
 	

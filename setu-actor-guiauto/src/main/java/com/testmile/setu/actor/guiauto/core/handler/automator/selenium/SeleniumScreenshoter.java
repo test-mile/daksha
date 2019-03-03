@@ -23,14 +23,14 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.Screenshoter;
 
 public class SeleniumScreenshoter extends AbstractWDHandler implements Screenshoter{
 	private TakesScreenshot screenshotDriver;
 	
-	public SeleniumScreenshoter(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumScreenshoter(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		this.screenshotDriver = (TakesScreenshot) driver;
 	}

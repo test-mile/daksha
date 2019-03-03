@@ -22,7 +22,7 @@ package com.testmile.setu.actor.guiauto.core.handler.element.sikuli;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractAutomatorHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.element.BasicActionsHandler;
 
@@ -30,7 +30,7 @@ public class SikuliBasicActionsHandler extends AbstractAutomatorHandler implemen
 	private String idImagePath;
 	private Pattern pattern;
 	
-	public SikuliBasicActionsHandler(String idImagePath, SetuAgentConfig config) throws Exception {
+	public SikuliBasicActionsHandler(String idImagePath, SetuActorConfig config) throws Exception {
 		super(config);
 		this.idImagePath = idImagePath;
 		this.pattern = new Pattern(this.idImagePath);

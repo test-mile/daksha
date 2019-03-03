@@ -22,14 +22,14 @@ package com.testmile.setu.actor.guiauto.core.handler.automator.selenium;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.JSExecutor;
 
 public class SeleniumJSExecutor  extends AbstractWDHandler implements JSExecutor{
 	private JavascriptExecutor jse;
 	
-	public SeleniumJSExecutor(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumJSExecutor(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		jse = (JavascriptExecutor) this.getWebDriver();
 	}

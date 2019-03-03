@@ -21,7 +21,7 @@ package com.testmile.setu.actor.guiauto.core.handler.automator.selenium;
 
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.Scroller;
 import com.testmile.trishanku.tpi.enums.Direction;
 import com.testmile.trishanku.tpi.enums.SetuOption;
@@ -29,7 +29,7 @@ import com.testmile.trishanku.tpi.enums.SetuOption;
 public class SeleniumScroller extends SeleniumJSExecutor implements Scroller{
 	private int scrollPixelCount;
 	
-	public SeleniumScroller(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumScroller(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		scrollPixelCount = getConfig().value(SetuOption.GUIAUTO_SCROLL_PIXELS).asInt();
 	}

@@ -28,13 +28,13 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.WindowHandler;
 
 public class SeleniumWindowHandler extends AbstractWDHandler implements WindowHandler {
 	
-	public SeleniumWindowHandler(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumWindowHandler(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 	}
 

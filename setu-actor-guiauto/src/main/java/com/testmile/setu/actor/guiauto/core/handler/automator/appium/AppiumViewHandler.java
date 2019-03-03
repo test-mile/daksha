@@ -20,7 +20,7 @@
 package com.testmile.setu.actor.guiauto.core.handler.automator.appium;
 import java.util.Set;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.HybridViewHandler;
 
@@ -30,7 +30,7 @@ import io.appium.java_client.MobileElement;
 public class AppiumViewHandler extends AbstractWDHandler implements HybridViewHandler{
 	private AppiumDriver<MobileElement> appiumDriver;
 
-	public AppiumViewHandler(AppiumDriver<MobileElement>  driver, SetuAgentConfig config) throws Exception {
+	public AppiumViewHandler(AppiumDriver<MobileElement>  driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		appiumDriver = driver;
 	}

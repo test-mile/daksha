@@ -21,14 +21,14 @@ package com.testmile.setu.actor.guiauto.core.handler.automator.selenium;
 
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
 import com.testmile.setu.actor.guiauto.tpi.element.GuiElement;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.FrameHandler;
 
 public class SeleniumFrameHandler extends AbstractWDHandler implements FrameHandler{
 	
-	public SeleniumFrameHandler(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumFrameHandler(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 	}
 	

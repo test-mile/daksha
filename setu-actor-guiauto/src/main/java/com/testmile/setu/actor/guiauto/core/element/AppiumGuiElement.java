@@ -19,7 +19,7 @@
 
 package com.testmile.setu.actor.guiauto.core.element;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.element.appium.AppiumNestedElementFinder;
 import com.testmile.setu.actor.guiauto.core.handler.element.selenium.SeleniumBasicActionsHandler;
 import com.testmile.setu.actor.guiauto.core.handler.element.selenium.SeleniumElementInquirer;
@@ -31,9 +31,9 @@ import io.appium.java_client.MobileElement;
 public class AppiumGuiElement extends AbstractGuiElement{
 	private AppiumDriver<MobileElement> driver;
 	private MobileElement element;
-	private SetuAgentConfig config;
+	private SetuActorConfig config;
 	
-	public AppiumGuiElement(AppiumDriver<MobileElement> driver, MobileElement element, SetuAgentConfig config) throws Exception {
+	public AppiumGuiElement(AppiumDriver<MobileElement> driver, MobileElement element, SetuActorConfig config) throws Exception {
 		this.driver = driver;
 		this.element = element;
 		this.config = config;

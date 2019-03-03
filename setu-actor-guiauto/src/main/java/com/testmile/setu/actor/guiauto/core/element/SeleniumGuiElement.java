@@ -22,7 +22,7 @@ package com.testmile.setu.actor.guiauto.core.element;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.element.selenium.SeleniumBasicActionsHandler;
 import com.testmile.setu.actor.guiauto.core.handler.element.selenium.SeleniumElementInquirer;
 import com.testmile.setu.actor.guiauto.core.handler.element.selenium.SeleniumElementStateHandler;
@@ -31,9 +31,9 @@ import com.testmile.setu.actor.guiauto.core.handler.element.selenium.SeleniumNes
 public class SeleniumGuiElement extends AbstractGuiElement{
 	private WebDriver driver;
 	private WebElement element;
-	private SetuAgentConfig config;
+	private SetuActorConfig config;
 	
-	public SeleniumGuiElement(WebDriver driver, WebElement element, SetuAgentConfig config) throws Exception {
+	public SeleniumGuiElement(WebDriver driver, WebElement element, SetuActorConfig config) throws Exception {
 		this.driver = driver;
 		this.element = element;
 		this.config = config;

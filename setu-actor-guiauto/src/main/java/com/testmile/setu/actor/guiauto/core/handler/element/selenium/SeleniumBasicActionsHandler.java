@@ -22,13 +22,13 @@ package com.testmile.setu.actor.guiauto.core.handler.element.selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.element.AbstractWDElementHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.element.BasicActionsHandler;
 
 public class SeleniumBasicActionsHandler extends AbstractWDElementHandler implements BasicActionsHandler {
 
-	public SeleniumBasicActionsHandler(WebDriver driver, WebElement element, SetuAgentConfig config) throws Exception {
+	public SeleniumBasicActionsHandler(WebDriver driver, WebElement element, SetuActorConfig config) throws Exception {
 		super(driver, element, config);
 	}
 

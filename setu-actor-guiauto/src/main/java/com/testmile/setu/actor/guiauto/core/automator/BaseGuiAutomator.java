@@ -19,7 +19,7 @@
 
 package com.testmile.setu.actor.guiauto.core.automator;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.core.tpi.image.ImageComprator;
 import com.testmile.setu.actor.guiauto.core.handler.automator.HandlerUtils;
 import com.testmile.setu.actor.guiauto.tpi.automator.ElementFinder;
@@ -36,7 +36,7 @@ import com.testmile.setu.actor.guiauto.tpi.handler.automator.WindowHandler;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public abstract class BaseGuiAutomator implements GuiAutomator {
-	private SetuAgentConfig config;
+	private SetuActorConfig config;
 	private ImageComprator imageComprator = null;
 	
 	private AlertHandler alertHandler;
@@ -50,7 +50,7 @@ public abstract class BaseGuiAutomator implements GuiAutomator {
 	private WindowHandler windowHandler;
 	private ElementFinder elementFinder;
 	
-	public BaseGuiAutomator(SetuAgentConfig config) throws Exception{
+	public BaseGuiAutomator(SetuActorConfig config) throws Exception{
 		this.config = config;
 		this.imageComprator = new ImageComprator(getConfig().value(SetuOption.IMAGE_COMPARISON_MIN_SCORE).asDouble());
 	}
@@ -63,7 +63,7 @@ public abstract class BaseGuiAutomator implements GuiAutomator {
 		return this.getClass().getSimpleName();
 	}
 	
-	public SetuAgentConfig getConfig() {
+	public SetuActorConfig getConfig() {
 		return this.config;
 	}
 	

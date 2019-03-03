@@ -20,7 +20,7 @@ package com.testmile.setu.actor.guiauto.core.automator;
 
 import java.util.concurrent.TimeUnit;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.appium.AppiumElementFinder;
 import com.testmile.setu.actor.guiauto.core.handler.automator.appium.AppiumSwiper;
 import com.testmile.setu.actor.guiauto.core.handler.automator.appium.AppiumViewHandler;
@@ -38,7 +38,7 @@ import io.appium.java_client.MobileElement;
 public class AppiumGuiAutomator extends BaseGuiAutomator{
 	private AppiumDriver<MobileElement> appiumDriver;
 	
-	public AppiumGuiAutomator(AppiumDriver<MobileElement> driver, SetuAgentConfig config) throws Exception{
+	public AppiumGuiAutomator(AppiumDriver<MobileElement> driver, SetuActorConfig config) throws Exception{
 		super(config);
 		this.appiumDriver = driver;
 		initComponents();

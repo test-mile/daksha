@@ -21,7 +21,7 @@ package com.testmile.setu.actor;
 
 import com.testmile.setu.actor.core.websvc.guiauto.SetuWebService;
 
-public class SetuAgent 
+public class SetuActor 
 {
 	public static void main(String[] args) throws Exception{
 		String contextPath = "/setu/connect";

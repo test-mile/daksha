@@ -19,7 +19,7 @@
 
 package com.testmile.setu.actor.guiauto.tpi.builder;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.builder.AppiumBuilder;
 import com.testmile.setu.actor.guiauto.core.builder.SeleniumBuilder;
 import com.testmile.setu.actor.guiauto.tpi.automator.GuiAutomator;
@@ -27,7 +27,7 @@ import com.testmile.setu.actor.guiauto.tpi.automator.GuiAutomator;
 public class GuiAutomatorFactory {
 	
 	public static GuiAutomator createAutomator(String strJsonConfig) throws Exception{
-		SetuAgentConfig config = new SetuAgentConfig(strJsonConfig);
+		SetuActorConfig config = new SetuActorConfig(strJsonConfig);
 		switch(config.getAutomatorName()) {
 		case APPIUM:
 			return createAppiumAutomator(config);
@@ -39,11 +39,11 @@ public class GuiAutomatorFactory {
 		return null;
 	}
 	
-	private static GuiAutomator createSeleniumAutomator(SetuAgentConfig config) throws Exception {
+	private static GuiAutomator createSeleniumAutomator(SetuActorConfig config) throws Exception {
 		return (new SeleniumBuilder(config)).build();
 	}
 	
-	private static GuiAutomator createAppiumAutomator(SetuAgentConfig config) throws Exception {
+	private static GuiAutomator createAppiumAutomator(SetuActorConfig config) throws Exception {
 		return (new AppiumBuilder(config)).build();
 	}
 

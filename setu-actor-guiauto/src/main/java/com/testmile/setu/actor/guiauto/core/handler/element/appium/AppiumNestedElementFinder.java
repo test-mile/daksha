@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.appium.AppiumElementFinder;
 
 import io.appium.java_client.AppiumDriver;
@@ -32,7 +32,7 @@ import io.appium.java_client.MobileElement;
 public class AppiumNestedElementFinder extends AppiumElementFinder{
 	private MobileElement mobileElement;
 
-	public AppiumNestedElementFinder(AppiumDriver<MobileElement> driver, MobileElement element, SetuAgentConfig config) throws Exception {
+	public AppiumNestedElementFinder(AppiumDriver<MobileElement> driver, MobileElement element, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		this.mobileElement = element;
 	}

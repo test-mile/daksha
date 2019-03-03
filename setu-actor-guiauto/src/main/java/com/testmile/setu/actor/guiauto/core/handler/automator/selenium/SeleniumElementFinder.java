@@ -25,13 +25,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.element.SeleniumGuiElement;
 import com.testmile.setu.actor.guiauto.tpi.element.GuiElement;
 
 public class SeleniumElementFinder extends AbstractSeleniumFinder<WebElement>{
 
-	public SeleniumElementFinder(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumElementFinder(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 	}
 	

@@ -25,14 +25,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractWDHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.AlertHandler;
 
 public class SeleniumAlertHandler extends AbstractWDHandler implements AlertHandler {
 	private WebDriverWait waiter;
 	
-	public SeleniumAlertHandler(WebDriver driver, SetuAgentConfig config) throws Exception {
+	public SeleniumAlertHandler(WebDriver driver, SetuActorConfig config) throws Exception {
 		super(driver, config);
 		this.waiter = new WebDriverWait(driver, 1);
 	}

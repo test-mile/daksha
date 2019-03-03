@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.selenium.SeleniumAlertHandler;
 import com.testmile.setu.actor.guiauto.core.handler.automator.selenium.SeleniumBrowserHandler;
 import com.testmile.setu.actor.guiauto.core.handler.automator.selenium.SeleniumElementFinder;
@@ -40,7 +40,7 @@ public class SeleniumGuiAutomator extends BaseGuiAutomator {
 	protected Capabilities capabilities = null;
 	private Browser browser = null;
 	
-	public SeleniumGuiAutomator(WebDriver driver, SetuAgentConfig config) throws Exception{
+	public SeleniumGuiAutomator(WebDriver driver, SetuActorConfig config) throws Exception{
 		super(config);
 		this.driver = driver;
 		initComponents();

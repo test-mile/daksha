@@ -18,12 +18,12 @@
  ******************************************************************************/
 package com.testmile.setu.actor.guiauto.core.automator;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.sikuli.SikuliScroller;
 
 public class SikuliGuiAutomator extends BaseGuiAutomator{
 	
-	public SikuliGuiAutomator(SetuAgentConfig config) throws Exception{
+	public SikuliGuiAutomator(SetuActorConfig config) throws Exception{
 		super(config);
 	}
 

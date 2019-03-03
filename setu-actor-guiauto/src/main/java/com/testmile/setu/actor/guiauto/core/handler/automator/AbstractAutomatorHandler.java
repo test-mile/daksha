@@ -19,16 +19,16 @@
 
 package com.testmile.setu.actor.guiauto.core.handler.automator;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 
 public abstract class AbstractAutomatorHandler {
-	private SetuAgentConfig config;
+	private SetuActorConfig config;
 	
-	public AbstractAutomatorHandler(SetuAgentConfig config) throws Exception {
+	public AbstractAutomatorHandler(SetuActorConfig config) throws Exception {
 		this.config = config;
 	}
 	
-	protected SetuAgentConfig getConfig() {
+	protected SetuActorConfig getConfig() {
 		return this.config;
 	}
 

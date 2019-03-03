@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.enums.AppiumAndroidBrowserType;
 import com.testmile.setu.actor.guiauto.core.launcher.appium.AppiumDriverServerLauncher;
 import com.testmile.trishanku.tpi.enums.AppiumIosBrowserType;
@@ -32,7 +32,7 @@ import com.testmile.trishanku.tpi.enums.OSType;
 
 public enum SetuAgentGuiAutoSingleton {
 	INSTANCE;
-	private SetuAgentConfig setuAgentConfig;
+	private SetuActorConfig setuAgentConfig;
 	private static AppiumDriverServerLauncher serverLauncher = null;
 	private static Map<Browser, String> browserDriverMap = null;
 	private static Map<Browser, String> browserSysPropNameMap = null;
@@ -130,11 +130,11 @@ public enum SetuAgentGuiAutoSingleton {
 		}
 	}
 
-	public SetuAgentConfig getSetuAgentConfig() {
+	public SetuActorConfig getSetuAgentConfig() {
 		return setuAgentConfig;
 	}
 
-	public void setSetuAgentConfig(SetuAgentConfig config) {
+	public void setSetuAgentConfig(SetuActorConfig config) {
 		this.setuAgentConfig = config;
 	}
 }

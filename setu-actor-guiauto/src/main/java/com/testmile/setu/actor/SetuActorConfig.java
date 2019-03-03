@@ -36,11 +36,11 @@ import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 import com.testmile.trishanku.tpi.value.Value;
 
-public class SetuAgentConfig {
+public class SetuActorConfig {
 	private Map<SetuOption, Value> options = new HashMap<SetuOption, Value>();
 	private Map<String, Value> userOptions = new HashMap<String, Value>();
 	
-	public SetuAgentConfig(String strJsonConfig) throws Exception {
+	public SetuActorConfig(String strJsonConfig) throws Exception {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		JsonObject jObj = parser.parse(strJsonConfig).getAsJsonObject();

@@ -21,14 +21,14 @@ package com.testmile.setu.actor.guiauto.core.handler.automator.sikuli;
 
 import org.sikuli.script.Screen;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.handler.automator.AbstractAutomatorHandler;
 import com.testmile.setu.actor.guiauto.tpi.handler.automator.Scroller;
 
 public class SikuliScroller extends AbstractAutomatorHandler implements Scroller{
 	private int defaultMouseCount = 5;
 	
-	public SikuliScroller(SetuAgentConfig config) throws Exception {
+	public SikuliScroller(SetuActorConfig config) throws Exception {
 		super(config);
 	}
 	

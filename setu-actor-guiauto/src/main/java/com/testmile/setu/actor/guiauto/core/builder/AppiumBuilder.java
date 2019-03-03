@@ -26,7 +26,7 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
-import com.testmile.setu.actor.SetuAgentConfig;
+import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.SetuAgentGuiAutoSingleton;
 import com.testmile.setu.actor.guiauto.core.automator.AppiumGuiAutomator;
 import com.testmile.setu.actor.guiauto.core.launcher.appium.AppiumServer;
@@ -47,7 +47,7 @@ public class AppiumBuilder extends GuiAutomatorBuilder{
 	private OSType platformType = null;
 	private AppiumDriver<MobileElement> driver;
 	
-	public AppiumBuilder(SetuAgentConfig config) throws Exception{
+	public AppiumBuilder(SetuActorConfig config) throws Exception{
 		super(config);
 		createCapabilities();
 		load();
