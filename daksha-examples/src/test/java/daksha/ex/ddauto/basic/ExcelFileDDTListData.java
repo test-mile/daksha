@@ -20,46 +20,48 @@
 package daksha.ex.ddauto.basic;
 
 import java.util.Iterator;
-import java.util.List;
 
-import com.testmile.daksha.core.config.DefaultTestContext;
-import com.testmile.daksha.core.ddauto.DataRecord;
-import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
-import com.testmile.trishanku.Trishanku;
-import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
+import com.testmile.daksha.tpi.ddauto.ListDataSource;
 
 public class ExcelFileDDTListData{
 	
-	private static DataSource createListDataSource() throws Exception {
-		String fPath = Trishanku.getCentralContext().getConfig().value(SetuOption.DATA_SOURCES_DIR) + "input.xls";
-		return DataSourceFactory.createDataSource(fPath);
+	private static ListDataSource createListDataSource() throws Exception {
+		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
+		return builder.buildListDataSource();
 	}
-	
-	private static void printListDataRecord(DataRecord record) throws Exception {
+
+	private static void printDataRecord(ListDataRecord record) throws Exception {
 		System.out.println(record.valueAt(0).asInt());
 		System.out.println(record.valueAt(1).asInt());
 		System.out.println(record.valueAt(2).asInt());		
 	}
 	
 	public static void main(String[] args) throws Exception {
-		DefaultTestContext context = Trishanku.init();
-		context.freeze();
-		DataSource container1 = createListDataSource();
-		// List of ListDataRecord
-		List<DataRecord> recordList = container1.allListRecords();
-		System.out.println("Printing using a list");
-		for(DataRecord listDataRec1: recordList) {
-			printListDataRecord(listDataRec1);
+		// Initialize Daksha
+		Daksha.init();
+		
+		ListDataSource source = createListDataSource();
+		
+		// Using default Java Iterator
+		Iterator<ListDataRecord> recordIter1 = source.iterRecords();
+		System.out.println("With Java iterator.");
+		while(recordIter1.hasNext()) {
+			ListDataRecord record = recordIter1.next();
+			printDataRecord(record);			
 		}
 		
-		DataSource container2 = createListDataSource();
+		source.reset();
+
 		// Iterator of ListDataRecord: Created for TestNG compatibility
-		Iterator<Object[]> recordIter = container2.iterListRecords();
-		System.out.println("Printing using an iterator");
-		while(recordIter.hasNext()) {
-			Object[] recordArray = recordIter.next();
-			DataRecord listDataRec2 = (DataRecord) recordArray[0];
-			printListDataRecord(listDataRec2);
+		Iterator<Object[]> recordIter2 = source.iterRecordsForTestNG();
+		System.out.println("With custom Java iterator for Test NG.");
+		while(recordIter2.hasNext()) {
+			Object[] recordArray = recordIter2.next();
+			ListDataRecord record = (ListDataRecord) recordArray[0];
+			printDataRecord(record);
 		}
 	}
 }

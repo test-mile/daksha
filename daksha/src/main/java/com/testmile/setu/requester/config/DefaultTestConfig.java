@@ -8,10 +8,10 @@ import com.testmile.setu.requester.Response;
 import com.testmile.setu.requester.SetuSvcRequester;
 import com.testmile.setu.requester.testsession.TestSessionAction;
 import com.testmile.setu.requester.testsession.TestSessionActionType;
-import com.testmile.trishanku.core.value.AnyRefValue;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
@@ -26,6 +26,11 @@ public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
 		this.setuRequester = testSession.getSetuRequester();
 		this.session = testSession;
 		this.name = name;
+	}
+	
+	@Override
+	public TestSession getTestSession() {
+		return this.session;
 	}
 	
 	private Value fetchConfOptionValue(TestConfigActionType actionType, String option) throws Exception {

@@ -29,7 +29,7 @@ import com.testmile.setu.requester.Response;
 import com.testmile.setu.requester.SetuSvcRequester;
 import com.testmile.setu.requester.config.DefaultTestConfig;
 import com.testmile.setu.requester.databroker.DataRecordType;
-import com.testmile.trishanku.core.value.AnyRefValue;
+import com.testmile.trishanku.tpi.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestSession extends DefaultSetuObject implements TestSession {
@@ -91,8 +91,7 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	
 	@Override
 	public String createFileDataSource(DataRecordType recordType, String fileName, Map<String, Object> argPairs) throws Exception {
-		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.CREATE_DATA_SOURCE);
-		action.addArg("sourceType", "FILE");
+		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.CREATE_FILE_DATA_SOURCE);
 		action.addArg("fileName", fileName);
 		action.addArg("recordType", recordType);
 		for(String arg: argPairs.keySet()) {

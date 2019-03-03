@@ -13,5 +13,7 @@ public interface RWValueList extends ROValueList{
 	
 	void addAll(ValueList map) throws Exception;
 	
-	void addAll(Object[] objects);
+	void addAllObjects(Object[] objects);
+
+	void addAllObjects(List<Object> objects);
 }

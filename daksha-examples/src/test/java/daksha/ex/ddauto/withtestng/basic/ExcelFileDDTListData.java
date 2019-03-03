@@ -26,21 +26,22 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.ddauto.DataRecord;
-import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ExcelFileDDTListData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		String fPath = this.getContext().getConfig().value(SetuOption.DATA_SOURCES_DIR) + "input.xls";
-		return DataSourceFactory.createDataSource(fPath).iterListRecords();
+		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
+		return builder.buildListDataSource().iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")
-	public void repeat(DataRecord record) throws Exception {
+	public void repeat(ListDataRecord record) throws Exception {
+		System.out.println("Executing....");
 		int left = record.valueAt(0).asInt();
 		int right = record.valueAt(1).asInt();
 		int expectedSum = record.valueAt(2).asInt();

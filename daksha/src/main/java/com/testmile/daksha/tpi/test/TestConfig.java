@@ -21,5 +21,6 @@ public interface TestConfig extends SetuManagedObject {
 	String getTestRunEnvName() throws Exception;
 	String getScreenshotsDir() throws Exception;
 	int getGuiAutoMaxWaitTime() throws Exception;
+	TestSession getTestSession();
 
 }

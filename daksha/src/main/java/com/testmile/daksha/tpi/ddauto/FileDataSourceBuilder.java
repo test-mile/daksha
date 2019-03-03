@@ -3,6 +3,7 @@ package com.testmile.daksha.tpi.ddauto;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
 import com.testmile.setu.requester.databroker.DataRecordType;
 import com.testmile.setu.requester.databroker.SetuListDataSource;
@@ -19,25 +20,30 @@ public class FileDataSourceBuilder {
 		this.fileName = fileName;
 	}
 	
+	public FileDataSourceBuilder(TestConfig config, String fileName) {
+		this.testSession = config.getTestSession();
+		this.fileName = fileName;
+	}
+
 	public FileDataSourceBuilder delimiter(String delimiter) {
 		this.delimiter = delimiter;
 		return this;
 	}
 	
-	private String createDataSource() throws Exception {
+	private String createDataSource(DataRecordType recordType) throws Exception {
 		if (delimiter != null) {
 			argPairs.put("delimiter", this.delimiter);
 		}
-		return testSession.createFileDataSource(DataRecordType.LIST, this.fileName, argPairs);		
+		return testSession.createFileDataSource(recordType, this.fileName, argPairs);		
 	}
 	
 	public ListDataSource buildListDataSource() throws Exception {
-		String sourceSetuId = createDataSource();
+		String sourceSetuId = createDataSource(DataRecordType.LIST);
 		return new SetuListDataSource(testSession, sourceSetuId);
 	}
 	
 	public MapDataSource buildMapDataSource() throws Exception {
-		String sourceSetuId = createDataSource();
+		String sourceSetuId = createDataSource(DataRecordType.MAP);
 		return new SetuMapDataSource(testSession, sourceSetuId);
 	}	
 

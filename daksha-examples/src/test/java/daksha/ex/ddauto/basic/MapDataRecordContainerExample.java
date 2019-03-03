@@ -52,18 +52,20 @@ public class MapDataRecordContainerExample{
 	}
 	
 	public static void main(String[] args) throws Exception {
-		MapDataSource container = createMapDataSource();
+		MapDataSource source = createMapDataSource();
 		
 		// Using default Java Iterator
-		Iterator<MapDataRecord> recordIter1 = container.iterRecords();
+		Iterator<MapDataRecord> recordIter1 = source.iterRecords();
 		System.out.println("With Java iterator.");
 		while(recordIter1.hasNext()) {
 			MapDataRecord record = recordIter1.next();
 			printDataRecord(record);			
 		}
+		
+		source.reset();
 
-		// Iterator of ListDataRecord: Created for TestNG compatibility
-		Iterator<Object[]> recordIter2 = container.iterRecordsForTestNG();
+		// Iterator created for TestNG compatibility
+		Iterator<Object[]> recordIter2 = source.iterRecordsForTestNG();
 		System.out.println("With custom Java iterator for Test NG.");
 		while(recordIter2.hasNext()) {
 			Object[] recordArray = recordIter2.next();

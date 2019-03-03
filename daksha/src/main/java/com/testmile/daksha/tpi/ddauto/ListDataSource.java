@@ -4,5 +4,4 @@ import com.testmile.setu.requester.databroker.DataSource;
 
 public interface ListDataSource extends DataSource<ListDataRecord> {
 
-
 }

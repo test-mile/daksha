@@ -1,4 +1,4 @@
-package com.testmile.trishanku.core.value;
+package com.testmile.trishanku.tpi.value;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -9,7 +9,6 @@ import java.util.Set;
 import com.rits.cloning.Cloner;
 import com.testmile.trishanku.tpi.enums.ValueType;
 import com.testmile.trishanku.tpi.exceptions.UnsupportedRepresentationException;
-import com.testmile.trishanku.tpi.value.Value;
 
 public class AnyRefValue implements Value {
 	private Object object = null;
@@ -113,7 +112,11 @@ public class AnyRefValue implements Value {
 		try{
 			return Integer.valueOf(this.asString());
 		} catch (Exception e){
-			throwWrongReprException("int");
+			try {
+				return Double.valueOf(this.asString()).intValue();
+			} catch (Exception f) {
+				throwWrongReprException("int");
+			}
 		}
 		
 		return 0;
@@ -124,7 +127,11 @@ public class AnyRefValue implements Value {
 		try{
 			return Long.valueOf(this.asString());
 		} catch (Exception e){
-			throwWrongReprException("long");
+			try {
+				return Double.valueOf(this.asString()).longValue();
+			} catch (Exception f) {
+				throwWrongReprException("long");
+			}
 		}
 		
 		return 0L;

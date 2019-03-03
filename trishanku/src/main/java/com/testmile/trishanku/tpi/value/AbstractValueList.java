@@ -3,8 +3,6 @@ package com.testmile.trishanku.tpi.value;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.testmile.trishanku.core.value.AnyRefValue;
-
 public class AbstractValueList implements RWValueList{
 	
 	private List<Value> values = null;
@@ -15,12 +13,12 @@ public class AbstractValueList implements RWValueList{
 	
 	public AbstractValueList(Object[] values) {
 		this();
-		this.addAll(values);
+		this.addAllObjects(values);
 	}
 
 	public AbstractValueList(List<Object> objects) {
 		this();
-		this.addAll(values.toArray(new Object[] {}));
+		this.addAllObjects(objects);
 	}
 
 	@Override
@@ -88,7 +86,14 @@ public class AbstractValueList implements RWValueList{
 	}
 	
 	@Override
-	public void addAll(Object[] objects) {
+	public void addAllObjects(Object[] objects) {
+		for (Object obj : objects) {
+			this.addObject(obj);
+		}
+	}
+	
+	@Override
+	public void addAllObjects(List<Object> objects) {
 		for (Object obj : objects) {
 			this.addObject(obj);
 		}

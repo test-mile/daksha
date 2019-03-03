@@ -20,5 +20,7 @@
 package com.testmile.setu.requester.databroker;
 
 public enum DataSourceActionType {
-	GET_NEXT_RECORD
+	GET_NEXT_RECORD,
+	GET_ALL_RECORDS,
+	RESET
 }

@@ -11,6 +11,7 @@ import com.testmile.daksha.core.config.CLIConfiguration;
 import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.core.testng.TestNGSuiteContext;
 import com.testmile.daksha.core.testng.TestNGTestContext;
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.daksha.tpi.test.TestSession;
@@ -90,8 +91,6 @@ public enum DakshaSingleton {
 	public Logger getLogger() { 
 		return logger; 
 	}
-
-	
 	
 	private CLIConfiguration getCliConfig() {
 		return this.cliConfig;
@@ -103,5 +102,9 @@ public enum DakshaSingleton {
 	
 	public SetuOption normalizeSetuOption(String option) {
 		return SetuOption.valueOf(normalizeUserOption(option));
+	}
+	
+	public FileDataSourceBuilder createFileDataSourceBuilder(String fileName) throws Exception {
+		return new FileDataSourceBuilder(this.getCentralConfig(), fileName);
 	}
 }

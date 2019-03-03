@@ -28,12 +28,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.testmile.trishanku.core.value.AnyRefValue;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.GuiAutomatorName;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class SetuActorConfig {

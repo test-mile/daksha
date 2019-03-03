@@ -3,6 +3,7 @@ package com.testmile.daksha;
 import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 
@@ -52,6 +53,10 @@ public class Daksha {
 	
 	public Logger getLogger() { 
 		return internal.getLogger();
+	}
+	
+	public static FileDataSourceBuilder createFileDataSourceBuilder(String fileName) throws Exception {
+		return internal.createFileDataSourceBuilder(fileName);
 	}
 
 }

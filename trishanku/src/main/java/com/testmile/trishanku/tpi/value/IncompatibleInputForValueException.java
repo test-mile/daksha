@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -16,15 +16,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.trishanku.tpi.value;
 
-package com.testmile.setu.requester.testsession;
+public class IncompatibleInputForValueException extends Exception {
 
-public enum TestSessionActionType {
-	INIT,
-	FINISH,
-	
-	LOAD_PROJECT_CONF,
-	REGISTER_CONFIG,
-	
-	CREATE_FILE_DATA_SOURCE,
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 669734988933529307L;
+
+	// Parameterless Constructor
+	public <T extends Value> IncompatibleInputForValueException(String value, String actual, String valueType) {
+		super(String.format("Incompatible input value >>%s<< (type: %s) supplied for creating %s.", value, actual, valueType));
+	}
+
 }

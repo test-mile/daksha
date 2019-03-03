@@ -22,45 +22,51 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 import java.util.List;
 
+import com.testmile.daksha.Daksha;
 import com.testmile.daksha.core.config.DefaultTestContext;
-import com.testmile.daksha.core.ddauto.DataRecord;
-import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
+import com.testmile.daksha.tpi.ddauto.ListDataSource;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ExcelFileDDTMapData{
 	
-	private static DataSource createMapDataSource() throws Exception {
-		String fPath = Trishanku.getCentralContext().getConfig().value(SetuOption.DATA_SOURCES_DIR) + "input.xls";
-		return DataSourceFactory.createDataSource(fPath);
+	private static MapDataSource createMapDataSource() throws Exception {
+		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
+		return builder.buildMapDataSource();
 	}
 	
-	private static void printMapDataRecord(DataRecord record) throws Exception {
+	private static void printDataRecord(MapDataRecord record) throws Exception {
 		System.out.println(record.value("left").asInt());
 		System.out.println(record.value("right").asInt());
 		System.out.println(record.value("sum").asInt());	
 	}
 	
 	public static void main(String[] args) throws Exception {
-		DefaultTestContext context = Trishanku.init();
-		context.freeze();
-		DataSource container1 =  createMapDataSource();
+		// Initialize Daksha
+		Daksha.init();
 		
-		// List of MapDataRecord
-		List<DataRecord> recordList = container1.allMapRecords();
-		System.out.println("Printing using a list");
-		for(DataRecord mapRecord1: recordList) {
-			printMapDataRecord(mapRecord1);
+		MapDataSource source = createMapDataSource();
+		
+		// Using default Java Iterator
+		Iterator<MapDataRecord> recordIter1 = source.iterRecords();
+		System.out.println("With Java iterator.");
+		while(recordIter1.hasNext()) {
+			MapDataRecord record = recordIter1.next();
+			printDataRecord(record);			
 		}
 		
-		DataSource container2 =  createMapDataSource();
-		// Iterator of MapDataRecord: Created for TestNG compatibility
-		Iterator<Object[]> recordIter = container2.iterMapRecords();
-		System.out.println("Printing using an iterator");
-		while(recordIter.hasNext()) {
-			Object[] recordArray = recordIter.next();
-			DataRecord mapRecord2 = (DataRecord) recordArray[0];
-			printMapDataRecord(mapRecord2);
+		source.reset();
+
+		// Iterator created for TestNG compatibility
+		Iterator<Object[]> recordIter2 = source.iterRecordsForTestNG();
+		System.out.println("With custom Java iterator for Test NG.");
+		while(recordIter2.hasNext()) {
+			Object[] recordArray = recordIter2.next();
+			MapDataRecord record = (MapDataRecord) recordArray[0];
+			printDataRecord(record);
 		}
 	}
 }

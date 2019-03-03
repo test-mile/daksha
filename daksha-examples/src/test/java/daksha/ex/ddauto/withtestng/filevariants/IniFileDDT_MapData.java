@@ -26,21 +26,23 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.ddauto.DataRecord;
-import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class IniFileDDT_MapData extends TestNGBaseTest {
 	
-	@DataProvider(name="dp")
-	public Iterator<Object[]> linkDataSource() throws Exception {
-		String fPath = this.getContext().getConfig().value(SetuOption.DATA_SOURCES_DIR) + "input.ini";
-		return DataSourceFactory.createDataSource(fPath).iterMapRecords();
+	@DataProvider(name="dp1")
+	public Iterator<Object[]> linkMapDataSource() throws Exception {
+		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.ini");
+		builder.delimiter(",");
+		return builder.buildMapDataSource().iterRecordsForTestNG();
 	}
 	
-	@Test(dataProvider="dp")
-	public void repeat(DataRecord record) throws Exception {
+	@Test(dataProvider="dp1")
+	public void repeatWithMapRecord(MapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();

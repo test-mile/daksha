@@ -34,9 +34,9 @@ import org.openqa.selenium.safari.SafariOptions;
 
 import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.automator.SeleniumGuiAutomator;
-import com.testmile.trishanku.core.value.AnyRefValue;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.AnyRefValue;
 
 public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private Capabilities capabilities = null;

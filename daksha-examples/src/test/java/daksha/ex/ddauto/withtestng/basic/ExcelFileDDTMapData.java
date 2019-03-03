@@ -26,7 +26,9 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.tpi.ddauto.DataSourceFactory;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
@@ -34,12 +36,12 @@ public class ExcelFileDDTMapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		String fPath = this.getConfig().value(SetuOption.DATA_SOURCES_DIR) + "input.xls";
-		return DataSourceFactory.createDataSource(fPath).iterMapRecords();
+		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
+		return builder.buildMapDataSource().iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")
-	public void repeat(DataRecord record) throws Exception {
+	public void repeat(MapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();
