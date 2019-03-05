@@ -1,6 +1,7 @@
 package com.testmile.setu.requester;
 
 import java.util.Map;
+
 import com.testmile.trishanku.tpi.value.Value;
 
 public interface SetuResponse {

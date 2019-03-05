@@ -20,7 +20,6 @@
 package com.testmile.setu.requester.guiauto.automator;
 
 import com.testmile.daksha.tpi.guiauto.Alert;
-import com.testmile.daksha.tpi.guiauto.ChildWindow;
 import com.testmile.daksha.tpi.guiauto.DomRoot;
 import com.testmile.daksha.tpi.guiauto.DropDown;
 import com.testmile.daksha.tpi.guiauto.Frame;
@@ -30,7 +29,6 @@ import com.testmile.daksha.tpi.guiauto.MainWindow;
 import com.testmile.daksha.tpi.guiauto.RadioGroup;
 import com.testmile.daksha.tpi.guiauto.With;
 import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.setu.requester.SetuActionType;
 import com.testmile.setu.requester.SetuManagedObject;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 

@@ -20,7 +20,6 @@
 package com.testmile.daksha.tpi.guiauto;
 
 import com.testmile.setu.requester.SetuManagedObject;
-import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface GuiElement extends SetuManagedObject{
 	

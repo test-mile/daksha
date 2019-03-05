@@ -30,8 +30,6 @@ import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.databroker.DataSourceBuilder;
-import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ExcelFileDDTMapData extends TestNGBaseTest {
 	

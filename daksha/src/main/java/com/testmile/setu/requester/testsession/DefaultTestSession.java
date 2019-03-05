@@ -32,7 +32,6 @@ import com.testmile.setu.requester.SetuArg;
 import com.testmile.setu.requester.SetuResponse;
 import com.testmile.setu.requester.config.DefaultTestConfig;
 import com.testmile.setu.requester.databroker.DataRecordType;
-import com.testmile.trishanku.tpi.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestSession extends BaseSetuObject implements TestSession {

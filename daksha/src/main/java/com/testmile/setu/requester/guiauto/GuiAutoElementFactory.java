@@ -1,11 +1,23 @@
 package com.testmile.setu.requester.guiauto;
 
-import com.testmile.daksha.tpi.guiauto.*;
+import com.testmile.daksha.tpi.guiauto.Alert;
+import com.testmile.daksha.tpi.guiauto.Browser;
+import com.testmile.daksha.tpi.guiauto.ChildWindow;
+import com.testmile.daksha.tpi.guiauto.DomRoot;
+import com.testmile.daksha.tpi.guiauto.DropDown;
+import com.testmile.daksha.tpi.guiauto.Frame;
+import com.testmile.daksha.tpi.guiauto.GuiElement;
+import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
+import com.testmile.daksha.tpi.guiauto.MainWindow;
+import com.testmile.daksha.tpi.guiauto.RadioGroup;
+import com.testmile.daksha.tpi.guiauto.With;
 import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.*;
+import com.testmile.setu.requester.BaseSetuObject;
+import com.testmile.setu.requester.SetuActionType;
+import com.testmile.setu.requester.SetuArg;
+import com.testmile.setu.requester.SetuResponse;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
-import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public class GuiAutoElementFactory {
 

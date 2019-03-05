@@ -27,7 +27,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.DefaultListDataRecord;
 import com.testmile.daksha.tpi.ddauto.DefaultMapDataRecord;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 import com.testmile.setu.requester.databroker.DataSourceBuilder;
