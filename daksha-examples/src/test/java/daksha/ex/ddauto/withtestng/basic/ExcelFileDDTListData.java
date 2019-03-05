@@ -27,16 +27,21 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.ddauto.ListDataRecord;
+import com.testmile.daksha.tpi.ddauto.ListDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.databroker.DataSourceBuilder;
 
 public class ExcelFileDDTListData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
-		return builder.buildListDataSource().iterRecordsForTestNG();
+		ListDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileListDataSource("input.xls")
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")

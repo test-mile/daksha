@@ -19,43 +19,33 @@
 
 package com.testmile.setu.requester.testsession;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.DefaultSetuObject;
-import com.testmile.setu.requester.Response;
-import com.testmile.setu.requester.SetuSvcRequester;
+import com.testmile.setu.requester.BaseSetuObject;
+import com.testmile.setu.requester.SetuActionType;
+import com.testmile.setu.requester.SetuArg;
+import com.testmile.setu.requester.SetuResponse;
 import com.testmile.setu.requester.config.DefaultTestConfig;
 import com.testmile.setu.requester.databroker.DataRecordType;
 import com.testmile.trishanku.tpi.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
-public class DefaultTestSession extends DefaultSetuObject implements TestSession {
-	private SetuSvcRequester setuRequester;
-	private String baseActionUri = "/action";
-
-	public DefaultTestSession() {
-		setSetuRequester(new SetuTestSessionRequester());
-	}
-	
-	@Override
-	public SetuSvcRequester getSetuRequester() {
-		return this.setuRequester;
-	}
+public class DefaultTestSession extends BaseSetuObject implements TestSession {
 
 	@Override
 	public TestConfig init(String rootDir) throws Exception {
-		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.INIT);
-		action.addArg("rootDir", rootDir);
-		Response response = this.setuRequester.post("/init", action);
-		this.setSetuId((String) response.getData().get("testSessionSetuId"));
-		
-		TestSessionAction actionProjectConf = new TestSessionAction(this, TestSessionActionType.LOAD_PROJECT_CONF);
-		Response confResponse = this.setuRequester.post(baseActionUri, actionProjectConf);		
-		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, (String) confResponse.getData().get("configSetuId"));
-		config.setTestSessionSetuId(this.getSetuId());
+		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_INIT, SetuArg.arg("rootDir", rootDir));
+		this.setSetuId(response.getValueForTestSessionSetuId());
+		this.setSelfSetuIdArg("testSessionSetuId");
+
+		SetuResponse projConfResponse = this.sendRequest(SetuActionType.TESTSESSION_LOAD_PROJECT_CONF);
+		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, projConfResponse.getValueForConfigSetuId());
+		this.setSetuId(response.getValueForTestSessionSetuId());
 		return config;
 	}
 
@@ -64,19 +54,16 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void setSetuRequester(SetuSvcRequester setuRequester) {
-		this.setuRequester = setuRequester;
-	}
 	
 	private String registerConfig(boolean hasParent, String parentConfigId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
-		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.REGISTER_CONFIG);
-		action.addArg("hasParent", hasParent);
-		action.addArg("parentConfigId", parentConfigId);
-		action.addArg("setuOptions", setuOptions);
-		action.addArg("userOptions", userOptions);
-		Response response = this.setuRequester.post(baseActionUri, action);
-		return (String) response.getData().get("configSetuId");
+		SetuResponse response = this.sendRequest(
+				SetuActionType.TESTSESSION_REGISTER_CONFIG, 
+				SetuArg.arg("hasParent", hasParent),
+				SetuArg.arg("parentConfigId", parentConfigId),
+				SetuArg.arg("setuOptions", setuOptions),
+				SetuArg.arg("userOptions", userOptions)
+		);
+		return response.getValueForConfigSetuId();
 	}
 	
 	@Override
@@ -90,15 +77,22 @@ public class DefaultTestSession extends DefaultSetuObject implements TestSession
 	}
 	
 	@Override
-	public String createFileDataSource(DataRecordType recordType, String fileName, Map<String, Object> argPairs) throws Exception {
-		TestSessionAction action = new TestSessionAction(this, TestSessionActionType.CREATE_FILE_DATA_SOURCE);
-		action.addArg("fileName", fileName);
-		action.addArg("recordType", recordType);
-		for(String arg: argPairs.keySet()) {
-			action.addArg(arg, argPairs.get(arg));	
-		}
-		Response response = this.setuRequester.post(baseActionUri, action);
-		return (String) response.getData().get("dataSourceSetuId");
+	public String createFileDataSource(DataRecordType recordType, String fileName, List<SetuArg> argPairs) throws Exception {
+		SetuResponse response = this.sendRequest(
+				SetuActionType.TESTSESSION_CREATE_FILE_DATA_SOURCE, 
+				concat(
+						new SetuArg[] {SetuArg.arg("fileName", fileName), SetuArg.arg("recordType", recordType)}, 
+						argPairs.toArray(new SetuArg[] {})
+				)
+		);
+		return response.getDataSourceSetuId();
+	}
+	
+	// From Joachim Sauer's Stackoverflow answer: https://stackoverflow.com/a/784842
+	public <T> T[] concat(T[] first, T[] second) {
+		  T[] result = Arrays.copyOf(first, first.length + second.length);
+		  System.arraycopy(second, 0, result, first.length, second.length);
+		  return result;
 	}
 
 

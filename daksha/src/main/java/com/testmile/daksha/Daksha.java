@@ -3,9 +3,9 @@ package com.testmile.daksha;
 import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
+import com.testmile.setu.requester.databroker.DataSourceBuilder;
 
 public class Daksha {
 	private static DakshaSingleton internal = DakshaSingleton.INSTANCE;
@@ -55,8 +55,8 @@ public class Daksha {
 		return internal.getLogger();
 	}
 	
-	public static FileDataSourceBuilder createFileDataSourceBuilder(String fileName) throws Exception {
-		return internal.createFileDataSourceBuilder(fileName);
+	public static DataSourceBuilder createDataSourceBuilder() throws Exception {
+		return internal.createDataSourceBuilder();
 	}
 
 }

@@ -17,11 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.guiauto.alert;
+package com.testmile.daksha.tpi.guiauto;
 
-public enum AlertActionType {
-	CONFIRM,
-	DISMISS,
-	GET_TEXT,
-	SEND_TEXT
+import com.testmile.setu.requester.SetuManagedObject;
+
+public interface Browser extends SetuManagedObject {
+	void goToUrl(String url) throws Exception;
+	void goBack() throws Exception;
+	void goForward() throws Exception;
+	void refresh() throws Exception;
+	void executeJavaScript(String script) throws Exception;
 }

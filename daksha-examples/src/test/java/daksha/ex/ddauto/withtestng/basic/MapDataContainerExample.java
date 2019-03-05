@@ -26,28 +26,23 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.ddauto.MapDataRecord;
-import com.testmile.daksha.tpi.ddauto.MapDataRecordContainer;
+import com.testmile.daksha.tpi.ddauto.MapDataSource;
 
 public class MapDataContainerExample {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		// Create headers and assign to container
-		String[] names = {"left", "right", "sum"};
-		MapDataRecordContainer container = new MapDataRecordContainer(names);
-		
-		// Adding single record
-		Object[] record = {1,2,3};	
-		container.add(record);
-		
-		// Adding multiple records
-		Object[][] records = {
-				{4,5,9},
-				{7,8,12},
-		};
-		container.addAll(records);
-		return container.iterRecordsForTestNG();
+		MapDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.mapDataContainer("left", "right", "sum")
+				.record(1,2,3)
+				.record(4,5,9)
+				.record(7,8,12)
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")

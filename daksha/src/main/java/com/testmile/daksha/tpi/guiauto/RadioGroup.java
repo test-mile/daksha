@@ -23,10 +23,11 @@ import com.testmile.setu.requester.SetuManagedObject;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface RadioGroup extends SetuManagedObject{
+	
 	boolean hasValueSelected(String value) throws Exception;
 	boolean hasIndexSelected(int index) throws Exception;
 	String getFirstSelectedOptionValue() throws Exception;
 	void selectByValue(String value) throws Exception;
 	void selectByIndex(int index) throws Exception;
-	AppAutomator getAutomator();
+	
 }

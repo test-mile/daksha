@@ -23,6 +23,8 @@ import com.testmile.setu.requester.SetuManagedObject;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface GuiElement extends SetuManagedObject{
+	
+	void enterText(String text) throws Exception;
 
 	void setText(String text) throws Exception;
 
@@ -30,12 +32,8 @@ public interface GuiElement extends SetuManagedObject{
 
 	void waitUntilClickable() throws Exception;
 
-	AppAutomator getAutomator() throws Exception;
-
 	void check() throws Exception;
 	
 	void uncheck() throws Exception;
 	
-	boolean isPartial() throws Exception;
-
 }

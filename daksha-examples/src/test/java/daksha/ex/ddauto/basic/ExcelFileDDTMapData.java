@@ -20,22 +20,20 @@
 package daksha.ex.ddauto.basic;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.core.config.DefaultTestContext;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
-import com.testmile.daksha.tpi.ddauto.ListDataSource;
 import com.testmile.daksha.tpi.ddauto.MapDataRecord;
 import com.testmile.daksha.tpi.ddauto.MapDataSource;
-import com.testmile.trishanku.Trishanku;
-import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ExcelFileDDTMapData{
 	
 	private static MapDataSource createMapDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
-		return builder.buildMapDataSource();
+		MapDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileMapDataSource("input.xls")
+				.build();
+		return source;
 	}
 	
 	private static void printDataRecord(MapDataRecord record) throws Exception {

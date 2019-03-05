@@ -24,8 +24,6 @@ import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface GuiMultiElement extends SetuManagedObject{
 
-	AppAutomator getAutomator() throws Exception;
-
 	GuiElement getInstanceAtIndex(int index);
 
 }

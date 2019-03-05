@@ -27,20 +27,20 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
-import com.testmile.daksha.tpi.ddauto.MapDataRecord;
+import com.testmile.daksha.tpi.ddauto.DefaultMapDataRecord;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.databroker.DataSourceBuilder;
 
 public class Filter_ExcelFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input_exclude_ex.xls");
+		DataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input_exclude_ex.xls");
 		return builder.buildMapDataSource().iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")
-	public void repeat(MapDataRecord record) throws Exception {
+	public void repeat(DefaultMapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();

@@ -17,23 +17,12 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.guiauto.automator;
+package com.testmile.daksha.tpi.guiauto;
 
-public enum GuiAppAutomatorActionType {
-	
-	NAVIGATE_BROWSER, 
-	
-	CREATE_ELEMENT,
-	CREATE_MULTIELEMENT,
-	CREATE_DROPDOWN,
-	CREATE_RADIOGROUP,
-	CREATE_FRAME,
-	CREATE_CHILD_WINDOW,
-	CREATE_NEW_CHILD_WINDOW,
-	CREATE_ALERT,
-	
-	EXECUTE_JAVASCRIPT,
+import com.testmile.setu.requester.SetuManagedObject;
 
-	GET_MAIN_WINDOW,
-	CLOSE_ALL_CHILD_WINDOWS,
+public interface DomRoot extends SetuManagedObject{
+	
+	void focus() throws Exception;
+	Frame createFrame(With with, String value) throws Exception;
 }

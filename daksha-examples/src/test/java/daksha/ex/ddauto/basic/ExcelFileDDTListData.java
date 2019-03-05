@@ -22,15 +22,18 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.ddauto.ListDataRecord;
 import com.testmile.daksha.tpi.ddauto.ListDataSource;
 
 public class ExcelFileDDTListData{
 	
 	private static ListDataSource createListDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
-		return builder.buildListDataSource();
+		ListDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileListDataSource("input.xls")
+				.build();
+		return source;
 	}
 
 	private static void printDataRecord(ListDataRecord record) throws Exception {
@@ -42,7 +45,7 @@ public class ExcelFileDDTListData{
 	public static void main(String[] args) throws Exception {
 		// Initialize Daksha
 		Daksha.init();
-		
+
 		ListDataSource source = createListDataSource();
 		
 		// Using default Java Iterator
@@ -55,7 +58,7 @@ public class ExcelFileDDTListData{
 		
 		source.reset();
 
-		// Iterator of ListDataRecord: Created for TestNG compatibility
+		// Iterator created for TestNG compatibility
 		Iterator<Object[]> recordIter2 = source.iterRecordsForTestNG();
 		System.out.println("With custom Java iterator for Test NG.");
 		while(recordIter2.hasNext()) {

@@ -21,26 +21,22 @@ package daksha.ex.ddauto.basic;
 
 import java.util.Iterator;
 
+import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-import com.testmile.daksha.tpi.ddauto.ListDataRecordContainer;
 import com.testmile.daksha.tpi.ddauto.ListDataSource;
 
 public class ListDataRecordContainerExample{
 	
 	private static ListDataSource createListDataSource() throws Exception {
-		ListDataRecordContainer container = new ListDataRecordContainer();
-
-		// Adding single record
-		Object[] record = {1,2,3};	
-		container.add(record);
-		
-		// Adding multiple records
-		Object[][] records = {
-				{4,5,9},
-				{7,8,12},
-		};
-		container.addAll(records);
-		return container;
+		ListDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.listDataContainer()
+				.record(1,2,3)
+				.record(4,5,9)
+				.record(7,8,12)
+				.build();
+		return source;
 	}
 	
 	private static void printDataRecord(ListDataRecord record) throws Exception {

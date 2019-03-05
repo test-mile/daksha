@@ -20,11 +20,12 @@
 package com.testmile.daksha.tpi.guiauto;
 
 import com.testmile.setu.requester.SetuManagedObject;
-import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface Frame extends SetuManagedObject{
-	void jump() throws Exception;
-	void jumpToParent() throws Exception;
-	void jumpToRoot() throws Exception;
-	AppAutomator getAutomator();
+	
+	void focus() throws Exception;
+	Frame getParent() throws Exception;
+	Frame createFrame(With with, String value) throws Exception;
+	DomRoot domRoot() throws Exception;
+	
 }

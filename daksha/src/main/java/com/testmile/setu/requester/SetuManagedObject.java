@@ -22,9 +22,4 @@ package com.testmile.setu.requester;
 public interface SetuManagedObject {
 	
 	String getSetuId();
-	
-	String getTestSessionSetuId();
-	
-	void setTestSessionSetuId(String id);
-
 }

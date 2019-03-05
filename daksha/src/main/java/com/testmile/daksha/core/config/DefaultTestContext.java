@@ -11,6 +11,7 @@ import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
+import com.testmile.trishanku.tpi.value.AbstractValueMap;
 import com.testmile.trishanku.tpi.value.StringKeyValueMap;
 
 public class DefaultTestContext implements TestContext {
@@ -121,3 +122,13 @@ public class DefaultTestContext implements TestContext {
 		return new DefaultTestConfig(this.testSession, this.name, configSetuId);
 	}
 }
+
+class SetuOptionContainer extends AbstractValueMap<SetuOption> {
+
+	@Override
+	protected String formatKeyAsStr(SetuOption key) {
+		return key.toString();
+	}
+
+}
+

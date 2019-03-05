@@ -3,61 +3,58 @@ package com.testmile.setu.requester.config;
 import com.testmile.daksha.DakshaSingleton;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.DefaultSetuObject;
-import com.testmile.setu.requester.Response;
-import com.testmile.setu.requester.SetuSvcRequester;
-import com.testmile.setu.requester.testsession.TestSessionAction;
-import com.testmile.setu.requester.testsession.TestSessionActionType;
+import com.testmile.setu.requester.BaseSetuObject;
+import com.testmile.setu.requester.SetuResponse;
+import com.testmile.setu.requester.SetuActionType;
+import com.testmile.setu.requester.SetuArg;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.value.AnyRefValue;
 import com.testmile.trishanku.tpi.value.Value;
 
-public class DefaultTestConfig extends DefaultSetuObject implements TestConfig {
+public class DefaultTestConfig extends BaseSetuObject implements TestConfig {
 	private String name;
 	private TestSession session;
-	private String baseConfActionUri = "/conf/action";
-	private SetuSvcRequester setuRequester;
 
 	public DefaultTestConfig(TestSession testSession, String name, String setuId) {
-		this.setSetuId(setuId);
-		this.setTestSessionSetuId(testSession.getSetuId());
-		this.setuRequester = testSession.getSetuRequester();
 		this.session = testSession;
 		this.name = name;
+		
+		this.setSetuId(setuId);
+		this.setSelfSetuIdArg("configSetuId");
+		this.setTestSessionSetuIdArg(testSession.getSetuId());
 	}
-	
+
 	@Override
 	public TestSession getTestSession() {
 		return this.session;
 	}
 	
-	private Value fetchConfOptionValue(TestConfigActionType actionType, String option) throws Exception {
-		TestConfigAction action = new TestConfigAction(this, actionType);
-		action.addArg("configSetuId", this.getSetuId());
-		action.addArg("option", option);
-		Response response = this.setuRequester.post(baseConfActionUri, action);
-		return new AnyRefValue(response.getData().get("value"));		
+	private Value fetchConfOptionValue(SetuActionType actionType, String option) throws Exception {
+		SetuResponse response = this.sendRequest(
+				actionType,
+				SetuArg.arg("option", option)
+		);
+		return response.getValue();	
 	}
 	
 	public Value getSetuOptionValue(String option) throws Exception{
 		return this.fetchConfOptionValue(
-				TestConfigActionType.GET_SETU_OPTION_VALUE,
+				SetuActionType.CONFIGURATOR_GET_SETU_OPTION_VALUE,
 				DakshaSingleton.INSTANCE.normalizeSetuOption(option).toString()
 		);
 	}	
 	
 	public Value getSetuOptionValue(SetuOption option) throws Exception{
 		return this.fetchConfOptionValue(
-				TestConfigActionType.GET_SETU_OPTION_VALUE,
+				SetuActionType.CONFIGURATOR_GET_SETU_OPTION_VALUE,
 				option.toString()
 		);
 	}
 	
 	public Value getUserOptionValue(String option) throws Exception{
 		return this.fetchConfOptionValue(
-				TestConfigActionType.GET_USER_OPTION_VALUE,
+				SetuActionType.CONFIGURATOR_GET_USER_OPTION_VALUE,
 				DakshaSingleton.INSTANCE.normalizeUserOption(option)
 		);
 	}

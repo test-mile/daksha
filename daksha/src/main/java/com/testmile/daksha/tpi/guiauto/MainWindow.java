@@ -19,8 +19,14 @@
 
 package com.testmile.daksha.tpi.guiauto;
 
-import com.testmile.setu.requester.guiauto.window.BasicWindow;
+import com.testmile.setu.requester.SetuManagedObject;
 
-public interface MainWindow extends BasicWindow{
+public interface MainWindow extends SetuManagedObject {
+	String getTitle() throws Exception;
+	void focus() throws Exception;
 	void maximize() throws Exception;
+	
+	ChildWindow childWindow(With with, String value) throws Exception;
+	ChildWindow newChildWindow() throws Exception;
+	void closeAllChildWindows() throws Exception;
 }

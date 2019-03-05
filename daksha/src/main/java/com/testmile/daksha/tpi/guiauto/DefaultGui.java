@@ -22,47 +22,43 @@ package com.testmile.daksha.tpi.guiauto;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.testmile.setu.requester.Response;
+import com.testmile.setu.requester.SetuActionType;
+import com.testmile.setu.requester.SetuArg;
+import com.testmile.setu.requester.SetuResponse;
 import com.testmile.setu.requester.guiauto.automator.AbstractAppAutomator;
-import com.testmile.setu.requester.guiauto.gui.GuiAction;
-import com.testmile.setu.requester.guiauto.gui.GuiActionType;
-import com.testmile.setu.requester.guiauto.gui.GuiMgrAction;
-import com.testmile.setu.requester.guiauto.gui.GuiMgrActionType;
 import com.testmile.trishanku.core.problem.ErrorType;
 import com.testmile.trishanku.core.problem.Problem;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class DefaultGui extends AbstractAppAutomator implements Gui{
-	private String pagemgrUri = "/guimgr/action";
-	private String pagUri;
 	private GuiAutomator automator;
 	private Map<String, Gui> children = new HashMap<String, Gui>();
 	private GuiAutomationContext autoContext;
 	
 	public DefaultGui(GuiAutomator automator) throws Exception {
-		super("/gui/");
 		this.setConfig(automator.getConfig());
-		this.pagUri = "/gui/";
 		this.automator = automator;
 		this.autoContext = automator.getAutomationContext();
-		GuiMgrAction action = new GuiMgrAction(this, GuiMgrActionType.CREATE_GUI);
-		Response response = this.setuClient.post(pagemgrUri, action);
-		this.setSetuId((String) response.getData().get("guiSetuId"));
+		
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_GUIMGR_CREATE_GUI);
+		this.setSetuId(response.getGuiSetuId());
+		this.setSelfSetuIdArg("guiSetuId");
 		load();
 	}
 	
 	public DefaultGui(Gui parent, String label, GuiAutomator automator) throws Exception {
-		super("/gui/");
-		this.pagUri = "/gui/";
 		this.automator = automator;
 		this.autoContext = automator.getAutomationContext();
-		GuiAction action = new GuiAction(parent, GuiActionType.CREATE_GUI);
-		action.addArg("childGuiLabel", label);
-		action.addArg("childGuiName", this.getClass().getSimpleName());
-		action.addArg("childGuiQualifiedName", this.getClass().getName());
-		Response response = this.getSetuClient().post(this.pagUri + "/action", action);
-		this.setSetuId((String) response.getData().get("guiSetuId"));
+		SetuResponse response = this.sendRequest(
+				SetuActionType.GUIAUTO_GUIMGR_CREATE_GUI,
+				SetuArg.arg("childGuiLabel", label),
+				SetuArg.arg("childGuiName", this.getClass().getSimpleName()),
+				SetuArg.arg("childGuiQualifiedName", this.getClass().getName())
+		);
+		this.setSetuId(response.getGuiSetuId());
 		parent.addChild(label, this);
+		this.setSelfSetuIdArg("guiSetuId");
+		load();
 		load();
 	}
 	
@@ -161,15 +157,6 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		return this.automator;
 	}
 	
-	private Response takeAction(GuiAction action) throws Exception {
-		return this.setuClient.post(pagUri + "action", action);
-	}
-	
-	private String takeElementFindingAction(GuiAction action) throws Exception{
-		Response response = takeAction(action);
-		return (String) response.getData().get("elementSetuId");			
-	}
-	
 	@Override
 	public GuiElement element(String name) throws Exception {
 		return super.element(With.ASSIGNED_NAME, name);
@@ -195,8 +182,12 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		return super.frame(With.ASSIGNED_NAME, name);
 	}
 	
-	@Override
-	public ChildWindow childWindow(String name) throws Exception {
-		return super.childWindow(With.ASSIGNED_NAME, name);
+	public MainWindow mainWindow() throws Exception {
+		return this.automator.mainWindow();
+	}
+	
+	public DomRoot domRoot() {
+		return this.automator.domRoot();
 	}
 }
+

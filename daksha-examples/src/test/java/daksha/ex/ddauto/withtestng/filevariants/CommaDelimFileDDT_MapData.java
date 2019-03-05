@@ -27,22 +27,22 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
-import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-import com.testmile.daksha.tpi.ddauto.MapDataRecord;
+import com.testmile.daksha.tpi.ddauto.DefaultListDataRecord;
+import com.testmile.daksha.tpi.ddauto.DefaultMapDataRecord;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.databroker.DataSourceBuilder;
 
 public class CommaDelimFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp1")
 	public Iterator<Object[]> linkMapDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.csv");
+		DataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.csv");
 		builder.delimiter(",");
 		return builder.buildMapDataSource().iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp1")
-	public void repeatWithMapRecord(MapDataRecord record) throws Exception {
+	public void repeatWithMapRecord(DefaultMapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();
@@ -51,13 +51,13 @@ public class CommaDelimFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp2")
 	public Iterator<Object[]> linkListDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.csv");
+		DataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.csv");
 		builder.delimiter(",");
 		return builder.buildListDataSource().iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp2")
-	public void repeatWithListRecord(ListDataRecord record) throws Exception {
+	public void repeatWithListRecord(DefaultListDataRecord record) throws Exception {
 		int left = record.valueAt(0).asInt();
 		int right = record.valueAt(1).asInt();
 		int expectedSum = record.valueAt(2).asInt();

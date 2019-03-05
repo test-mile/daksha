@@ -21,28 +21,33 @@ package com.testmile.setu.requester.guiauto.automator;
 
 import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.setu.requester.Response;
-import com.testmile.setu.requester.guiauto.window.DefaultMainWindow;
+import com.testmile.setu.requester.SetuActionType;
+import com.testmile.setu.requester.SetuArg;
+import com.testmile.setu.requester.SetuResponse;
+import com.testmile.setu.requester.guiauto.GuiAutoElementFactory;
 
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
 	
 	public DefaultGuiAutomator(TestConfig config) throws Exception {
-		super("/automator/", config);
+		super(config);
 	}
 	
 	@Override
 	public void launch() throws Exception {
-		GuiAutomatorAction action = new GuiAutomatorAction(this.getTestSessionSetuId(), GuiAutomatorActionType.LAUNCH);
-		action.addArg("configSetuId", this.getConfig().getSetuId());
-		Response response = this.setuClient.post(baseUri + "launch", action);
-		this.setSetuId((String) response.getData().get("automatorSetuId"));
+		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_LAUNCH_GUIAUTOMATOR, SetuArg.configArg(this.getConfig().getSetuId()));
+		this.setSetuId(response.getValueForGuiAutomatorSetuId());
 		
-		GuiAppAutomatorAction windowAction = new GuiAppAutomatorAction(this, GuiAppAutomatorActionType.GET_MAIN_WINDOW);
-		mainWindow = new DefaultMainWindow (this, this.takeElementFindingAction(windowAction));
+		SetuResponse winResponse = this.sendRequest(SetuActionType.GUIAUTO_GET_MAIN_WINDOW);
+		this.setMainWindow(GuiAutoElementFactory.createMainWindow(this.getTestSession(), this, winResponse.getValueForElementSetuId()));
+		
+		SetuResponse domResponse = this.sendRequest(SetuActionType.GUIAUTO_GET_DOM_ROOT);
+		this.setDomRoot(GuiAutoElementFactory.createDomRoot(this.getTestSession(), this, domResponse.getValueForElementSetuId()));
 	}
 	
+
+
 	@Override
 	public void quit() throws Exception {
-		this.setuClient.post(baseUri + "quit", new GuiAutomatorAction(this, GuiAutomatorActionType.QUIT));
+		this.sendRequest(SetuActionType.TESTSESSION_QUIT_GUIAUTOMATOR);
 	}
 }

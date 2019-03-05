@@ -27,17 +27,22 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.ddauto.MapDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.databroker.DataSourceBuilder;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
 public class ExcelFileDDTMapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		FileDataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.xls");
-		return builder.buildMapDataSource().iterRecordsForTestNG();
+		MapDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileMapDataSource("input.xls")
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")

@@ -20,7 +20,6 @@
 package com.testmile.daksha.tpi.guiauto;
 
 import com.testmile.setu.requester.SetuManagedObject;
-import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 
 public interface Alert extends SetuManagedObject{
 	
@@ -28,5 +27,5 @@ public interface Alert extends SetuManagedObject{
 	void dismiss() throws Exception;
 	String getText() throws Exception;
 	void sendText(String text) throws Exception;
-	AppAutomator getAutomator();
+
 }

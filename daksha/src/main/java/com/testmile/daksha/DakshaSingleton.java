@@ -11,10 +11,10 @@ import com.testmile.daksha.core.config.CLIConfiguration;
 import com.testmile.daksha.core.config.DefaultTestContext;
 import com.testmile.daksha.core.testng.TestNGSuiteContext;
 import com.testmile.daksha.core.testng.TestNGTestContext;
-import com.testmile.daksha.tpi.ddauto.FileDataSourceBuilder;
 import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.setu.requester.databroker.DataSourceBuilder;
 import com.testmile.setu.requester.testsession.DefaultTestSession;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.batteries.console.Console;
@@ -104,7 +104,7 @@ public enum DakshaSingleton {
 		return SetuOption.valueOf(normalizeUserOption(option));
 	}
 	
-	public FileDataSourceBuilder createFileDataSourceBuilder(String fileName) throws Exception {
-		return new FileDataSourceBuilder(this.getCentralConfig(), fileName);
+	public DataSourceBuilder createDataSourceBuilder() throws Exception {
+		return new DataSourceBuilder(session);
 	}
 }
