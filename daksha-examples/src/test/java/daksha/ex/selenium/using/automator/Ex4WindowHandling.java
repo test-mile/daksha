@@ -20,8 +20,7 @@
 package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.setu.requester.config.TestConfig;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.ChildWindow;
 import com.testmile.setu.requester.guiauto.component.MainWindow;
@@ -29,21 +28,22 @@ import com.testmile.setu.requester.guiauto.component.MainWindow;
 public class Ex4WindowHandling {
 
 	public static void main(String[] args) throws Exception {
-		TestConfig config = Daksha.init();
-		GuiAutomator automator = new DefaultGuiAutomator(config);
+		DakshaTestConfig config = Daksha.init();
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		
 		WPLoginLogout.login(automator);
 		
 		MainWindow mainWin = automator.mainWindow();
 		mainWin.maximize();
 		System.out.println(mainWin.getTitle());
-		automator.executeJavaScript("window.open('/abc')");
-		ChildWindow win = automator.newChildWindow();
-		win.jump();
+		automator.browser().executeJavaScript("window.open('/abc')");
+		ChildWindow win = automator.mainWindow().latestChildWindow();
+		win.focus();
 		System.out.println(win.getTitle());
 		win.close();
-		automator.executeJavaScript("window.open('/def')");
-		automator.executeJavaScript("window.open('/xyz')");
-		automator.closeAllChildWindows();
+		automator.browser().executeJavaScript("window.open('/def')");
+		automator.browser().executeJavaScript("window.open('/xyz')");
+		automator.mainWindow().closeAllChildWindows();
 		System.out.println(mainWin.getTitle());
 		
 		WPLoginLogout.logout(automator);

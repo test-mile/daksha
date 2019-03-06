@@ -44,8 +44,6 @@ public interface AppAutomator extends SetuManagedObject{
 
 	RadioGroup radioGroup(With with, String value) throws Exception;
 
-	Frame frame(With with, String value) throws Exception;
-
 	MainWindow mainWindow() throws Exception;
 
 	Alert alert() throws Exception;
@@ -56,4 +54,7 @@ public interface AppAutomator extends SetuManagedObject{
 	
 	Browser browser();
 
+	void slowMotion(boolean on, int interval) throws Exception;
+
+	void slowMotion(boolean on) throws Exception;
 }

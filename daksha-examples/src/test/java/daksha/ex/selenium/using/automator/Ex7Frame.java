@@ -20,17 +20,17 @@
 package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.With;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.Frame;
 
 public class Ex7Frame {
 
 	public static void main(String[] args) throws Exception {
-		TestConfig config = Daksha.init();
-		GuiAutomator automator = new DefaultGuiAutomator(config);
+		DakshaTestConfig config = Daksha.init();
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		
 		WPLoginLogout.login(automator);
 		
 		automator.element(With.LINK_TEXT,"Posts").click();
@@ -39,26 +39,26 @@ public class Ex7Frame {
 		automator.element(With.ID, "title").setText("Sample");
 		
 		// Frame by identifier and jump to root
-		Frame frame = automator.frame(With.ID, "content_ifr");
-		frame.jump();
+		Frame frame = automator.domRoot().frame(With.ID, "content_ifr");
+		frame.focus();
 		automator.element(With.ID,"tinymce").setText("This is a test - frame by name.");
-		frame.jumpToRoot();
+		automator.domRoot().focus();
 		automator.element(With.ID,"publish").click();
 		Thread.sleep(5000);
 		
 		// Frame by index
-		frame = automator.frame(With.INDEX, "0");
-		frame.jump();
+		frame = automator.domRoot().frame(With.INDEX, "0");
+		frame.focus();
 		automator.element(With.ID,"tinymce").setText("This is a test - frame by index.");
-		frame.jumpToRoot();
+		automator.domRoot().focus();
 		automator.element(With.ID,"publish").click();
 		Thread.sleep(5000);
 		
 		// jump to parent
-		frame = automator.frame(With.XPATH, "//iframe");
-		frame.jump();
+		frame = automator.domRoot().frame(With.XPATH, "//iframe");
+		frame.focus();
 		automator.element(With.ID,"tinymce").setText("This is a test - jumping to parent after this.");
-		frame.jumpToParent();
+		frame.getParent().focus();
 		automator.element(With.ID,"publish").click();
 		Thread.sleep(5000);
 		

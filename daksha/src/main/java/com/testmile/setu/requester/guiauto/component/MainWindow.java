@@ -28,6 +28,6 @@ public interface MainWindow extends SetuManagedObject {
 	void maximize() throws Exception;
 	
 	ChildWindow childWindow(With with, String value) throws Exception;
-	ChildWindow newChildWindow() throws Exception;
+	ChildWindow latestChildWindow() throws Exception;
 	void closeAllChildWindows() throws Exception;
 }

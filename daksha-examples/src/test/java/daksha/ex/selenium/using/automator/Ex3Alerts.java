@@ -20,29 +20,29 @@
 package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.setu.requester.config.TestConfig;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.Alert;
 
 public class Ex3Alerts {
 
 	public static void main(String[] args) throws Exception {
-		TestConfig config = Daksha.init();
-		GuiAutomator automator = new DefaultGuiAutomator(config);
+		DakshaTestConfig config = Daksha.init();
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		
 		WPLoginLogout.login(automator);
 		
-		automator.executeJavaScript("alert('dummy')");
+		automator.browser().executeJavaScript("alert('dummy')");
 		automator.alert().confirm();
-		automator.executeJavaScript("alert('dummy')");
+		automator.browser().executeJavaScript("alert('dummy')");
 		automator.alert().dismiss();
 		
-		automator.executeJavaScript("alert('Sample')");
+		automator.browser().executeJavaScript("alert('Sample')");
 		Alert alert = automator.alert();
 		assert alert.getText() == "Sample";
 		alert.confirm();
 		
-		automator.executeJavaScript("prompt('Are You Sure?')");
+		automator.browser().executeJavaScript("prompt('Are You Sure?')");
 		alert = automator.alert();
 		alert.sendText("Yes");	
 		alert.confirm();

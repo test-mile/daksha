@@ -19,11 +19,11 @@
 
 package com.testmile.setu.requester.guiauto.component;
 
-import com.testmile.setu.requester.connector.SetuManagedObject;
 import com.testmile.setu.requester.guiauto.With;
 
 public interface DomRoot {
 	
 	void focus() throws Exception;
-	Frame createFrame(With with, String value) throws Exception;
+	Frame frame(With with, String value) throws Exception;
+	
 }

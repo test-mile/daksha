@@ -101,12 +101,6 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 
 	@Override
-	public Frame frame(With with, String value) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_FRAME, with, value);
-		return GuiAutoComponentFactory.createFrame(this.testSession, this, elemSetuId);
-	}
-
-	@Override
 	public Alert alert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
 		return GuiAutoComponentFactory.createAlert(this.testSession, this, elemSetuId);
@@ -150,5 +144,24 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	protected void setBrowser(Browser browser) throws Exception {
 		this.browser = browser;
 	}
+	
+	@Override
+	public void slowMotion(boolean on, int interval) throws Exception {
+		this.sendRequest(
+				SetuActionType.GUIAUTO_SET_SLOMO,
+				SetuArg.arg("on", on),
+				SetuArg.arg("interval", interval)
+		);
+	}
+	
+	@Override
+	public void slowMotion(boolean on) throws Exception {
+		this.sendRequest(
+				SetuActionType.GUIAUTO_SET_SLOMO,
+				SetuArg.arg("on", on)
+		);
+	}
+	
+
 
 }

@@ -20,17 +20,17 @@
 package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.With;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 
 public class Ex2MultiElement {
 
 	public static void main(String[] args) throws Exception {
-		TestConfig config = Daksha.init();
-		GuiAutomator automator = new DefaultGuiAutomator(config);
+		DakshaTestConfig config = Daksha.init();
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		
 		WPLoginLogout.login(automator);
 		
 		automator.element(With.LINK_TEXT,"Posts").click();

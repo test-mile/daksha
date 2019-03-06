@@ -50,4 +50,5 @@ public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAuto
 	public void quit() throws Exception {
 		this.sendRequest(SetuActionType.TESTSESSION_QUIT_GUIAUTOMATOR);
 	}
+
 }

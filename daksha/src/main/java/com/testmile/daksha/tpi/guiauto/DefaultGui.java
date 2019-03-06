@@ -187,11 +187,6 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		return super.radioGroup(With.ASSIGNED_NAME, name);
 	}
 	
-	@Override
-	public Frame frame(String name) throws Exception {
-		return super.frame(With.ASSIGNED_NAME, name);
-	}
-	
 	public MainWindow mainWindow() throws Exception {
 		return this.automator.mainWindow();
 	}

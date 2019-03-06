@@ -159,40 +159,33 @@ class DefaultGuiMultiElement extends BaseElement implements GuiMultiElement {
 
 }
 
-class SelectableElementGroup extends BaseElement {
+class DefaultDropDown extends BaseElement implements DropDown {
 
-	public SelectableElementGroup(TestSession session, AppAutomator automator, String setuId) {
+	public DefaultDropDown(TestSession session, AppAutomator automator, String setuId) {
 		super(session, automator, setuId);
 	}
-
+	
 	public boolean hasValueSelected(String value) throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_SELECTABLE_ELEMENTGROUP_HAS_VALUE_SELECTED, SetuArg.valueArg(value));
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_DROPDOWN_HAS_VALUE_SELECTED, SetuArg.valueArg(value));
 		return response.getValueForCheckResult();
 	}
 
 	public boolean hasIndexSelected(int index) throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_SELECTABLE_ELEMENTGROUP_HAS_INDEX_SELECTED, SetuArg.indexArg(index));
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_DROPDOWN_HAS_INDEX_SELECTED, SetuArg.indexArg(index));
 		return response.getValueForCheckResult();
 	}
 
 	public void selectByValue(String value) throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_SELECTABLE_ELEMENTGROUP_SELECT_BY_VALUE, SetuArg.valueArg(value));
+		this.sendRequest(SetuActionType.GUIAUTO_DROPDOWN_SELECT_BY_VALUE, SetuArg.valueArg(value));
 	}
 
 	public void selectByIndex(int index) throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_SELECTABLE_ELEMENTGROUP_SELECT_BY_INDEX, SetuArg.indexArg(index));
+		this.sendRequest(SetuActionType.GUIAUTO_DROPDOWN_SELECT_BY_INDEX, SetuArg.indexArg(index));
 	}
 
 	public String getFirstSelectedOptionValue() throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_SELECTABLE_ELEMENTGROUP_GET_FIRST_SELECTED_OPTION_VALUE);
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_DROPDOWN_GET_FIRST_SELECTED_OPTION_VALUE);
 		return response.getValueForValueAttr();
-	}
-}
-
-class DefaultDropDown extends SelectableElementGroup implements DropDown {
-
-	public DefaultDropDown(TestSession session, AppAutomator automator, String setuId) {
-		super(session, automator, setuId);
 	}
 	
 	public String getFirstSelectedOptionText() throws Exception {
@@ -212,12 +205,34 @@ class DefaultDropDown extends SelectableElementGroup implements DropDown {
 	}
 }
 
-class DefaultRadioGroup extends SelectableElementGroup implements RadioGroup {
+class DefaultRadioGroup extends BaseElement implements RadioGroup {
 
 	public DefaultRadioGroup(TestSession session, AppAutomator automator, String setuId) {
 		super(session, automator, setuId);
 	}
+	
+	public boolean hasValueSelected(String value) throws Exception {
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_RADIOGROUP_HAS_VALUE_SELECTED, SetuArg.valueArg(value));
+		return response.getValueForCheckResult();
+	}
 
+	public boolean hasIndexSelected(int index) throws Exception {
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_RADIOGROUP_HAS_INDEX_SELECTED, SetuArg.indexArg(index));
+		return response.getValueForCheckResult();
+	}
+
+	public void selectByValue(String value) throws Exception {
+		this.sendRequest(SetuActionType.GUIAUTO_RADIOGROUP_SELECT_BY_VALUE, SetuArg.valueArg(value));
+	}
+
+	public void selectByIndex(int index) throws Exception {
+		this.sendRequest(SetuActionType.GUIAUTO_RADIOGROUP_SELECT_BY_INDEX, SetuArg.indexArg(index));
+	}
+
+	public String getFirstSelectedOptionValue() throws Exception {
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_RADIOGROUP_GET_FIRST_SELECTED_OPTION_VALUE);
+		return response.getValueForValueAttr();
+	}
 }
 
 class DefaultAlert extends BaseElement implements Alert {
@@ -228,23 +243,23 @@ class DefaultAlert extends BaseElement implements Alert {
 
 	@Override
 	public void confirm() throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_CONFIRM_ALERT);
+		this.sendRequest(SetuActionType.GUIAUTO_ALERT_CONFIRM);
 	}
 
 	@Override
 	public void dismiss() throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_DISMISS_ALERT);
+		this.sendRequest(SetuActionType.GUIAUTO_ALERT_DISMISS);
 	}
 
 	@Override
 	public String getText() throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_GET_TEXT_FROM_ALERT);
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_ALERT_GET_TEXT);
 		return response.getValueForText();
 	}
 
 	@Override
 	public void sendText(String text) throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_SEND_TEXT_TO_ALERT, SetuArg.textArg(text));
+		this.sendRequest(SetuActionType.GUIAUTO_ALERT_SEND_TEXT, SetuArg.textArg(text));
 	}
 
 }
@@ -294,7 +309,7 @@ class DefaultDomRoot extends BaseComponent implements DomRoot{
 	}
 
 	@Override
-	public DefaultFrame createFrame(With with, String value) throws Exception {
+	public DefaultFrame frame(With with, String value) throws Exception {
 		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_DOMROOT_CREATE_FRAME);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}	
@@ -389,8 +404,8 @@ class DefaultMainWindow extends AbstractBasicWindow implements MainWindow {
 	}
 	
 	@Override
-	public ChildWindow newChildWindow() throws Exception {
-		SetuResponse response = sendRequest(SetuActionType.GUIAUTO_MAIN_WINDOW_GET_NEWLY_LAUNCHED_CHILD_WINDOW);
+	public ChildWindow latestChildWindow() throws Exception {
+		SetuResponse response = sendRequest(SetuActionType.GUIAUTO_MAIN_WINDOW_GET_LATEST_CHILD_WINDOW);
 		return GuiAutoComponentFactory.createChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
 

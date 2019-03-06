@@ -122,20 +122,14 @@ class DefaultSetuRequester implements SetuRequester {
 			response = this.restClient.post(baseUri, action.asJsonString());
 			return setuResponse = DefaultSetuResponse.fromJsonStr(response);
 		} catch (SetuHttpException e) {
+			System.err.println("---------- Setu Error Response ----------------------");
 			System.err.println("Got Http Error: " + e.getStatusCode());
-			try {
-				System.err.println("Setu responsed with error.");
-				setuResponse = DefaultSetuResponse.fromJsonStr(e.getResponse());
-				System.err.println("Error: " +  setuResponse.getMessage());
-				System.err.println("Trace: ");
-				System.err.println(setuResponse.getTrace());
-				throw e;
-			} catch (Exception f) {
-				System.err.println(f);
-				System.out.println("Problem in parsing Http response. Content does not appear to be Setu Response Json. Printing raw response content.");
-				System.out.println(e.getResponse());
-				throw f;
-			}
+			setuResponse = DefaultSetuResponse.fromJsonStr(e.getResponse());
+			System.err.println("Error: " +  setuResponse.getMessage());
+			System.err.println("---------- Setu Error Trace -------------------------");
+			System.err.println(setuResponse.getTrace());
+			System.err.println("-----------------------------------------------------");
+			throw e;
 		}
 	}
 }
