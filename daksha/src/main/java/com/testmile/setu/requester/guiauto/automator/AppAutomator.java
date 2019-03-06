@@ -23,6 +23,7 @@ import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.SetuManagedObject;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
 import com.testmile.setu.requester.guiauto.component.Frame;
@@ -52,5 +53,7 @@ public interface AppAutomator extends SetuManagedObject{
 	GuiAutomationContext getAutomationContext();
 
 	DomRoot domRoot();
+	
+	Browser browser();
 
 }

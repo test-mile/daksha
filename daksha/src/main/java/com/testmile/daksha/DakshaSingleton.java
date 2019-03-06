@@ -16,6 +16,8 @@ import com.testmile.daksha.tpi.ddauto.DakshaDataSourceBuilder;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.batteries.console.Console;
 import com.testmile.trishanku.tpi.enums.SetuOption;
@@ -106,5 +108,9 @@ public enum DakshaSingleton {
 	
 	public DakshaDataSourceBuilder createDataSourceBuilder() throws Exception {
 		return new DakshaDataSourceBuilder(session);
+	}
+	
+	public GuiAutomator createGuiAutomator(DakshaTestConfig config) throws Exception {
+		return new DefaultGuiAutomator(config);
 	}
 }

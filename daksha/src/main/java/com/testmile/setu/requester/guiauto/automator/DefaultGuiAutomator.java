@@ -35,12 +35,13 @@ public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAuto
 	public void launch() throws Exception {
 		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_LAUNCH_GUIAUTOMATOR, SetuArg.configArg(this.getConfig().getSetuId()));
 		this.setSetuId(response.getValueForGuiAutomatorSetuId());
+		this.setSelfSetuIdArg("automatorSetuId");
 		
 		SetuResponse winResponse = this.sendRequest(SetuActionType.GUIAUTO_GET_MAIN_WINDOW);
 		this.setMainWindow(GuiAutoComponentFactory.createMainWindow(this.getTestSession(), this, winResponse.getValueForElementSetuId()));
 		
-		SetuResponse domResponse = this.sendRequest(SetuActionType.GUIAUTO_GET_DOM_ROOT);
-		this.setDomRoot(GuiAutoComponentFactory.createDomRoot(this.getTestSession(), this, domResponse.getValueForElementSetuId()));
+		this.setDomRoot(GuiAutoComponentFactory.createDomRoot(this.getTestSession(), this));
+		this.setBrowser(GuiAutoComponentFactory.createBrowser(this.getTestSession(), this));
 	}
 	
 

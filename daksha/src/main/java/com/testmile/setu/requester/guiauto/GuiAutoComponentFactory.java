@@ -6,6 +6,7 @@ import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.Alert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.ChildWindow;
@@ -20,82 +21,65 @@ import com.testmile.setu.requester.testsession.TestSession;
 
 public class GuiAutoComponentFactory {
 
-	public static GuiElement createGuiElement(TestSession testSession, AppAutomator abstractAppAutomator,
-			String elemSetuId) {
+	public static GuiElement createGuiElement(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static GuiMultiElement createGuiMultiElement(TestSession testSession,
-			AppAutomator abstractAppAutomator, String elemSetuId) {
+	public static GuiMultiElement createGuiMultiElement(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static DropDown createGuiDropDown(TestSession testSession, AppAutomator abstractAppAutomator,
-			String elemSetuId) {
+	public static DropDown createGuiDropDown(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static RadioGroup createRadioGroup(TestSession testSession, AppAutomator abstractAppAutomator,
-			String elemSetuId) {
+	public static RadioGroup createRadioGroup(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static Frame createFrame(TestSession testSession, AppAutomator abstractAppAutomator,
-			String elemSetuId) {
+	public static Frame createFrame(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static Alert createAlert(TestSession testSession, AppAutomator abstractAppAutomator,
-			String elemSetuId) {
+	public static Alert createAlert(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static ChildWindow createChildWindow(TestSession testSession, AppAutomator abstractAppAutomator,
-			String elemSetuId) {
+	public static ChildWindow createChildWindow(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static MainWindow createMainWindow(TestSession testSession, AppAutomator automator,
-			String setuId) {
+	public static MainWindow createMainWindow(TestSession session, AppAutomator automator, String setuId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static DomRoot createDomRoot(TestSession testSession, DefaultGuiAutomator defaultGuiAutomator,
-			String valueForElementSetuId) {
-		// TODO Auto-generated method stub
-		return null;
+	public static DomRoot createDomRoot(TestSession session, AppAutomator automator) {
+		return new DefaultDomRoot(session, automator);
+	}
+	
+	public static Browser createBrowser(TestSession session, AppAutomator automator) {
+		return new DefaultBrowser(session, automator);
 	}
 
 }
 
-
-class BaseElement extends BaseSetuObject{
+class BaseComponent extends BaseSetuObject{
 	private AppAutomator automator;
 	private TestSession testSession;
 
-	public BaseElement(TestSession session, AppAutomator automator, String elemSetuId) {
+	public BaseComponent(TestSession session, AppAutomator automator) {
 		this.testSession = session;
 		this.automator = automator;
-		this.setSetuId(elemSetuId);
-		this.setSelfSetuIdArg("elementSetuId");
 		this.setAutomatorSetuIdArg(automator.getSetuId());
 		this.setTestSessionSetuIdArg(testSession.getSetuId());
-	}
-	
-	public BaseElement(TestSession testSession, AppAutomator automator, String elemSetuId, int index) {
-		this(testSession, automator, elemSetuId);
-		this.addArgs(
-				SetuArg.arg("isInstanceAction", true),
-				SetuArg.arg("instanceIndex", index)
-		);
 	}
 	
 	protected AppAutomator getAutomator() {
@@ -104,6 +88,26 @@ class BaseElement extends BaseSetuObject{
 	
 	protected TestSession getTestSession() {
 		return this.testSession;
+	}
+
+}
+
+
+
+class BaseElement extends BaseComponent{
+
+	public BaseElement(TestSession session, AppAutomator automator, String elemSetuId) {
+		super(session, automator);
+		this.setSetuId(elemSetuId);
+		this.setSelfSetuIdArg("elementSetuId");
+	}
+	
+	public BaseElement(TestSession testSession, AppAutomator automator, String elemSetuId, int index) {
+		this(testSession, automator, elemSetuId);
+		this.addArgs(
+				SetuArg.arg("isInstanceAction", true),
+				SetuArg.arg("instanceIndex", index)
+		);
 	}
 
 }
@@ -253,10 +257,10 @@ class DefaultAlert extends BaseElement implements Alert {
 
 }
 
-class DefaultBrowser extends BaseElement implements Browser {
+class DefaultBrowser extends BaseComponent implements Browser {
 
-	public DefaultBrowser(TestSession session, AppAutomator automator, String setuId) {
-		super(session, automator, setuId);
+	public DefaultBrowser(TestSession session, AppAutomator automator) {
+		super(session, automator);
 	}
 
 	@Override
@@ -286,10 +290,10 @@ class DefaultBrowser extends BaseElement implements Browser {
 }
 
 
-class DefaultDomRoot extends BaseElement implements DomRoot{
+class DefaultDomRoot extends BaseComponent implements DomRoot{
 	
-	public DefaultDomRoot(TestSession session, AppAutomator automator, String setuId) {
-		super(session, automator, setuId);
+	public DefaultDomRoot(TestSession session, AppAutomator automator) {
+		super(session, automator);
 	}
 
 	@Override

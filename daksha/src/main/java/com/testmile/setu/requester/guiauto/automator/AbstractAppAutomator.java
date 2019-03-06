@@ -27,6 +27,7 @@ import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
 import com.testmile.setu.requester.guiauto.component.Frame;
@@ -40,6 +41,7 @@ import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator {
 	private DomRoot domRoot;
 	private MainWindow mainWindow;
+	private Browser browser;
 	private GuiAutomationContext autoContext;
 	private TestConfig config;
 	private TestSession testSession;
@@ -132,12 +134,21 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 		this.domRoot = domRoot;
 	}
 	
-	public void setMainWindow(MainWindow win) throws Exception {
+	protected void setMainWindow(MainWindow win) throws Exception {
 		this.mainWindow = win;
 	}
 	
 	public TestSession getTestSession() {
 		return this.testSession;
+	}
+
+	@Override
+	public Browser browser() {
+		return this.browser;
+	}
+	
+	protected void setBrowser(Browser browser) throws Exception {
+		this.browser = browser;
 	}
 
 }

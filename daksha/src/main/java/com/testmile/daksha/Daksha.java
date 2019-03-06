@@ -7,6 +7,8 @@ import com.testmile.daksha.tpi.ddauto.DakshaDataSourceBuilder;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class Daksha {
 	private static DakshaSingleton internal = DakshaSingleton.INSTANCE;
@@ -58,6 +60,10 @@ public class Daksha {
 	
 	public static DakshaDataSourceBuilder createDataSourceBuilder() throws Exception {
 		return internal.createDataSourceBuilder();
+	}
+	
+	public static GuiAutomator createGuiAutomator(DakshaTestConfig config) throws Exception {
+		return internal.createGuiAutomator(config);
 	}
 
 }
