@@ -21,7 +21,7 @@ package com.testmile.setu.requester.guiauto.component;
 
 import com.testmile.setu.requester.guiauto.With;
 
-public interface DomRoot {
+public interface DomRoot extends Frame {
 	
 	void focus() throws Exception;
 	Frame frame(With with, String value) throws Exception;

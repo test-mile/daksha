@@ -44,15 +44,14 @@ public class Ex7Frame {
 		automator.element(With.ID,"tinymce").setText("This is a test - frame by name.");
 		automator.domRoot().focus();
 		automator.element(With.ID,"publish").click();
-		Thread.sleep(5000);
 		
 		// Frame by index
 		frame = automator.domRoot().frame(With.INDEX, "0");
 		frame.focus();
 		automator.element(With.ID,"tinymce").setText("This is a test - frame by index.");
+		// Focusing on root from frame itself
 		automator.domRoot().focus();
 		automator.element(With.ID,"publish").click();
-		Thread.sleep(5000);
 		
 		// jump to parent
 		frame = automator.domRoot().frame(With.XPATH, "//iframe");
@@ -60,7 +59,6 @@ public class Ex7Frame {
 		automator.element(With.ID,"tinymce").setText("This is a test - jumping to parent after this.");
 		frame.getParent().focus();
 		automator.element(With.ID,"publish").click();
-		Thread.sleep(5000);
 		
 		WPLoginLogout.logout(automator);
 	}

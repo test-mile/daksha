@@ -309,9 +309,17 @@ class DefaultDomRoot extends BaseComponent implements DomRoot{
 	}
 
 	@Override
-	public DefaultFrame frame(With with, String value) throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_DOMROOT_CREATE_FRAME);
+	public DefaultFrame frame(With withType, String withValue) throws Exception {
+		SetuResponse response = this.sendRequest(
+				SetuActionType.GUIAUTO_DOMROOT_CREATE_FRAME,
+				SetuArg.with(withType, withValue)
+		);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
+	}
+
+	@Override
+	public Frame getParent() throws Exception {
+		throw new Exception("DOM root does not have a parent frame.");
 	}	
 }
 
@@ -319,6 +327,7 @@ class DefaultFrame extends BaseElement implements Frame {
 
 	public DefaultFrame(TestSession session, AppAutomator automator, String setuId) {
 		super(session, automator, setuId);
+		this.setSelfSetuIdArg("elementSetuId");
 	}
 
 	@Override
@@ -327,8 +336,11 @@ class DefaultFrame extends BaseElement implements Frame {
 	}
 	
 	@Override
-	public Frame createFrame(With with, String value) throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_FRAME_CREATE_FRAME);
+	public Frame frame(With withType, String withValue) throws Exception {
+		SetuResponse response = this.sendRequest(
+				SetuActionType.GUIAUTO_FRAME_CREATE_FRAME,
+				SetuArg.with(withType, withValue)
+		);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
 	
@@ -337,12 +349,6 @@ class DefaultFrame extends BaseElement implements Frame {
 		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_FRAME_GET_PARENT);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
-	
-	@Override
-	public DomRoot domRoot() throws Exception {
-		return this.getAutomator().domRoot();
-	}
-
 }
 
 class AbstractBasicWindow extends BaseElement {

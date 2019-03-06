@@ -19,6 +19,9 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import com.testmile.setu.requester.config.SetuActionType;
 import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.BaseSetuObject;
