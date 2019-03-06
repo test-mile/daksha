@@ -19,6 +19,8 @@
 
 package com.testmile.setu.actor.guiauto.tpi.builder;
 
+import java.util.Map;
+
 import com.testmile.setu.actor.SetuActorConfig;
 import com.testmile.setu.actor.guiauto.core.builder.AppiumBuilder;
 import com.testmile.setu.actor.guiauto.core.builder.SeleniumBuilder;
@@ -26,8 +28,8 @@ import com.testmile.setu.actor.guiauto.tpi.automator.GuiAutomator;
 
 public class GuiAutomatorFactory {
 	
-	public static GuiAutomator createAutomator(String strJsonConfig) throws Exception{
-		SetuActorConfig config = new SetuActorConfig(strJsonConfig);
+	public static GuiAutomator createAutomator(Map<String,Object> jsonArgs) throws Exception{
+		SetuActorConfig config = new SetuActorConfig(jsonArgs);
 		switch(config.getAutomatorName()) {
 		case APPIUM:
 			return createAppiumAutomator(config);

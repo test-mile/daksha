@@ -27,10 +27,10 @@ public interface FrameHandler {
 
 	void switchToFrameByName(String name) throws Exception;
 
-	void jumpToHtmlRoot() throws Exception;
+	void focusOnDomRoot() throws Exception;
 
-	void jumpToParentFrame() throws Exception;
+	void focusOnParentFrame() throws Exception;
 
-	void jumpToFrame(GuiElement element) throws Exception;
+	void focusOnFrame(GuiElement element) throws Exception;
 
 }

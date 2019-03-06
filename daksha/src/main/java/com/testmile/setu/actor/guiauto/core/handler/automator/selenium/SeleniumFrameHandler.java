@@ -49,19 +49,19 @@ public class SeleniumFrameHandler extends AbstractWDHandler implements FrameHand
 	}
 	
 	@Override
-	public void jumpToHtmlRoot() throws Exception {
+	public void focusOnDomRoot() throws Exception {
 		validateFrameSupport();
 		this.getWebDriver().switchTo().defaultContent();
 	}
 	
 	@Override
-	public void jumpToParentFrame() throws Exception {
+	public void focusOnParentFrame() throws Exception {
 		validateFrameSupport();
 		this.getWebDriver().switchTo().parentFrame();
 	}
 
 	@Override
-	public void jumpToFrame(GuiElement element) throws Exception {
+	public void focusOnFrame(GuiElement element) throws Exception {
 		validateFrameSupport();
 		element.switchToFrame();
 	}

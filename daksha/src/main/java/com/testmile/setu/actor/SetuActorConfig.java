@@ -40,24 +40,31 @@ public class SetuActorConfig {
 	private Map<SetuOption, Value> options = new HashMap<SetuOption, Value>();
 	private Map<String, Value> userOptions = new HashMap<String, Value>();
 	
-	public SetuActorConfig(String strJsonConfig) throws Exception {
-		Gson gson = new Gson();
-		JsonParser parser = new JsonParser();
-		JsonObject jObj = parser.parse(strJsonConfig).getAsJsonObject();
+	public SetuActorConfig(Map<String, Object> jsonArgs) throws Exception {
+		Map<String, Object> setuOptions = (Map<String, Object>) ((Map<String, Object>) jsonArgs.get("config")).get("setuOptions");
+		Map<String, Object> userOptions = (Map<String, Object>) ((Map<String, Object>) jsonArgs.get("config")).get("userOptions");
 		
-		JsonElement sOptions = jObj.get("setuOptions").getAsJsonObject();
-		JsonElement uOptions = jObj.get("userOptions").getAsJsonObject();
+//		Gson gson = new Gson();
+//		JsonParser parser = new JsonParser();
+//		JsonObject jObj = parser.parse(strJsonConfig).getAsJsonObject();
+//		
+//		JsonElement sOptions = jObj.get("setuOptions").getAsJsonObject();
+//		JsonElement uOptions = jObj.get("userOptions").getAsJsonObject();
+//		
+//		Type type = new TypeToken<Map<String, String>>(){}.getType();
 		
-		Type type = new TypeToken<Map<String, String>>(){}.getType();
-		
-		Map<String, Object> sOptionDict = gson.fromJson(sOptions, type);
-		for (String key: sOptionDict.keySet()) {
-			this.options.put(SetuOption.valueOf(key.toUpperCase()), new AnyRefValue((String) sOptionDict.get(key)));
+//		Map<String, Object> sOptionDict = gson.fromJson(sOptions, type);
+		for (String key: setuOptions.keySet()) {
+			this.options.put(SetuOption.valueOf(key.toUpperCase()), new AnyRefValue(setuOptions.get(key)));
 		}
 		
-		Map<String, Object> uOptionDict = gson.fromJson(uOptions, type);
-		for (String key: uOptionDict.keySet()) {
-			this.userOptions.put(key.toUpperCase(), new AnyRefValue((String) sOptionDict.get(key)));
+		for (String key: setuOptions.keySet()) {
+			this.options.put(SetuOption.valueOf(key.toUpperCase()), new AnyRefValue(setuOptions.get(key)));
+		}
+		
+//		Map<String, Object> uOptionDict = gson.fromJson(uOptions, type);
+		for (String key: userOptions.keySet()) {
+			this.userOptions.put(key.toUpperCase(), new AnyRefValue(userOptions.get(key)));
 		}
 	}
 	

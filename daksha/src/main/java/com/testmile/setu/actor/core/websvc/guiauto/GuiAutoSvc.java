@@ -20,6 +20,8 @@
 package com.testmile.setu.actor.core.websvc.guiauto;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,43 +35,28 @@ import org.eclipse.jetty.http.HttpStatus;
 import com.google.gson.Gson;
 import com.testmile.setu.actor.core.websvc.guiauto.helpers.GuiAutomatorHandler;
 import com.testmile.setu.actor.core.websvc.guiauto.helpers.Response;
+import com.testmile.setu.requester.connector.SetuResponse;
+import com.testmile.trishanku.tpi.value.AnyRefValue;
+import com.testmile.trishanku.tpi.value.Value;
 import com.testmile.trishanku.tpi.webserver.JsonUtils;
 
 public class GuiAutoSvc extends HttpServlet {
-	private static GuiAutomatorHandler guiAutoHandler = null;
 	private static Gson gson = new Gson();
+	private Map<String, GuiAutomatorHandler> guiAutoHandlerMap = new HashMap<String, GuiAutomatorHandler>();
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3372756574410648998L;
 	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String retContent =  null;
-		GuiAutoRequest req = new GuiAutoRequest(request);
-		String path = req.getTarget() + req.getCommand();
-		try {
-			switch (path){
-			case "/automator/quit":
-				guiAutoHandler.quit();
-				retContent = Response.createSuccessResponseString();
-				break;
-			case "/automator/screenshot":
-				String codedImage = guiAutoHandler.takeScreeshot();
-				retContent = Response.createSuccessResponseString("codedImage", codedImage);
-				break;
-			default:
-				throw new Exception(String.format("Requested link: %s is invalid.", request.getRequestURI()));
-			}
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR_500);
-			retContent = Response.createErrorResponseString(e);
-		}
-		
-		response.getWriter().println(retContent);
-		response.flushBuffer();	
+	protected synchronized GuiAutomatorHandler createAutomatorHandler(String setuId) throws Exception {
+		GuiAutomatorHandler handler = new GuiAutomatorHandler(setuId); 
+		this.guiAutoHandlerMap.put(setuId, handler);
+		return handler;
+	}
+	
+	protected synchronized void removeAutomatorHandler(String setuId) throws Exception {
+		this.guiAutoHandlerMap.remove(setuId);
 	}
 
 	@Override
@@ -77,21 +64,25 @@ public class GuiAutoSvc extends HttpServlet {
 			throws ServletException, IOException {
 		String retContent =  null;
 		GuiAutoRequest req = new GuiAutoRequest(request);
-		String path = req.getTarget() + req.getCommand();
+		String path = req.getPath();
+		GuiAutomatorHandler guiAutoHandler;
 		try {
 			switch (path){
-			case "/automator/launch":
-				guiAutoHandler = new GuiAutomatorHandler(req.getJsonStr(), req.getUuid());
-				retContent = Response.createSuccessResponseString();
+			case "/guiautomator":
+				System.out.println(req.getAutomatorId());
+				if (!guiAutoHandlerMap.containsKey(req.getAutomatorId())) {
+					guiAutoHandler = createAutomatorHandler(req.getAutomatorId());
+				} else {
+					guiAutoHandler = guiAutoHandlerMap.get(req.getAutomatorId());
+				}
+				retContent = guiAutoHandler.takeAction(req.getAction(), req.getArgs());
+				if (req.getAction().toLowerCase().equals("quit")) {
+					removeAutomatorHandler(req.getAutomatorId());
+				}
 				break;
-			case "/automator/action":
-				retContent = guiAutoHandler.takeAction(req.getJsonStr());
-				break;
-			case "/element/action":
-				retContent = guiAutoHandler.takeElementAction(req.getUuid(), req.getJsonStr());
-				break;
-			case "/multielement/action":
-				retContent = guiAutoHandler.takeMultiElementAction(req.getUuid(), req.getJsonStr());
+			case "/guielement":
+				guiAutoHandler = guiAutoHandlerMap.get(req.getAutomatorId());
+				retContent = guiAutoHandler.takeElementAction(req.getElementId(), req.getArgs());
 				break;
 			default:
 				throw new Exception(String.format("Requested link: %s is invalid.", request.getRequestURI()));
@@ -103,186 +94,61 @@ public class GuiAutoSvc extends HttpServlet {
 		
 		response.getWriter().println(retContent);
 		response.flushBuffer();	
-	}
-	
-//	@Override
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String fullPath = request.getPathInfo();
-//		System.out.println(fullPath);
-//		String patternString1 = "(/.*)";
-//        Pattern pattern = Pattern.compile(patternString1);
-//        Matcher matcher = pattern.matcher(fullPath);
-//        matcher.matches();
-//        //String projName = matcher.group(1);
-//        String path = matcher.group(1);
-//		String retContent =  null;
-//		System.out.println(path);
-//		System.out.println(path.equals("/hello"));
-//		switch (path){
-//		case "/launch":
-//			System.out.println("here");
-//			retContent = "Hello";
-//			response.setStatus(HttpStatus.OK_200);
-//			break;
-//		case "/home":
-//			retContent = home(projName, request, response);
-//			break;
-//		case "/menu":
-//			retContent = menu(projName, request, response);
-//			break;
-//		case "/home/new":
-//			retContent = homeNew(projName, request, response);
-//			break;
-//		case "/settings":
-//			retContent = projSettings(projName, request, response);
-//			break;
-//		case "/settings/panel":
-//			retContent = projSettingsPanel(projName, request, response);
-//			break;
-//		case "/settings/view":
-//			retContent = viewProjSettings(projName, request, response);
-//			break;
-//		case "/settings/edit":
-//			retContent = editProjSettings(projName, request, response);
-//			break;
-//		case "/configure":
-//			retContent = configure(projName, request, response);
-//			break;
-//		case "/conf/overview":
-//			retContent = overview(projName, request, response);
-//			break;
-//		case "/conf/arjuna":
-//			retContent = arjunaSettings(projName, request, response);
-//			break;
-//		case "/conf/arjuna/view":
-//			retContent = viewArjunaSettings(projName, request, response);
-//			break;
-//		case "/conf/arjuna/edit":
-//			retContent = editArjunaSettings(projName, request, response);
-//			break;
-//		case "/conf/uo":
-//			retContent = userConf(projName, request, response);
-//			break;
-//		case "/conf/tv":
-//			retContent = utv(projName, request, response);
-//			break;
-//		case "/execute":
-//			retContent = execute(projName, request, response);
-//			break;
-//		default:
-//			retContent = String.format("Requested link: <font color='red'>%s</font> is invalid.", request.getRequestURI());
-//		}
-//		
-//		response.getWriter().println(retContent);
-//		// This is very important, else JavaFX keeps waiting with zero progress.
-//		response.flushBuffer();	
-//	}
-	
-//	private String execute(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//		String body = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/execProjForm.html");
-//		String common = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/execProjFormCommon.html");
-//		String runid = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/runid.html");
-//		String simple = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/execProjFormCommonSimple.html");
-//		String session = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/session.html");
-//		String picker = "";
-//		
-//		String retHtml = body
-//				.replace("{{COMMON_EXEC_FORM}}", common)
-//				.replace("{{COMMON_SIMPLE_EXEC_FORM}}", simple)
-//				.replace("{{RUNID_FORM}}", runid)
-//				.replace("{{SESSION_FORM}}", session)
-//				.replace("{{PICKER_FORM}}", "")
-//				.replace("{{PROJECT_NAME}}", projName)
-//				.replace("{{SOURCE_CONFIG_TYPE}}", "Session");
-//		response.setStatus(HttpStatus.OK_200);
-//		return retHtml;
-//	}
-	
-//	private String execute(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//		String body = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/execProjForm.html");
-//		String common = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/execProjFormCommon.html");
-//		String runid = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/runid.html");
-//		String simple = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/execProjFormCommonSimple.html");
-//		//String session = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/sessionm.html");;
-//		String pickers = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/pickers.html");
-//		String pickSingle = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/pickersingle.html");
-//		String pickMulti = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/exec/pickermulti.html");
-//					
-//		String retHtml = body;
-//				.replace("{{COMMON_EXEC_FORM}}", common)
-//				.replace("{{COMMON_SIMPLE_EXEC_FORM}}", simple)
-//				.replace("{{RUNID_FORM}}", runid)
-//				//.replace("{{SESSION_FORM}}", session)
-//				.replace("{{SESSION_FORM}}", "")
-//				.replace("{{PICKER_FORM}}", pickers)
-//				.replace("{{PICKER_PACKAGE_NAME}}", pickSingle.replace("{{OBJECT}}", "Package"))
-//				.replace("{{PICKER_MULTI_PACKAGE}}", pickMulti.replace("{{OBJECT}}", "Package").replace("{{OBJECTS}}", "Packages"))
-//				.replace("{{PICKER_CLASS_NAME}}", pickSingle.replace("{{OBJECT}}", "Class"))
-//				.replace("{{PICKER_MULTI_CLASS}}", pickMulti.replace("{{OBJECT}}", "Class").replace("{{OBJECTS}}", "Classes"))
-//				.replace("{{PICKER_METHODS}}", pickMulti.replace("{{OBJECT}}", "Method").replace("{{OBJECTS}}", "Methods"))
-//				.replace("{{PROJECT_NAME}}", projName)
-//				.replace("{{SOURCE_CONFIG_TYPE}}", "Project");
-//		response.setStatus(HttpStatus.OK_200);
-//		return "";
-//	}
-	
-//	private String home(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//		String body = HTMLUtils.getFileContent("/com/arjunapro/pvt/content/html/project/projectSection.html");
-//
-//		String retHtml = body
-//				.replace("{{PROJECT_NAME}}", projName);
-//		response.setStatus(HttpStatus.OK_200);
-//		return retHtml;
-//	}
-	
-//	private String menu(String projName, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//		String body = JsonUtils.getFileContent("/com/arjunapro/pvt/content/html/project/projectMenu.html");
-//
-//		String retHtml = body
-//				.replace("{{PROJECT_NAME}}", projName);
-//		response.setStatus(HttpStatus.OK_200);
-//		return retHtml;
-//	}	
-		
+	}	
 }
 
+class ActorRequest {
+	private static final Gson gson = new Gson();
+	private String action;
+	private Map<String,Object> args = null;
+	
+	public String getAction(){
+		return this.action;
+	}
+	
+	public Map<String,Object> getArgs(){
+		return this.args;
+	}
+	
+	public static ActorRequest fromJsonStr(String json) {
+		return gson.fromJson(json, ActorRequest.class);
+	}
+}
+
+
 class GuiAutoRequest{
-	private String target;
-	private String uuid;
-	private String command;
+	private String path;
+	private ActorRequest req;
 	private String jsonStr;
 	
 	public GuiAutoRequest(HttpServletRequest request) throws IOException {
-		String fullPath = request.getPathInfo();
-		System.out.println(fullPath);
-		String patternString1 = "(/.*?)/(.*?)(/.*?)";
-        Pattern pattern = Pattern.compile(patternString1);
-        Matcher matcher = pattern.matcher(fullPath);
-        matcher.matches();
-        target = matcher.group(1);
-        uuid = matcher.group(2);
-        command = matcher.group(3);
-        System.out.println(target);
-        System.out.println(uuid);
-        System.out.println(command);		
 		jsonStr = JsonUtils.asJsonString(request.getInputStream());
-		System.out.println("JsonInput:" + jsonStr);		
+		System.out.println("JsonInput:" + jsonStr);	
+		path = request.getPathInfo();
+		req = ActorRequest.fromJsonStr(jsonStr);	
 	}
 	
-	public String getTarget() {
-		return target;
+	public String getElementId() {
+		return (String) this.req.getArgs().get("elementSetuId");
 	}
 
-	public String getUuid() {
-		return uuid;
+	public String getAutomatorId() {
+		return (String) this.req.getArgs().get("automatorSetuId");
+	}
+	
+	public String getPath() {
+		return path;
 	}
 
-	public String getCommand() {
-		return command;
+	public String getAction() {
+		return req.getAction();
 	}
 
-	public String getJsonStr() {
+	public String getJsonBody() {
 		return jsonStr;
+	}
+
+	public Map<String,Object> getArgs() {
+		return req.getArgs();
 	}	
 }

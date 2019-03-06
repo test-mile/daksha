@@ -41,7 +41,7 @@ public class SetuWebService extends AbstractJettyServer{
 //		handlers.add(project);
 
 		ServletContextHandler guiauto = new ServletContextHandler();
-		guiauto.setContextPath("/guiauto");
+		guiauto.setContextPath("/setuactor");
 		guiauto.addServlet(GuiAutoSvc.class, "/*");
 		handlers.add(guiauto);
 		

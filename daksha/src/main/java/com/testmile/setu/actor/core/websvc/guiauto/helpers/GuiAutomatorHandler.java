@@ -32,9 +32,8 @@ public class GuiAutomatorHandler {
 	private String id = null;
 	private GuiElementHandler elementHandler = new GuiElementHandler();
 
-	public GuiAutomatorHandler(String jsonStr, String uuid) throws Exception {
-		id = uuid;
-		automator = GuiAutomatorFactory.createAutomator(jsonStr);
+	public GuiAutomatorHandler(String setuId) throws Exception {
+		id = setuId;
 	}
 	
 	public String getSetuId() {
@@ -49,50 +48,56 @@ public class GuiAutomatorHandler {
 		this.automator.quit();
 	}
 
-	public String takeAction(String jsonStr) throws Exception {
-		AutomatorAction action = new AutomatorAction(jsonStr);
+	public String takeAction(String actionStr, Map<String,Object> args) throws Exception {
+		//AutomatorAction action = new AutomatorAction(jsonStr);
 		String retContent = null;
-		switch(action.getActionType()) {
+		switch(AutomatorActionType.valueOf(actionStr.trim().toUpperCase())) {
+		case LAUNCH:
+			automator = GuiAutomatorFactory.createAutomator(args);
+			return Response.createSuccessResponseString();
+		case QUIT:
+			this.automator.quit();
+			return Response.createSuccessResponseString();
 		case GO_TO_URL:
-			System.out.println(action.getArgs().get("url").asString());
-			this.automator.getBrowserHandler().goTo(action.getArgs().get("url").asString());
+			System.out.println();
+			this.automator.getBrowserHandler().goTo((String) args.get("url"));
 			retContent = Response.createSuccessResponseString();
 			break;
 		case FIND_MULTIELEMENT:
 			GuiMultiElement mElement = this.automator.getElementFinder().findAll(
-					action.getArgs().get("byType").asString(),
-					action.getArgs().get("byValue").asString()
+					(String) args.get("withType"),
+					(String) args.get("withValue")
 			);
-			getElementHandler().registerMultiElement(action.getArgs().get("uuid").asString(), mElement);
+			getElementHandler().registerMultiElement((String) args.get("elementSetuId"), mElement);
 			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
 		case FIND_ELEMENT:
 			GuiElement foundElement = this.automator.getElementFinder().find(
-					action.getArgs().get("byType").asString(),
-					action.getArgs().get("byValue").asString()
+					(String) args.get("withType"),
+					(String) args.get("withValue")
 			);
-			String setu_id = action.getArgs().get("uuid").asString();
+			String setu_id = (String) args.get("elementSetuId");
 			this.getElementHandler().registerElement(setu_id,  foundElement);
 			retContent = Response.createSuccessResponseString();
 			break;
-		case JUMP_TO_FRAME:
-			boolean isInstanceAction = action.getArgs().get("isInstanceAction").asBoolean();
+		case FOCUS_ON_FRAME:
+			boolean isInstanceAction = (boolean) args.get("isInstanceAction");
 			GuiElement fElement;
 			if (isInstanceAction) {
-				GuiMultiElement mfElement = this.getElementHandler().getMultiElementForSetuId(action.getArgs().get("byValue").asString());
-				fElement = mfElement.getInstanceAtIndex(action.getArgs().get("instanceIndex").asInt());
+				GuiMultiElement mfElement = this.getElementHandler().getMultiElementForSetuId((String) args.get("elementSetuId"));
+				fElement = mfElement.getInstanceAtIndex((Integer) args.get("instanceIndex"));
 			} else {
-				fElement = this.getElementHandler().getElementForSetuId(action.getArgs().get("byValue").asString());
+				fElement = this.getElementHandler().getElementForSetuId((String) args.get("elementSetuId"));
 			}
-			this.automator.getFrameHandler().jumpToFrame(fElement);
+			this.automator.getFrameHandler().focusOnFrame(fElement);
 			retContent = Response.createSuccessResponseString();
 			break;
-		case JUMP_TO_PARENT_FRAME:
-			this.automator.getFrameHandler().jumpToParentFrame();
+		case FOCUS_ON_PARENT_FRAME:
+			this.automator.getFrameHandler().focusOnParentFrame();
 			retContent = Response.createSuccessResponseString();
 			break;
-		case JUMP_TO_HTML_ROOT:
-			this.automator.getFrameHandler().jumpToHtmlRoot();
+		case FOCUS_ON_DOM_ROOT:
+			this.automator.getFrameHandler().focusOnDomRoot();
 			retContent = Response.createSuccessResponseString();
 			break;
 		case CLOSE_CURRENT_WINDOW:
@@ -103,7 +108,7 @@ public class GuiAutomatorHandler {
 			Set<String> handles = this.automator.getWindowHandler().getAllWindowHandles();
 			retContent = Response.createSuccessResponseString("handles", handles);
 			break;
-		case GET_WINDOW_TITLE:
+		case GET_CURRENT_WINDOW_TITLE:
 			String handle = this.automator.getWindowHandler().getTitle();
 			retContent = Response.createSuccessResponseString("title", handle);
 			break;
@@ -115,22 +120,22 @@ public class GuiAutomatorHandler {
 			Map<String,Integer> size = this.automator.getWindowHandler().getCurrentWindowSize();
 			retContent = Response.createSuccessResponseString("size", size);
 			break;
-		case MAXIMIZE_WINDOW:
+		case MAXIMIZE_CURRENT_WINDOW:
 			this.automator.getWindowHandler().maximizeWindow();
 			retContent = Response.createSuccessResponseString();
 			break;
-		case SET_WINDOW_SIZE:
+		case SET_CURRENT_WINDOW_SIZE:
 			this.automator.getWindowHandler().setWindowSize(
-					action.getArgs().get("width").asInt(), action.getArgs().get("height").asInt()
+					(Integer) args.get("width"), (Integer) args.get("height")
 			);
 			retContent = Response.createSuccessResponseString();
 			break;
 		case SWITCH_TO_WINDOW:
-			this.automator.getWindowHandler().switchToWindow(action.getArgs().get("handle").asString());
+			this.automator.getWindowHandler().switchToWindow((String) args.get("handle"));
 			retContent = Response.createSuccessResponseString();
 			break;
 		case EXECUTE_JAVASCRIPT:
-			this.automator.getJsExecutor().executeScript(action.getArgs().get("script").asString());
+			this.automator.getJsExecutor().executeScript((String) args.get("script"));
 			retContent = Response.createSuccessResponseString();
 			break;
 		case IS_ALERT_PRESENT:
@@ -146,7 +151,7 @@ public class GuiAutomatorHandler {
 			retContent = Response.createSuccessResponseString();
 			break;
 		case SEND_TEXT_TO_ALERT:
-			this.automator.getAlertHandler().sendTextToAlert(action.getArgs().get("text").asString());
+			this.automator.getAlertHandler().sendTextToAlert((String) args.get("text"));
 			retContent = Response.createSuccessResponseString();
 			break;
 		case GET_TEXT_FROM_ALERT:
@@ -162,21 +167,17 @@ public class GuiAutomatorHandler {
 			retContent = Response.createSuccessResponseString("viewContexts", viewContexts);		
 			break;
 		case SWITCH_TO_VIEW_CONTEXT:
-			this.automator.getViewHandler().switchToViewContext(action.getArgs().get("viewContext").asString());
+			this.automator.getViewHandler().switchToViewContext((String) args.get("viewContext"));
 			retContent = Response.createSuccessResponseString();
 			break;			
 		default:
-			throw new Exception(String.format("Unrecognized element action: %s", action.getActionType()));
+			throw new Exception(String.format("Unrecognized automator action: %s", actionStr));
 		}
 		return retContent;
 	}
 
-	public String takeElementAction(String uuid, String jsonStr) throws Exception {
-		return this.getElementHandler().takeElementAction(uuid, jsonStr);
-	}
-	
-	public String takeMultiElementAction(String uuid, String jsonStr) throws Exception {
-		return this.getElementHandler().takeMultiElementAction(uuid, jsonStr);
+	public String takeElementAction(String elemId, Map<String,Object> args) throws Exception {
+		return null;//this.getElementHandler().takeElementAction(elemId, args);
 	}
 
 	public String takeScreeshot() throws Exception {
