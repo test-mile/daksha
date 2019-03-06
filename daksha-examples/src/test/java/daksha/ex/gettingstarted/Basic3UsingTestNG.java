@@ -21,27 +21,28 @@ package daksha.ex.gettingstarted;
 
 import org.testng.annotations.Test;
 
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.config.TestConfig;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class Basic3UsingTestNG extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	protected void setUpClass(TestConfig testConfig) throws Exception {
-		threadWiseAutomator.set(new DefaultGuiAutomator(testConfig));
+	protected void setUpClass(DakshaTestConfig config) throws Exception {
+		threadWiseAutomator.set(Daksha.createGuiAutomator(config));
+		System.out.println("here" + this.threadWiseAutomator.get());
 	}
 	
 	@Test
 	public void test() throws Exception{
 		GuiAutomator automator = this.threadWiseAutomator.get();
 		automator.launch();
-		automator.goToUrl("https://www.google.com");
+		automator.browser().goToUrl("https://www.google.com");
 		System.out.println(automator.mainWindow().getTitle());
 	}
 	
-	protected void tearDownClass(TestConfig testConfig) throws Exception {
+	protected void tearDownClass(DakshaTestConfig testConfig) throws Exception {
 		this.threadWiseAutomator.get().quit();
 	}
 }

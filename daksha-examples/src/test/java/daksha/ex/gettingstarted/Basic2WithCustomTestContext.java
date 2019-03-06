@@ -20,9 +20,8 @@
 package daksha.ex.gettingstarted;
 
 import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
-import com.testmile.setu.requester.config.TestConfig;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.tpi.enums.Browser;
 
@@ -42,14 +41,14 @@ public class Basic2WithCustomTestContext{
 		context.browserType(Browser.FIREFOX);
 		
 		// The build step sends information to Setu and creates a unique frozen config
-		TestConfig config = context.build(); 
+		DakshaTestConfig config = context.build(); 
 
 		// Create Automator (default is Selenium) with context config
-		GuiAutomator automator = new DefaultGuiAutomator(config);
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
 		automator.launch();
 
 		// Basic flow in Firefox, as per the context config
-		automator.goToUrl("https://www.google.com");
+		automator.browser().goToUrl("https://www.google.com");
 		System.out.println(automator.mainWindow().getTitle());
 		automator.quit();
 	}

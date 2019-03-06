@@ -42,6 +42,7 @@ public class SeleniumGuiAutomator extends BaseGuiAutomator {
 	
 	public SeleniumGuiAutomator(WebDriver driver, SetuActorConfig config) throws Exception{
 		super(config);
+		System.out.println("hfdgkhdfgkjhk");
 		this.driver = driver;
 		initComponents();
 	}

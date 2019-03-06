@@ -32,18 +32,17 @@ import org.testng.annotations.BeforeTest;
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
-import com.testmile.setu.requester.config.TestConfig;
 
 public class TestNGBaseTest {
 	private static boolean onceSetupPerExecutionDone = false;
 	private static boolean onceTearDownPerExecutionDone = false;
 	private ThreadLocal<String> testConfigName = new ThreadLocal<String>();
 	
-	protected void setUpOnce(TestConfig centralConfig) throws Exception {
+	protected void setUpOnce(DakshaTestConfig centralConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownOnce(TestConfig suiteConfig) throws Exception {
+	protected void tearDownOnce(DakshaTestConfig suiteConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -51,11 +50,11 @@ public class TestNGBaseTest {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void setUpSuite(TestConfig suiteContext) throws Exception {
+	protected void setUpSuite(DakshaTestConfig suiteContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownSuite(TestConfig suiteConfig) throws Exception {
+	protected void tearDownSuite(DakshaTestConfig suiteConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -63,7 +62,7 @@ public class TestNGBaseTest {
 	public void initDaksha(ITestContext context) throws Exception {
 		if (!onceSetupPerExecutionDone) {
 			String rootDir = this.getRootDir();
-			TestConfig centralConfig;
+			DakshaTestConfig centralConfig;
 			if (rootDir == null) {
 				centralConfig = Daksha.init();
 			} else {
@@ -94,11 +93,11 @@ public class TestNGBaseTest {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void setUpTest(TestConfig testContext) throws Exception {
+	protected void setUpTest(DakshaTestConfig testContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownTest(TestConfig testContext) throws Exception {
+	protected void tearDownTest(DakshaTestConfig testContext) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -118,11 +117,11 @@ public class TestNGBaseTest {
 		this.tearDownTest(Daksha.getTestContextConfig(context.getName()));
 	}
 	
-	protected void setUpClass(TestConfig testConfig) throws Exception {
+	protected void setUpClass(DakshaTestConfig testConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownClass(TestConfig testConfig) throws Exception {
+	protected void tearDownClass(DakshaTestConfig testConfig) throws Exception {
 	}
 	
 	@BeforeClass
@@ -136,11 +135,11 @@ public class TestNGBaseTest {
 		this.tearDownClass(Daksha.getTestContextConfig(context.getName()));
 	}
 	
-	protected void setUpMethod(TestConfig testConfig) throws Exception {
+	protected void setUpMethod(DakshaTestConfig testConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
-	protected void tearDownMethod(TestConfig testConfig) throws Exception {
+	protected void tearDownMethod(DakshaTestConfig testConfig) throws Exception {
 		// Proceed with defaults if not overriden.
 	}
 	
@@ -170,7 +169,7 @@ public class TestNGBaseTest {
 		}
 	}
 	
-	protected TestConfig getConfig() throws Exception {
+	protected DakshaTestConfig getConfig() throws Exception {
 		return Daksha.getTestContextConfig(this.getTestContextName());
 	}
 

@@ -22,43 +22,35 @@ import com.testmile.setu.requester.testsession.TestSession;
 public class GuiAutoComponentFactory {
 
 	public static GuiElement createGuiElement(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultGuiElement(session, automator, setuId);
 	}
 
 	public static GuiMultiElement createGuiMultiElement(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultGuiMultiElement(session, automator, setuId);
 	}
 
 	public static DropDown createGuiDropDown(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultDropDown(session, automator, setuId);
 	}
 
 	public static RadioGroup createRadioGroup(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultRadioGroup(session, automator, setuId);
 	}
 
 	public static Frame createFrame(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultFrame(session, automator, setuId);
 	}
 
 	public static Alert createAlert(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultAlert(session, automator, setuId);
 	}
 
 	public static ChildWindow createChildWindow(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultChildWindow(session, automator, setuId);
 	}
 
 	public static MainWindow createMainWindow(TestSession session, AppAutomator automator, String setuId) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultMainWindow(session, automator, setuId);
 	}
 
 	public static DomRoot createDomRoot(TestSession session, AppAutomator automator) {
