@@ -19,12 +19,11 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
-import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.setu.requester.SetuActionType;
-import com.testmile.setu.requester.SetuArg;
-import com.testmile.setu.requester.SetuResponse;
-import com.testmile.setu.requester.guiauto.GuiAutoElementFactory;
+import com.testmile.setu.requester.config.SetuActionType;
+import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.connector.SetuArg;
+import com.testmile.setu.requester.connector.SetuResponse;
+import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
 	
@@ -38,10 +37,10 @@ public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAuto
 		this.setSetuId(response.getValueForGuiAutomatorSetuId());
 		
 		SetuResponse winResponse = this.sendRequest(SetuActionType.GUIAUTO_GET_MAIN_WINDOW);
-		this.setMainWindow(GuiAutoElementFactory.createMainWindow(this.getTestSession(), this, winResponse.getValueForElementSetuId()));
+		this.setMainWindow(GuiAutoComponentFactory.createMainWindow(this.getTestSession(), this, winResponse.getValueForElementSetuId()));
 		
 		SetuResponse domResponse = this.sendRequest(SetuActionType.GUIAUTO_GET_DOM_ROOT);
-		this.setDomRoot(GuiAutoElementFactory.createDomRoot(this.getTestSession(), this, domResponse.getValueForElementSetuId()));
+		this.setDomRoot(GuiAutoComponentFactory.createDomRoot(this.getTestSession(), this, domResponse.getValueForElementSetuId()));
 	}
 	
 

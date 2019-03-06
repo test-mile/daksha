@@ -20,10 +20,10 @@
 package daksha.ex.gettingstarted;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
-import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
+import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.tpi.enums.Browser;
 
 public class Basic2WithCustomTestContext{

@@ -20,10 +20,10 @@
 package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.guiauto.Alert;
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
-import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.setu.requester.guiauto.component.Alert;
 
 public class Ex3Alerts {
 

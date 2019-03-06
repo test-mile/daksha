@@ -8,14 +8,14 @@ import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
 import com.testmile.daksha.core.config.CLIConfiguration;
-import com.testmile.daksha.core.config.DefaultTestContext;
+import com.testmile.daksha.core.config.DakshaTestContext;
+import com.testmile.daksha.core.config.DakshaTestSession;
 import com.testmile.daksha.core.testng.TestNGSuiteContext;
 import com.testmile.daksha.core.testng.TestNGTestContext;
-import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.ddauto.DakshaDataSourceBuilder;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
-import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.databroker.DataSourceBuilder;
-import com.testmile.setu.requester.testsession.DefaultTestSession;
+import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.trishanku.Trishanku;
 import com.testmile.trishanku.tpi.batteries.console.Console;
 import com.testmile.trishanku.tpi.enums.SetuOption;
@@ -24,19 +24,19 @@ public enum DakshaSingleton {
 	INSTANCE;
 	private String rootDir = null;
 	
-	private TestSession session;
-	private TestConfig centralConfig;
+	private DakshaTestSession session;
+	private DakshaTestConfig centralConfig;
 	private CLIConfiguration cliConfig = null;	
 	
 	private Logger logger = null;
 
 	
-	private Map<String, TestConfig> testContextConfigMap = new HashMap<String, TestConfig>();
+	private Map<String, DakshaTestConfig> testContextConfigMap = new HashMap<String, DakshaTestConfig>();
 
-	public TestConfig init(String rootDir) throws Exception {
+	public DakshaTestConfig init(String rootDir) throws Exception {
 		rootDir = rootDir;
-		session = new DefaultTestSession();
-		centralConfig = session.init(rootDir);
+		session = new DakshaTestSession();
+		centralConfig = session.initSession(rootDir);
 		cliConfig = new CLIConfiguration();
 		
 		// Finalize logger
@@ -47,15 +47,15 @@ public enum DakshaSingleton {
 		return this.centralConfig;
 	}
 	
-	public TestConfig getCentralConfig() throws Exception {
+	public DakshaTestConfig getCentralConfig() throws Exception {
 		return centralConfig;
 	}
 	
-	public void registerTestContextConfig(TestConfig config) throws Exception {
+	public void registerTestContextConfig(DakshaTestConfig config) throws Exception {
 		this.testContextConfigMap.put(config.getName().toLowerCase(), config);
 	}
 	
-	public TestConfig getTestContextConfig(String name) throws Exception {
+	public DakshaTestConfig getTestContextConfig(String name) throws Exception {
 		if (name == null) {
 			throw new Exception("Config name was passed as null.");
 		} else {
@@ -69,7 +69,7 @@ public enum DakshaSingleton {
 	}
 	
 	public TestContext createTestContext(String name) throws Exception {
-		return new DefaultTestContext(session, name);
+		return new DakshaTestContext(session, name);
 	}
 	
 	public TestContext createTestNGSuiteContext(ITestContext testngContext) throws Exception {
@@ -80,7 +80,7 @@ public enum DakshaSingleton {
 		return new TestNGTestContext(session, parentConfig, testngContext);
 	}
 	
-	public TestConfig getTestConfig(ITestContext context) throws Exception {
+	public DakshaTestConfig getTestConfig(ITestContext context) throws Exception {
 		return getTestContextConfig(context.getName());
 	}
 	
@@ -104,7 +104,7 @@ public enum DakshaSingleton {
 		return SetuOption.valueOf(normalizeUserOption(option));
 	}
 	
-	public DataSourceBuilder createDataSourceBuilder() throws Exception {
-		return new DataSourceBuilder(session);
+	public DakshaDataSourceBuilder createDataSourceBuilder() throws Exception {
+		return new DakshaDataSourceBuilder(session);
 	}
 }

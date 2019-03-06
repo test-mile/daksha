@@ -3,31 +3,32 @@ package com.testmile.daksha;
 import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 
-import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.ddauto.DakshaDataSourceBuilder;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
-import com.testmile.setu.requester.databroker.DataSourceBuilder;
+import com.testmile.setu.requester.config.TestConfig;
 
 public class Daksha {
 	private static DakshaSingleton internal = DakshaSingleton.INSTANCE;
 	public static final String DEF_CONF_NAME = "central";
 	
-	public static TestConfig init(String rootDir) throws Exception{
+	public static DakshaTestConfig init(String rootDir) throws Exception{
 		return internal.init(rootDir);
 	}
 	
-	public static TestConfig init() throws Exception {
+	public static DakshaTestConfig init() throws Exception {
 		return init(System.getProperty("user.dir"));
 	}
 	
-	public static TestConfig getCentralConfig() throws Exception {
+	public static DakshaTestConfig getCentralConfig() throws Exception {
 		return internal.getCentralConfig();
 	}
 	
-	public static void registerTestContextConfig(TestConfig config) throws Exception {
+	public static void registerTestContextConfig(DakshaTestConfig config) throws Exception {
 		internal.registerTestContextConfig(config);
 	}
 	
-	public static TestConfig getTestContextConfig(String name) throws Exception {
+	public static DakshaTestConfig getTestContextConfig(String name) throws Exception {
 		return internal.getTestContextConfig(name);		
 	}
 	
@@ -43,7 +44,7 @@ public class Daksha {
 		return internal.createTestNGTestContext(parentConfig, testngContext);
 	}
 	
-	public static TestConfig getTestConfig(ITestContext context) throws Exception {
+	public static DakshaTestConfig getTestConfig(ITestContext context) throws Exception {
 		return internal.getTestConfig(context);
 	}
 	
@@ -55,7 +56,7 @@ public class Daksha {
 		return internal.getLogger();
 	}
 	
-	public static DataSourceBuilder createDataSourceBuilder() throws Exception {
+	public static DakshaDataSourceBuilder createDataSourceBuilder() throws Exception {
 		return internal.createDataSourceBuilder();
 	}
 

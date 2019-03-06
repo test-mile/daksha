@@ -30,8 +30,9 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
+import com.testmile.setu.requester.config.TestConfig;
 
 public class TestNGBaseTest {
 	private static boolean onceSetupPerExecutionDone = false;
@@ -74,7 +75,7 @@ public class TestNGBaseTest {
 		
 		TestContext suiteContext = Daksha.createTestNGSuiteContext(context);
 		this.tweakSuiteContext(suiteContext);
-		TestConfig suiteConfig = suiteContext.build();
+		DakshaTestConfig suiteConfig = suiteContext.build();
 		Daksha.registerTestContextConfig(suiteConfig);
 		this.setUpSuite(suiteConfig);
 		testConfigName.set(suiteConfig.getName());
@@ -103,10 +104,10 @@ public class TestNGBaseTest {
 	
 	@BeforeTest
 	public void initContext(ITestContext testContext) throws Exception {
-		TestConfig parentConfig = Daksha.getTestContextConfig(testContext.getSuite().getXmlSuite().getName());
+		DakshaTestConfig parentConfig = Daksha.getTestContextConfig(testContext.getSuite().getXmlSuite().getName());
 		TestContext testNGContext = Daksha.createTestNGTestContext(parentConfig, testContext);		
 		this.tweakTestContext(testNGContext);
-		TestConfig contextConfig = testNGContext.build();
+		DakshaTestConfig contextConfig = testNGContext.build();
 		Daksha.registerTestContextConfig(contextConfig);
 		this.setUpTest(contextConfig);
 		testConfigName.set(contextConfig.getName());

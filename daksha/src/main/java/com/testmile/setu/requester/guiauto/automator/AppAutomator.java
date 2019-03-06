@@ -19,17 +19,17 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
-import com.testmile.daksha.tpi.guiauto.Alert;
-import com.testmile.daksha.tpi.guiauto.DomRoot;
-import com.testmile.daksha.tpi.guiauto.DropDown;
-import com.testmile.daksha.tpi.guiauto.Frame;
-import com.testmile.daksha.tpi.guiauto.GuiElement;
-import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
-import com.testmile.daksha.tpi.guiauto.MainWindow;
-import com.testmile.daksha.tpi.guiauto.RadioGroup;
-import com.testmile.daksha.tpi.guiauto.With;
-import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.setu.requester.SetuManagedObject;
+import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.connector.SetuManagedObject;
+import com.testmile.setu.requester.guiauto.With;
+import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.DomRoot;
+import com.testmile.setu.requester.guiauto.component.DropDown;
+import com.testmile.setu.requester.guiauto.component.Frame;
+import com.testmile.setu.requester.guiauto.component.GuiElement;
+import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
+import com.testmile.setu.requester.guiauto.component.MainWindow;
+import com.testmile.setu.requester.guiauto.component.RadioGroup;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public interface AppAutomator extends SetuManagedObject{

@@ -25,6 +25,6 @@ public interface TestContext {
 
 	TestContext uuiAutoMaxWaitTime(int seconds) throws Exception;
 
-	TestConfig build() throws Exception;
+	DakshaTestConfig build() throws Exception;
 
 }

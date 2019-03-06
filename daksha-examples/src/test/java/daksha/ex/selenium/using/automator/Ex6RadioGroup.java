@@ -20,11 +20,11 @@
 package daksha.ex.selenium.using.automator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
-import com.testmile.daksha.tpi.guiauto.RadioGroup;
-import com.testmile.daksha.tpi.guiauto.With;
-import com.testmile.daksha.tpi.test.TestConfig;
+import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.setu.requester.guiauto.component.RadioGroup;
 
 public class Ex6RadioGroup {
 

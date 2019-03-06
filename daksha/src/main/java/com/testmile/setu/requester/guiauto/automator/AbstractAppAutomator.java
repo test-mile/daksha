@@ -19,22 +19,22 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
-import com.testmile.daksha.tpi.guiauto.Alert;
-import com.testmile.daksha.tpi.guiauto.DomRoot;
-import com.testmile.daksha.tpi.guiauto.DropDown;
-import com.testmile.daksha.tpi.guiauto.Frame;
-import com.testmile.daksha.tpi.guiauto.GuiElement;
-import com.testmile.daksha.tpi.guiauto.GuiMultiElement;
-import com.testmile.daksha.tpi.guiauto.MainWindow;
-import com.testmile.daksha.tpi.guiauto.RadioGroup;
-import com.testmile.daksha.tpi.guiauto.With;
-import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.BaseSetuObject;
-import com.testmile.setu.requester.SetuActionType;
-import com.testmile.setu.requester.SetuArg;
-import com.testmile.setu.requester.SetuResponse;
-import com.testmile.setu.requester.guiauto.GuiAutoElementFactory;
+import com.testmile.setu.requester.config.SetuActionType;
+import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.connector.BaseSetuObject;
+import com.testmile.setu.requester.connector.SetuArg;
+import com.testmile.setu.requester.connector.SetuResponse;
+import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
+import com.testmile.setu.requester.guiauto.With;
+import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.DomRoot;
+import com.testmile.setu.requester.guiauto.component.DropDown;
+import com.testmile.setu.requester.guiauto.component.Frame;
+import com.testmile.setu.requester.guiauto.component.GuiElement;
+import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
+import com.testmile.setu.requester.guiauto.component.MainWindow;
+import com.testmile.setu.requester.guiauto.component.RadioGroup;
+import com.testmile.setu.requester.testsession.TestSession;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator {
@@ -77,37 +77,37 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	@Override
 	public GuiElement element(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_ELEMENT, with, value);
-		return GuiAutoElementFactory.createGuiElement(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.createGuiElement(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public GuiMultiElement multiElement(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_MULTIELEMENT, with, value);
-		return GuiAutoElementFactory.createGuiMultiElement(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.createGuiMultiElement(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public DropDown dropdown(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, with, value);
-		return GuiAutoElementFactory.createGuiDropDown(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.createGuiDropDown(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public RadioGroup radioGroup(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, with, value);
-		return GuiAutoElementFactory.createRadioGroup(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.createRadioGroup(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public Frame frame(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_FRAME, with, value);
-		return GuiAutoElementFactory.createFrame(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.createFrame(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public Alert alert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
-		return GuiAutoElementFactory.createAlert(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.createAlert(this.testSession, this, elemSetuId);
 	}
 
 	@Override

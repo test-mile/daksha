@@ -21,11 +21,11 @@ package com.testmile.daksha.core.testng;
 
 import org.testng.ITestContext;
 
-import com.testmile.daksha.core.config.DefaultTestContext;
-import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.daksha.core.config.DakshaTestContext;
+import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.testsession.TestSession;
 
-public class TestNGTestContext extends DefaultTestContext{
+public class TestNGTestContext extends DakshaTestContext{
 	
 	public TestNGTestContext(TestSession testsession, TestConfig parentConfig, ITestContext context) throws Exception {
 		super(testsession, context.getName());

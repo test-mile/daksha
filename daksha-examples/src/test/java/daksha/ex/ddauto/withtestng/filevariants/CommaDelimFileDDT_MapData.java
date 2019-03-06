@@ -27,11 +27,11 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-import com.testmile.daksha.tpi.ddauto.ListDataSource;
-import com.testmile.daksha.tpi.ddauto.MapDataRecord;
-import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.databroker.ListDataRecord;
+import com.testmile.setu.requester.databroker.ListDataSource;
+import com.testmile.setu.requester.databroker.MapDataRecord;
+import com.testmile.setu.requester.databroker.MapDataSource;
 
 public class CommaDelimFileDDT_MapData extends TestNGBaseTest {
 	

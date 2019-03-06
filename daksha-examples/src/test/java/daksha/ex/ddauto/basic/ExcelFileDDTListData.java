@@ -22,8 +22,8 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-import com.testmile.daksha.tpi.ddauto.ListDataSource;
+import com.testmile.setu.requester.databroker.ListDataRecord;
+import com.testmile.setu.requester.databroker.ListDataSource;
 
 public class ExcelFileDDTListData{
 	

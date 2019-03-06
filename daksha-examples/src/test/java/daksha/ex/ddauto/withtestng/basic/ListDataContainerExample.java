@@ -27,8 +27,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.ListDataRecord;
-import com.testmile.daksha.tpi.ddauto.ListDataSource;
+import com.testmile.setu.requester.databroker.ListDataRecord;
+import com.testmile.setu.requester.databroker.ListDataSource;
 
 public class ListDataContainerExample{
 	

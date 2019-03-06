@@ -21,10 +21,10 @@ package daksha.ex.gettingstarted;
 
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
-import com.testmile.daksha.tpi.test.TestConfig;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class Basic3UsingTestNG extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();

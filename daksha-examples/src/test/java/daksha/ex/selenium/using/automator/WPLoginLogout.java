@@ -19,8 +19,8 @@
 
 package daksha.ex.selenium.using.automator;
 
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
-import com.testmile.daksha.tpi.guiauto.With;
+import com.testmile.setu.requester.guiauto.With;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class WPLoginLogout {
 	

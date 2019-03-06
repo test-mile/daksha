@@ -23,7 +23,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.testmile.daksha.core.config.DefaultTestContext;
+import com.testmile.daksha.core.config.DakshaTestContext;
 import com.testmile.daksha.core.guiauto.maker.appium.AppiumBuilder;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
@@ -32,13 +32,13 @@ import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
 	
-	protected void tweakTestContext(DefaultTestContext testContext) throws Exception {
+	protected void tweakTestContext(DakshaTestContext testContext) throws Exception {
 		testContext.setAutomationContext(GuiAutomationContext.ANDROID_NATIVE);
 	}
 	
 	@BeforeClass
 	public void createAutomator(ITestContext testNGContext) throws Exception {
-		DefaultTestContext context = this.getContext();
+		DakshaTestContext context = this.getContext();
 		
 		AppiumBuilder builder = new AppiumBuilder(this.getContext());
 		builder.appPath(context.getAppDir() + "WordPress.apk");
@@ -60,7 +60,7 @@ public class NativeAppAppiumAndroid extends TestNGBaseTest{
 		automator.elementWithXPath("//android.widget.Button[@text='CONTINUE']").click();
 	}
 	
-	public void tearDownClass(DefaultTestContext testContext) throws Exception {
+	public void tearDownClass(DakshaTestContext testContext) throws Exception {
 		this.threadWiseAutomator.get().close();
 	}
 }

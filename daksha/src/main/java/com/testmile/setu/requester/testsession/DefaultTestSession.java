@@ -24,13 +24,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.BaseSetuObject;
-import com.testmile.setu.requester.SetuActionType;
-import com.testmile.setu.requester.SetuArg;
-import com.testmile.setu.requester.SetuResponse;
 import com.testmile.setu.requester.config.DefaultTestConfig;
+import com.testmile.setu.requester.config.SetuActionType;
+import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.connector.BaseSetuObject;
+import com.testmile.setu.requester.connector.SetuArg;
+import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.databroker.DataRecordType;
 import com.testmile.trishanku.tpi.value.Value;
 

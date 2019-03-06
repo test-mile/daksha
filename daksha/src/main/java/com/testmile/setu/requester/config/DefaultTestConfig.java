@@ -1,14 +1,10 @@
 package com.testmile.setu.requester.config;
 
 import com.testmile.daksha.DakshaSingleton;
-import com.testmile.daksha.tpi.test.TestConfig;
-import com.testmile.daksha.tpi.test.TestSession;
-import com.testmile.setu.requester.BaseSetuObject;
-import com.testmile.setu.requester.SetuActionType;
-import com.testmile.setu.requester.SetuArg;
-import com.testmile.setu.requester.SetuResponse;
-import com.testmile.trishanku.tpi.enums.Browser;
-import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
+import com.testmile.setu.requester.connector.BaseSetuObject;
+import com.testmile.setu.requester.connector.SetuArg;
+import com.testmile.setu.requester.connector.SetuResponse;
+import com.testmile.setu.requester.testsession.TestSession;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 import com.testmile.trishanku.tpi.value.Value;
 
@@ -64,43 +60,7 @@ public class DefaultTestConfig extends BaseSetuObject implements TestConfig {
 		return this.name;
 	}
 	
-	public GuiAutomationContext getGuiAutoContext() throws Exception {
-		return GuiAutomationContext.valueOf(getSetuOptionValue(SetuOption.GUIAUTO_CONTEXT).asString());
-	}
-	
-	@Override
-	public Browser getBrowserType() throws Exception {
-		return getSetuOptionValue(SetuOption.BROWSER_NAME).asEnum(Browser.class);
-	}
 
-	@Override
-	public String getBrowerVersion() throws Exception {
-		return getSetuOptionValue(SetuOption.BROWSER_VERSION).asString();
-	}
-
-	@Override
-	public String getBrowserBinaryPath() throws Exception {
-		return getSetuOptionValue(SetuOption.BROWSER_BIN_PATH).asString();
-	}
-	
-	@Override
-	public String getTestRunEnvName() throws Exception {
-		return getSetuOptionValue(SetuOption.TESTRUN_ENVIRONMENT).asString();
-	}
-
-	@Override
-	public String getScreenshotsDir() throws Exception {
-		return getSetuOptionValue(SetuOption.SCREENSHOTS_DIR).asString();
-	}
-	
-	@Override
-	public String getLogDir() throws Exception {
-		return getSetuOptionValue(SetuOption.LOG_DIR).asString();
-	}
-	
-	public int getGuiAutoMaxWaitTime() throws Exception {
-		return getSetuOptionValue(SetuOption.GUIAUTO_MAX_WAIT).asInt();
-	}
 	
 	// For Setu
 //	public String getAppDir() throws Exception {

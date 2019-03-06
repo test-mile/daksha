@@ -22,8 +22,8 @@ package daksha.ex.ddauto.basic;
 import java.util.Iterator;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.MapDataRecord;
-import com.testmile.daksha.tpi.ddauto.MapDataSource;
+import com.testmile.setu.requester.databroker.MapDataRecord;
+import com.testmile.setu.requester.databroker.MapDataSource;
 
 public class MapDataRecordContainerExample{
 	

@@ -27,9 +27,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.MapDataRecord;
-import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
+import com.testmile.setu.requester.databroker.MapDataRecord;
+import com.testmile.setu.requester.databroker.MapDataSource;
 
 public class ExcelFileDDTMapData extends TestNGBaseTest {
 	

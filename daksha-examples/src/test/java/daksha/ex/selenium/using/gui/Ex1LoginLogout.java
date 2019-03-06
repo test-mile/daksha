@@ -19,8 +19,8 @@
 
 package daksha.ex.selenium.using.gui;
 
-import com.testmile.daksha.tpi.guiauto.GuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class Ex1LoginLogout {
 
