@@ -1,6 +1,7 @@
 package com.testmile.setu.requester.databroker;
 
 import com.testmile.daksha.tpi.test.TestSession;
+import com.testmile.daksha.tpi.ddauto.*;
 
 public class DataSourceBuilder{
 	private TestSession session;
@@ -9,11 +10,11 @@ public class DataSourceBuilder{
 		this.session = session;
 	}
 	
-	public FileListDataSourceBuilder fileListDataSource(String fileName) {
+	public FileDataSourceBuilder<ListDataSource> fileListDataSource(String fileName) {
 		return new DefaultFileListDataSourceBuilder(session, fileName);
 	}
 	
-	public FileMapDataSourceBuilder fileMapDataSource(String fileName) {
+	public FileDataSourceBuilder<MapDataSource> fileMapDataSource(String fileName) {
 		return new DefaultFileMapDataSourceBuilder(session, fileName);
 	}
 	

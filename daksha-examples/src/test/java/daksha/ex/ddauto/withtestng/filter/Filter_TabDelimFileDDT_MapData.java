@@ -27,20 +27,24 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.DefaultMapDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.databroker.DataSourceBuilder;
 
 public class Filter_TabDelimFileDDT_MapData extends TestNGBaseTest {
-
-	@DataProvider(name="dp1")
+	
+	@DataProvider(name="dp2")
 	public Iterator<Object[]> linkMapDataSource() throws Exception {
-		DataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input_exclude_ex.txt");
-		return builder.buildMapDataSource().iterRecordsForTestNG();
+		MapDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileMapDataSource("input_exclude_ex.txt")
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
-	@Test(dataProvider="dp1")
-	public void repeatWithMapRecord(DefaultMapDataRecord record) throws Exception {
+	@Test(dataProvider="dp2")
+	public void repeat(MapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();

@@ -15,7 +15,7 @@ import com.testmile.setu.requester.SetuActionType;
 import com.testmile.setu.requester.SetuArg;
 import com.testmile.setu.requester.SetuResponse;
 
-abstract class AbstractFileDataSourceBuilder<T> {
+abstract class AbstractFileDataSourceBuilder<T> implements FileDataSourceBuilder<T> {
 	private TestSession testSession;
 	private String fileName;
 	private List<SetuArg> argPairs = new ArrayList<SetuArg>();
@@ -28,7 +28,8 @@ abstract class AbstractFileDataSourceBuilder<T> {
 		this.recordType = recordType;
 	}
 
-	public AbstractFileDataSourceBuilder<T> delimiter(String delimiter) {
+	@Override
+	public FileDataSourceBuilder<T> delimiter(String delimiter) {
 		this.delimiter = delimiter;
 		return this;
 	}
@@ -44,10 +45,11 @@ abstract class AbstractFileDataSourceBuilder<T> {
 		return this.testSession;
 	}
 	
+	@Override
 	public abstract T build() throws Exception;
 }
 
-class DefaultFileListDataSourceBuilder extends AbstractFileDataSourceBuilder<ListDataSource> implements FileListDataSourceBuilder {
+class DefaultFileListDataSourceBuilder extends AbstractFileDataSourceBuilder<ListDataSource> {
 	
 	public DefaultFileListDataSourceBuilder(TestSession session, String fileName) {
 		super(session, fileName, DataRecordType.LIST);
@@ -60,7 +62,7 @@ class DefaultFileListDataSourceBuilder extends AbstractFileDataSourceBuilder<Lis
 }
 
 
-class DefaultFileMapDataSourceBuilder extends AbstractFileDataSourceBuilder<MapDataSource> implements FileMapDataSourceBuilder{
+class DefaultFileMapDataSourceBuilder extends AbstractFileDataSourceBuilder<MapDataSource>{
 	
 	public DefaultFileMapDataSourceBuilder(TestSession session, String fileName) {
 		super(session, fileName, DataRecordType.MAP);

@@ -27,38 +27,48 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.ddauto.DefaultListDataRecord;
-import com.testmile.daksha.tpi.ddauto.DefaultMapDataRecord;
+import com.testmile.daksha.tpi.ddauto.ListDataRecord;
+import com.testmile.daksha.tpi.ddauto.ListDataSource;
+import com.testmile.daksha.tpi.ddauto.MapDataRecord;
+import com.testmile.daksha.tpi.ddauto.MapDataSource;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.databroker.DataSourceBuilder;
 
 public class TabDelimFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp1")
-	public Iterator<Object[]> linkMapDataSource() throws Exception {
-		DataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.txt");
-		return builder.buildMapDataSource().iterRecordsForTestNG();
+	public Iterator<Object[]> linkListDataSource() throws Exception {
+		ListDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileListDataSource("input.txt")
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp1")
-	public void repeatWithMapRecord(DefaultMapDataRecord record) throws Exception {
-		int left = record.value("Left").asInt();
-		int right = record.value("Right").asInt();
-		int expectedSum = record.value("Sum").asInt();
+	public void repeat(ListDataRecord record) throws Exception {
+		System.out.println("Executing....");
+		int left = record.valueAt(0).asInt();
+		int right = record.valueAt(1).asInt();
+		int expectedSum = record.valueAt(2).asInt();
 		assertEquals(expectedSum, left+right);
 	}
 	
 	@DataProvider(name="dp2")
-	public Iterator<Object[]> linkListDataSource() throws Exception {
-		DataSourceBuilder builder = Daksha.createFileDataSourceBuilder("input.txt");
-		return builder.buildListDataSource().iterRecordsForTestNG();
+	public Iterator<Object[]> linkMapDataSource() throws Exception {
+		MapDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileMapDataSource("input.txt")
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp2")
-	public void repeatWithListRecord(DefaultListDataRecord record) throws Exception {
-		int left = record.valueAt(0).asInt();
-		int right = record.valueAt(1).asInt();
-		int expectedSum = record.valueAt(2).asInt();
+	public void repeat(MapDataRecord record) throws Exception {
+		int left = record.value("Left").asInt();
+		int right = record.value("Right").asInt();
+		int expectedSum = record.value("Sum").asInt();
 		assertEquals(expectedSum, left+right);
 	}
 }
