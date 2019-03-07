@@ -33,6 +33,7 @@ public class Ex5DropDown {
 		
 		WPLoginLogout.login(automator);
 		
+		automator.slowMotion(true);
 		automator.element(With.LINK_TEXT,"Settings").click();
 		DropDown roleSelect = automator.dropdown(With.ID,"default_role");
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));

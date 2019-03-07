@@ -103,6 +103,7 @@ class ActorRequest {
 	private Map<String,Object> args = null;
 	
 	public String getAction(){
+		System.out.println(action);
 		return this.action.trim().toUpperCase();
 	}
 	

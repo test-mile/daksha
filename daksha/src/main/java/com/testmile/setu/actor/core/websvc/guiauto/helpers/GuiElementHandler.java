@@ -66,7 +66,7 @@ public class GuiElementHandler {
 					(String) args.get("withType"),
 					(String) args.get("withValue")
 			);
-			String setu_id = (String) args.get("elementSetuId");
+			String setu_id = (String) args.get("childElementSetuId");
 			this.registerElement(setu_id,  foundElement);
 			retContent = Response.createSuccessResponseString();
 			break;
@@ -75,7 +75,7 @@ public class GuiElementHandler {
 					(String) args.get("withType"),
 					(String) args.get("withValue")
 			);
-			this.registerMultiElement((String) args.get("elementSetuId"), mElement);
+			this.registerMultiElement((String) args.get("childElementSetuId"), mElement);
 			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
 		case CLICK:
