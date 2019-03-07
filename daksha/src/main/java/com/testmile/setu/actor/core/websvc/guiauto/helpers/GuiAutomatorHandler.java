@@ -106,19 +106,19 @@ public class GuiAutomatorHandler {
 			break;
 		case GET_ALL_WINDOW_HANDLES:
 			Set<String> handles = this.automator.getWindowHandler().getAllWindowHandles();
-			retContent = Response.createSuccessResponseString("handles", handles);
+			retContent = Response.createSuccessResponseString("result", handles);
 			break;
 		case GET_CURRENT_WINDOW_TITLE:
 			String handle = this.automator.getWindowHandler().getTitle();
-			retContent = Response.createSuccessResponseString("title", handle);
+			retContent = Response.createSuccessResponseString("result", handle);
 			break;
 		case GET_CURRENT_WINDOW_HANDLE:
 			String title = this.automator.getWindowHandler().getCurrentWindowHandle();
-			retContent = Response.createSuccessResponseString("handle", title);
+			retContent = Response.createSuccessResponseString("result", title);
 			break;
 		case GET_CURRENT_WINDOW_SIZE:
 			Map<String,Integer> size = this.automator.getWindowHandler().getCurrentWindowSize();
-			retContent = Response.createSuccessResponseString("size", size);
+			retContent = Response.createSuccessResponseString("result", size);
 			break;
 		case MAXIMIZE_CURRENT_WINDOW:
 			this.automator.getWindowHandler().maximizeWindow();
@@ -140,7 +140,7 @@ public class GuiAutomatorHandler {
 			break;
 		case IS_ALERT_PRESENT:
 			boolean alertPresent = this.automator.getAlertHandler().isAlertPresent();
-			retContent = Response.createSuccessResponseString("checkResult", alertPresent);
+			retContent = Response.createSuccessResponseString("result", alertPresent);
 			break;			
 		case CONFIRM_ALERT:
 			this.automator.getAlertHandler().confirmAlert();
@@ -160,11 +160,11 @@ public class GuiAutomatorHandler {
 			break;
 		case GET_CURRENT_VIEW_CONTEXT:
 			String viewContext = this.automator.getViewHandler().getCurrentViewContext();
-			retContent = Response.createSuccessResponseString("viewContext", viewContext);
+			retContent = Response.createSuccessResponseString("result", viewContext);
 			break;
 		case GET_ALL_VIEW_CONTEXTS:
 			Set<String> viewContexts = this.automator.getViewHandler().getAllViewContexts();
-			retContent = Response.createSuccessResponseString("viewContexts", viewContexts);		
+			retContent = Response.createSuccessResponseString("result", viewContexts);		
 			break;
 		case SWITCH_TO_VIEW_CONTEXT:
 			this.automator.getViewHandler().switchToViewContext((String) args.get("viewContext"));
