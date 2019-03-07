@@ -81,11 +81,11 @@ public class GuiAutomatorHandler {
 			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
 		case FOCUS_ON_FRAME:
-			boolean isInstanceAction = (boolean) args.get("isInstanceAction");
 			GuiElement fElement;
-			if (isInstanceAction) {
+			Object isInstanceAction = args.get("isInstanceAction");
+			if ((isInstanceAction != null) && ((boolean) isInstanceAction)){
 				GuiMultiElement mfElement = this.getElementHandler().getMultiElementForSetuId((String) args.get("elementSetuId"));
-				fElement = mfElement.getInstanceAtIndex((Integer) args.get("instanceIndex"));
+				fElement = mfElement.getInstanceAtIndex(((Number) args.get("instanceIndex")).intValue());
 			} else {
 				fElement = this.getElementHandler().getElementForSetuId((String) args.get("elementSetuId"));
 			}

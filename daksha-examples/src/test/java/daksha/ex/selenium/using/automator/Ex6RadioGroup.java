@@ -33,6 +33,7 @@ public class Ex6RadioGroup {
 		
 		WPLoginLogout.login(automator);
 		
+		automator.slowMotion(true);
 		automator.element(With.LINK_TEXT,"Settings").click();
 		RadioGroup dateFormat = automator.radioGroup(With.NAME, "date_format");
 		System.out.println(dateFormat.hasValueSelected("Y-m-d"));

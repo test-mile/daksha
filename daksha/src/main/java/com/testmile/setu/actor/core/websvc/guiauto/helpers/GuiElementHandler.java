@@ -123,8 +123,8 @@ public class GuiElementHandler {
 
 	public String takeElementAction(String elemSetuId, String actionStr, Map<String,Object> args) throws Exception {
 		GuiElement element;
-		Object instanceAction = args.get("isInstanceAction");
-		if ((instanceAction != null) && ((boolean) instanceAction)){
+		Object isInstanceAction = args.get("isInstanceAction");
+		if ((isInstanceAction != null) && ((boolean) isInstanceAction)){
 			GuiMultiElement me = getMultiElementForSetuId(elemSetuId);
 			element = me.getInstanceAtIndex(((Number) args.get("instanceIndex")).intValue());
 		} else {
