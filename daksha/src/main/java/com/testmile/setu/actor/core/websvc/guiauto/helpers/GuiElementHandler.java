@@ -57,25 +57,26 @@ public class GuiElementHandler {
 		return this.melementMap.get(uuid);
 	}
 	
-	private String takeSingleElementAction(GuiElement element, ElementAction action) throws Exception {
+	private String takeSingleElementAction(GuiElement element, String actionStr, Map<String,Object> args) throws Exception {
 		String retContent = null;
-		switch(action.getActionType()) {
-		case FIND_MULTIELEMENT:
-			GuiMultiElement mElement = element.getElementFinder().findAll(
-					action.getArgs().get("byType").asString(),
-					action.getArgs().get("byValue").asString()
-			);
-			this.registerMultiElement(action.getArgs().get("uuid").asString(), mElement);
-			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
-			break;
+		ElementActionType actionType = ElementActionType.valueOf(actionStr);
+		switch(actionType) {
 		case FIND_ELEMENT:
 			GuiElement foundElement = element.getElementFinder().find(
-					action.getArgs().get("byType").asString(),
-					action.getArgs().get("byValue").asString()
+					(String) args.get("withType"),
+					(String) args.get("withValue")
 			);
-			String setu_id = action.getArgs().get("uuid").asString();
+			String setu_id = (String) args.get("elementSetuId");
 			this.registerElement(setu_id,  foundElement);
 			retContent = Response.createSuccessResponseString();
+			break;
+		case FIND_MULTIELEMENT:
+			GuiMultiElement mElement = element.getElementFinder().findAll(
+					(String) args.get("withType"),
+					(String) args.get("withValue")
+			);
+			this.registerMultiElement((String) args.get("elementSetuId"), mElement);
+			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
 		case CLICK:
 			element.getBasicActionsHandler().click();
@@ -86,50 +87,50 @@ public class GuiElementHandler {
 			retContent = Response.createSuccessResponseString();
 			break;
 		case SEND_TEXT:
-			element.getBasicActionsHandler().sendText(action.getArgs().get("text").asString());
+			element.getBasicActionsHandler().sendText((String) args.get("text"));
 			retContent = Response.createSuccessResponseString();
 			break;
 		case IS_SELECTED:
 			boolean isSelected = element.getStateHandler().isSelected();
-			retContent = Response.createSuccessResponseString("checkResult", isSelected);
+			retContent = Response.createSuccessResponseString("result", isSelected);
 			break;
 		case IS_VISIBLE:
 			boolean isVisible = element.getStateHandler().isVisible();
-			retContent = Response.createSuccessResponseString("checkResult", isVisible);
+			retContent = Response.createSuccessResponseString("result", isVisible);
 			break;
 		case IS_CLICKABLE:
 			boolean isClickable = element.getStateHandler().isClickable();
-			retContent = Response.createSuccessResponseString("checkResult", isClickable);
+			retContent = Response.createSuccessResponseString("result", isClickable);
 			break;
 		case GET_TAG_NAME:
 			String tagName = element.getInquirer().getTagName();
-			retContent = Response.createSuccessResponseString("attrValue", tagName);
+			retContent = Response.createSuccessResponseString("result", tagName);
 			break;
 		case GET_ATTR_VALUE:
-			String attrValue = element.getInquirer().getAttribute(action.getArgs().get("attr").asString());
-			retContent = Response.createSuccessResponseString("attrValue", attrValue);
+			String attrValue = element.getInquirer().getAttribute((String) args.get("attr"));
+			retContent = Response.createSuccessResponseString("result", attrValue);
 			break;
 		case GET_TEXT_CONTENT:
 			String text = element.getInquirer().getTextContent();
-			retContent = Response.createSuccessResponseString("attrValue", text);
+			retContent = Response.createSuccessResponseString("result", text);
 			break;
 		default:
-			throw new Exception(String.format("Unrecognized element action: %s", action.getActionType()));
+			throw new Exception(String.format("Unrecognized element action: %s", actionType));
 		}
 		System.out.println(retContent);
 		return retContent;		
 	}
 
-	public String takeElementAction(String uuid, String jsonStr) throws Exception {
-		GuiElement element = getElementForSetuId(uuid);
-		ElementAction action = new ElementAction(jsonStr);
-		return takeSingleElementAction(element, action);
-	}
-	
-	public String takeMultiElementAction(String uuid, String jsonStr) throws Exception {
-		GuiMultiElement me = getMultiElementForSetuId(uuid);
-		ElementAction action = new ElementAction(jsonStr);
-		return this.takeSingleElementAction(me.getInstanceAtIndex(action.getInstanceIndex()), action);
+	public String takeElementAction(String elemSetuId, String actionStr, Map<String,Object> args) throws Exception {
+		GuiElement element;
+		Object instanceAction = args.get("isInstanceAction");
+		if ((instanceAction != null) && ((boolean) instanceAction)){
+			GuiMultiElement me = getMultiElementForSetuId(elemSetuId);
+			element = me.getInstanceAtIndex(((Number) args.get("instanceIndex")).intValue());
+		} else {
+			element = getElementForSetuId(elemSetuId);
+		}
+		return takeSingleElementAction(element, actionStr, args);
 	}
 
 }

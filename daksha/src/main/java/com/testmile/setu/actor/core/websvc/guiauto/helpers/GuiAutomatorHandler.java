@@ -51,7 +51,7 @@ public class GuiAutomatorHandler {
 	public String takeAction(String actionStr, Map<String,Object> args) throws Exception {
 		//AutomatorAction action = new AutomatorAction(jsonStr);
 		String retContent = null;
-		switch(AutomatorActionType.valueOf(actionStr.trim().toUpperCase())) {
+		switch(AutomatorActionType.valueOf(actionStr)) {
 		case LAUNCH:
 			automator = GuiAutomatorFactory.createAutomator(args);
 			return Response.createSuccessResponseString();
@@ -63,14 +63,6 @@ public class GuiAutomatorHandler {
 			this.automator.getBrowserHandler().goTo((String) args.get("url"));
 			retContent = Response.createSuccessResponseString();
 			break;
-		case FIND_MULTIELEMENT:
-			GuiMultiElement mElement = this.automator.getElementFinder().findAll(
-					(String) args.get("withType"),
-					(String) args.get("withValue")
-			);
-			getElementHandler().registerMultiElement((String) args.get("elementSetuId"), mElement);
-			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
-			break;
 		case FIND_ELEMENT:
 			GuiElement foundElement = this.automator.getElementFinder().find(
 					(String) args.get("withType"),
@@ -79,6 +71,14 @@ public class GuiAutomatorHandler {
 			String setu_id = (String) args.get("elementSetuId");
 			this.getElementHandler().registerElement(setu_id,  foundElement);
 			retContent = Response.createSuccessResponseString();
+			break;
+		case FIND_MULTIELEMENT:
+			GuiMultiElement mElement = this.automator.getElementFinder().findAll(
+					(String) args.get("withType"),
+					(String) args.get("withValue")
+			);
+			getElementHandler().registerMultiElement((String) args.get("elementSetuId"), mElement);
+			retContent = Response.createSuccessResponseString("instanceCount", mElement.getInstanceCount());
 			break;
 		case FOCUS_ON_FRAME:
 			boolean isInstanceAction = (boolean) args.get("isInstanceAction");
@@ -176,8 +176,8 @@ public class GuiAutomatorHandler {
 		return retContent;
 	}
 
-	public String takeElementAction(String elemId, Map<String,Object> args) throws Exception {
-		return null;//this.getElementHandler().takeElementAction(elemId, args);
+	public String takeElementAction(String elemId, String actionStr, Map<String,Object> args) throws Exception {
+		return this.getElementHandler().takeElementAction(elemId, actionStr, args);
 	}
 
 	public String takeScreeshot() throws Exception {

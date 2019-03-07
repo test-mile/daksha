@@ -82,7 +82,7 @@ public class GuiAutoSvc extends HttpServlet {
 				break;
 			case "/guielement":
 				guiAutoHandler = guiAutoHandlerMap.get(req.getAutomatorId());
-				retContent = guiAutoHandler.takeElementAction(req.getElementId(), req.getArgs());
+				retContent = guiAutoHandler.takeElementAction(req.getElementId(), req.getAction(), req.getArgs());
 				break;
 			default:
 				throw new Exception(String.format("Requested link: %s is invalid.", request.getRequestURI()));
@@ -103,7 +103,7 @@ class ActorRequest {
 	private Map<String,Object> args = null;
 	
 	public String getAction(){
-		return this.action;
+		return this.action.trim().toUpperCase();
 	}
 	
 	public Map<String,Object> getArgs(){
