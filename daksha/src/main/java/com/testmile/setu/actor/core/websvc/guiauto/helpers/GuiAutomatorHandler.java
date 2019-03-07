@@ -109,12 +109,12 @@ public class GuiAutomatorHandler {
 			retContent = Response.createSuccessResponseString("result", handles);
 			break;
 		case GET_CURRENT_WINDOW_TITLE:
-			String handle = this.automator.getWindowHandler().getTitle();
-			retContent = Response.createSuccessResponseString("result", handle);
+			String title = this.automator.getWindowHandler().getTitle();
+			retContent = Response.createSuccessResponseString("result", title);
 			break;
 		case GET_CURRENT_WINDOW_HANDLE:
-			String title = this.automator.getWindowHandler().getCurrentWindowHandle();
-			retContent = Response.createSuccessResponseString("result", title);
+			String handle = this.automator.getWindowHandler().getCurrentWindowHandle();
+			retContent = Response.createSuccessResponseString("result", handle);
 			break;
 		case GET_CURRENT_WINDOW_SIZE:
 			Map<String,Integer> size = this.automator.getWindowHandler().getCurrentWindowSize();
@@ -130,8 +130,8 @@ public class GuiAutomatorHandler {
 			);
 			retContent = Response.createSuccessResponseString();
 			break;
-		case SWITCH_TO_WINDOW:
-			this.automator.getWindowHandler().switchToWindow((String) args.get("handle"));
+		case FOCUS_ON_WINDOW:
+			this.automator.getWindowHandler().focusOnWindow((String) args.get("handle"));
 			retContent = Response.createSuccessResponseString();
 			break;
 		case EXECUTE_JAVASCRIPT:
@@ -166,7 +166,7 @@ public class GuiAutomatorHandler {
 			Set<String> viewContexts = this.automator.getViewHandler().getAllViewContexts();
 			retContent = Response.createSuccessResponseString("result", viewContexts);		
 			break;
-		case SWITCH_TO_VIEW_CONTEXT:
+		case FOCUS_ON_VIEW_CONTEXT:
 			this.automator.getViewHandler().switchToViewContext((String) args.get("viewContext"));
 			retContent = Response.createSuccessResponseString();
 			break;			

@@ -34,7 +34,7 @@ public interface WindowHandler {
 
 	String getCurrentWindowHandle();
 
-	void switchToWindow(String windowHandle);
+	void focusOnWindow(String windowHandle);
 
 	void closeCurrentWindow();
 

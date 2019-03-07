@@ -61,7 +61,7 @@ public class SeleniumWindowHandler extends AbstractWDHandler implements WindowHa
 	}
 
 	@Override
-	public void switchToWindow(String windowHandle){
+	public void focusOnWindow(String windowHandle){
 		getWebDriver().switchTo().window(windowHandle); 		
 	}
 	
