@@ -19,9 +19,6 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
 import com.testmile.setu.requester.config.SetuActionType;
 import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.BaseSetuObject;
@@ -33,7 +30,6 @@ import com.testmile.setu.requester.guiauto.component.Alert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
-import com.testmile.setu.requester.guiauto.component.Frame;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;

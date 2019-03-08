@@ -55,17 +55,6 @@ public class ExcelFileDDTMapData{
 			MapDataRecord record = recordIter1.next();
 			printDataRecord(record);			
 		}
-		
-		source.reset();
-
-		// Iterator created for TestNG compatibility
-		Iterator<Object[]> recordIter2 = source.iterRecordsForTestNG();
-		System.out.println("With custom Java iterator for Test NG.");
-		while(recordIter2.hasNext()) {
-			Object[] recordArray = recordIter2.next();
-			MapDataRecord record = (MapDataRecord) recordArray[0];
-			printDataRecord(record);
-		}
 	}
 }
 

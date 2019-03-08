@@ -19,15 +19,9 @@
 
 package com.testmile.setu.actor;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import com.testmile.trishanku.tpi.enums.Browser;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.GuiAutomatorName;
@@ -43,17 +37,7 @@ public class SetuActorConfig {
 	public SetuActorConfig(Map<String, Object> jsonArgs) throws Exception {
 		Map<String, Object> setuOptions = (Map<String, Object>) ((Map<String, Object>) jsonArgs.get("config")).get("setuOptions");
 		Map<String, Object> userOptions = (Map<String, Object>) ((Map<String, Object>) jsonArgs.get("config")).get("userOptions");
-		
-//		Gson gson = new Gson();
-//		JsonParser parser = new JsonParser();
-//		JsonObject jObj = parser.parse(strJsonConfig).getAsJsonObject();
-//		
-//		JsonElement sOptions = jObj.get("setuOptions").getAsJsonObject();
-//		JsonElement uOptions = jObj.get("userOptions").getAsJsonObject();
-//		
-//		Type type = new TypeToken<Map<String, String>>(){}.getType();
-		
-//		Map<String, Object> sOptionDict = gson.fromJson(sOptions, type);
+
 		for (String key: setuOptions.keySet()) {
 			this.options.put(SetuOption.valueOf(key.toUpperCase()), new AnyRefValue(setuOptions.get(key)));
 		}
@@ -61,8 +45,7 @@ public class SetuActorConfig {
 		for (String key: setuOptions.keySet()) {
 			this.options.put(SetuOption.valueOf(key.toUpperCase()), new AnyRefValue(setuOptions.get(key)));
 		}
-		
-//		Map<String, Object> uOptionDict = gson.fromJson(uOptions, type);
+
 		for (String key: userOptions.keySet()) {
 			this.userOptions.put(key.toUpperCase(), new AnyRefValue(userOptions.get(key)));
 		}

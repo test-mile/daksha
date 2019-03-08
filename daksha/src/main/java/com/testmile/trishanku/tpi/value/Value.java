@@ -1,9 +1,6 @@
 package com.testmile.trishanku.tpi.value;
 
-import java.lang.reflect.Method;
 import java.util.List;
-
-import com.testmile.trishanku.tpi.enums.ValueType;
 
 public interface Value{
 

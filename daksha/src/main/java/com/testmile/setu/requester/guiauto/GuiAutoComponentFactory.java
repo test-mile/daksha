@@ -5,8 +5,6 @@ import com.testmile.setu.requester.connector.BaseSetuObject;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
-import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.Alert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.ChildWindow;

@@ -3,6 +3,8 @@ package com.testmile.trishanku.tpi.webserver;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -21,9 +23,11 @@ public abstract class AbstractJettyServer{
 		context.setContextPath("/static/root");
 		//context.setResourceBase(AbstractJettyServer.class.getClassLoader().getResource("com/arjunapro/pvt/resources").toExternalForm());
 		context.addServlet(DefaultServlet.class, "/");
-		this.handlers.addAll(this.getHandlers());
+		this.handlers.addAll(this.getServiceHandlers());
 		this.registerHandlers(handlers);
 	}
+	
+	protected abstract List<ServletContextHandler> getServiceHandlers() throws Exception;
 	
 	protected String getRootContextPath() {
 		return this.rootContextPath;
@@ -32,8 +36,6 @@ public abstract class AbstractJettyServer{
 //	private void addHandler(ServletContextHandler handler) throws Exception{
 //		handlers.add(handler);
 //	}
-	
-	protected abstract List<Handler> getHandlers() throws Exception;
 	
 	private void registerHandlers(List<Handler> handlers){
 		 ContextHandlerCollection contexts=new ContextHandlerCollection();

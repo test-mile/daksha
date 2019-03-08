@@ -30,7 +30,6 @@ import com.testmile.setu.requester.guiauto.automator.AbstractAppAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
-import com.testmile.setu.requester.guiauto.component.Frame;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;

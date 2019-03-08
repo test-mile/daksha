@@ -19,7 +19,34 @@
 
 package com.testmile.setu.actor;
 
-import com.testmile.setu.actor.core.websvc.guiauto.SetuWebService;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.http.HttpStatus;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.google.gson.Gson;
+import com.testmile.setu.actor.core.guiauto.translator.DriverTranslator;
+import com.testmile.setu.actor.core.guiauto.translator.SikuliTranslator;
+import com.testmile.setu.actor.core.guiauto.translator.GuiAutoTranslator;
+import com.testmile.setu.actor.core.guiauto.translator.Response;
+import com.testmile.trishanku.tpi.value.AnyRefValue;
+import com.testmile.trishanku.tpi.value.Value;
+import com.testmile.trishanku.tpi.webserver.AbstractJettyServer;
+import com.testmile.trishanku.tpi.webserver.JsonUtils;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class SetuActor 
 {
@@ -33,5 +60,22 @@ public class SetuActor
 		}
 		
 		ws.launch();
+	}
+}
+
+class SetuWebService extends AbstractJettyServer{
+
+	public SetuWebService(int port, String rootContextPath) throws Exception {
+		super(port,rootContextPath);
+	}
+
+	@Override
+	protected List<ServletContextHandler> getServiceHandlers() throws Exception {
+		List<ServletContextHandler> handlers = new ArrayList<ServletContextHandler>();
+		ServletContextHandler guiauto = new ServletContextHandler();
+		guiauto.setContextPath("/setuactor/guiauto");
+		guiauto.addServlet(GuiAutoServlet.class, "/*");
+		handlers.add(guiauto);
+		return handlers;
 	}
 }
