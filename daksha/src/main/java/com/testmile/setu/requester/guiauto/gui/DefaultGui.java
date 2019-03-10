@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.daksha.tpi.guiauto;
+package com.testmile.setu.requester.guiauto.gui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,13 +28,14 @@ import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.automator.AbstractAppAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;
 import com.testmile.setu.requester.guiauto.component.RadioGroup;
-import com.testmile.setu.requester.guiauto.gui.Gui;
+import com.testmile.setu.requester.testsession.TestSession;
 import com.testmile.trishanku.core.problem.ErrorType;
 import com.testmile.trishanku.core.problem.Problem;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
@@ -43,14 +44,22 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 	private GuiAutomator automator;
 	private Map<String, Gui> children = new HashMap<String, Gui>();
 	private GuiAutomationContext autoContext;
+	private TestSession testSession;
 	
-	public DefaultGui(GuiAutomator automator) throws Exception {
+	public DefaultGui(String label, GuiAutomator automator, String defFileName) throws Exception {
+		super(automator.getConfig());
 		this.setConfig(automator.getConfig());
 		this.automator = automator;
 		this.autoContext = automator.getAutomationContext();
-		
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_GUIMGR_CREATE_GUI);
-		this.setSetuId(response.getGuiSetuId());
+		this.testSession = automator.getTestSession();
+		this.setAutomatorSetuIdArg(automator.getSetuId());
+		String guiSetuId = this.testSession.createGui(automator,
+				SetuArg.arg("label", label),
+				SetuArg.arg("name", this.getClass().getSimpleName()),
+				SetuArg.arg("qualName", this.getClass().getName()),
+				SetuArg.arg("defFileName", defFileName)
+		);
+		this.setSetuId(guiSetuId);
 		this.setSelfSetuIdArg("guiSetuId");
 		load();
 	}
@@ -58,11 +67,15 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 	public DefaultGui(Gui parent, String label, GuiAutomator automator) throws Exception {
 		this.automator = automator;
 		this.autoContext = automator.getAutomationContext();
+		this.testSession = automator.getTestSession();
 		SetuResponse response = this.sendRequest(
-				SetuActionType.GUIAUTO_GUIMGR_CREATE_GUI,
-				SetuArg.arg("childGuiLabel", label),
-				SetuArg.arg("childGuiName", this.getClass().getSimpleName()),
-				SetuArg.arg("childGuiQualifiedName", this.getClass().getName())
+				SetuActionType.GUIAUTO_GUI_CREATE_GUI,
+				SetuArg.arg("testSessionSetuId", this.testSession.getSetuId()),
+				SetuArg.arg("automatorSetuId", automator.getSetuId()),
+				SetuArg.arg("parentGuiSetuId", parent.getSetuId()),
+				SetuArg.arg("label", label),
+				SetuArg.arg("name", this.getClass().getSimpleName()),
+				SetuArg.arg("qualName", this.getClass().getName())
 		);
 		this.setSetuId(response.getGuiSetuId());
 		parent.addChild(label, this);
@@ -161,10 +174,6 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 			throw new Exception(String.format("UI [%s] with SetuId [%s] did not load as expected. Error: %s.", this.getClass().getName(), this.getSetuId(), e.getMessage()));
 		}
 	}
-
-	public GuiAutomator getAutomator() throws Exception{
-		return this.automator;
-	}
 	
 	@Override
 	public GuiElement element(String name) throws Exception {
@@ -190,8 +199,21 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		return this.automator.mainWindow();
 	}
 	
+	public Browser browser() {
+		return this.automator.browser();
+	}
+	
 	public DomRoot domRoot() {
 		return this.automator.domRoot();
+	}
+
+	@Override
+	public GuiAutomator automator() {
+		return this.automator;
+	}
+	
+	public boolean isGui() {
+		return true;
 	}
 }
 

@@ -31,6 +31,7 @@ import com.testmile.setu.requester.connector.BaseSetuObject;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.databroker.DataRecordType;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.tpi.value.Value;
 
 public class DefaultTestSession extends BaseSetuObject implements TestSession {
@@ -40,9 +41,7 @@ public class DefaultTestSession extends BaseSetuObject implements TestSession {
 		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_INIT, SetuArg.arg("rootDir", rootDir));
 		this.setSetuId(response.getValueForTestSessionSetuId());
 		this.setSelfSetuIdArg("testSessionSetuId");
-
-		SetuResponse projConfResponse = this.sendRequest(SetuActionType.TESTSESSION_LOAD_PROJECT_CONF);
-		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, projConfResponse.getValueForConfigSetuId());
+		TestConfig config = new DefaultTestConfig(this, Daksha.DEF_CONF_NAME, response.getValueForConfigSetuId());
 		this.setSetuId(response.getValueForTestSessionSetuId());
 		return config;
 	}
@@ -84,6 +83,17 @@ public class DefaultTestSession extends BaseSetuObject implements TestSession {
 				)
 		);
 		return response.getDataSourceSetuId();
+	}
+	
+	@Override
+	public String createGui(GuiAutomator automator, SetuArg... args) throws Exception {
+		SetuResponse response = this.sendRequest(
+				SetuActionType.TESTSESSION_CREATE_GUI, 
+				concat (args, 
+						new SetuArg[] {SetuArg.arg("automatorSetuId", automator.getSetuId())}
+				)
+		);
+		return response.getGuiSetuId();
 	}
 	
 	// From Joachim Sauer's Stackoverflow answer: https://stackoverflow.com/a/784842

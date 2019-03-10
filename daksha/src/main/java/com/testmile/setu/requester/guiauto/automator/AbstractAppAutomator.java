@@ -100,7 +100,7 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 
 	@Override
-	public WebAlert alert() throws Exception {
+	public WebAlert webAlert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
 		return GuiAutoComponentFactory.WebAlert(this.testSession, this, elemSetuId);
 	}
@@ -161,6 +161,10 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 		);
 	}
 	
+	@Override
+	public boolean isGui() {
+		return false;
+	}
 
 
 }

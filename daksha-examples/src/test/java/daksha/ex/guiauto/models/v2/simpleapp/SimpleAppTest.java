@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -17,37 +17,37 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.selenium.using.automator;
+package daksha.ex.guiauto.models.v2.simpleapp;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
-import com.testmile.setu.requester.guiauto.component.WebAlert;
+import com.testmile.setu.requester.guiauto.gui.DefaultGui;
+import com.testmile.setu.requester.guiauto.gui.Gui;
 
-public class Ex3Alerts {
-
+public class SimpleAppTest{
+	
 	public static void main(String[] args) throws Exception {
+		// Initialize Daksha
 		DakshaTestConfig config = Daksha.init();
+		
+		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		automator.launch();
 		
-		WPLoginLogout.login(automator);
-		
-		automator.browser().executeJavaScript("alert('dummy')");
-		automator.webAlert().confirm();
-		automator.browser().executeJavaScript("alert('dummy')");
-		automator.webAlert().dismiss();
-		
-		automator.browser().executeJavaScript("alert('Sample')");
-		WebAlert alert = automator.webAlert();
-		assert alert.getText() == "Sample";
-		alert.confirm();
-		
-		automator.browser().executeJavaScript("prompt('Are You Sure?')");
-		alert = automator.webAlert();
-		alert.sendText("Yes");	
-		alert.confirm();
-		
-		WPLoginLogout.logout(automator);
-	}
+		// Create Gui. Provide GNS file path.
+		Gui app = new DefaultGui("WordPress", automator, "basic/WPLoginLogout.gns");
 
+		app.browser().goToUrl("http://192.168.56.103/wp-admin");	
+		
+		// Create element by name as mentioned in GNS. Definitions automatically picked up as per context.
+		app.element("LOGIN").setText("user");
+		app.element("PASSWORD").setText("bitnami");
+		app.element("SUBMIT").click();
+		app.element("VIEW-SITE").waitUntilClickable();
+		
+		app.browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");
+		
+		app.automator().quit();
+	}
 }

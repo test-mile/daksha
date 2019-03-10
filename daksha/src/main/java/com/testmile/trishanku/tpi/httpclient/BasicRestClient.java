@@ -30,7 +30,11 @@ public class BasicRestClient {
         if (status >= 200 && status < 300) {
             return entity != null ? EntityUtils.toString(entity) : null;		
         } else {
-        	throw new SetuHttpException("Setu returned an error response.", status, EntityUtils.toString(entity));
+        	if (entity == null) {
+        		throw new SetuHttpException("Setu returned null response object.", status, EntityUtils.toString(entity));
+        	} else {
+        		throw new SetuHttpException("Setu returned an error response.", status, EntityUtils.toString(entity));
+        	}
         }
 	}
 	
@@ -51,6 +55,7 @@ public class BasicRestClient {
 		httppost.setEntity(se);
         System.out.println("Executing request " + httppost.getRequestLine());
 		String response = handleResponse(httpclient.execute(httppost));
+		System.out.println(response);
         System.out.println("----------------------------------------");
         return response;
 	}

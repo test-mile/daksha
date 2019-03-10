@@ -20,6 +20,7 @@
 package com.testmile.setu.requester.guiauto.gui;
 
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.DropDown;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
@@ -36,5 +37,7 @@ public interface Gui extends AppAutomator{
 	DropDown dropdown(String name) throws Exception;
 
 	RadioGroup radioGroup(String name) throws Exception;
+
+	GuiAutomator automator();
 
 }

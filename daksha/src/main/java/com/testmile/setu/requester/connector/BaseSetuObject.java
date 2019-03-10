@@ -51,6 +51,10 @@ public class BaseSetuObject implements SetuManagedObject {
 		this.coreArgs.put("automatorSetuId", id);
 	}
 	
+	protected void setGuiSetuIdArg(String id) {
+		this.coreArgs.put("guiSetuId", id);
+	}
+	
 	protected void setSelfSetuIdArg(String idName) {
 		this.coreArgs.put(idName, this.setuId);
 	}

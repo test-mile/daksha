@@ -1,8 +1,8 @@
 package daksha.ex.selenium.using.gui;
 
-import com.testmile.daksha.tpi.guiauto.DefaultGui;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.setu.requester.guiauto.gui.DefaultGui;
 
 public class WordPress extends DefaultGui{
 

@@ -32,7 +32,7 @@ public class Ex5DropDown {
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
 		
 		WPLoginLogout.login(automator);
-		
+
 		automator.element(With.LINK_TEXT,"Settings").click();
 		DropDown roleSelect = automator.dropdown(With.ID,"default_role");
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));

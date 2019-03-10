@@ -7,6 +7,7 @@ import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuManagedObject;
 import com.testmile.setu.requester.databroker.DataRecordType;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.tpi.value.Value;
 
 public interface TestSession extends SetuManagedObject {
@@ -15,5 +16,6 @@ public interface TestSession extends SetuManagedObject {
 	void finish() throws Exception;
 	String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception;
 	String registerConfig(String parentConfigSetuId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception;
-	String createFileDataSource(DataRecordType recordType, String fileName, List<SetuArg> argPairs) throws Exception;	
+	String createFileDataSource(DataRecordType recordType, String fileName, List<SetuArg> argPairs) throws Exception;
+	String createGui(GuiAutomator automator, SetuArg... args) throws Exception;	
 }

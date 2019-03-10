@@ -45,7 +45,7 @@ public interface AppAutomator extends SetuManagedObject{
 
 	MainWindow mainWindow() throws Exception;
 
-	WebAlert alert() throws Exception;
+	WebAlert webAlert() throws Exception;
 
 	GuiAutomationContext getAutomationContext();
 
@@ -56,4 +56,6 @@ public interface AppAutomator extends SetuManagedObject{
 	void slowMotion(boolean on, int interval) throws Exception;
 
 	void slowMotion(boolean on) throws Exception;
+
+	boolean isGui();
 }

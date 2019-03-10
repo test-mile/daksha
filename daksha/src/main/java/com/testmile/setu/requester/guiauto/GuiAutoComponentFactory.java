@@ -87,10 +87,14 @@ class BaseComponent extends BaseSetuObject{
 	public BaseComponent(TestSession session, AppAutomator automator) {
 		this.testSession = session;
 		this.automator = automator;
-		this.setAutomatorSetuIdArg(automator.getSetuId());
+		if (automator.isGui()) {
+			this.setGuiSetuIdArg(automator.getSetuId());
+		} else {
+			this.setAutomatorSetuIdArg(automator.getSetuId());	
+		}
 		this.setTestSessionSetuIdArg(testSession.getSetuId());
 	}
-	
+
 	protected AppAutomator getAutomator() {
 		return this.automator;
 	}
