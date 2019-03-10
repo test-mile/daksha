@@ -22,7 +22,7 @@ package daksha.ex.selenium.using.automator;
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
-import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.WebAlert;
 
 public class Ex3Alerts {
 
@@ -38,7 +38,7 @@ public class Ex3Alerts {
 		automator.alert().dismiss();
 		
 		automator.browser().executeJavaScript("alert('Sample')");
-		Alert alert = automator.alert();
+		WebAlert alert = automator.alert();
 		assert alert.getText() == "Sample";
 		alert.confirm();
 		

@@ -17,18 +17,35 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.config;
+package com.testmile.trishanku.tpi.setu.actor;
 
-import com.testmile.setu.requester.connector.SetuManagedObject;
-import com.testmile.setu.requester.testsession.TestSession;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.value.Value;
+import java.io.IOException;
 
-public interface TestConfig extends SetuManagedObject {
+import javax.servlet.http.HttpServletRequest;
+
+public class SetuRequest{
+	private String path;
+	private ActorAction action;
+	private String jsonStr;
 	
-	Value getSetuOptionValue(String option) throws Exception;	
-	Value getSetuOptionValue(SetuOption option) throws Exception;
-	Value getUserOptionValue(String option) throws Exception;
-	String getName();
-	TestSession getTestSession();
+	public SetuRequest(HttpServletRequest request) throws IOException {
+		jsonStr = JsonUtils.asJsonString(request.getInputStream());
+		System.out.println("JsonInput:" + jsonStr);	
+		path = request.getPathInfo();
+		action = ActorAction.fromJsonStr(jsonStr);	
+	}
+	
+	public ActorAction getAction() {
+		return this.action;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public String getJsonBody() {
+		return jsonStr;
+	}
 }
+
+

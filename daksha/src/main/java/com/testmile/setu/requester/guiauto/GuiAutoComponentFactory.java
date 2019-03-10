@@ -1,3 +1,22 @@
+/*******************************************************************************
+ * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
+ * 
+ * Website: www.TestMile.com
+ * Email: support [at] testmile.com
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+
 package com.testmile.setu.requester.guiauto;
 
 import com.testmile.setu.requester.config.SetuActionType;
@@ -5,7 +24,7 @@ import com.testmile.setu.requester.connector.BaseSetuObject;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
-import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.ChildWindow;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
@@ -19,43 +38,43 @@ import com.testmile.setu.requester.testsession.TestSession;
 
 public class GuiAutoComponentFactory {
 
-	public static GuiElement createGuiElement(TestSession session, AppAutomator automator, String setuId) {
+	public static GuiElement Element(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultGuiElement(session, automator, setuId);
 	}
 
-	public static GuiMultiElement createGuiMultiElement(TestSession session, AppAutomator automator, String setuId) {
+	public static GuiMultiElement MultiElement(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultGuiMultiElement(session, automator, setuId);
 	}
 
-	public static DropDown createGuiDropDown(TestSession session, AppAutomator automator, String setuId) {
+	public static DropDown DropDown(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultDropDown(session, automator, setuId);
 	}
 
-	public static RadioGroup createRadioGroup(TestSession session, AppAutomator automator, String setuId) {
+	public static RadioGroup RadioGroup(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultRadioGroup(session, automator, setuId);
 	}
 
-	public static Frame createFrame(TestSession session, AppAutomator automator, String setuId) {
+	public static Frame Frame(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultFrame(session, automator, setuId);
 	}
 
-	public static Alert createAlert(TestSession session, AppAutomator automator, String setuId) {
-		return new DefaultAlert(session, automator, setuId);
+	public static WebAlert WebAlert(TestSession session, AppAutomator automator, String setuId) {
+		return new DefaultWebAlert(session, automator, setuId);
 	}
 
-	public static ChildWindow createChildWindow(TestSession session, AppAutomator automator, String setuId) {
+	public static ChildWindow ChildWindow(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultChildWindow(session, automator, setuId);
 	}
 
-	public static MainWindow createMainWindow(TestSession session, AppAutomator automator, String setuId) {
+	public static MainWindow MainWindow(TestSession session, AppAutomator automator, String setuId) {
 		return new DefaultMainWindow(session, automator, setuId);
 	}
 
-	public static DomRoot createDomRoot(TestSession session, AppAutomator automator) {
+	public static DomRoot DomRoot(TestSession session, AppAutomator automator) {
 		return new DefaultDomRoot(session, automator);
 	}
 	
-	public static Browser createBrowser(TestSession session, AppAutomator automator) {
+	public static Browser Browser(TestSession session, AppAutomator automator) {
 		return new DefaultBrowser(session, automator);
 	}
 
@@ -233,31 +252,31 @@ class DefaultRadioGroup extends BaseElement implements RadioGroup {
 	}
 }
 
-class DefaultAlert extends BaseElement implements Alert {
+class DefaultWebAlert extends BaseElement implements WebAlert {
 
-	public DefaultAlert(TestSession session, AppAutomator automator, String setuId) {
+	public DefaultWebAlert(TestSession session, AppAutomator automator, String setuId) {
 		super(session, automator, setuId);
 	}
 
 	@Override
 	public void confirm() throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_ALERT_CONFIRM);
+		this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_CONFIRM);
 	}
 
 	@Override
 	public void dismiss() throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_ALERT_DISMISS);
+		this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_DISMISS);
 	}
 
 	@Override
 	public String getText() throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_ALERT_GET_TEXT);
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_GET_TEXT);
 		return response.getValueForText();
 	}
 
 	@Override
 	public void sendText(String text) throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_ALERT_SEND_TEXT, SetuArg.textArg(text));
+		this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_SEND_TEXT, SetuArg.textArg(text));
 	}
 
 }
@@ -404,13 +423,13 @@ class DefaultMainWindow extends AbstractBasicWindow implements MainWindow {
 				SetuActionType.GUIAUTO_MAIN_WINDOW_CREATE_CHILD_WINDOW,
 				SetuArg.with(with, value)
 		);
-		return GuiAutoComponentFactory.createChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
+		return GuiAutoComponentFactory.ChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
 	
 	@Override
 	public ChildWindow latestChildWindow() throws Exception {
 		SetuResponse response = sendRequest(SetuActionType.GUIAUTO_MAIN_WINDOW_GET_LATEST_CHILD_WINDOW);
-		return GuiAutoComponentFactory.createChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
+		return GuiAutoComponentFactory.ChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
 
 	@Override

@@ -26,7 +26,7 @@ import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.setu.requester.guiauto.With;
-import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
@@ -78,31 +78,31 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	@Override
 	public GuiElement element(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_ELEMENT, with, value);
-		return GuiAutoComponentFactory.createGuiElement(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.Element(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public GuiMultiElement multiElement(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_MULTIELEMENT, with, value);
-		return GuiAutoComponentFactory.createGuiMultiElement(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.MultiElement(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public DropDown dropdown(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, with, value);
-		return GuiAutoComponentFactory.createGuiDropDown(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.DropDown(this.testSession, this, elemSetuId);
 	}
 
 	@Override
 	public RadioGroup radioGroup(With with, String value) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, with, value);
-		return GuiAutoComponentFactory.createRadioGroup(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.RadioGroup(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public Alert alert() throws Exception {
+	public WebAlert alert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
-		return GuiAutoComponentFactory.createAlert(this.testSession, this, elemSetuId);
+		return GuiAutoComponentFactory.WebAlert(this.testSession, this, elemSetuId);
 	}
 
 	@Override

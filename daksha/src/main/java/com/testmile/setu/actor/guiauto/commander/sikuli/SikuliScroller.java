@@ -17,18 +17,21 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.config;
+package com.testmile.setu.actor.guiauto.commander.sikuli;
 
-import com.testmile.setu.requester.connector.SetuManagedObject;
-import com.testmile.setu.requester.testsession.TestSession;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.value.Value;
+import org.sikuli.script.Screen;
 
-public interface TestConfig extends SetuManagedObject {
-	
-	Value getSetuOptionValue(String option) throws Exception;	
-	Value getSetuOptionValue(SetuOption option) throws Exception;
-	Value getUserOptionValue(String option) throws Exception;
-	String getName();
-	TestSession getTestSession();
+public class SikuliScroller{
+	private int defaultMouseCount = 5;
+
+	public void scrollDown(int times)  throws Exception{
+		Screen screen = new Screen();
+		screen.mouseDown(defaultMouseCount* times);
+	}
+
+	public void scrollUp(int times)  throws Exception{
+		Screen screen = new Screen();
+		screen.mouseUp(defaultMouseCount* times);
+	}
+
 }

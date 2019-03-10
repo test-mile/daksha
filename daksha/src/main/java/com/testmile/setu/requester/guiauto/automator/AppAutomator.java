@@ -22,7 +22,7 @@ package com.testmile.setu.requester.guiauto.automator;
 import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.SetuManagedObject;
 import com.testmile.setu.requester.guiauto.With;
-import com.testmile.setu.requester.guiauto.component.Alert;
+import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
@@ -45,7 +45,7 @@ public interface AppAutomator extends SetuManagedObject{
 
 	MainWindow mainWindow() throws Exception;
 
-	Alert alert() throws Exception;
+	WebAlert alert() throws Exception;
 
 	GuiAutomationContext getAutomationContext();
 

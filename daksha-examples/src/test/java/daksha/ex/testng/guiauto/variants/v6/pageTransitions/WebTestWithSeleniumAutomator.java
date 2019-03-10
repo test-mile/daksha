@@ -23,7 +23,7 @@ import org.testng.annotations.Test;
 
 import com.testmile.daksha.core.config.DakshaTestContext;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.actor.guiauto.core.builder.SeleniumBuilder;
+import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
 import com.testmile.trishanku.tpi.enums.OSType;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{

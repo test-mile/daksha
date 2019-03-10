@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 import com.testmile.daksha.core.config.DakshaTestContext;
 import com.testmile.daksha.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.actor.guiauto.core.builder.AppiumBuilder;
+import com.testmile.setu.actor.guiauto.core.core.builder.AppiumBuilder;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 
 public class NativeAppAppiumAndroid extends TestNGBaseTest{

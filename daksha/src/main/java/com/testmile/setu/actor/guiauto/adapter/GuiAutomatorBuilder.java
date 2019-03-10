@@ -17,18 +17,24 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.config;
+package com.testmile.setu.actor.guiauto.adapter;
 
-import com.testmile.setu.requester.connector.SetuManagedObject;
-import com.testmile.setu.requester.testsession.TestSession;
+import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.value.Value;
+import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
-public interface TestConfig extends SetuManagedObject {
+public class GuiAutomatorBuilder {
+	private SetuActorConfig config;
 	
-	Value getSetuOptionValue(String option) throws Exception;	
-	Value getSetuOptionValue(SetuOption option) throws Exception;
-	Value getUserOptionValue(String option) throws Exception;
-	String getName();
-	TestSession getTestSession();
+	public GuiAutomatorBuilder(SetuActorConfig config) {
+		this.config = config;
+	}
+	
+	protected SetuActorConfig getConfig() {
+		return this.config;
+	}
+	
+	protected GuiAutomationContext getAutomationContext() throws Exception {
+		return config.value(SetuOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
+	}
 }

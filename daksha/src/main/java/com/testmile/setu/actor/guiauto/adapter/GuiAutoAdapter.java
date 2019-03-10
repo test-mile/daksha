@@ -17,18 +17,20 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.config;
+package com.testmile.setu.actor.guiauto.adapter;
 
-import com.testmile.setu.requester.connector.SetuManagedObject;
-import com.testmile.setu.requester.testsession.TestSession;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.value.Value;
+import java.util.Map;
 
-public interface TestConfig extends SetuManagedObject {
-	
-	Value getSetuOptionValue(String option) throws Exception;	
-	Value getSetuOptionValue(SetuOption option) throws Exception;
-	Value getUserOptionValue(String option) throws Exception;
-	String getName();
-	TestSession getTestSession();
+import com.testmile.trishanku.tpi.setu.actor.ActorAction;
+
+public interface GuiAutoAdapter {
+
+	String getSetuId();
+
+	String takeElementAction(String elemId, ActorAction action) throws Exception;
+
+	String launchAutomator(Map<String, Object> args) throws Exception;
+
+	String takeAction(ActorAction action) throws Exception;
+
 }

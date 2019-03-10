@@ -17,18 +17,26 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.requester.config;
+package com.testmile.setu.actor.guiauto.core;
 
-import com.testmile.setu.requester.connector.SetuManagedObject;
-import com.testmile.setu.requester.testsession.TestSession;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.value.Value;
+import java.util.List;
 
-public interface TestConfig extends SetuManagedObject {
+import com.testmile.setu.actor.guiauto.commander.driver.DriverElementContainer;
+
+public class GuiMultiElement<T,E> {
+	private List<DriverElementContainer<T,E>> elements;
+
+	public GuiMultiElement(List<DriverElementContainer<T,E>> elements) {
+		super();
+		this.elements = elements;
+	}
+
+	public int getInstanceCount() throws Exception {
+		return this.elements.size();
+	}
 	
-	Value getSetuOptionValue(String option) throws Exception;	
-	Value getSetuOptionValue(SetuOption option) throws Exception;
-	Value getUserOptionValue(String option) throws Exception;
-	String getName();
-	TestSession getTestSession();
+	public DriverElementContainer<T,E> getInstanceAtIndex(int index) throws Exception {
+		return this.elements.get(index);
+	}
+
 }
