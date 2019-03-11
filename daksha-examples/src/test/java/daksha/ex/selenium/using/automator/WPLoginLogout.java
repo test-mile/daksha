@@ -27,10 +27,10 @@ public class WPLoginLogout {
 	public static void login(GuiAutomator automator) throws Exception {
 		automator.launch();
 		automator.browser().goToUrl("http://192.168.56.103/wp-admin");
-		automator.element(With.ID, "user_login").setText("user");
-		automator.element(With.ID, "user_pass").setText("bitnami");
-		automator.element(With.ID, "wp-submit").click();
-		automator.element(With.CLASS_NAME, "welcome-view-site").waitUntilClickable();
+		automator.element(With.id("user_login")).setText("user");
+		automator.element(With.id("user_pass")).setText("bitnami");
+		automator.element(With.id("wp-submit")).click();
+		automator.element(With.className("welcome-view-site")).waitUntilClickable();
 	}
 	
 	public static void logout(GuiAutomator automator) throws Exception {

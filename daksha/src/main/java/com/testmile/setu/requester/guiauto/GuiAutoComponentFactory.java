@@ -19,6 +19,8 @@
 
 package com.testmile.setu.requester.guiauto;
 
+import java.util.List;
+
 import com.testmile.setu.requester.config.SetuActionType;
 import com.testmile.setu.requester.connector.BaseSetuObject;
 import com.testmile.setu.requester.connector.SetuArg;
@@ -330,10 +332,13 @@ class DefaultDomRoot extends BaseComponent implements DomRoot{
 	}
 
 	@Override
-	public DefaultFrame frame(With withType, String withValue) throws Exception {
+	public DefaultFrame frame(With withObj) throws Exception {
+		List<SetuArg> lArgs = withObj.asSetuArgs();
+		SetuArg[] args = new SetuArg[lArgs.size()];
+		args = lArgs.toArray(args);
 		SetuResponse response = this.sendRequest(
 				SetuActionType.GUIAUTO_DOMROOT_CREATE_FRAME,
-				SetuArg.with(withType, withValue)
+				args
 		);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
@@ -357,10 +362,13 @@ class DefaultFrame extends BaseElement implements Frame {
 	}
 	
 	@Override
-	public Frame frame(With withType, String withValue) throws Exception {
+	public Frame frame(With withObj) throws Exception {
+		List<SetuArg> lArgs = withObj.asSetuArgs();
+		SetuArg[] args = new SetuArg[lArgs.size()];
+		args = lArgs.toArray(args);
 		SetuResponse response = this.sendRequest(
 				SetuActionType.GUIAUTO_FRAME_CREATE_FRAME,
-				SetuArg.with(withType, withValue)
+				args
 		);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
@@ -422,10 +430,13 @@ class DefaultMainWindow extends AbstractBasicWindow implements MainWindow {
 	}
 	
 	@Override
-	public ChildWindow childWindow(With with, String value) throws Exception {
+	public ChildWindow childWindow(With withObj) throws Exception {
+		List<SetuArg> lArgs = withObj.asSetuArgs();
+		SetuArg[] args = new SetuArg[lArgs.size()];
+		args = lArgs.toArray(args);
 		SetuResponse response = this.sendRequest(
 				SetuActionType.GUIAUTO_MAIN_WINDOW_CREATE_CHILD_WINDOW,
-				SetuArg.with(with, value)
+				args
 		);
 		return GuiAutoComponentFactory.ChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}

@@ -33,10 +33,10 @@ public class Ex2MultiElement {
 		
 		WPLoginLogout.login(automator);
 		
-		automator.element(With.LINK_TEXT,"Posts").click();
-		automator.element(With.LINK_TEXT,"Categories").click();
+		automator.element(With.linkText("Posts")).click();
+		automator.element(With.linkText("Categories")).click();
 		
-		GuiMultiElement checkboxes = automator.multiElement(With.NAME,"delete_tags[]");
+		GuiMultiElement checkboxes = automator.multiElement(With.name("delete_tags[]"));
 		checkboxes.getInstanceAtIndex(0).uncheck();
 		checkboxes.getInstanceAtIndex(0).check();
 		checkboxes.getInstanceAtIndex(0).check();

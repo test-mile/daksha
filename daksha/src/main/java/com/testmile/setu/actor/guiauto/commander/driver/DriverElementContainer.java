@@ -92,7 +92,7 @@ public abstract class DriverElementContainer<T,E> {
 		case "CLASS_NAME": return By.className(value);
 		case "LINK_TEXT": return By.linkText(value);
 		case "PARTIAL_LINK_TEXT": return By.partialLinkText(value);
-		case "CSS": return By.cssSelector(value);
+		case "CSS_SELECTOR": return By.cssSelector(value);
 		case "XPATH": return By.xpath(value);
 		default:
 			throw new Exception(String.format("Unsupported identifier for %s: Type:%s Value:%s",

@@ -35,13 +35,13 @@ import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 public interface AppAutomator extends SetuManagedObject{
 	TestConfig getConfig();
 
-	GuiElement element(With with, String value) throws Exception;
+	GuiElement element(With withObj) throws Exception;
 
-	GuiMultiElement multiElement(With with, String value) throws Exception;
+	GuiMultiElement multiElement(With withObj) throws Exception;
 
-	DropDown dropdown(With with, String value) throws Exception;
+	DropDown dropdown(With withObj) throws Exception;
 
-	RadioGroup radioGroup(With with, String value) throws Exception;
+	RadioGroup radioGroup(With withObj) throws Exception;
 
 	MainWindow mainWindow() throws Exception;
 

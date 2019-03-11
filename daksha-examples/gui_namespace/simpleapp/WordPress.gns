@@ -32,7 +32,7 @@ X_TEXT =Posts
 
 [SETTINGS]
 #web,android_web
-css = .dashicons-admin-settings
+css_selector = .dashicons-admin-settings
 
 [NAVIGATION]
 #web,android_web
@@ -40,7 +40,7 @@ partial_link_text = Comment
 
 [POSTS]
 #web,android_web
-css = .dashicons-admin-post
+css_selector = .dashicons-admin-post
 
 [CATEGORIES]
 #web,android_web
@@ -48,7 +48,7 @@ link_text = Categories
 
 [MENU_TOGGLE]
 #web,android_web
-css = .ab-icon
+css_selector = .ab-icon
 
 [GENERAL]
 #web,android_web

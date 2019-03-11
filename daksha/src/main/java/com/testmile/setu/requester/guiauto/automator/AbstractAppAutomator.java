@@ -19,6 +19,8 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
+import java.util.List;
+
 import com.testmile.setu.requester.config.SetuActionType;
 import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.BaseSetuObject;
@@ -68,34 +70,37 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 		return response.getValueForElementSetuId();		
 	}
 
-	private String createGenericElement(SetuActionType actionType, With with, String value) throws Exception {
+	private String createGenericElement(SetuActionType actionType, With withObj) throws Exception {
+		List<SetuArg> lArgs = withObj.asSetuArgs();
+		SetuArg[] args = new SetuArg[lArgs.size()];
+		args = lArgs.toArray(args);
 		return this.takeElementFindingAction(
 				actionType,
-				SetuArg.with(with, value)
+				args
 		);	
 	}
 
 	@Override
-	public GuiElement element(With with, String value) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_ELEMENT, with, value);
+	public GuiElement element(With withObj) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_ELEMENT, withObj);
 		return GuiAutoComponentFactory.Element(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public GuiMultiElement multiElement(With with, String value) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_MULTIELEMENT, with, value);
+	public GuiMultiElement multiElement(With withObj) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_MULTIELEMENT, withObj);
 		return GuiAutoComponentFactory.MultiElement(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public DropDown dropdown(With with, String value) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, with, value);
+	public DropDown dropdown(With withObj) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, withObj);
 		return GuiAutoComponentFactory.DropDown(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public RadioGroup radioGroup(With with, String value) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, with, value);
+	public RadioGroup radioGroup(With withObj) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, withObj);
 		return GuiAutoComponentFactory.RadioGroup(this.testSession, this, elemSetuId);
 	}
 

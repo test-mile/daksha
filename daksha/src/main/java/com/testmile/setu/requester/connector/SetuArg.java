@@ -57,8 +57,4 @@ public class SetuArg{
 	public static SetuArg configArg(String id) {
 		return new SetuArg("configSetuId", id);
 	}
-	
-	public static SetuArg[] with(With withType, String withValue) {
-		return new SetuArg[] {SetuArg.arg("withType", withType), SetuArg.arg("withValue", withValue)};
-	}
 }

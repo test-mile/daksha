@@ -22,10 +22,11 @@ package daksha.ex.guiauto.models.v2.simpleapp;
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.setu.requester.guiauto.component.DropDown;
 import com.testmile.setu.requester.guiauto.gui.DefaultGui;
 import com.testmile.setu.requester.guiauto.gui.Gui;
 
-public class SimpleAppTest{
+public class SimpleApp{
 	
 	public static void main(String[] args) throws Exception {
 		// Initialize Daksha
@@ -36,18 +37,30 @@ public class SimpleAppTest{
 		automator.launch();
 		
 		// Create Gui. Provide GNS file path.
-		Gui app = new DefaultGui("WordPress", automator, "basic/WPLoginLogout.gns");
+		Gui app = new DefaultGui("WordPress", automator, "simpleapp/WordPress.gns");
 
 		app.browser().goToUrl("http://192.168.56.103/wp-admin");	
 		
-		// Create element by name as mentioned in GNS. Definitions automatically picked up as per context.
-		app.element("LOGIN").setText("user");
-		app.element("PASSWORD").setText("bitnami");
-		app.element("SUBMIT").click();
-		app.element("VIEW-SITE").waitUntilClickable();
+		// Login
+		app.element("login").setText("user");
+		app.element("password").setText("bitnami");
+		app.element("submit").click();
+		app.element("view-site").waitUntilClickable();
 		
-		app.browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");
+		// Tweak Settings
+		app.element("settings").click();
 		
+		DropDown roleSelect = app.dropdown("role");
+		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
+		System.out.println(roleSelect.hasValueSelected("subscriber"));
+		System.out.println(roleSelect.hasIndexSelected(2));
+		System.out.println(roleSelect.getFirstSelectedOptionText());
+		roleSelect.selectByValue("editor");
+		roleSelect.selectByVisibleText("Subscriber");
+		roleSelect.selectByIndex(4);
+		
+		// Logout
+		app.browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");		
 		app.automator().quit();
 	}
 }

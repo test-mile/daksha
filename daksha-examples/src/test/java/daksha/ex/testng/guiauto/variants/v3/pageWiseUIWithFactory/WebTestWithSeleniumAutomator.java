@@ -24,12 +24,7 @@ import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.core.config.DakshaTestContext;
-import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.daksha.tpi.guiauto.element.SetuClientGuiMultiElement;
-import com.testmile.daksha.tpi.guiauto.gui.GuiFactory;
-import com.testmile.daksha.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
 import com.testmile.trishanku.tpi.enums.OSType;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{

@@ -177,22 +177,22 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 	
 	@Override
 	public GuiElement element(String name) throws Exception {
-		return super.element(With.ASSIGNED_NAME, name);
+		return super.element(With.assignedName(name));
 	}
 
 	@Override
 	public GuiMultiElement multiElement(String name) throws Exception {
-		return super.multiElement(With.ASSIGNED_NAME, name);
+		return super.multiElement(With.assignedName(name));
 	}
 
 	@Override
 	public DropDown dropdown(String name) throws Exception {
-		return super.dropdown(With.ASSIGNED_NAME, name);
+		return super.dropdown(With.assignedName(name));
 	}
 
 	@Override
 	public RadioGroup radioGroup(String name) throws Exception {
-		return super.radioGroup(With.ASSIGNED_NAME, name);
+		return super.radioGroup(With.assignedName(name));
 	}
 	
 	public MainWindow mainWindow() throws Exception {

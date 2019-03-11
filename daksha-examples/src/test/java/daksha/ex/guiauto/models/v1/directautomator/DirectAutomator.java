@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.selenium.using.automator;
+package daksha.ex.guiauto.models.v1.directautomator;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
@@ -25,14 +25,26 @@ import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.DropDown;
 
-public class Ex5DropDown {
-
+public class DirectAutomator{
+	
 	public static void main(String[] args) throws Exception {
+		// Initialize Daksha
 		DakshaTestConfig config = Daksha.init();
-		GuiAutomator automator = Daksha.createGuiAutomator(config);
 		
-		WPLoginLogout.login(automator);
+		// Create Automator (default is Selenium) with default options
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		automator.launch();
 
+		automator.browser().goToUrl("http://192.168.56.103/wp-admin");	
+		
+		// Login
+		automator.browser().goToUrl("http://192.168.56.103/wp-admin");
+		automator.element(With.id("user_login")).setText("user");
+		automator.element(With.id("user_pass")).setText("bitnami");
+		automator.element(With.id("wp-submit")).click();
+		automator.element(With.className("welcome-view-site")).waitUntilClickable();
+		
+		// Tweak Settings
 		automator.element(With.linkText("Settings")).click();
 		DropDown roleSelect = automator.dropdown(With.id("default_role"));
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
@@ -43,7 +55,8 @@ public class Ex5DropDown {
 		roleSelect.selectByVisibleText("Subscriber");
 		roleSelect.selectByIndex(4);
 		
-		WPLoginLogout.logout(automator);
+		// Logout
+		automator.browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");
+		automator.quit();	
 	}
-
 }

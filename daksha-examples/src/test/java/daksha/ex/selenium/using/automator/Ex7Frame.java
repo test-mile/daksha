@@ -33,32 +33,35 @@ public class Ex7Frame {
 		
 		WPLoginLogout.login(automator);
 		
-		automator.element(With.LINK_TEXT,"Posts").click();
-		automator.element(With.LINK_TEXT,"Add New").click();
+		automator.element(With.linkText("Posts")).click();
+		automator.element(With.linkText("Add New")).click();
 		
-		automator.element(With.ID, "title").setText("Sample");
+		automator.element(With.id("title")).setText("Sample");
+		
+		With tinymce = With.id("tinymce");
+		With publish = With.id("publish");
 		
 		// Frame by identifier and jump to root
-		Frame frame = automator.domRoot().frame(With.ID, "content_ifr");
+		Frame frame = automator.domRoot().frame(With.id("content_ifr"));
 		frame.focus();
-		automator.element(With.ID,"tinymce").setText("This is a test - frame by name.");
+		automator.element(tinymce).setText("This is a test - frame by name.");
 		automator.domRoot().focus();
-		automator.element(With.ID,"publish").click();
+		automator.element(publish).click();
 		
 		// Frame by index
-		frame = automator.domRoot().frame(With.INDEX, "0");
+		frame = automator.domRoot().frame(With.index(0));
 		frame.focus();
-		automator.element(With.ID,"tinymce").setText("This is a test - frame by index.");
+		automator.element(tinymce).setText("This is a test - frame by index.");
 		// Focusing on root from frame itself
 		automator.domRoot().focus();
-		automator.element(With.ID,"publish").click();
+		automator.element(publish).click();
 		
 		// jump to parent
-		frame = automator.domRoot().frame(With.XPATH, "//iframe");
+		frame = automator.domRoot().frame(With.xpath("//iframe"));
 		frame.focus();
-		automator.element(With.ID,"tinymce").setText("This is a test - jumping to parent after this.");
+		automator.element(tinymce).setText("This is a test - jumping to parent after this.");
 		frame.getParent().focus();
-		automator.element(With.ID,"publish").click();
+		automator.element(publish).click();
 		
 		WPLoginLogout.logout(automator);
 	}
