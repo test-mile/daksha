@@ -36,14 +36,14 @@ public class Ex4WindowHandling {
 		MainWindow mainWin = automator.mainWindow();
 		mainWin.maximize();
 		System.out.println(mainWin.getTitle());
-		automator.browser().executeJavaScript("window.open('/abc')");
-		ChildWindow win = automator.mainWindow().latestChildWindow();
+		automator.executeJavaScript("window.open('/abc')");
+		ChildWindow win = automator.latestChildWindow();
 		win.focus();
 		System.out.println(win.getTitle());
 		win.close();
-		automator.browser().executeJavaScript("window.open('/def')");
-		automator.browser().executeJavaScript("window.open('/xyz')");
-		automator.mainWindow().closeAllChildWindows();
+		automator.executeJavaScript("window.open('/def')");
+		automator.executeJavaScript("window.open('/xyz')");
+		automator.closeAllChildWindows();
 		System.out.println(mainWin.getTitle());
 		
 		WPLoginLogout.logout(automator);

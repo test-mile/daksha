@@ -50,6 +50,10 @@ public interface AppAutomator extends SetuManagedObject{
 	Frame frame(With... locators) throws Exception;
 
 	MainWindow mainWindow() throws Exception;
+	
+	ChildWindow latestChildWindow() throws Exception;
+	
+	void closeAllChildWindows() throws Exception;
 
 	WebAlert webAlert() throws Exception;
 
@@ -58,6 +62,8 @@ public interface AppAutomator extends SetuManagedObject{
 	DomRoot domRoot();
 	
 	Browser browser();
+	
+	void executeJavaScript(String script) throws Exception;
 
 	void slowMotion(boolean on, int interval) throws Exception;
 

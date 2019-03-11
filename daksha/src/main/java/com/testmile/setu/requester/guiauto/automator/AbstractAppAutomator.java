@@ -186,4 +186,19 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 		return false;
 	}
 
+	@Override
+	public ChildWindow latestChildWindow() throws Exception {
+		return this.mainWindow.latestChildWindow();
+	}
+
+	@Override
+	public void closeAllChildWindows() throws Exception {
+		this.mainWindow.closeAllChildWindows();
+	}
+
+	@Override
+	public void executeJavaScript(String script) throws Exception {
+		this.browser.executeJavaScript(script);
+	}
+
 }

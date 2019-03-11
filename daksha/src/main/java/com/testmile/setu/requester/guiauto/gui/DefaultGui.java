@@ -29,8 +29,10 @@ import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.automator.AbstractAppAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.Browser;
+import com.testmile.setu.requester.guiauto.component.ChildWindow;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
+import com.testmile.setu.requester.guiauto.component.Frame;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;
@@ -80,7 +82,6 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		this.setSetuId(response.getGuiSetuId());
 		parent.addChild(label, this);
 		this.setSelfSetuIdArg("guiSetuId");
-		load();
 		load();
 	}
 	
@@ -146,30 +147,20 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 						)
 				);
 	}
-
-	public Object throwUndefinedElementException(String methodName, String elementName) throws Exception {
-		return throwDefaultUiException(
-				methodName,
-				ErrorType.GUI_UNDEFINED_ELEMENT,
-				String.format(
-						ErrorType.GUI_UNDEFINED_ELEMENT,
-						elementName,
-						this.autoContext.toString()
-						)
-				);
-	}
 	
-	protected void goTo() throws Exception{
+	protected void reachUntil() throws Exception{
 		// Child classes can override this and write any necessary loading instructions.
 	}
 	
-	protected void validateReadiness() throws Throwable{
+	protected void validateReadiness() throws Exception{
 	}
 	
 	public final void load() throws Exception {
 		try {
 			this.validateReadiness();
-			this.goTo();
+		} catch (Exception e) {
+			this.reachUntil();
+			this.validateReadiness();
 		} catch (Throwable e) {
 			throw new Exception(String.format("UI [%s] with SetuId [%s] did not load as expected. Error: %s.", this.getClass().getName(), this.getSetuId(), e.getMessage()));
 		}
@@ -193,6 +184,16 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 	@Override
 	public RadioGroup radioGroup(String name) throws Exception {
 		return super.radioGroup(With.assignedName(name));
+	}
+	
+	@Override
+	public ChildWindow childWindow(String name) throws Exception {
+		return super.childWindow(With.assignedName(name));
+	}
+
+	@Override
+	public Frame frame(String name) throws Exception {
+		return super.frame(With.assignedName(name));
 	}
 	
 	public MainWindow mainWindow() throws Exception {

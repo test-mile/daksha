@@ -32,17 +32,17 @@ public class Ex3Alerts {
 		
 		WPLoginLogout.login(automator);
 		
-		automator.browser().executeJavaScript("alert('dummy')");
+		automator.executeJavaScript("alert('dummy')");
 		automator.webAlert().confirm();
-		automator.browser().executeJavaScript("alert('dummy')");
+		automator.executeJavaScript("alert('dummy')");
 		automator.webAlert().dismiss();
 		
-		automator.browser().executeJavaScript("alert('Sample')");
+		automator.executeJavaScript("alert('Sample')");
 		WebAlert alert = automator.webAlert();
 		assert alert.getText() == "Sample";
 		alert.confirm();
 		
-		automator.browser().executeJavaScript("prompt('Are You Sure?')");
+		automator.executeJavaScript("prompt('Are You Sure?')");
 		alert = automator.webAlert();
 		alert.sendText("Yes");	
 		alert.confirm();

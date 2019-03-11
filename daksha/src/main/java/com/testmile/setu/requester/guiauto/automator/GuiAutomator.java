@@ -27,5 +27,5 @@ public interface GuiAutomator extends AppAutomator{
 	void quit() throws Exception;
 	void slowMotion(boolean on) throws Exception;
 	TestSession getTestSession();
-
+	
 }
