@@ -27,7 +27,7 @@ public class WPLoginLogout {
 	public static void login(GuiAutomator automator) throws Exception {
 		automator.launch();
 		automator.browser().goToUrl("http://192.168.56.103/wp-admin");
-		automator.element(With.id("user_login")).setText("user");
+		automator.element(With.name("nonexistent"), With.id("user_login")).setText("user");
 		automator.element(With.id("user_pass")).setText("bitnami");
 		automator.element(With.id("wp-submit")).click();
 		automator.element(With.className("welcome-view-site")).waitUntilClickable();

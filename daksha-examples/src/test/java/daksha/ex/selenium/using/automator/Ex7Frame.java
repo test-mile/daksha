@@ -42,22 +42,20 @@ public class Ex7Frame {
 		With publish = With.id("publish");
 		
 		// Frame by identifier and jump to root
-		Frame frame = automator.domRoot().frame(With.id("content_ifr"));
-		frame.focus();
+		automator.frame(With.id("content_ifr")).focus();
 		automator.element(tinymce).setText("This is a test - frame by name.");
 		automator.domRoot().focus();
 		automator.element(publish).click();
 		
 		// Frame by index
-		frame = automator.domRoot().frame(With.index(0));
-		frame.focus();
+		automator.frame(With.index(0)).focus();
 		automator.element(tinymce).setText("This is a test - frame by index.");
 		// Focusing on root from frame itself
 		automator.domRoot().focus();
 		automator.element(publish).click();
 		
 		// jump to parent
-		frame = automator.domRoot().frame(With.xpath("//iframe"));
+		Frame frame = automator.domRoot().frame(With.xpath("//iframe"));
 		frame.focus();
 		automator.element(tinymce).setText("This is a test - jumping to parent after this.");
 		frame.getParent().focus();

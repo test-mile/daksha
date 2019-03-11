@@ -19,7 +19,9 @@
 
 package com.testmile.setu.requester.guiauto.automator;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.testmile.setu.requester.config.SetuActionType;
 import com.testmile.setu.requester.config.TestConfig;
@@ -30,8 +32,10 @@ import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;
+import com.testmile.setu.requester.guiauto.component.ChildWindow;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
+import com.testmile.setu.requester.guiauto.component.Frame;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;
@@ -70,37 +74,38 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 		return response.getValueForElementSetuId();		
 	}
 
-	private String createGenericElement(SetuActionType actionType, With withObj) throws Exception {
-		List<SetuArg> lArgs = withObj.asSetuArgs();
-		SetuArg[] args = new SetuArg[lArgs.size()];
-		args = lArgs.toArray(args);
+	private String createGenericElement(SetuActionType actionType, With... locators) throws Exception {
+		List<Map<String,Object>> arg = new ArrayList<Map<String,Object>>();
+		for(With locator: locators) {
+			arg.add(locator.asMap());
+		}
 		return this.takeElementFindingAction(
 				actionType,
-				args
+				SetuArg.arg("locators", arg)
 		);	
 	}
 
 	@Override
-	public GuiElement element(With withObj) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_ELEMENT, withObj);
+	public GuiElement element(With... locators) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_ELEMENT, locators);
 		return GuiAutoComponentFactory.Element(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public GuiMultiElement multiElement(With withObj) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_MULTIELEMENT, withObj);
+	public GuiMultiElement multiElement(With... locators) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_MULTIELEMENT, locators);
 		return GuiAutoComponentFactory.MultiElement(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public DropDown dropdown(With withObj) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, withObj);
+	public DropDown dropdown(With... locators) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, locators);
 		return GuiAutoComponentFactory.DropDown(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public RadioGroup radioGroup(With withObj) throws Exception {
-		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, withObj);
+	public RadioGroup radioGroup(With... locators) throws Exception {
+		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, locators);
 		return GuiAutoComponentFactory.RadioGroup(this.testSession, this, elemSetuId);
 	}
 
@@ -108,6 +113,16 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	public WebAlert webAlert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
 		return GuiAutoComponentFactory.WebAlert(this.testSession, this, elemSetuId);
+	}
+	
+	@Override
+	public ChildWindow childWindow(With... locators) throws Exception {
+		return this.mainWindow.childWindow(locators);
+	}
+
+	@Override
+	public Frame frame(With... locators) throws Exception {
+		return this.domRoot().frame(locators);
 	}
 
 	@Override
@@ -170,6 +185,5 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	public boolean isGui() {
 		return false;
 	}
-
 
 }

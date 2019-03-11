@@ -78,16 +78,15 @@ public class With {
 		return new With(WithType.ASSIGNED_NAME, name);
 	}
 	
-	public List<SetuArg> asSetuArgs(){
-		List<SetuArg> args = new ArrayList<SetuArg>();
+	public Map<String,Object> asMap(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		args.add(SetuArg.arg("withType", this.withType));
+		map.put("withType", this.withType);
 		if (!this.childLocator) {
-			args.add(SetuArg.arg("withValue", this.withValue));
+			map.put("withValue", this.withValue);
 		} else {
-			map.put("withValue", this.child.asSetuArgs());		
+			map.put("withValue", this.child.asMap());		
 		}
-		return args;
+		return map;
 	}
 }
 

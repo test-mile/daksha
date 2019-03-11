@@ -24,6 +24,6 @@ import com.testmile.setu.requester.guiauto.With;
 public interface DomRoot extends Frame {
 	
 	void focus() throws Exception;
-	Frame frame(With withObj) throws Exception;
+	Frame frame(With... locators) throws Exception;
 	
 }

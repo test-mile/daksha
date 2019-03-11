@@ -26,5 +26,5 @@ public interface Frame extends SetuManagedObject{
 	
 	void focus() throws Exception;
 	Frame getParent() throws Exception;
-	Frame frame(With withObj) throws Exception;
+	Frame frame(With... locators) throws Exception;
 }

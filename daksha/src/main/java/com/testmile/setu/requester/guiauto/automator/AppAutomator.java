@@ -24,8 +24,10 @@ import com.testmile.setu.requester.connector.SetuManagedObject;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;
+import com.testmile.setu.requester.guiauto.component.ChildWindow;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
 import com.testmile.setu.requester.guiauto.component.DropDown;
+import com.testmile.setu.requester.guiauto.component.Frame;
 import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;
@@ -35,13 +37,17 @@ import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 public interface AppAutomator extends SetuManagedObject{
 	TestConfig getConfig();
 
-	GuiElement element(With withObj) throws Exception;
+	GuiElement element(With... locators) throws Exception;
 
-	GuiMultiElement multiElement(With withObj) throws Exception;
+	GuiMultiElement multiElement(With... locators) throws Exception;
 
-	DropDown dropdown(With withObj) throws Exception;
+	DropDown dropdown(With... locators) throws Exception;
 
-	RadioGroup radioGroup(With withObj) throws Exception;
+	RadioGroup radioGroup(With... locators) throws Exception;
+	
+	ChildWindow childWindow(With... locators) throws Exception;
+	
+	Frame frame(With... locators) throws Exception;
 
 	MainWindow mainWindow() throws Exception;
 

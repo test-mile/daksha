@@ -19,7 +19,9 @@
 
 package com.testmile.setu.requester.guiauto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.testmile.setu.requester.config.SetuActionType;
 import com.testmile.setu.requester.connector.BaseSetuObject;
@@ -332,13 +334,14 @@ class DefaultDomRoot extends BaseComponent implements DomRoot{
 	}
 
 	@Override
-	public DefaultFrame frame(With withObj) throws Exception {
-		List<SetuArg> lArgs = withObj.asSetuArgs();
-		SetuArg[] args = new SetuArg[lArgs.size()];
-		args = lArgs.toArray(args);
+	public DefaultFrame frame(With... locators) throws Exception {
+		List<Map<String,Object>> arg = new ArrayList<Map<String,Object>>();
+		for(With locator: locators) {
+			arg.add(locator.asMap());
+		}
 		SetuResponse response = this.sendRequest(
 				SetuActionType.GUIAUTO_DOMROOT_CREATE_FRAME,
-				args
+				SetuArg.arg("locators", arg)
 		);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
@@ -362,13 +365,14 @@ class DefaultFrame extends BaseElement implements Frame {
 	}
 	
 	@Override
-	public Frame frame(With withObj) throws Exception {
-		List<SetuArg> lArgs = withObj.asSetuArgs();
-		SetuArg[] args = new SetuArg[lArgs.size()];
-		args = lArgs.toArray(args);
+	public Frame frame(With... locators) throws Exception {
+		List<Map<String,Object>> arg = new ArrayList<Map<String,Object>>();
+		for(With locator: locators) {
+			arg.add(locator.asMap());
+		}
 		SetuResponse response = this.sendRequest(
 				SetuActionType.GUIAUTO_FRAME_CREATE_FRAME,
-				args
+				SetuArg.arg("locators", arg)
 		);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
@@ -430,13 +434,14 @@ class DefaultMainWindow extends AbstractBasicWindow implements MainWindow {
 	}
 	
 	@Override
-	public ChildWindow childWindow(With withObj) throws Exception {
-		List<SetuArg> lArgs = withObj.asSetuArgs();
-		SetuArg[] args = new SetuArg[lArgs.size()];
-		args = lArgs.toArray(args);
+	public ChildWindow childWindow(With... locators) throws Exception {
+		List<Map<String,Object>> arg = new ArrayList<Map<String,Object>>();
+		for(With locator: locators) {
+			arg.add(locator.asMap());
+		}
 		SetuResponse response = this.sendRequest(
 				SetuActionType.GUIAUTO_MAIN_WINDOW_CREATE_CHILD_WINDOW,
-				args
+				SetuArg.arg("locators", arg)
 		);
 		return GuiAutoComponentFactory.ChildWindow(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}
