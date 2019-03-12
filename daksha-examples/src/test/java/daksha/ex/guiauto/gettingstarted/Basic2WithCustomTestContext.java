@@ -23,7 +23,6 @@ import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
-import com.testmile.trishanku.tpi.enums.BrowserName;
 
 public class Basic2WithCustomTestContext{
 	

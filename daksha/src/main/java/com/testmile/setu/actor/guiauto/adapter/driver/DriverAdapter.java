@@ -19,7 +19,6 @@
 
 package com.testmile.setu.actor.guiauto.adapter.driver;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,10 +28,8 @@ import org.openqa.selenium.WebElement;
 import com.testmile.setu.actor.guiauto.adapter.GuiAutoAdapter;
 import com.testmile.setu.actor.guiauto.commander.driver.DriverCommandUtils;
 import com.testmile.setu.actor.guiauto.commander.driver.DriverContainer;
-import com.testmile.setu.actor.guiauto.commander.driver.DriverElementCommandUtils;
 import com.testmile.setu.actor.guiauto.commander.driver.DriverElementContainer;
 import com.testmile.setu.actor.guiauto.core.GuiAutomatorActionType;
-import com.testmile.setu.actor.guiauto.core.GuiElementActionType;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
 import com.testmile.trishanku.tpi.setu.actor.ActorAction;
 import com.testmile.trishanku.tpi.setu.actor.ServerResponse;

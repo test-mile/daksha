@@ -19,7 +19,6 @@
 
 package com.testmile.setu.requester.guiauto.gui;
 
-import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.automator.AppAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.guiauto.component.ChildWindow;

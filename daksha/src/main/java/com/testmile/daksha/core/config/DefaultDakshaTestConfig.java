@@ -1,16 +1,8 @@
 package com.testmile.daksha.core.config;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.config.DefaultTestConfig;
 import com.testmile.setu.requester.config.TestConfig;
-import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
-import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.testsession.TestSession;
 import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;

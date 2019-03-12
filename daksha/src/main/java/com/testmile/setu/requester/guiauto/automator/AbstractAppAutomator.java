@@ -28,10 +28,8 @@ import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.BaseSetuObject;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
-import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.setu.requester.guiauto.With;
-import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;
 import com.testmile.setu.requester.guiauto.component.ChildWindow;
 import com.testmile.setu.requester.guiauto.component.DomRoot;
@@ -41,6 +39,7 @@ import com.testmile.setu.requester.guiauto.component.GuiElement;
 import com.testmile.setu.requester.guiauto.component.GuiMultiElement;
 import com.testmile.setu.requester.guiauto.component.MainWindow;
 import com.testmile.setu.requester.guiauto.component.RadioGroup;
+import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.testsession.TestSession;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 

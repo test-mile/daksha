@@ -21,7 +21,6 @@ package daksha.ex.guiauto.gettingstarted;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
-import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
@@ -29,7 +28,7 @@ public class Basic3WithExtendedDriverConfig{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize Daksha
-		DakshaTestConfig config =Daksha.init();
+		DakshaTestConfig config = Daksha.init();
 		
 		GuiDriverExtendedConfig exConfig = new GuiDriverExtendedConfig();
 		exConfig.browserArg("--headless");

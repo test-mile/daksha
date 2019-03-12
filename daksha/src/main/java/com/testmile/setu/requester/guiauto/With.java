@@ -19,12 +19,8 @@
 
 package com.testmile.setu.requester.guiauto;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.testmile.setu.requester.connector.SetuArg;
 
 public class With {
 	private String withType;

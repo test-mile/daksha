@@ -25,7 +25,6 @@ import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
-import com.testmile.setu.requester.testsession.TestSession;
 
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
 	private GuiDriverExtendedConfig extendedConfig;

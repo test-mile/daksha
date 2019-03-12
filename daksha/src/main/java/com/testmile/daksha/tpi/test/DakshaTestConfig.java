@@ -1,7 +1,6 @@
 package com.testmile.daksha.tpi.test;
 
 import com.testmile.setu.requester.config.TestConfig;
-import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 

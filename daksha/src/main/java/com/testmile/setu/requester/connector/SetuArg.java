@@ -19,8 +19,6 @@
 
 package com.testmile.setu.requester.connector;
 
-import com.testmile.setu.requester.guiauto.With;
-
 public class SetuArg{
 	private String name;
 	private Object obj;
