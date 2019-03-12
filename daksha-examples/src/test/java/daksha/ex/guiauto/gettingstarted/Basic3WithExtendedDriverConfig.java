@@ -17,34 +17,25 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.gettingstarted;
+package daksha.ex.guiauto.gettingstarted;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
-import com.testmile.trishanku.tpi.enums.Browser;
 
-public class Basic2WithCustomTestContext{
+public class Basic3WithExtendedDriverConfig{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize Daksha
-		Daksha.init();
+		DakshaTestConfig config =Daksha.init();
 		
-		// Create a custom test context. Contains all values from central config
-		// A context assists you in creating a new configuration programmatically.
-		String contextName = "custom";
-		TestContext context = Daksha.createTestContext(contextName);
-		
-		// Changing an option in context config as different from central option
-		// You can tweak any number of options
-		context.browserType(Browser.FIREFOX);
-		
-		// The build step sends information to Setu and creates a unique frozen config
-		DakshaTestConfig config = context.build(); 
+		GuiDriverExtendedConfig exConfig = new GuiDriverExtendedConfig();
+		exConfig.browserArg("--headless");
 
 		// Create Automator (default is Selenium) with context config
-		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		GuiAutomator automator = Daksha.createGuiAutomator(config, exConfig);
 		automator.launch();
 
 		// Basic flow in Firefox, as per the context config

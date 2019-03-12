@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.ddauto.withtestng.filter;
+package daksha.ex.testng.ddauto.filter;
 
 import static org.testng.Assert.assertEquals;
 

@@ -1,9 +1,6 @@
 package com.testmile.daksha.tpi.test;
 
 import java.util.Map;
-
-import com.testmile.trishanku.tpi.enums.Browser;
-import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
@@ -17,14 +14,12 @@ public interface TestContext {
 
 	void addOptions(Map<String, String> options) throws Exception;
 
-	TestContext automationContext(GuiAutomationContext context) throws Exception;
-
-	TestContext browserType(Browser browser) throws Exception;
-
 	TestContext targetPlatform(OSType osType) throws Exception;
 
-	TestContext uuiAutoMaxWaitTime(int seconds) throws Exception;
+	TestContext guiAutoMaxWaitTime(int seconds) throws Exception;
 
 	DakshaTestConfig build() throws Exception;
+
+	TestContext firefox() throws Exception;
 
 }

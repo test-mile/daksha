@@ -16,8 +16,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package com.testmile.trishanku.tpi.enums;
 
-public enum Browser {
-	CHROME, FIREFOX, SAFARI;
+package daksha.ex.guiauto.gettingstarted;
+
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+
+public class Basic1WithCentralTestContext{
+	
+	public static void main (String args[]) throws Exception {
+		// Initialize Daksha
+		DakshaTestConfig config = Daksha.init();
+		
+		// Create Automator (default is Selenium) with default options
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+		automator.launch();
+		
+		// Basic flow in chrome
+		automator.browser().goToUrl("https://www.google.com");
+		System.out.println(automator.mainWindow().getTitle());
+		automator.quit();
+	}
+
 }

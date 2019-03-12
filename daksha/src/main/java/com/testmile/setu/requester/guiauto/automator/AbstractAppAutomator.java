@@ -28,6 +28,7 @@ import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.BaseSetuObject;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.component.WebAlert;
@@ -48,8 +49,8 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	private MainWindow mainWindow;
 	private Browser browser;
 	private GuiAutomationContext autoContext;
-	private TestConfig config;
 	private TestSession testSession;
+	private TestConfig config;
 	
 	public AbstractAppAutomator() {
 		super();

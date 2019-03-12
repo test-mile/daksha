@@ -49,10 +49,10 @@ public class ExcelFileDDTListData{
 		ListDataSource source = createListDataSource();
 		
 		// Using default Java Iterator
-		Iterator<ListDataRecord> recordIter1 = source.iterRecords();
+		Iterator<ListDataRecord> recordIter = source.iterRecords();
 		System.out.println("With Java iterator.");
-		while(recordIter1.hasNext()) {
-			ListDataRecord record = recordIter1.next();
+		while(recordIter.hasNext()) {
+			ListDataRecord record = recordIter.next();
 			printDataRecord(record);			
 		}
 	}

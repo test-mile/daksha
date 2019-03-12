@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.ddauto.withtestng.filter;
+package daksha.ex.testng.ddauto.basic;
 
 import static org.testng.Assert.assertEquals;
 
@@ -27,29 +27,30 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.databroker.MapDataRecord;
-import com.testmile.setu.requester.databroker.MapDataSource;
+import com.testmile.setu.requester.databroker.ListDataRecord;
+import com.testmile.setu.requester.databroker.ListDataSource;
 
-public class Filter_TabDelimFileDDT_MapData extends TestNGBaseTest {
+public class ListDataContainerExample{
 	
-	@DataProvider(name="dp2")
-	public Iterator<Object[]> linkMapDataSource() throws Exception {
-		MapDataSource source = 
+	@DataProvider(name="dp")
+	public Iterator<Object[]> linkDataSource() throws Exception {
+		ListDataSource source = 
 				Daksha
 				.createDataSourceBuilder()
-				.fileMapDataSource("input_exclude_ex.txt")
+				.listDataContainer()
+				.record(1,2,3)
+				.record(4,5,9)
+				.record(7,8,12)
 				.build();
 		return source.iterRecordsForTestNG();
 	}
 	
-	@Test(dataProvider="dp2")
-	public void repeat(MapDataRecord record) throws Exception {
-		int left = record.value("Left").asInt();
-		int right = record.value("Right").asInt();
-		int expectedSum = record.value("Sum").asInt();
+	@Test(dataProvider="dp")
+	public void repeat(ListDataRecord record) throws Exception {
+		int left = record.valueAt(0).asInt();
+		int right = record.valueAt(1).asInt();
+		int expectedSum = record.valueAt(2).asInt();
 		assertEquals(expectedSum, left+right);
 	}
-	
 }
 

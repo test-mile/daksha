@@ -22,7 +22,7 @@ package com.testmile.trishanku.tpi.setu.actor;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.GuiAutomatorName;
 import com.testmile.trishanku.tpi.enums.OSType;
@@ -55,8 +55,8 @@ public class SetuActorConfig {
 		return this.options.get(option);
 	}
 
-	public Browser getBrowserName() throws Exception {
-		return value(SetuOption.BROWSER_NAME).asEnum(Browser.class);
+	public BrowserName getBrowserName() throws Exception {
+		return value(SetuOption.BROWSER_NAME).asEnum(BrowserName.class);
 	}
 
 	public int getGuiAutoMaxWaitTime() throws Exception {
@@ -68,7 +68,7 @@ public class SetuActorConfig {
 	}
 
 	public OSType getOSType() throws Exception {
-		return value(SetuOption.TESTRUN_TARGET_PLATFORM).asEnum(OSType.class);
+		return value(SetuOption.TESTRUN_TARGET_PLATFORM_NAME).asEnum(OSType.class);
 	}
 
 	public GuiAutomatorName getGuiAutomatorName() throws Exception {

@@ -6,8 +6,9 @@ import com.testmile.daksha.DakshaSingleton;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomatorName;
 import com.testmile.setu.requester.testsession.TestSession;
-import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
@@ -71,21 +72,29 @@ public class DakshaTestContext implements TestContext {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.tpi.test.TestContext#automationContext(com.testmile.daksha.tpi.guiauto.enums.GuiAutomationContext)
-	 */
-	@Override
-	public TestContext automationContext(GuiAutomationContext context) throws Exception {
-		addSetuOption(SetuOption.GUIAUTO_CONTEXT, context.toString());
+	public TestContext selenium() throws Exception {
+		this.addSetuOption(SetuOption.GUIAUTO_AUTOMATOR_NAME, GuiAutomatorName.SELENIUM.toString());
+		return this;
+	}	
+	
+	public TestContext appium(GuiAutomationContext context) throws Exception {
+		this.addSetuOption(SetuOption.GUIAUTO_AUTOMATOR_NAME, GuiAutomatorName.APPIUM.toString());
+		this.addSetuOption(SetuOption.GUIAUTO_CONTEXT, context);
 		return this;
 	}
-
-	/* (non-Javadoc)
-	 * @see com.testmile.daksha.tpi.test.TestContext#browserType(com.testmile.trishanku.tpi.enums.Browser)
-	 */
-	@Override
-	public TestContext browserType(Browser browser) throws Exception {
-		addSetuOption(SetuOption.BROWSER_NAME, browser.toString());
+	
+	public TestContext chrome() throws Exception {
+		this.addSetuOption(SetuOption.BROWSER_NAME, BrowserName.CHROME);
+		return this;
+	}	
+	
+	public TestContext firefox() throws Exception {
+		this.addSetuOption(SetuOption.BROWSER_NAME, BrowserName.FIREFOX);
+		return this;
+	}	
+	
+	public TestContext headlessMode() throws Exception {
+		this.addSetuOption(SetuOption.BROWSER_HEADLESS_MODE, true);
 		return this;
 	}
 	
@@ -94,7 +103,7 @@ public class DakshaTestContext implements TestContext {
 	 */
 	@Override
 	public TestContext targetPlatform(OSType osType) throws Exception {
-		addSetuOption(SetuOption.TESTRUN_TARGET_PLATFORM, osType.toString());
+		addSetuOption(SetuOption.TESTRUN_TARGET_PLATFORM_NAME, osType.toString());
 		return this;
 	}
 	
@@ -102,8 +111,23 @@ public class DakshaTestContext implements TestContext {
 	 * @see com.testmile.daksha.tpi.test.TestContext#uuiAutoMaxWaitTime(int)
 	 */
 	@Override
-	public TestContext uuiAutoMaxWaitTime(int seconds) throws Exception {
+	public TestContext guiAutoMaxWaitTime(int seconds) throws Exception {
 		addSetuOption(SetuOption.GUIAUTO_MAX_WAIT, String.valueOf(seconds));
+		return this;
+	}
+	
+	public TestContext app(String path) throws Exception {
+		addSetuOption(SetuOption.MOBILE_APP_FILE_PATH, path);
+		return this;
+	}
+	
+	public TestContext mobileDeviceName(String name) throws Exception {
+		addSetuOption(SetuOption.MOBILE_DEVICE_NAME, name);
+		return this;
+	}
+	
+	public TestContext mobileDeviceUdid(String udid) throws Exception {
+		addSetuOption(SetuOption.MOBILE_DEVICE_UDID, udid);
 		return this;
 	}
 	

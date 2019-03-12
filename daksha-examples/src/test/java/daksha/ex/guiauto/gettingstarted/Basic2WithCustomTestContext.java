@@ -17,23 +17,37 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.gettingstarted;
+package daksha.ex.guiauto.gettingstarted;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
+import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.trishanku.tpi.enums.BrowserName;
 
-public class Basic1WithCentralTestContext{
+public class Basic2WithCustomTestContext{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize Daksha
-		DakshaTestConfig config = Daksha.init();
+		Daksha.init();
 		
-		// Create Automator (default is Selenium) with default options
+		// Create a custom test context. Contains all values from central config
+		// A context assists you in creating a new configuration programmatically.
+		String contextName = "custom";
+		TestContext context = Daksha.createTestContext(contextName);
+		
+		// Changing an option in context config as different from central option
+		// You can tweak any number of options
+		context.firefox();
+		
+		// The build step sends information to Setu and creates a unique frozen config
+		DakshaTestConfig config = context.build(); 
+
+		// Create Automator (default is Selenium) with context config
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
 		automator.launch();
-		
-		// Basic flow in chrome
+
+		// Basic flow in Firefox, as per the context config
 		automator.browser().goToUrl("https://www.google.com");
 		System.out.println(automator.mainWindow().getTitle());
 		automator.quit();

@@ -25,15 +25,15 @@ import java.util.Map;
 
 import com.testmile.trishanku.tpi.enums.AppiumAndroidBrowserType;
 import com.testmile.trishanku.tpi.enums.AppiumIosBrowserType;
-import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 public enum SetuGuiAutoActorSingleton {
 	INSTANCE;
 	private SetuActorConfig setuAgentConfig;
-	private static Map<Browser, String> browserDriverMap = null;
-	private static Map<Browser, String> browserSysPropNameMap = null;
+	private static Map<BrowserName, String> browserDriverMap = null;
+	private static Map<BrowserName, String> browserSysPropNameMap = null;
 	
 	// Appium
 	private static List<String> allowedAppiumPlatforms = new ArrayList<String>();;
@@ -56,14 +56,14 @@ public enum SetuGuiAutoActorSingleton {
 		}
 
 		/* UI Automator */		
-		browserDriverMap = new HashMap<Browser, String>();
-		browserDriverMap.put(Browser.CHROME, "chromedriver");
-		browserDriverMap.put(Browser.FIREFOX, "geckodriver");
-		browserDriverMap.put(Browser.SAFARI, "safaridriver");
+		browserDriverMap = new HashMap<BrowserName, String>();
+		browserDriverMap.put(BrowserName.CHROME, "chromedriver");
+		browserDriverMap.put(BrowserName.FIREFOX, "geckodriver");
+		browserDriverMap.put(BrowserName.SAFARI, "safaridriver");
 		
-		browserSysPropNameMap = new HashMap<Browser, String>();
-		browserSysPropNameMap.put(Browser.CHROME, "webdriver.chrome.driver");
-		browserSysPropNameMap.put(Browser.FIREFOX, "webdriver.gecko.driver");
+		browserSysPropNameMap = new HashMap<BrowserName, String>();
+		browserSysPropNameMap.put(BrowserName.CHROME, "webdriver.chrome.driver");
+		browserSysPropNameMap.put(BrowserName.FIREFOX, "webdriver.gecko.driver");
 	}	
 	
 	/*
@@ -103,7 +103,7 @@ public enum SetuGuiAutoActorSingleton {
 		return rawName;
 	}
 	
-	public String getDriverName(Browser browser) throws Exception {
+	public String getDriverName(BrowserName browser) throws Exception {
 		try {
 			return this.browserDriverMap.get(browser);
 		} catch (Exception e) {
@@ -111,11 +111,11 @@ public enum SetuGuiAutoActorSingleton {
 		}
 	}
 	
-	public boolean isSeleniumDriverPathNeeded(Browser browser) throws Exception {
+	public boolean isSeleniumDriverPathNeeded(BrowserName browser) throws Exception {
 		return browserSysPropNameMap.containsKey(browser);
 	}
 	
-	public String getSeleniumDriverPathSystemProperty(Browser browser) throws Exception {
+	public String getSeleniumDriverPathSystemProperty(BrowserName browser) throws Exception {
 		try {
 			return browserSysPropNameMap.get(browser);
 		} catch (Exception e) {

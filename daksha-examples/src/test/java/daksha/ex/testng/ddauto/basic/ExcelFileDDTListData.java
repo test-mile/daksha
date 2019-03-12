@@ -17,32 +17,39 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.gettingstarted;
+package daksha.ex.testng.ddauto.basic;
 
+import static org.testng.Assert.assertEquals;
+
+import java.util.Iterator;
+
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
-import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
+import com.testmile.setu.requester.databroker.ListDataRecord;
+import com.testmile.setu.requester.databroker.ListDataSource;
 
-public class Basic3UsingTestNG extends TestNGBaseTest {
-	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
+public class ExcelFileDDTListData extends TestNGBaseTest {
 	
-	protected void setUpClass(DakshaTestConfig config) throws Exception {
-		threadWiseAutomator.set(Daksha.createGuiAutomator(config));
-		System.out.println("here" + this.threadWiseAutomator.get());
+	@DataProvider(name="dp")
+	public Iterator<Object[]> linkDataSource() throws Exception {
+		ListDataSource source = 
+				Daksha
+				.createDataSourceBuilder()
+				.fileListDataSource("input.xls")
+				.build();
+		return source.iterRecordsForTestNG();
 	}
 	
-	@Test
-	public void test() throws Exception{
-		GuiAutomator automator = this.threadWiseAutomator.get();
-		automator.launch();
-		automator.browser().goToUrl("https://www.google.com");
-		System.out.println(automator.mainWindow().getTitle());
-	}
-	
-	protected void tearDownClass(DakshaTestConfig testConfig) throws Exception {
-		this.threadWiseAutomator.get().quit();
+	@Test(dataProvider="dp")
+	public void repeat(ListDataRecord record) throws Exception {
+		System.out.println("Executing....");
+		int left = record.valueAt(0).asInt();
+		int right = record.valueAt(1).asInt();
+		int expectedSum = record.valueAt(2).asInt();
+		assertEquals(expectedSum, left+right);
 	}
 }
+

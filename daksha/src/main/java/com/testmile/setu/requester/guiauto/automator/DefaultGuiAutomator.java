@@ -24,16 +24,36 @@ import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.SetuArg;
 import com.testmile.setu.requester.connector.SetuResponse;
 import com.testmile.setu.requester.guiauto.GuiAutoComponentFactory;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
+import com.testmile.setu.requester.testsession.TestSession;
 
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
+	private GuiDriverExtendedConfig extendedConfig;
 	
-	public DefaultGuiAutomator(TestConfig config) throws Exception {
+	public DefaultGuiAutomator(TestConfig config) {
 		super(config);
 	}
 	
+	public DefaultGuiAutomator(TestConfig config, GuiDriverExtendedConfig extendedConfig) {
+		super(config);
+		this.extendedConfig = extendedConfig;
+	}
+
 	@Override
 	public void launch() throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_LAUNCH_GUIAUTOMATOR, SetuArg.configArg(this.getConfig().getSetuId()));
+		SetuResponse response;
+		if (this.extendedConfig != null) {
+			response = this.sendRequest(
+					SetuActionType.TESTSESSION_LAUNCH_GUIAUTOMATOR, 
+					SetuArg.configArg(this.getConfig().getSetuId()),
+					SetuArg.arg("extendedConfig", extendedConfig)
+			);
+		} else {
+			response = this.sendRequest(
+					SetuActionType.TESTSESSION_LAUNCH_GUIAUTOMATOR, 
+					SetuArg.configArg(this.getConfig().getSetuId())
+			);				
+		}
 		this.setSetuId(response.getValueForGuiAutomatorSetuId());
 		this.setSelfSetuIdArg("automatorSetuId");
 		

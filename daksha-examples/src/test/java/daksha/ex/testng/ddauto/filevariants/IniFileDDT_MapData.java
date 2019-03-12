@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.ddauto.withtestng.filevariants;
+package daksha.ex.testng.ddauto.filevariants;
 
 import static org.testng.Assert.assertEquals;
 
@@ -28,43 +28,22 @@ import org.testng.annotations.Test;
 
 import com.testmile.daksha.Daksha;
 import com.testmile.daksha.tpi.testng.TestNGBaseTest;
-import com.testmile.setu.requester.databroker.ListDataRecord;
-import com.testmile.setu.requester.databroker.ListDataSource;
 import com.testmile.setu.requester.databroker.MapDataRecord;
 import com.testmile.setu.requester.databroker.MapDataSource;
 
-public class TabDelimFileDDT_MapData extends TestNGBaseTest {
+public class IniFileDDT_MapData extends TestNGBaseTest {
 	
-	@DataProvider(name="dp1")
-	public Iterator<Object[]> linkListDataSource() throws Exception {
-		ListDataSource source = 
-				Daksha
-				.createDataSourceBuilder()
-				.fileListDataSource("input.txt")
-				.build();
-		return source.iterRecordsForTestNG();
-	}
-	
-	@Test(dataProvider="dp1")
-	public void repeat(ListDataRecord record) throws Exception {
-		System.out.println("Executing....");
-		int left = record.valueAt(0).asInt();
-		int right = record.valueAt(1).asInt();
-		int expectedSum = record.valueAt(2).asInt();
-		assertEquals(expectedSum, left+right);
-	}
-	
-	@DataProvider(name="dp2")
-	public Iterator<Object[]> linkMapDataSource() throws Exception {
+	@DataProvider(name="dp")
+	public Iterator<Object[]> linkDataSource() throws Exception {
 		MapDataSource source = 
 				Daksha
 				.createDataSourceBuilder()
-				.fileMapDataSource("input.txt")
+				.fileMapDataSource("input.ini")
 				.build();
 		return source.iterRecordsForTestNG();
 	}
 	
-	@Test(dataProvider="dp2")
+	@Test(dataProvider="dp")
 	public void repeat(MapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();

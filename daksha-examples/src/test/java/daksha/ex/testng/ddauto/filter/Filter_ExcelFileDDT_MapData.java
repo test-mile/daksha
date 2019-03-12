@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.ddauto.withtestng.filevariants;
+package daksha.ex.testng.ddauto.filter;
 
 import static org.testng.Assert.assertEquals;
 
@@ -31,14 +31,14 @@ import com.testmile.daksha.tpi.testng.TestNGBaseTest;
 import com.testmile.setu.requester.databroker.MapDataRecord;
 import com.testmile.setu.requester.databroker.MapDataSource;
 
-public class IniFileDDT_MapData extends TestNGBaseTest {
+public class Filter_ExcelFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
 		MapDataSource source = 
 				Daksha
 				.createDataSourceBuilder()
-				.fileMapDataSource("input.ini")
+				.fileMapDataSource("input_exclude_ex.xls")
 				.build();
 		return source.iterRecordsForTestNG();
 	}

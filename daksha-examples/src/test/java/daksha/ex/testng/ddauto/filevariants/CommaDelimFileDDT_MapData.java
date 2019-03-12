@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package daksha.ex.ddauto.withtestng.filevariants;
+package daksha.ex.testng.ddauto.filevariants;
 
 import static org.testng.Assert.assertEquals;
 

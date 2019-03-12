@@ -37,7 +37,7 @@ import org.openqa.selenium.safari.SafariOptions;
 
 import com.testmile.setu.actor.guiauto.adapter.GuiAutomatorBuilder;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
-import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 import com.testmile.trishanku.tpi.value.AnyRefValue;
@@ -81,7 +81,7 @@ public class SeleniumContainer extends DriverContainer<WebDriver,WebElement>{
 
 class SeleniumBuilder extends GuiAutomatorBuilder{
 	private Capabilities capabilities = null;
-	private Browser browser;
+	private BrowserName browser;
 	private WebDriver driver = null;
 	
 	public SeleniumBuilder(SetuActorConfig config) throws Exception{

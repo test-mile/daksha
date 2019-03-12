@@ -21,6 +21,7 @@ package com.testmile.setu.requester.guiauto.automator;
 
 import com.testmile.setu.requester.config.TestConfig;
 import com.testmile.setu.requester.connector.SetuManagedObject;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 import com.testmile.setu.requester.guiauto.With;
 import com.testmile.setu.requester.guiauto.component.WebAlert;
 import com.testmile.setu.requester.guiauto.component.Browser;

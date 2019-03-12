@@ -1,10 +1,18 @@
 package com.testmile.daksha.core.config;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.config.DefaultTestConfig;
 import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
+import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.setu.requester.testsession.TestSession;
-import com.testmile.trishanku.tpi.enums.Browser;
+import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 
@@ -23,8 +31,8 @@ public class DefaultDakshaTestConfig extends DefaultTestConfig implements Daksha
 	}
 	
 	@Override
-	public Browser getBrowserType() throws Exception {
-		return getSetuOptionValue(SetuOption.BROWSER_NAME).asEnum(Browser.class);
+	public BrowserName getBrowserType() throws Exception {
+		return getSetuOptionValue(SetuOption.BROWSER_NAME).asEnum(BrowserName.class);
 	}
 
 	@Override
@@ -55,5 +63,4 @@ public class DefaultDakshaTestConfig extends DefaultTestConfig implements Daksha
 	public int getGuiAutoMaxWaitTime() throws Exception {
 		return getSetuOptionValue(SetuOption.GUIAUTO_MAX_WAIT).asInt();
 	}
-
 }

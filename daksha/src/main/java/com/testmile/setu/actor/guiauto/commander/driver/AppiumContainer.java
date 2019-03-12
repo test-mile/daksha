@@ -107,7 +107,7 @@ class AppiumBuilder extends GuiAutomatorBuilder{
 	
 	private void populateCommonCaps(MutableCapabilities caps) throws Exception {
 		setProxy(caps);
-		String platform = getConfig().value(SetuOption.TESTRUN_TARGET_PLATFORM).asString();
+		String platform = getConfig().value(SetuOption.TESTRUN_TARGET_PLATFORM_NAME).asString();
 		if (!SetuGuiAutoActorSingleton.INSTANCE.isAllowedAppiumPlatform(platform)){
 			throwUnsupportedPlatformException("constructor", platform);
 		}

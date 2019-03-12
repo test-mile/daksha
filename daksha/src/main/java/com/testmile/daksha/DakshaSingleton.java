@@ -16,6 +16,7 @@ import com.testmile.daksha.tpi.ddauto.DakshaDataSourceBuilder;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 import com.testmile.trishanku.Trishanku;
@@ -112,5 +113,9 @@ public enum DakshaSingleton {
 	
 	public GuiAutomator createGuiAutomator(DakshaTestConfig config) throws Exception {
 		return new DefaultGuiAutomator(config);
+	}
+	
+	public GuiAutomator createGuiAutomator(DakshaTestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
+		return new DefaultGuiAutomator(config, extendedConfig);
 	}
 }

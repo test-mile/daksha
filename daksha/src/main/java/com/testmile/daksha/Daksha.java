@@ -7,6 +7,8 @@ import com.testmile.daksha.tpi.ddauto.DakshaDataSourceBuilder;
 import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.daksha.tpi.test.TestContext;
 import com.testmile.setu.requester.config.TestConfig;
+import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
+import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class Daksha {
@@ -65,4 +67,7 @@ public class Daksha {
 		return internal.createGuiAutomator(config);
 	}
 
+	public static GuiAutomator createGuiAutomator(DakshaTestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
+		return internal.createGuiAutomator(config, extendedConfig);
+	}
 }
