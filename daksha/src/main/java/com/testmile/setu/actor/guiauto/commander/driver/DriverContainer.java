@@ -23,18 +23,18 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
 import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public abstract class DriverContainer<T,E> {
 	private T tool;
-	private SetuActorConfig config;
+	private SetuDriverConfig config;
 	
-	protected DriverContainer(T tool, SetuActorConfig config) throws Exception {
+	protected DriverContainer(T tool, SetuDriverConfig config) throws Exception {
 		this.tool = tool;
 		this.config = config;
 	}
@@ -47,45 +47,18 @@ public abstract class DriverContainer<T,E> {
 	
 	public abstract AppiumDriver<MobileElement> asAppiumDriver() throws Exception;
 	
-	protected SetuActorConfig getConfig() {
+	protected SetuDriverConfig getConfig() {
 		return this.config;
 	}
 	
-	public static SeleniumContainer Selenium(SetuActorConfig config) throws Exception {
+	public static SeleniumContainer Selenium(SetuDriverConfig config) throws Exception {
 		return SeleniumContainer.container(config);
 	}
 	
-	public static AppiumContainer Appium(SetuActorConfig config) throws Exception {
+	public static AppiumContainer Appium(SetuDriverConfig config) throws Exception {
 		return AppiumContainer.container(config);
 	}
 	
 	public abstract DriverElementContainer<T,E> findElement(String by, String value) throws Exception;
 	public abstract GuiMultiElement<T,E> findElements(String by, String value) throws Exception;
-}
-
-class ProxyHandler {
-	private SetuActorConfig config;
-	
-	public ProxyHandler(SetuActorConfig config) throws Exception {
-		this.config = config;
-	}
-	
-	public void configureProxy(MutableCapabilities caps) throws Exception {
-		if (config.value(SetuOption.BROWSER_PROXY_ON).asBoolean()){
-			Proxy proxy = new Proxy();
-			String p = config.value(SetuOption.BROWSER_PROXY_HOST).asString() + ":" + config.value(SetuOption.BROWSER_PROXY_PORT).asString();
-			setHttpProxy(proxy, p);
-			setSslProxy(proxy, p);
-			caps.setCapability("proxy", proxy);
-		}
-	}
-
-	public void setHttpProxy(Proxy proxy, String proxyString) {
-		proxy.setHttpProxy(proxyString);
-	}
-	
-	public void setSslProxy(Proxy proxy, String proxyString) {
-		proxy.setSslProxy(proxyString);
-	}
-
 }

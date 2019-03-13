@@ -58,7 +58,7 @@ public class Ex7Frame {
 		Frame frame = automator.domRoot().frame(With.xpath("//iframe"));
 		frame.focus();
 		automator.element(tinymce).setText("This is a test - jumping to parent after this.");
-		frame.getParent().focus();
+		frame.parent().focus();
 		automator.element(publish).click();
 		
 		WPLoginLogout.logout(automator);

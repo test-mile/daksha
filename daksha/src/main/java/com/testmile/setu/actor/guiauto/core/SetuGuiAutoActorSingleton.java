@@ -23,15 +23,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
 import com.testmile.trishanku.tpi.enums.AppiumAndroidBrowserType;
 import com.testmile.trishanku.tpi.enums.AppiumIosBrowserType;
 import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.OSType;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 public enum SetuGuiAutoActorSingleton {
 	INSTANCE;
-	private SetuActorConfig setuAgentConfig;
+	private SetuDriverConfig setuAgentConfig;
 	private static Map<BrowserName, String> browserDriverMap = null;
 	private static Map<BrowserName, String> browserSysPropNameMap = null;
 	
@@ -123,11 +123,11 @@ public enum SetuGuiAutoActorSingleton {
 		}
 	}
 
-	public SetuActorConfig getSetuAgentConfig() {
+	public SetuDriverConfig getSetuAgentConfig() {
 		return setuAgentConfig;
 	}
 
-	public void setSetuAgentConfig(SetuActorConfig config) {
+	public void setSetuAgentConfig(SetuDriverConfig config) {
 		this.setuAgentConfig = config;
 	}
 }

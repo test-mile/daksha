@@ -26,8 +26,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -36,9 +36,9 @@ import io.appium.java_client.MobileElement;
 public abstract class DriverElementContainer<T,E> {
 	private T tool;
 	private E element;
-	private SetuActorConfig config;
+	private SetuDriverConfig config;
 	
-	protected DriverElementContainer(T tool, E element, SetuActorConfig config) throws Exception {
+	protected DriverElementContainer(T tool, E element, SetuDriverConfig config) throws Exception {
 		this.tool = tool;
 		this.element = element;
 		this.config = config;
@@ -52,7 +52,7 @@ public abstract class DriverElementContainer<T,E> {
 		return this.element;
 	}
 	
-	protected SetuActorConfig getConfig() {
+	protected SetuDriverConfig getConfig() {
 		return this.config;
 	}
 	
@@ -60,15 +60,15 @@ public abstract class DriverElementContainer<T,E> {
 	
 	public abstract MobileElement asMobileElement() throws Exception;
 	
-	public static DriverElementContainer<WebDriver, WebElement> seleniumElement(WebDriver driver, WebElement element, SetuActorConfig config) throws Exception {
+	public static DriverElementContainer<WebDriver, WebElement> seleniumElement(WebDriver driver, WebElement element, SetuDriverConfig config) throws Exception {
 		return new SeleniumElementDispatcher(driver, element, config);
 	}
 	
-	public static DriverElementContainer<AppiumDriver<MobileElement>, MobileElement> appiumElement(AppiumDriver<MobileElement> driver, MobileElement element, SetuActorConfig config) throws Exception {
+	public static DriverElementContainer<AppiumDriver<MobileElement>, MobileElement> appiumElement(AppiumDriver<MobileElement> driver, MobileElement element, SetuDriverConfig config) throws Exception {
 		return new AppiumElementDispatcher(driver, element, config);
 	}
 	
-	public static GuiMultiElement<WebDriver, WebElement> seleniumMultiElement(WebDriver driver, List<WebElement> rawElements, SetuActorConfig config) throws Exception {
+	public static GuiMultiElement<WebDriver, WebElement> seleniumMultiElement(WebDriver driver, List<WebElement> rawElements, SetuDriverConfig config) throws Exception {
 		List<DriverElementContainer<WebDriver,WebElement>> elements = new ArrayList<DriverElementContainer<WebDriver,WebElement>>();
 		for (WebElement element: rawElements) {
 			elements.add(seleniumElement(driver, element, config));
@@ -76,7 +76,7 @@ public abstract class DriverElementContainer<T,E> {
 		return new GuiMultiElement<WebDriver,WebElement>(elements);
 	}
 	
-	public static GuiMultiElement<AppiumDriver<MobileElement>, MobileElement> appiumMultiElement(AppiumDriver<MobileElement> driver, List<MobileElement> rawElements, SetuActorConfig config) throws Exception {
+	public static GuiMultiElement<AppiumDriver<MobileElement>, MobileElement> appiumMultiElement(AppiumDriver<MobileElement> driver, List<MobileElement> rawElements, SetuDriverConfig config) throws Exception {
 		List<DriverElementContainer<AppiumDriver<MobileElement>,MobileElement>> elements = new ArrayList<DriverElementContainer<AppiumDriver<MobileElement>,MobileElement>>();
 		for (MobileElement element: rawElements) {
 			elements.add(appiumElement(driver, element, config));
@@ -115,7 +115,7 @@ public abstract class DriverElementContainer<T,E> {
 
 class SeleniumElementDispatcher extends DriverElementContainer<WebDriver,WebElement>{
 
-	protected SeleniumElementDispatcher(WebDriver tool, WebElement element, SetuActorConfig config) throws Exception {
+	protected SeleniumElementDispatcher(WebDriver tool, WebElement element, SetuDriverConfig config) throws Exception {
 		super(tool, element, config);
 	}
 	
@@ -142,7 +142,7 @@ class SeleniumElementDispatcher extends DriverElementContainer<WebDriver,WebElem
 
 class AppiumElementDispatcher extends DriverElementContainer<AppiumDriver<MobileElement>,MobileElement>{
 
-	protected AppiumElementDispatcher(AppiumDriver<MobileElement> tool, MobileElement element, SetuActorConfig config) throws Exception {
+	protected AppiumElementDispatcher(AppiumDriver<MobileElement> tool, MobileElement element, SetuDriverConfig config) throws Exception {
 		super(tool, element, config);
 	}
 	

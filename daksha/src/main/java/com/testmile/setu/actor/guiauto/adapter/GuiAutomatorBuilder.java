@@ -19,22 +19,22 @@
 
 package com.testmile.setu.actor.guiauto.adapter;
 
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuGuiAutoActorOption;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 public class GuiAutomatorBuilder {
-	private SetuActorConfig config;
+	private SetuDriverConfig config;
 	
-	public GuiAutomatorBuilder(SetuActorConfig config) {
+	public GuiAutomatorBuilder(SetuDriverConfig config) {
 		this.config = config;
 	}
 	
-	protected SetuActorConfig getConfig() {
+	protected SetuDriverConfig getConfig() {
 		return this.config;
 	}
 	
 	protected GuiAutomationContext getAutomationContext() throws Exception {
-		return config.value(SetuOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
+		return config.value(SetuGuiAutoActorOption.GUIAUTO_CONTEXT).asEnum(GuiAutomationContext.class);
 	}
 }

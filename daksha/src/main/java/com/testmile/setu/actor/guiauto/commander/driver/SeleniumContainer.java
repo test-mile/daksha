@@ -19,10 +19,10 @@
 
 package com.testmile.setu.actor.guiauto.commander.driver;
 
+import java.io.File;
 import java.util.List;
 
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,16 +30,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
 import com.testmile.setu.actor.guiauto.adapter.GuiAutomatorBuilder;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuGuiAutoActorOption;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
-import com.testmile.trishanku.tpi.enums.BrowserName;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 import com.testmile.trishanku.tpi.value.AnyRefValue;
 
 import io.appium.java_client.AppiumDriver;
@@ -47,11 +44,11 @@ import io.appium.java_client.MobileElement;
 
 public class SeleniumContainer extends DriverContainer<WebDriver,WebElement>{
 
-	protected SeleniumContainer(WebDriver tool, SetuActorConfig config) throws Exception {
+	protected SeleniumContainer(WebDriver tool, SetuDriverConfig config) throws Exception {
 		super(tool, config);
 	}
 	
-	public static SeleniumContainer container(SetuActorConfig config) throws Exception {
+	public static SeleniumContainer container(SetuDriverConfig config) throws Exception {
 		SeleniumBuilder builder = new SeleniumBuilder(config);
 		WebDriver driver = builder.build();
 		return new SeleniumContainer(driver, config);
@@ -80,110 +77,106 @@ public class SeleniumContainer extends DriverContainer<WebDriver,WebElement>{
 }
 
 class SeleniumBuilder extends GuiAutomatorBuilder{
-	private Capabilities capabilities = null;
-	private BrowserName browser;
-	private WebDriver driver = null;
-	
-	public SeleniumBuilder(SetuActorConfig config) throws Exception{
+	public SeleniumBuilder(SetuDriverConfig config) throws Exception{
 		super(config);
-		createCapabilities();
-		load();
 	}
 	
-	private void createCapabilities() throws Exception {
-		MutableCapabilities browserCaps = new MutableCapabilities();
-		MutableCapabilities otherCaps = new MutableCapabilities();
-//		for(String cap: caps.keySet()) {
-//			otherCaps.setCapability(cap, caps.get(cap));
-//		}
-		
-		browser = getConfig().getBrowserName();
-		
-		switch (browser){
-		case FIREFOX:
-			setFirefoxCaps(browserCaps);
-			break;
-		case CHROME:
-			setChromeCaps(browserCaps);
-			break;
-		case SAFARI:
-			setSafariCaps(browserCaps);
-			break;
-		}
-		
-		browserCaps.merge(otherCaps);
-		capabilities = browserCaps;
-	}
-	
-	public void load() throws Exception{
-		setDriverPath();
-		driver = null;
-		String browserBinPath = getConfig().value(SetuOption.BROWSER_BIN_PATH).asString();
-		switch (this.browser){
-		case FIREFOX:
-			FirefoxOptions fOptions = new FirefoxOptions(capabilities);
-			if (AnyRefValue.isSet(browserBinPath)) {
-				fOptions.setBinary(browserBinPath);
-			}
-			driver = new FirefoxDriver();
-			break;
-		case CHROME:
-			ChromeOptions coptions = new ChromeOptions();
-			if (AnyRefValue.isSet(browserBinPath)) {
-				coptions.setBinary(browserBinPath);
-			}
-			coptions.merge(capabilities);
-			driver = new ChromeDriver(coptions);
-			break;
-		case SAFARI:
-			SafariOptions sOptions = new SafariOptions();
-			sOptions.merge(capabilities);
-			driver = new SafariDriver(sOptions);
-			break;
-		}
-
-	}
-
 	public WebDriver build() throws Exception{
-		return driver;
-	}
-
-	private MutableCapabilities getFireFoxCapabilitiesSkeleton() { 
-		return DesiredCapabilities.firefox();
-	}
-
-	private MutableCapabilities getChromeCapabilitiesSkeleton() {
-		return DesiredCapabilities.chrome();
-	}
-
-	private MutableCapabilities getSafariCapabilitiesSkeleton() {
-		return DesiredCapabilities.safari();
-	}
-	
-	private void setBrowserVersion(MutableCapabilities browserCaps) throws Exception{
-		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, getConfig().value(SetuOption.BROWSER_VERSION).asString());
+		setDriverPath();
+		String browserBinPath = getConfig().value(SetuGuiAutoActorOption.BROWSER_BIN_PATH).asString();
+		
+		switch (this.getConfig().getBrowserName()){
+		case FIREFOX:
+			return this.createFirefox(browserBinPath);
+		case CHROME:
+			return this.createChrome(browserBinPath);
+		case SAFARI:
+			return this.createSafari();
+		default:
+			throw new Exception(String.format("Unsupported Browser: %s", this.getConfig().getBrowserName()));
+		}
 	}
 	
-	private void setFirefoxCaps(MutableCapabilities browserCaps) throws Exception {
-		browserCaps = getFireFoxCapabilitiesSkeleton();
-		setBrowserVersion(browserCaps);
-		FirefoxProfile profile = new FirefoxProfile();
-		//profile..setEnableNativeEvents(true);
-		browserCaps.setCapability(FirefoxDriver.PROFILE, profile);
-	}
-
 	private void setDriverPath() throws Exception {
-		String driverPath = getConfig().value(SetuOption.SELENIUM_DRIVER_PATH).asString();
-		System.setProperty(getConfig().value(SetuOption.SELENIUM_DRIVER_PROP).asString(), driverPath);
+		String driverPath = getConfig().value(SetuGuiAutoActorOption.SELENIUM_DRIVER_PATH).asString();
+		System.setProperty(getConfig().value(SetuGuiAutoActorOption.SELENIUM_DRIVER_PROP).asString(), driverPath);
 	}
 	
-	private void setChromeCaps(MutableCapabilities browserCaps) throws Exception {
-		browserCaps = getChromeCapabilitiesSkeleton();
-		setBrowserVersion(browserCaps);
+	public WebDriver createChrome(String browserBinPath) throws Exception {
+		ChromeOptions options = new ChromeOptions();
+		if (AnyRefValue.isSet(browserBinPath)) {
+			options.setBinary(browserBinPath);
+		}		
+		
+		for(String cap: getConfig().getDriverCapabilities().keySet()) {
+			options.setCapability(cap, getConfig().getDriverCapabilities().get(cap));
+		}
+		
+		options.setExperimentalOption("prefs", getConfig().getBrowserPreferences());
+		options.addArguments(getConfig().getBrowserArgs());
+		options.addExtensions(getConfig().getBrowserExtensions());
+		
+		if (this.getConfig().isProxyEnabled()) {
+			Proxy proxy = new Proxy();
+			String proxyString = this.getConfig().value(SetuGuiAutoActorOption.BROWSER_PROXY_HOST).asString() 
+					+ ":" + 
+					this.getConfig().value(SetuGuiAutoActorOption.BROWSER_PROXY_PORT).asString();
+			proxy.setHttpProxy(proxyString);
+			proxy.setSslProxy(proxyString);
+			options.setCapability("proxy", proxy);
+		}
+		
+		return new ChromeDriver(options);
 	}
+	
+	
+	public WebDriver createFirefox(String browserBinPath) throws Exception {
+		FirefoxOptions options = new FirefoxOptions();
+		if (AnyRefValue.isSet(browserBinPath)) {
+			options.setBinary(browserBinPath);
+		}
+		
+		for(String cap: getConfig().getDriverCapabilities().keySet()) {
+			options.setCapability(cap, getConfig().getDriverCapabilities().get(cap));
+		}
+		
+		for(String pref: getConfig().getBrowserPreferences().keySet()) {
+			options.addPreference(pref, getConfig().getDriverCapabilities().get(pref));
+		}
 
-	private void setSafariCaps(MutableCapabilities browserCaps) throws Exception {
-		browserCaps = getSafariCapabilitiesSkeleton();
-		setBrowserVersion(browserCaps);
+		options.addArguments(getConfig().getBrowserArgs());
+		
+		FirefoxProfile profile = new FirefoxProfile();
+		
+		for(File ext: getConfig().getBrowserExtensions()) {
+			profile.addExtension(ext);
+		}
+		
+		if (this.getConfig().isProxyEnabled()) {
+			Proxy proxy = new Proxy();
+			String proxyHost = this.getConfig().value(SetuGuiAutoActorOption.BROWSER_PROXY_HOST).asString();
+			int proxyPort = this.getConfig().value(SetuGuiAutoActorOption.BROWSER_PROXY_PORT).asInt();
+			options.setCapability("proxy", proxy);
+			
+			profile.setPreference("network.proxy.type", 1);
+		    profile.setPreference("network.proxy.http", proxyHost);
+		    profile.setPreference("network.proxy.http_port", proxyPort);
+		    profile.setPreference("network.proxy.ssl", proxyHost);
+		    profile.setPreference("network.proxy.ssl_port", proxyPort);
+		}
+		
+		options.setCapability(FirefoxDriver.PROFILE, profile);
+	
+		return new FirefoxDriver(options);
+	}
+	
+	public WebDriver createSafari() {
+		SafariOptions options = new SafariOptions();
+		
+		for(String cap: getConfig().getDriverCapabilities().keySet()) {
+			options.setCapability(cap, getConfig().getDriverCapabilities().get(cap));
+		}
+	
+		return new SafariDriver(options);
 	}
 }

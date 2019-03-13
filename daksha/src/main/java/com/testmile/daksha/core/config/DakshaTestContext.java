@@ -99,15 +99,6 @@ public class DakshaTestContext implements TestContext {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.testmile.daksha.tpi.test.TestContext#targetPlatform(com.testmile.trishanku.tpi.enums.OSType)
-	 */
-	@Override
-	public TestContext targetPlatform(OSType osType) throws Exception {
-		addSetuOption(SetuOption.TESTRUN_TARGET_PLATFORM_NAME, osType.toString());
-		return this;
-	}
-	
-	/* (non-Javadoc)
 	 * @see com.testmile.daksha.tpi.test.TestContext#uuiAutoMaxWaitTime(int)
 	 */
 	@Override

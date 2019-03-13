@@ -20,14 +20,13 @@
 package com.testmile.setu.actor.guiauto.commander.driver;
 
 import java.awt.Toolkit;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -35,17 +34,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.testmile.trishanku.tpi.enums.Direction;
-import com.testmile.trishanku.tpi.enums.OSType;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuGuiAutoActorOption;
+import com.testmile.trishanku.tpi.value.Value;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidTouchAction;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
 
 public class DriverCommandUtils {
 
@@ -125,31 +118,31 @@ public class DriverCommandUtils {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
 	}
 	
-	private static void scroll(WebDriver driver, SetuActorConfig config, Direction direction, int count) throws Exception {		 
-		int spc = 0;
-		if (direction == Direction.DOWN) {
-			spc = getScrollPixelCount(config);
-		} else if (direction == Direction.UP) {
-			spc = -getScrollPixelCount(config);
-		} else {
-			throw new Exception("Scroll left/right is not yet supported.");
-		}
-		for (int i = 0; i < count; i++) {
-			executeJavaScript(driver, String.format("window.scrollBy(0, %d)", spc));
-		}
-	}
-	
-	private static int getScrollPixelCount(SetuActorConfig config) throws Exception {
-		return config.value(SetuOption.GUIAUTO_SCROLL_PIXELS).asInt();
-	}
-
-	public static void scrollDown(WebDriver driver, SetuActorConfig config, int count) throws Exception {
-		scroll(driver, config, Direction.DOWN, count);
-	}
-
-	public static void scrollUp(WebDriver driver, SetuActorConfig config, int count) throws Exception {
-		scroll(driver, config, Direction.UP, count);
-	}
+//	private static void scroll(WebDriver driver, SetuDriverConfig config, Direction direction, int count) throws Exception {		 
+//		int spc = 0;
+//		if (direction == Direction.DOWN) {
+//			spc = getScrollPixelCount(config);
+//		} else if (direction == Direction.UP) {
+//			spc = -getScrollPixelCount(config);
+//		} else {
+//			throw new Exception("Scroll left/right is not yet supported.");
+//		}
+//		for (int i = 0; i < count; i++) {
+//			executeJavaScript(driver, String.format("window.scrollBy(0, %d)", spc));
+//		}
+//	}
+//	
+//	private static int getScrollPixelCount(SetuDriverConfig config) throws Exception {
+//		return config.value(SetuOption.GUIAUTO_SCROLL_PIXELS).asInt();
+//	}
+//
+//	public static void scrollDown(WebDriver driver, SetuDriverConfig config, int count) throws Exception {
+//		scroll(driver, config, Direction.DOWN, count);
+//	}
+//
+//	public static void scrollUp(WebDriver driver, SetuDriverConfig config, int count) throws Exception {
+//		scroll(driver, config, Direction.UP, count);
+//	}
 	
 	public static void setWindowSize(WebDriver driver, int width, int height) throws Exception{
 		driver.manage().window().setSize(new Dimension(width, height));
@@ -194,50 +187,7 @@ public class DriverCommandUtils {
 	
 	/*
 	 * Appium Specific
-	 */
-	
-	private static void swipe(AppiumDriver<MobileElement> driver, SetuActorConfig config, Direction direction, int count, float startFraction, float endFraction) throws Exception {
-		int swipeMaxWait = config.value(SetuOption.GUIAUTO_SWIPE_MAX_WAIT).asInt();
-		
-		Dimension size = driver.manage().window().getSize();
-		int x1 = (int) (0.5 * size.width);
-		int y1 = (int) (size.height * startFraction);
-		int x2 = (int) (0.5 * size.width);
-		int y2 = (int) (size.height * endFraction);
-
-		if (config.getOSType() == OSType.ANDROID) {
-			new AndroidTouchAction((AndroidDriver<MobileElement>) driver)
-			.press(PointOption.point(x1,  y1))
-			.waitAction(WaitOptions.waitOptions(Duration.ofMillis(swipeMaxWait)))
-			.moveTo(PointOption.point(x2, y2)).release().perform();
-		} else {
-			Map<String, Double> swipeElement = new HashMap<String, Double>();
-			swipeElement.put("startX", (double) x1);
-			swipeElement.put("startY", (double) y1);
-			swipeElement.put("endX", (double) x2);
-			swipeElement.put("endY", (double) y2);
-			swipeElement.put("duration", (double) swipeMaxWait);
-			executeJavaScript(driver, "mobile: swipe", swipeElement);
-		}
-		
-	}
-	
-	private static float getSwipeTopConfig(SetuActorConfig config) throws Exception {
-		return config.value(SetuOption.GUIAUTO_SWIPE_TOP).asFloat();
-	}
-	
-	private static float getSwipeBottomConfig(SetuActorConfig config) throws Exception {
-		return config.value(SetuOption.GUIAUTO_SWIPE_BOTTOM).asFloat();
-	}
-
-	public static void swipeUp(AppiumDriver<MobileElement> driver, SetuActorConfig config, int count) throws Exception {
-		swipe(driver, config, Direction.UP, count, getSwipeBottomConfig(config), getSwipeTopConfig(config));
-	}
-
-	public static void swipeDown(AppiumDriver<MobileElement> driver, SetuActorConfig config, int count) throws Exception {
-		swipe(driver, config, Direction.DOWN, count, getSwipeTopConfig(config), getSwipeBottomConfig(config));
-	}
-	
+	 */	
 	public static void focusOnMobileViewContext(AppiumDriver<MobileElement> driver,String view) throws Exception {
 		driver.context(view);
 	}

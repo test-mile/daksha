@@ -39,9 +39,8 @@ public class SimpleApp{
 		// Create Gui. Provide GNS file path.
 		Gui app = new DefaultGui("WordPress", automator, "simpleapp/WordPress.gns");
 
-		app.browser().goToUrl("http://192.168.56.103/wp-admin");	
-		
 		// Login
+		app.browser().goToUrl("http://192.168.56.103/wp-admin");
 		app.element("login").setText("user");
 		app.element("password").setText("bitnami");
 		app.element("submit").click();

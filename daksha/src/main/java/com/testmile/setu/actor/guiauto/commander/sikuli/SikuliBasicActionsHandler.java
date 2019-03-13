@@ -22,13 +22,13 @@ package com.testmile.setu.actor.guiauto.commander.sikuli;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
 
 public class SikuliBasicActionsHandler{
 	private String idImagePath;
 	private Pattern pattern;
 	
-	public SikuliBasicActionsHandler(String idImagePath, SetuActorConfig config) throws Exception {
+	public SikuliBasicActionsHandler(String idImagePath, SetuDriverConfig config) throws Exception {
 		this.idImagePath = idImagePath;
 		this.pattern = new Pattern(this.idImagePath);
 	}

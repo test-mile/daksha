@@ -33,9 +33,7 @@ public class DirectAutomator{
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
-		automator.launch();
-
-		automator.browser().goToUrl("http://192.168.56.103/wp-admin");	
+		automator.launch();	
 		
 		// Login
 		automator.browser().goToUrl("http://192.168.56.103/wp-admin");

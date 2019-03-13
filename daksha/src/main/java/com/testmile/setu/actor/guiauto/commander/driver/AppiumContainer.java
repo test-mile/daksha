@@ -29,32 +29,26 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 
 import com.testmile.setu.actor.guiauto.adapter.GuiAutomatorBuilder;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuGuiAutoActorOption;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
-import com.testmile.setu.actor.guiauto.core.SetuGuiAutoActorSingleton;
 import com.testmile.trishanku.Trishanku;
-import com.testmile.trishanku.core.problem.ErrorType;
-import com.testmile.trishanku.core.problem.Problem;
-import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
-import com.testmile.trishanku.tpi.enums.OSType;
-import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
+import com.testmile.trishanku.tpi.value.Value;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
 
 public class AppiumContainer extends DriverContainer<AppiumDriver<MobileElement>,MobileElement>{
 
-	protected AppiumContainer(AppiumDriver<MobileElement> tool, SetuActorConfig config) throws Exception {
+	protected AppiumContainer(AppiumDriver<MobileElement> tool, SetuDriverConfig config) throws Exception {
 		super(tool, config);
 	}
 	
@@ -62,7 +56,7 @@ public class AppiumContainer extends DriverContainer<AppiumDriver<MobileElement>
 		return this.getTool();
 	}
 	
-	public static AppiumContainer container(SetuActorConfig config) throws Exception {
+	public static AppiumContainer container(SetuDriverConfig config) throws Exception {
 		AppiumBuilder builder = new AppiumBuilder(config);
 		AppiumDriver<MobileElement> driver = builder.build();
 		return new AppiumContainer(driver, config);
@@ -88,182 +82,44 @@ public class AppiumContainer extends DriverContainer<AppiumDriver<MobileElement>
 
 class AppiumBuilder extends GuiAutomatorBuilder{
 	private static AppiumDriverServerLauncher appiumServerLauncher = new AppiumDriverServerLauncher();
-	private Capabilities capabilities = null;
-	private OSType platformType = null;
-	private AppiumDriver<MobileElement> driver;
+	private MutableCapabilities capabilities = null;
 	
-	public AppiumBuilder(SetuActorConfig config) throws Exception{
+	public AppiumBuilder(SetuDriverConfig config) throws Exception{
 		super(config);
 		createCapabilities();
-		load();
 	}
 		
 	private void createCapabilities() throws Exception {
-		MutableCapabilities appiumCaps = new MutableCapabilities();
-		populateCommonCaps(appiumCaps);
-		populateContextSpecificCaps(appiumCaps);
-		this.capabilities = appiumCaps;
-	}
-	
-	private void populateCommonCaps(MutableCapabilities caps) throws Exception {
-		setProxy(caps);
-		String platform = getConfig().value(SetuOption.TESTRUN_TARGET_PLATFORM_NAME).asString();
-		if (!SetuGuiAutoActorSingleton.INSTANCE.isAllowedAppiumPlatform(platform)){
-			throwUnsupportedPlatformException("constructor", platform);
+		for(String cap: getConfig().getDriverCapabilities().keySet()) {
+			capabilities.setCapability(cap, getConfig().getDriverCapabilities().get(cap));
 		}
-		this.platformType = OSType.valueOf(platform.toUpperCase());	
-		caps.setCapability(MobileCapabilityType.PLATFORM_NAME, SetuGuiAutoActorSingleton.INSTANCE.getAppiumPlatformString(this.platformType));
-		caps.setCapability(MobileCapabilityType.PLATFORM_VERSION,  getConfig().value(SetuOption.TESTRUN_TARGET_PLATFORM_VERSION).asString());
-		caps.setCapability("newCommandTimeout", "60000");
-		caps.setCapability(MobileCapabilityType.DEVICE_NAME, getConfig().value(SetuOption.MOBILE_DEVICE_NAME).asString());
-		if (!getConfig().value(SetuOption.MOBILE_DEVICE_UDID).isNull()){
-			caps.setCapability(MobileCapabilityType.UDID, getConfig().value(SetuOption.MOBILE_DEVICE_UDID).asString());
-		}
-	}
-	
-	private OSType getPlatform() {
-		return this.platformType;
-	}
 		
-	private void setHttpProxy(Proxy proxy, String proxyString) {
-		proxy.setHttpProxy(proxyString);
-	}
-
-	private void setSslProxy(Proxy proxy, String proxyString) {
-		proxy.setSslProxy(proxyString);
-	}
-	
-	private void setProxy(MutableCapabilities capabilities) throws Exception {
-		if (getConfig().value(SetuOption.BROWSER_PROXY_ON).asBoolean()){
-			Proxy proxy = new Proxy();
-			String p = getConfig().value(SetuOption.BROWSER_PROXY_HOST).asString() + ":" + getConfig().value(SetuOption.BROWSER_PROXY_PORT).asString();
-			setHttpProxy(proxy, p);
-			setSslProxy(proxy, p);
+		Proxy proxy = getConfig().getProxy();
+		if (proxy != null) {
 			capabilities.setCapability("proxy", proxy);
-		}		
-	}
-	
-	private void populateContextSpecificCaps(MutableCapabilities capabilities) throws Exception {
-		OSType platform = getPlatform();
-		if (GuiAutomationContext.isMobileNativeContext(getAutomationContext())) {
-			setMobileNativeCapabilities(platform, capabilities);
-		} else if (GuiAutomationContext.isMobileWebContext(getAutomationContext())) {
-			setMobileWebCapabilities(platform, capabilities);
-		} else {
-			throwUnsupportedAutomationContextException(getAutomationContext());
-		}
-	}
-	
-	public void load() throws Exception{
-		AppiumDriver<MobileElement> driver = null;
-		AppiumServer server = null;
-		if (getConfig().value(SetuOption.APPIUM_AUTO_LAUNCH).asBoolean() == true) {
-			server = appiumServerLauncher.startServer();
-		} else {
-			server = new AppiumServer(getConfig().value(SetuOption.APPIUM_HUB_URL).asString());
-		}
-		URL hubUrl = server.getURL();
-		try{
-			switch(this.getPlatform()){
-			case ANDROID: driver = new AndroidDriver<MobileElement>(hubUrl, capabilities); break;
-			case IOS: driver = new IOSDriver<MobileElement>(hubUrl, capabilities); break;
-		}
-	
-		}catch (UnreachableBrowserException e){
-			throwUnreachableBrowserException(this.getPlatform(), e);
 		}
 	}
 		
 	public AppiumDriver<MobileElement> build() throws Exception{
+		AppiumDriver<MobileElement> driver = null;
+		AppiumServer server = null;
+		if (getConfig().value(SetuGuiAutoActorOption.APPIUM_AUTO_LAUNCH).asBoolean() == true) {
+			server = appiumServerLauncher.startServer();
+		} else {
+			server = new AppiumServer(getConfig().value(SetuGuiAutoActorOption.APPIUM_HUB_URL).asString());
+		}
+		URL hubUrl = server.getURL();
+		try{
+			switch(this.getConfig().getMobileOSName()){
+			case Android: driver = new AndroidDriver<MobileElement>(hubUrl, capabilities); break;
+			case iOS: driver = new IOSDriver<MobileElement>(hubUrl, capabilities); break;
+			}
+		} catch (UnreachableBrowserException e){
+			throw new Exception("Unreachable Appium device: " + this.getConfig().getMobileOSName() + e);
+		}
+		
 		return driver;
 	}
-	
-	public void throwUnsupportedAutomationContextException(GuiAutomationContext context) throws Exception{
-		throw new Problem(
-				"UI Auto:Generator:Appium",
-				"Appium Builder",
-				"build",
-				ErrorType.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
-				String.format(
-						ErrorType.FACTORY_AUTOMATOR_UNSUPPORTED_CONTEXT,
-						context.toString())
-			);		
-	}
-	
-	private void setMobileNativeCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {		
-		capabilities.setCapability(MobileCapabilityType.APP, getConfig().value(SetuOption.MOBILE_APP_FILE_PATH).asString());
-		capabilities.setCapability("appPackage", getConfig().value(SetuOption.MOBILE_APP_PACKAGE).asString());
-		capabilities.setCapability("appActivity", getConfig().value(SetuOption.MOBILE_APP_ACTIVITY).asString());
-		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "");
-		
-		if (platform == OSType.ANDROID) {
-			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-		} else {
-			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-		}
-	}
-
-	private void setMobileWebCapabilities(OSType platform, MutableCapabilities capabilities) throws Exception {
-		String browser = getConfig().value(SetuOption.BROWSER_NAME).asString();
-		if (!SetuGuiAutoActorSingleton.INSTANCE.isAllowedAppiumBrowser(platform, browser)){
-			throwUnsupportedBrowserException("setMobileCapabilities", platform, browser);
-		}
-		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, SetuGuiAutoActorSingleton.INSTANCE.getAppiumBrowserString(browser));
-		
-		if (platform == OSType.ANDROID) {
-			capabilities.setCapability("unicodeKeyboard", true);
-			capabilities.setCapability("resetKeyboard", true);
-		}
-	}
-	
-	/**********************************************************************************
-	**					EXCEPTIONS											
-	**********************************************************************************/
-	
-	protected void throwAppiumAutomatorException(String action, String code, String message) throws Exception {
-		throw new Problem(
-				"UI Auto:Generator:Appium",
-				this.getClass().getSimpleName(),
-				action,
-				code,
-				message
-				);		
-	}
-	
-	protected void throwUnsupportedPlatformException(String methodName, String platform) throws Exception {
-		throwAppiumAutomatorException(
-				methodName,
-				ErrorType.APPIUM_UNSUPPORTED_PLATFORM,
-				String.format(
-						ErrorType.APPIUM_UNSUPPORTED_PLATFORM,
-						platform
-						)
-				);
-	}
-
-	protected void throwUnsupportedBrowserException(String methodName, OSType platform, String browser) throws Exception {
-		throwAppiumAutomatorException(
-				methodName,
-				ErrorType.APPIUM_UNSUPPORTED_BROWSER,
-				String.format(
-						ErrorType.APPIUM_UNSUPPORTED_BROWSER,
-						browser,
-						SetuGuiAutoActorSingleton.INSTANCE.getAppiumPlatformString(platform)
-						)
-				);
-	}
-	
-	private void throwUnreachableBrowserException(OSType platformType, Throwable e) throws Exception {
-		throw new Problem(
-				"Automator",
-				"Appium Builder",
-				"Constructor",
-				ErrorType.APPIUM_UNREACHABLE_BROWSER,
-				"Unreachable Appium Browser for " + SetuGuiAutoActorSingleton.INSTANCE.getAppiumPlatformString(platformType),
-				e
-				);
-	}
-
 }
 
 

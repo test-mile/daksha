@@ -27,13 +27,14 @@ import javax.imageio.ImageIO;
 import org.sikuli.script.Finder;
 import org.sikuli.script.Pattern;
 
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuDriverConfig;
+import com.testmile.setu.actor.guiauto.adapter.driver.SetuGuiAutoActorOption;
 import com.testmile.trishanku.tpi.enums.SetuOption;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 public class SikuliDispatchCommander {
 	
-	private static void compareImageFiles(SetuActorConfig config, File leftImage, File rightImage) throws Exception {
-		double minScore = config.value(SetuOption.IMAGE_COMPARISON_MIN_SCORE).asDouble();
+	private static void compareImageFiles(SetuDriverConfig config, File leftImage, File rightImage) throws Exception {
+		double minScore = config.value(SetuGuiAutoActorOption.IMAGE_COMPARISON_MIN_SCORE).asDouble();
 	    boolean imagesMatch = false;
 	    Double score = 0.0d;
 		if (!leftImage.exists()){
@@ -73,7 +74,7 @@ public class SikuliDispatchCommander {
 	    }
 	}
 	
-	public static void compareImagesLocatedAt(SetuActorConfig config, String leftImagePath, String rightImagePath) throws Exception {
+	public static void compareImagesLocatedAt(SetuDriverConfig config, String leftImagePath, String rightImagePath) throws Exception {
 		compareImageFiles(config, new File(leftImagePath), new File(rightImagePath));
 	}
 

@@ -347,7 +347,7 @@ class DefaultDomRoot extends BaseComponent implements DomRoot{
 	}
 
 	@Override
-	public Frame getParent() throws Exception {
+	public Frame parent() throws Exception {
 		throw new Exception("DOM root does not have a parent frame.");
 	}	
 }
@@ -378,7 +378,7 @@ class DefaultFrame extends BaseElement implements Frame {
 	}
 	
 	@Override
-	public Frame getParent() throws Exception {
+	public Frame parent() throws Exception {
 		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_FRAME_GET_PARENT);
 		return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 	}

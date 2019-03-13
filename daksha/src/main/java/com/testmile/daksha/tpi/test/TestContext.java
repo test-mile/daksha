@@ -15,8 +15,6 @@ public interface TestContext {
 
 	void addOptions(Map<String, String> options) throws Exception;
 
-	TestContext targetPlatform(OSType osType) throws Exception;
-
 	TestContext guiAutoMaxWaitTime(int seconds) throws Exception;
 
 	DakshaTestConfig build() throws Exception;

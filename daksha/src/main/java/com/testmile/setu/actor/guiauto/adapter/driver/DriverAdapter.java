@@ -33,7 +33,6 @@ import com.testmile.setu.actor.guiauto.core.GuiAutomatorActionType;
 import com.testmile.setu.actor.guiauto.core.GuiMultiElement;
 import com.testmile.trishanku.tpi.setu.actor.ActorAction;
 import com.testmile.trishanku.tpi.setu.actor.ServerResponse;
-import com.testmile.trishanku.tpi.setu.actor.SetuActorConfig;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -56,7 +55,7 @@ public abstract class DriverAdapter<T,E> extends AbstractDriverTranslator implem
 	private DriverContainer<T,E> automator = null;
 	private String automatorName;
 	private String id = null;
-	private DriverElementAdapter<T,E> elementHandler = new DriverElementAdapter();
+	private DriverElementAdapter<T,E> elementHandler = new DriverElementAdapter<T,E>();
 
 	public DriverAdapter(String setuId, String automatorName) throws Exception {
 		id = setuId;
@@ -79,7 +78,7 @@ public abstract class DriverAdapter<T,E> extends AbstractDriverTranslator implem
 		return this.id;
 	}
 
-	private DriverElementAdapter getElementHandler() {
+	private DriverElementAdapter<T,E> getElementHandler() {
 		return this.elementHandler;
 	}
 	
@@ -91,11 +90,11 @@ public abstract class DriverAdapter<T,E> extends AbstractDriverTranslator implem
 		return this.automator;
 	}
 	
-	protected abstract void loadDispatcher(String name, Map<String, Object> args) throws Exception;
+	protected abstract void loadDriverContainer(String name, Map<String, Object> args) throws Exception;
 	
 	@Override
 	public String launchAutomator(Map<String,Object> args) throws Exception {
-		this.loadDispatcher(this.automatorName, args);
+		this.loadDriverContainer(this.automatorName, args);
 		return this.success();
 	}
 
@@ -213,8 +212,8 @@ class SeleniumAdapter extends DriverAdapter<WebDriver, WebElement>{
 		super(setuId, automatorName);
 	}
 
-	protected void loadDispatcher(String name, Map<String, Object> args) throws Exception {
-		this.setDispatcher(DriverContainer.Selenium(new SetuActorConfig(args)));
+	protected void loadDriverContainer(String name, Map<String, Object> args) throws Exception {
+		this.setDispatcher(DriverContainer.Selenium(new SetuDriverConfig(args)));
 	}
 }
 
@@ -224,7 +223,7 @@ class AppiumAdapter extends DriverAdapter<AppiumDriver<MobileElement>,MobileElem
 		super(setuId, automatorName);
 	}
 
-	protected void loadDispatcher(String name, Map<String, Object> args) throws Exception {
-		this.setDispatcher(DriverContainer.Appium(new SetuActorConfig(args)));
+	protected void loadDriverContainer(String name, Map<String, Object> args) throws Exception {
+		this.setDispatcher(DriverContainer.Appium(new SetuDriverConfig(args)));
 	}
 }
