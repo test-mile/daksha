@@ -22,8 +22,6 @@ package com.testmile.setu.requester.guiauto.automator;
 import com.testmile.setu.requester.testsession.TestSession;
 
 public interface GuiAutomator extends AppAutomator{
-
-	void launch() throws Exception;
 	void quit() throws Exception;
 	void slowMotion(boolean on) throws Exception;
 	TestSession getTestSession();

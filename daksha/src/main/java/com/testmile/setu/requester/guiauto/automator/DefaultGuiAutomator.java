@@ -29,17 +29,18 @@ import com.testmile.setu.requester.guiauto.GuiDriverExtendedConfig;
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
 	private GuiDriverExtendedConfig extendedConfig;
 	
-	public DefaultGuiAutomator(TestConfig config) {
+	public DefaultGuiAutomator(TestConfig config) throws Exception {
 		super(config);
+		this.launch();
 	}
 	
-	public DefaultGuiAutomator(TestConfig config, GuiDriverExtendedConfig extendedConfig) {
+	public DefaultGuiAutomator(TestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
 		super(config);
 		this.extendedConfig = extendedConfig;
+		this.launch();
 	}
 
-	@Override
-	public void launch() throws Exception {
+	private void launch() throws Exception {
 		SetuResponse response;
 		if (this.extendedConfig != null) {
 			response = this.sendRequest(

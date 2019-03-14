@@ -56,6 +56,8 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		this.testSession = automator.getTestSession();
 		this.setAutomatorSetuIdArg(automator.getSetuId());
 		String guiSetuId = this.testSession.createGui(automator,
+				SetuArg.arg("testSessionSetuId", this.testSession.getSetuId()),
+				SetuArg.arg("automatorSetuId", automator.getSetuId()),
 				SetuArg.arg("label", label),
 				SetuArg.arg("name", this.getClass().getSimpleName()),
 				SetuArg.arg("qualName", this.getClass().getName()),
@@ -83,6 +85,10 @@ public class DefaultGui extends AbstractAppAutomator implements Gui{
 		parent.addChild(label, this);
 		this.setSelfSetuIdArg("guiSetuId");
 		load();
+	}
+	
+	protected GuiAutomator getAutomator() {
+		return this.automator;
 	}
 	
 	protected String getQualifiedName() {

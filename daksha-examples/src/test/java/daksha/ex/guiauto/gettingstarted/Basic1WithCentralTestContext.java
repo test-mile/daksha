@@ -31,7 +31,6 @@ public class Basic1WithCentralTestContext{
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
-		automator.launch();
 		
 		// Basic flow in chrome
 		automator.browser().goToUrl("https://www.google.com");

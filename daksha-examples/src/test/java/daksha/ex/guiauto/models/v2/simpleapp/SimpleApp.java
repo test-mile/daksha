@@ -34,7 +34,6 @@ public class SimpleApp{
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
-		automator.launch();
 		
 		// Create Gui. Provide GNS file path.
 		Gui app = new DefaultGui("WordPress", automator, "simpleapp/WordPress.gns");

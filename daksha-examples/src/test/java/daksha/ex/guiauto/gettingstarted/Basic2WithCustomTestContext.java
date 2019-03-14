@@ -44,7 +44,6 @@ public class Basic2WithCustomTestContext{
 
 		// Create Automator (default is Selenium) with context config
 		GuiAutomator automator = Daksha.createGuiAutomator(config);
-		automator.launch();
 
 		// Basic flow in Firefox, as per the context config
 		automator.browser().goToUrl("https://www.google.com");

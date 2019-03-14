@@ -19,13 +19,19 @@
 
 package daksha.ex.selenium.using.gui;
 
-import com.testmile.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.daksha.Daksha;
+import com.testmile.daksha.tpi.test.DakshaTestConfig;
 import com.testmile.setu.requester.guiauto.automator.GuiAutomator;
 
 public class Ex1LoginLogout {
 
 	public static void main(String[] args) throws Exception {
-		GuiAutomator automator = new DefaultGuiAutomator();
+		// Initialize Daksha
+		DakshaTestConfig config = Daksha.init();
+		
+		// Create Automator (default is Selenium) with default options
+		GuiAutomator automator = Daksha.createGuiAutomator(config);
+
 		WordPress wp = new WordPress(automator);
 		wp.login();
 		wp.logout();
