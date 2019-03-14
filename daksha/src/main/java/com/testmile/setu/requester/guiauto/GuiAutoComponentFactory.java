@@ -314,11 +314,6 @@ class DefaultBrowser extends BaseComponent implements Browser {
 	public void refresh() throws Exception {
 		this.sendRequest(SetuActionType.GUIAUTO_BROWSER_REFRESH);
 	}
-	
-	@Override
-	public void executeJavaScript(String script) throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_BROWSER_EXECUTE_JAVASCRIPT, SetuArg.arg("script", script));
-	}
 }
 
 

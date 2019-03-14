@@ -93,11 +93,6 @@ class AppiumBuilder extends GuiAutomatorBuilder{
 		for(String cap: getConfig().getDriverCapabilities().keySet()) {
 			capabilities.setCapability(cap, getConfig().getDriverCapabilities().get(cap));
 		}
-		
-		Proxy proxy = getConfig().getProxy();
-		if (proxy != null) {
-			capabilities.setCapability("proxy", proxy);
-		}
 	}
 		
 	public AppiumDriver<MobileElement> build() throws Exception{

@@ -34,15 +34,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.testmile.setu.actor.guiauto.adapter.driver.SetuGuiAutoActorOption;
-import com.testmile.trishanku.tpi.value.Value;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public class DriverCommandUtils {
 
 	public static void goTo(WebDriver driver, String url) throws Exception {
+		System.out.println("here");
 		driver.get(url);
 	}
 

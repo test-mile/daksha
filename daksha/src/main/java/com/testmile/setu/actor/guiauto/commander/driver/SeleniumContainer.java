@@ -21,7 +21,9 @@ package com.testmile.setu.actor.guiauto.commander.driver;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,6 +32,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -108,15 +111,30 @@ class SeleniumBuilder extends GuiAutomatorBuilder{
 			options.setBinary(browserBinPath);
 		}		
 		
+		Map<String, Object> caps= DesiredCapabilities.chrome().asMap();
+		
+		for(String cap: caps.keySet()) {
+			options.setCapability(cap, caps.get(cap));
+		}
+
 		for(String cap: getConfig().getDriverCapabilities().keySet()) {
 			options.setCapability(cap, getConfig().getDriverCapabilities().get(cap));
 		}
 		
-		options.setExperimentalOption("prefs", getConfig().getBrowserPreferences());
-		options.addArguments(getConfig().getBrowserArgs());
-		options.addExtensions(getConfig().getBrowserExtensions());
+		if (getConfig().getBrowserPreferences() != null) {
+			options.setExperimentalOption("prefs", getConfig().getBrowserPreferences());
+		}
+		
+		if (getConfig().getBrowserArgs() != null) {
+			options.addArguments(getConfig().getBrowserArgs());
+		}
+		
+		if (getConfig().getBrowserExtensions() != null) {
+			options.addExtensions(getConfig().getBrowserExtensions());
+		}
 		
 		if (this.getConfig().isProxyEnabled()) {
+			System.out.println("Proxy enabled.");
 			Proxy proxy = new Proxy();
 			String proxyString = this.getConfig().value(SetuGuiAutoActorOption.BROWSER_PROXY_HOST).asString() 
 					+ ":" + 

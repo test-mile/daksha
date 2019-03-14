@@ -26,5 +26,4 @@ public interface Browser extends SetuManagedObject {
 	void goBack() throws Exception;
 	void goForward() throws Exception;
 	void refresh() throws Exception;
-	void executeJavaScript(String script) throws Exception;
 }

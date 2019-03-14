@@ -40,18 +40,19 @@ public class SetuDriverConfig {
 	private Map<SetuGuiAutoActorOption, Value> options = new HashMap<SetuGuiAutoActorOption, Value>();
 	private Map<String, Value> userOptions = new HashMap<String, Value>();
 	private Map<String, String> driverCapabilities = new HashMap<String, String>();
-	private Map<String, Object> browserPreferences = new HashMap<String, Object>();
+	private Map<String, Object> browserPreferences;
 	private List<String> browserArgs;
 	private List<File> browserExtensions = new ArrayList<File>();
 	
 	public SetuDriverConfig(Map<String, Object> jsonArgs) throws Exception {
-		Map<String, Object> sOptions = (Map<String, Object>) jsonArgs.get("setuOptions");
-		Map<String, Object> uOptions = (Map<String, Object>) jsonArgs.get("userOptions");
-		Map<String, Object> driverCaps = (Map<String, Object>) jsonArgs.get("driverCapabilities");
+		Map<String,Object> config = (Map<String, Object>) jsonArgs.get("config");
+		Map<String, Object> sOptions = (Map<String, Object>) config.get("setuOptions");
+		Map<String, Object> uOptions = (Map<String, Object>) config.get("userOptions");
+		Map<String, Object> driverCaps = (Map<String, Object>) config.get("driverCapabilities");
 		
-		browserPreferences = (Map<String, Object>) jsonArgs.get("browserPreferences");
-		browserArgs = (List<String>) jsonArgs.get("browserArgs");
-		List<String> exts = (List<String>) jsonArgs.get("browserExtensions");
+		browserPreferences = (Map<String, Object>) config.get("browserPreferences");
+		browserArgs = (List<String>) config.get("browserArgs");
+		List<String> exts = (List<String>) config.get("browserExtensions");
 
 		for (String key: sOptions.keySet()) {
 			this.options.put(SetuGuiAutoActorOption.valueOf(key.toUpperCase()), new AnyRefValue(sOptions.get(key)));
@@ -65,8 +66,10 @@ public class SetuDriverConfig {
 			this.driverCapabilities.put(key.toUpperCase(), (new AnyRefValue(driverCaps.get(key))).asString());
 		}
 		
-		for (String ext: exts) {
-			this.browserExtensions.add(new File(ext));
+		if (exts != null) {
+			for (String ext: exts) {
+				this.browserExtensions.add(new File(ext));
+			}
 		}
 	}
 	
@@ -109,17 +112,4 @@ public class SetuDriverConfig {
 	public boolean isProxyEnabled() throws Exception {
 		return this.value(SetuGuiAutoActorOption.BROWSER_PROXY_ON).asBoolean();
 	}
-	
-	public Proxy getProxy() throws Exception {
-		if (!isProxyEnabled()) return null;
-		Proxy proxy = new Proxy();
-		String proxyString = this.value(SetuGuiAutoActorOption.BROWSER_PROXY_HOST).asString() 
-				+ ":" + 
-				this.value(SetuGuiAutoActorOption.BROWSER_PROXY_PORT).asString();
-		proxy.setHttpProxy(proxyString);
-		proxy.setSslProxy(proxyString);
-		return proxy;
-	}
-	
-
 }

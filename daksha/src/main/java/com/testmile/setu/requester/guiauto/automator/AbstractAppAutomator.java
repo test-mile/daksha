@@ -198,7 +198,7 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 
 	@Override
 	public void executeJavaScript(String script) throws Exception {
-		this.browser.executeJavaScript(script);
+		this.sendRequest(SetuActionType.GUIAUTO_BROWSER_EXECUTE_JAVASCRIPT, SetuArg.arg("script", script));
 	}
 
 }
