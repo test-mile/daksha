@@ -10,7 +10,6 @@ import com.testmile.setu.requester.guiauto.automator.GuiAutomatorName;
 import com.testmile.setu.requester.testsession.TestSession;
 import com.testmile.trishanku.tpi.enums.BrowserName;
 import com.testmile.trishanku.tpi.enums.GuiAutomationContext;
-import com.testmile.trishanku.tpi.enums.OSType;
 import com.testmile.trishanku.tpi.enums.SetuOption;
 import com.testmile.trishanku.tpi.value.AbstractValueMap;
 import com.testmile.trishanku.tpi.value.StringKeyValueMap;
