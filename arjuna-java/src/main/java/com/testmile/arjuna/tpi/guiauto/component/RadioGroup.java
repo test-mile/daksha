@@ -17,15 +17,16 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
 import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 
-public interface WebAlert extends SetuManagedObject{
+public interface RadioGroup extends SetuManagedObject{
 	
-	void confirm() throws Exception;
-	void dismiss() throws Exception;
-	String getText() throws Exception;
-	void sendText(String text) throws Exception;
-
+	boolean hasValueSelected(String value) throws Exception;
+	boolean hasIndexSelected(int index) throws Exception;
+	String getFirstSelectedOptionValue() throws Exception;
+	void selectByValue(String value) throws Exception;
+	void selectByIndex(int index) throws Exception;
+	
 }

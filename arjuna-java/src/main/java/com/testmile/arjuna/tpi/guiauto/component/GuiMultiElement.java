@@ -17,18 +17,12 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
 import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 
-public interface DropDown extends SetuManagedObject{
-	
-	boolean hasVisibleTextSelected(String text) throws Exception;
-	boolean hasValueSelected(String value) throws Exception;
-	boolean hasIndexSelected(int index) throws Exception;
-	String getFirstSelectedOptionText() throws Exception;
-	void selectByValue(String value) throws Exception;
-	void selectByVisibleText(String text) throws Exception;
-	void selectByIndex(int index) throws Exception;
-	
+public interface GuiMultiElement extends SetuManagedObject{
+
+	GuiElement getInstanceAtIndex(int index);
+
 }

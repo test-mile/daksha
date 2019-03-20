@@ -1,13 +1,13 @@
 package arjuna.ex.selenium.using.gui;
 
-import com.testmile.arjuna.lib.setu.requester.guiauto.gui.DefaultGui;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.SimpleBaseGui;
+import com.testmile.arjuna.tpi.guiauto.With;
 
-public class WordPress extends DefaultGui{
+public class WordPress extends SimpleBaseGui{
 
 	public WordPress(GuiAutomator automator) throws Exception {
-		super("Wordpress", automator, "simpleapp/WordPress.gns");
+		super(automator, "simpleapp");
 	}
 
 	public void login() throws Exception {

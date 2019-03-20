@@ -13,35 +13,35 @@ import org.testng.ITestContext;
 
 import com.testmile.arjuna.lib.batteries.console.Console;
 import com.testmile.arjuna.lib.config.CLIConfiguration;
-import com.testmile.arjuna.lib.config.DakshaTestContext;
-import com.testmile.arjuna.lib.config.DakshaTestSession;
+import com.testmile.arjuna.lib.config.DefaultTestContext;
+import com.testmile.arjuna.lib.config.DefaultTestSession;
 import com.testmile.arjuna.lib.enums.SetuOption;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
-import com.testmile.arjuna.lib.setu.requester.guiauto.GuiDriverExtendedConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.DefaultGuiAutomator;
 import com.testmile.arjuna.lib.testng.TestNGSuiteContext;
 import com.testmile.arjuna.lib.testng.TestNGTestContext;
-import com.testmile.arjuna.tpi.ddauto.DakshaDataSourceBuilder;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.ddauto.DataSourceBuilder;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
+import com.testmile.arjuna.tpi.test.TestConfig;
 import com.testmile.arjuna.tpi.test.TestContext;
 
 public enum ArjunaSingleton {
 	INSTANCE;
 	private String rootDir = null;
 	
-	private DakshaTestSession session;
-	private DakshaTestConfig centralConfig;
+	private DefaultTestSession session;
+	private TestConfig centralConfig;
 	private CLIConfiguration cliConfig = null;	
 	
 	private Logger logger = null;
 
 	
-	private Map<String, DakshaTestConfig> testContextConfigMap = new HashMap<String, DakshaTestConfig>();
+	private Map<String, TestConfig> testContextConfigMap = new HashMap<String, TestConfig>();
 
-	public DakshaTestConfig init(String rootDir) throws Exception {
+	public TestConfig init(String rootDir) throws Exception {
 		this.rootDir = rootDir;
-		session = new DakshaTestSession();
+		session = new DefaultTestSession();
 		centralConfig = session.initSession(rootDir);
 		cliConfig = new CLIConfiguration();
 		
@@ -53,15 +53,15 @@ public enum ArjunaSingleton {
 		return this.centralConfig;
 	}
 	
-	public DakshaTestConfig getCentralConfig() throws Exception {
+	public TestConfig getCentralConfig() throws Exception {
 		return centralConfig;
 	}
 	
-	public void registerTestContextConfig(DakshaTestConfig config) throws Exception {
+	public void registerTestContextConfig(TestConfig config) throws Exception {
 		this.testContextConfigMap.put(config.getName().toLowerCase(), config);
 	}
 	
-	public DakshaTestConfig getTestContextConfig(String name) throws Exception {
+	public TestConfig getTestContextConfig(String name) throws Exception {
 		if (name == null) {
 			throw new Exception("Config name was passed as null.");
 		} else {
@@ -75,18 +75,18 @@ public enum ArjunaSingleton {
 	}
 	
 	public TestContext createTestContext(String name) throws Exception {
-		return new DakshaTestContext(session, name);
+		return new DefaultTestContext(session, name);
 	}
 	
 	public TestContext createTestNGSuiteContext(ITestContext testngContext) throws Exception {
 		return new TestNGSuiteContext(session, testngContext);
 	}
 	
-	public TestContext createTestNGTestContext(TestConfig parentConfig, ITestContext testngContext) throws Exception {
+	public TestContext createTestNGTestContext(SetuTestConfig parentConfig, ITestContext testngContext) throws Exception {
 		return new TestNGTestContext(session, parentConfig, testngContext);
 	}
 	
-	public DakshaTestConfig getTestConfig(ITestContext context) throws Exception {
+	public TestConfig getTestConfig(ITestContext context) throws Exception {
 		return getTestContextConfig(context.getName());
 	}
 	
@@ -106,15 +106,15 @@ public enum ArjunaSingleton {
 		return SetuOption.valueOf(normalizeUserOption(option));
 	}
 	
-	public DakshaDataSourceBuilder createDataSourceBuilder() throws Exception {
-		return new DakshaDataSourceBuilder(session);
+	public DataSourceBuilder createDataSourceBuilder() throws Exception {
+		return new DataSourceBuilder(session);
 	}
 	
-	public GuiAutomator createGuiAutomator(DakshaTestConfig config) throws Exception {
+	public GuiAutomator createGuiAutomator(TestConfig config) throws Exception {
 		return new DefaultGuiAutomator(config);
 	}
 	
-	public GuiAutomator createGuiAutomator(DakshaTestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
+	public GuiAutomator createGuiAutomator(TestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
 		return new DefaultGuiAutomator(config, extendedConfig);
 	}
 	

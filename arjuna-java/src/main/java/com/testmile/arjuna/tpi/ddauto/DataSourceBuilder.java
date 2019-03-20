@@ -2,15 +2,13 @@ package com.testmile.arjuna.tpi.ddauto;
 
 import com.testmile.arjuna.lib.setu.requester.databroker.DataContainerBuilder;
 import com.testmile.arjuna.lib.setu.requester.databroker.FileDataSourceBuilder;
-import com.testmile.arjuna.lib.setu.requester.databroker.ListDataSource;
-import com.testmile.arjuna.lib.setu.requester.databroker.MapDataSource;
 import com.testmile.arjuna.lib.setu.requester.databroker.SetuDataSourceBuilder;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 
-public class DakshaDataSourceBuilder{
+public class DataSourceBuilder{
 	private TestSession session;
 	
-	public DakshaDataSourceBuilder(TestSession session) {
+	public DataSourceBuilder(TestSession session) {
 		this.session = session;
 	}
 	

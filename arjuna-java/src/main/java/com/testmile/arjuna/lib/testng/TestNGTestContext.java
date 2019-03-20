@@ -21,13 +21,13 @@ package com.testmile.arjuna.lib.testng;
 
 import org.testng.ITestContext;
 
-import com.testmile.arjuna.lib.config.DakshaTestContext;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.config.DefaultTestContext;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 
-public class TestNGTestContext extends DakshaTestContext{
+public class TestNGTestContext extends DefaultTestContext{
 	
-	public TestNGTestContext(TestSession testsession, TestConfig parentConfig, ITestContext context) throws Exception {
+	public TestNGTestContext(TestSession testsession, SetuTestConfig parentConfig, ITestContext context) throws Exception {
 		super(testsession, context.getName());
 		this.setParentConfig(parentConfig);
 		this.addOptions(context.getCurrentXmlTest().getAllParameters());

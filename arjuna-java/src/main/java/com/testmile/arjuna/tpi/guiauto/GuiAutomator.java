@@ -17,14 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto;
 
-import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
+import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
+import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 
-public interface Frame extends SetuManagedObject{
+public interface GuiAutomator extends AppAutomator{
+	void quit() throws Exception;
+	void slowMotion(boolean on) throws Exception;
+	TestSession getTestSession();
 	
-	void focus() throws Exception;
-	Frame parent() throws Exception;
-	Frame frame(With... locators) throws Exception;
 }

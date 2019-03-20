@@ -22,8 +22,8 @@ package arjuna.ex.ddauto.basic;
 import java.util.Iterator;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.databroker.ListDataRecord;
-import com.testmile.arjuna.lib.setu.requester.databroker.ListDataSource;
+import com.testmile.arjuna.tpi.ddauto.ListDataRecord;
+import com.testmile.arjuna.tpi.ddauto.ListDataSource;
 
 public class ListDataRecordContainerExample{
 	

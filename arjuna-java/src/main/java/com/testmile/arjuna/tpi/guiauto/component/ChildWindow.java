@@ -17,20 +17,13 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package com.testmile.arjuna.tpi.guiauto.component;
 
-import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 
-public class Ex1LoginLogout {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
-		
-		WPLoginLogout.login(automator);
-		WPLoginLogout.logout(automator);
-	}
-
+public interface ChildWindow extends SetuManagedObject {
+	String getTitle() throws Exception;
+	void focus() throws Exception;
+	void close() throws Exception;
+	MainWindow mainWindow() throws Exception;
 }

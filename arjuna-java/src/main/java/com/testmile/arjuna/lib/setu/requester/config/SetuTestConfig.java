@@ -17,14 +17,18 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto;
+package com.testmile.arjuna.lib.setu.requester.config;
 
-import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
+import com.testmile.arjuna.lib.enums.SetuOption;
+import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
+import com.testmile.arjuna.tpi.value.Value;
 
-public interface GuiAutomator extends AppAutomator{
-	void quit() throws Exception;
-	void slowMotion(boolean on) throws Exception;
-	TestSession getTestSession();
+public interface SetuTestConfig extends SetuManagedObject {
 	
+	Value getSetuOptionValue(String option) throws Exception;	
+	Value getSetuOptionValue(SetuOption option) throws Exception;
+	Value getUserOptionValue(String option) throws Exception;
+	String getName();
+	TestSession getTestSession();
 }

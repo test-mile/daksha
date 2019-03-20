@@ -27,11 +27,11 @@ import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 import com.testmile.arjuna.lib.state.ArjunaSingleton;
 import com.testmile.arjuna.tpi.value.Value;
 
-public class DefaultTestConfig extends BaseSetuObject implements TestConfig {
+public class BaseTestConfig extends BaseSetuObject implements SetuTestConfig {
 	private String name;
 	private TestSession session;
 
-	public DefaultTestConfig(TestSession testSession, String name, String setuId) {
+	public BaseTestConfig(TestSession testSession, String name, String setuId) {
 		this.session = testSession;
 		this.name = name;
 		

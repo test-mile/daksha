@@ -25,23 +25,23 @@ import java.util.Map;
 
 import com.testmile.arjuna.lib.enums.GuiAutomationContext;
 import com.testmile.arjuna.lib.setu.requester.config.SetuActionType;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.BaseSetuObject;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.guiauto.GuiAutoComponentFactory;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.Browser;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.ChildWindow;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DomRoot;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.Frame;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.GuiElement;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.GuiMultiElement;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.MainWindow;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.RadioGroup;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.WebAlert;
+import com.testmile.arjuna.tpi.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.component.Browser;
+import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
+import com.testmile.arjuna.tpi.guiauto.component.DomRoot;
+import com.testmile.arjuna.tpi.guiauto.component.DropDown;
+import com.testmile.arjuna.tpi.guiauto.component.Frame;
+import com.testmile.arjuna.tpi.guiauto.component.GuiElement;
+import com.testmile.arjuna.tpi.guiauto.component.GuiMultiElement;
+import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
+import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
+import com.testmile.arjuna.tpi.guiauto.component.WebAlert;
 
 public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator {
 	private DomRoot domRoot;
@@ -49,13 +49,13 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	private Browser browser;
 	private GuiAutomationContext autoContext;
 	private TestSession testSession;
-	private TestConfig config;
+	private SetuTestConfig config;
 	
 	public AbstractAppAutomator() {
 		super();
 	}
 
-	public AbstractAppAutomator(TestConfig config) {
+	public AbstractAppAutomator(SetuTestConfig config) {
 		this.setConfig(config);
 		this.testSession = config.getTestSession();
 		this.setTestSessionSetuIdArg(this.testSession.getSetuId());
@@ -130,11 +130,11 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 		return this.mainWindow;
 	}
 
-	public TestConfig getConfig() {
+	public SetuTestConfig getConfig() {
 		return config;
 	}
 
-	protected void setConfig(TestConfig config) {
+	protected void setConfig(SetuTestConfig config) {
 		this.config = config;
 	}
 

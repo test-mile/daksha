@@ -3,18 +3,18 @@ package com.testmile.arjuna.lib.config;
 import com.testmile.arjuna.lib.enums.BrowserName;
 import com.testmile.arjuna.lib.enums.GuiAutomationContext;
 import com.testmile.arjuna.lib.enums.SetuOption;
-import com.testmile.arjuna.lib.setu.requester.config.DefaultTestConfig;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.BaseTestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.test.TestConfig;
 
-public class DefaultDakshaTestConfig extends DefaultTestConfig implements DakshaTestConfig {
+public class DefaultTestConfig extends BaseTestConfig implements TestConfig {
 	
-	public DefaultDakshaTestConfig(TestSession testSession, String name, String setuId) {
+	public DefaultTestConfig(TestSession testSession, String name, String setuId) {
 		super(testSession, name, setuId);
 	}
 	
-	public DefaultDakshaTestConfig(TestConfig config) {
+	public DefaultTestConfig(SetuTestConfig config) {
 		super(config.getTestSession(), config.getName(), config.getSetuId());
 	}
 

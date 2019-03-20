@@ -23,7 +23,7 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DakshaTestContext;
+import com.testmile.arjuna.lib.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.OSType;
 import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiElement;
 import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiMultiElement;
@@ -35,11 +35,11 @@ import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGui> threadWiseApp = new ThreadLocal<SetuClientGui>();
 	
-	protected void tweakCentralContext(DakshaTestContext centralContext)  throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	protected void setUpClass(DakshaTestContext testContext) throws Exception {
+	protected void setUpClass(DefaultTestContext testContext) throws Exception {
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		SetuClientGui app = GuiFactory.createAppFromDir("WordPress", builder.build(), "appwithpages");
 		threadWiseApp.set(app);
@@ -92,7 +92,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		app.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	public void tearDownClass(DakshaTestContext testContext) throws Exception {
+	public void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseApp.get().close();
 	}
 }

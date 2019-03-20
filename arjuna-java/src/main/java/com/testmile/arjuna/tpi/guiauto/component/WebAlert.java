@@ -17,13 +17,15 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
 import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 
-public interface ChildWindow extends SetuManagedObject {
-	String getTitle() throws Exception;
-	void focus() throws Exception;
-	void close() throws Exception;
-	MainWindow mainWindow() throws Exception;
+public interface WebAlert extends SetuManagedObject{
+	
+	void confirm() throws Exception;
+	void dismiss() throws Exception;
+	String getText() throws Exception;
+	void sendText(String text) throws Exception;
+
 }

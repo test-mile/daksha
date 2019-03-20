@@ -27,8 +27,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.databroker.MapDataRecord;
-import com.testmile.arjuna.lib.setu.requester.databroker.MapDataSource;
+import com.testmile.arjuna.tpi.ddauto.MapDataRecord;
+import com.testmile.arjuna.tpi.ddauto.MapDataSource;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 
 public class Filter_TabDelimFileDDT_MapData extends TestNGBaseTest {

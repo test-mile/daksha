@@ -27,8 +27,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.databroker.ListDataRecord;
-import com.testmile.arjuna.lib.setu.requester.databroker.ListDataSource;
+import com.testmile.arjuna.tpi.ddauto.ListDataRecord;
+import com.testmile.arjuna.tpi.ddauto.ListDataSource;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 
 public class ExcelFileDDTListData extends TestNGBaseTest {

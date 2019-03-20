@@ -23,18 +23,18 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DakshaTestContext;
+import com.testmile.arjuna.lib.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.OSType;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGui> threadWiseHomePage = new ThreadLocal<SetuClientGui>();
 	
-	protected void tweakCentralContext(DakshaTestContext centralContext)  throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	protected void setUpClass(DakshaTestContext testContext) throws Exception {
+	protected void setUpClass(DefaultTestContext testContext) throws Exception {
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		SetuClientGui home = GuiFactory.createGui(builder.build(), "wordpress/Home.gns");
 		threadWiseHomePage.set(home);
@@ -91,7 +91,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		gui.goTo(this.getContext().getValue("wp.logout.url").asString());
 	}
 	
-	public void tearDownClass(DakshaTestContext testContext) throws Exception {
+	public void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseHomePage.get().close();
 	}
 }

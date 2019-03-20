@@ -29,17 +29,17 @@ import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.Browser;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.ChildWindow;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DomRoot;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.Frame;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.GuiElement;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.GuiMultiElement;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.MainWindow;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.RadioGroup;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.WebAlert;
+import com.testmile.arjuna.tpi.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.component.Browser;
+import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
+import com.testmile.arjuna.tpi.guiauto.component.DomRoot;
+import com.testmile.arjuna.tpi.guiauto.component.DropDown;
+import com.testmile.arjuna.tpi.guiauto.component.Frame;
+import com.testmile.arjuna.tpi.guiauto.component.GuiElement;
+import com.testmile.arjuna.tpi.guiauto.component.GuiMultiElement;
+import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
+import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
+import com.testmile.arjuna.tpi.guiauto.component.WebAlert;
 
 public class GuiAutoComponentFactory {
 

@@ -17,17 +17,13 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
 import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
 
-public interface MainWindow extends SetuManagedObject {
-	String getTitle() throws Exception;
-	void focus() throws Exception;
-	void maximize() throws Exception;
-	
-	ChildWindow childWindow(With... locators) throws Exception;
-	ChildWindow latestChildWindow() throws Exception;
-	void closeAllChildWindows() throws Exception;
+public interface Browser extends SetuManagedObject {
+	void goToUrl(String url) throws Exception;
+	void goBack() throws Exception;
+	void goForward() throws Exception;
+	void refresh() throws Exception;
 }

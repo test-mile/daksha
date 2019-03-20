@@ -17,15 +17,15 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto;
+package com.testmile.arjuna.tpi.guiauto;
 
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.ChildWindow;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.Frame;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.GuiElement;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.GuiMultiElement;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.RadioGroup;
+import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
+import com.testmile.arjuna.tpi.guiauto.component.DropDown;
+import com.testmile.arjuna.tpi.guiauto.component.Frame;
+import com.testmile.arjuna.tpi.guiauto.component.GuiElement;
+import com.testmile.arjuna.tpi.guiauto.component.GuiMultiElement;
+import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
 
 public interface Gui extends AppAutomator{
 

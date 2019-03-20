@@ -16,7 +16,7 @@ public interface TestContext {
 
 	TestContext guiAutoMaxWaitTime(int seconds) throws Exception;
 
-	DakshaTestConfig build() throws Exception;
+	TestConfig build() throws Exception;
 
 	TestContext firefox() throws Exception;
 

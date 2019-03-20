@@ -22,14 +22,14 @@ package daksha.ex.testng.gettingstarted;
 import org.testng.annotations.Test;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.test.TestConfig;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 
 public class Basic3UsingTestNG extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	protected void setUpClass(DakshaTestConfig config) throws Exception {
+	protected void setUpClass(TestConfig config) throws Exception {
 		threadWiseAutomator.set(Arjuna.createGuiAutomator(config));
 		System.out.println("here" + this.threadWiseAutomator.get());
 	}
@@ -42,7 +42,7 @@ public class Basic3UsingTestNG extends TestNGBaseTest {
 		System.out.println(automator.mainWindow().getTitle());
 	}
 	
-	protected void tearDownClass(DakshaTestConfig testConfig) throws Exception {
+	protected void tearDownClass(TestConfig testConfig) throws Exception {
 		this.threadWiseAutomator.get().quit();
 	}
 }

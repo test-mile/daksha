@@ -17,18 +17,17 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.lib.setu.requester.config;
+package com.testmile.arjuna.tpi.guiauto;
+import com.testmile.arjuna.lib.setu.requester.guiauto.gui.BaseGui;
 
-import com.testmile.arjuna.lib.enums.SetuOption;
-import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
-import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
-import com.testmile.arjuna.tpi.value.Value;
-
-public interface TestConfig extends SetuManagedObject {
+public class DefaultGui extends BaseGui{
 	
-	Value getSetuOptionValue(String option) throws Exception;	
-	Value getSetuOptionValue(SetuOption option) throws Exception;
-	Value getUserOptionValue(String option) throws Exception;
-	String getName();
-	TestSession getTestSession();
+	public DefaultGui(String label, GuiAutomator automator, String defFileName) throws Exception {
+		super(label, automator, defFileName);
+	}
+	
+	public DefaultGui(Gui parent, String label, GuiAutomator automator, String defFileName) throws Exception {
+		super(parent, label, automator, defFileName);
+	}
 }
+

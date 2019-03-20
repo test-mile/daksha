@@ -15,6 +15,10 @@ import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 import com.testmile.arjuna.lib.value.AbstractValueList;
 import com.testmile.arjuna.lib.value.StringKeyValueMap;
+import com.testmile.arjuna.tpi.ddauto.ListDataRecord;
+import com.testmile.arjuna.tpi.ddauto.ListDataSource;
+import com.testmile.arjuna.tpi.ddauto.MapDataRecord;
+import com.testmile.arjuna.tpi.ddauto.MapDataSource;
 
 public class SetuDataSourceBuilder {
 	

@@ -24,24 +24,24 @@ import java.util.List;
 import java.util.Map;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.config.DefaultTestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.BaseTestConfig;
 import com.testmile.arjuna.lib.setu.requester.config.SetuActionType;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.BaseSetuObject;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.databroker.DataRecordType;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.value.Value;
 
-public class DefaultTestSession extends BaseSetuObject implements TestSession {
+public class BaseTestSession extends BaseSetuObject implements TestSession {
 
 	@Override
-	public TestConfig init(String rootDir) throws Exception {
+	public SetuTestConfig init(String rootDir) throws Exception {
 		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_INIT, SetuArg.arg("rootDir", rootDir));
 		this.setSetuId(response.getValueForTestSessionSetuId());
 		this.setSelfSetuIdArg("testSessionSetuId");
-		TestConfig config = new DefaultTestConfig(this, Arjuna.DEF_CONF_NAME, response.getValueForConfigSetuId());
+		SetuTestConfig config = new BaseTestConfig(this, Arjuna.DEF_CONF_NAME, response.getValueForConfigSetuId());
 		this.setSetuId(response.getValueForTestSessionSetuId());
 		return config;
 	}

@@ -20,15 +20,15 @@
 package arjuna.ex.selenium.using.automator;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.ChildWindow;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.MainWindow;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
+import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
+import com.testmile.arjuna.tpi.test.TestConfig;
 
 public class Ex4WindowHandling {
 
 	public static void main(String[] args) throws Exception {
-		DakshaTestConfig config = Arjuna.init();
+		TestConfig config = Arjuna.init();
 		GuiAutomator automator = Arjuna.createGuiAutomator(config);
 		
 		WPLoginLogout.login(automator);

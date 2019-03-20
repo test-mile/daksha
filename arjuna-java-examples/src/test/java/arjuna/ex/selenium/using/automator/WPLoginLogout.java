@@ -19,8 +19,8 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.With;
 
 public class WPLoginLogout {
 	

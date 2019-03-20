@@ -22,8 +22,8 @@ package arjuna.ex.ddauto.basic;
 import java.util.Iterator;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.databroker.MapDataRecord;
-import com.testmile.arjuna.lib.setu.requester.databroker.MapDataSource;
+import com.testmile.arjuna.tpi.ddauto.MapDataRecord;
+import com.testmile.arjuna.tpi.ddauto.MapDataSource;
 
 public class ExcelFileDDTMapData{
 	

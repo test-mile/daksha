@@ -21,7 +21,7 @@ package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DakshaTestContext;
+import com.testmile.arjuna.lib.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.OSType;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
@@ -29,11 +29,11 @@ import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<Home> threadWiseHome = new ThreadLocal<Home>();
 	
-	protected void tweakCentralContext(DakshaTestContext centralContext)  throws Exception {
+	protected void tweakCentralContext(DefaultTestContext centralContext)  throws Exception {
 		centralContext.setTargetPlatform(OSType.MAC);
 	}
 	
-	public void setUpClass(DakshaTestContext testContext) throws Exception {
+	public void setUpClass(DefaultTestContext testContext) throws Exception {
 		SeleniumBuilder builder = new SeleniumBuilder(testContext);
 		Home home = new Home(builder.build());
 		threadWiseHome.set(home);
@@ -50,7 +50,7 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		settings.logout();
 	}
 	
-	public void tearDownClass(DakshaTestContext testContext) throws Exception {
+	public void tearDownClass(DefaultTestContext testContext) throws Exception {
 		this.threadWiseHome.get().close();
 	}
 }

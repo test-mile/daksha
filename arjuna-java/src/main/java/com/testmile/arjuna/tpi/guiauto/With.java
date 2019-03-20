@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto;
+package com.testmile.arjuna.tpi.guiauto;
 
 import java.util.HashMap;
 import java.util.Map;

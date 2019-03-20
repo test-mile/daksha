@@ -17,13 +17,13 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
-import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
+import com.testmile.arjuna.tpi.guiauto.With;
 
-public interface Browser extends SetuManagedObject {
-	void goToUrl(String url) throws Exception;
-	void goBack() throws Exception;
-	void goForward() throws Exception;
-	void refresh() throws Exception;
+public interface DomRoot extends Frame {
+	
+	void focus() throws Exception;
+	Frame frame(With... locators) throws Exception;
+	
 }

@@ -21,15 +21,15 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.DefaultGuiAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 
 public class MethodLevelSetup extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	protected void setUpMethod(TestConfig testConfig) throws Exception {
+	protected void setUpMethod(SetuTestConfig testConfig) throws Exception {
 		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
 		threadWiseAutomator.set(automator);
 		automator.launch();
@@ -51,7 +51,7 @@ public class MethodLevelSetup extends TestNGBaseTest {
 		goToUrl("http://www.testmile.com");
 	}
 	
-	protected void tearDownMethod(TestConfig testConfig) throws Exception {
+	protected void tearDownMethod(SetuTestConfig testConfig) throws Exception {
 		this.threadWiseAutomator.get().quit();
 	}
 }

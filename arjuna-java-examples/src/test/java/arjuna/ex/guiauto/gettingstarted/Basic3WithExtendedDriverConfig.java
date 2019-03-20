@@ -20,15 +20,15 @@
 package arjuna.ex.guiauto.gettingstarted;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.guiauto.GuiDriverExtendedConfig;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
+import com.testmile.arjuna.tpi.test.TestConfig;
 
 public class Basic3WithExtendedDriverConfig{
 	
 	public static void main (String args[]) throws Exception {
 		// Initialize Daksha
-		DakshaTestConfig config = Arjuna.init();
+		TestConfig config = Arjuna.init();
 		
 		GuiDriverExtendedConfig exConfig = new GuiDriverExtendedConfig();
 		exConfig.browserArg("--headless");

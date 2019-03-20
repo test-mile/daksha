@@ -17,16 +17,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
 import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
+import com.testmile.arjuna.tpi.guiauto.With;
 
-public interface RadioGroup extends SetuManagedObject{
+public interface Frame extends SetuManagedObject{
 	
-	boolean hasValueSelected(String value) throws Exception;
-	boolean hasIndexSelected(int index) throws Exception;
-	String getFirstSelectedOptionValue() throws Exception;
-	void selectByValue(String value) throws Exception;
-	void selectByIndex(int index) throws Exception;
-	
+	void focus() throws Exception;
+	Frame parent() throws Exception;
+	Frame frame(With... locators) throws Exception;
 }

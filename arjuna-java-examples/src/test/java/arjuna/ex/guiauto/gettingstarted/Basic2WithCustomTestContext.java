@@ -20,8 +20,8 @@
 package arjuna.ex.guiauto.gettingstarted;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.test.TestConfig;
 import com.testmile.arjuna.tpi.test.TestContext;
 
 public class Basic2WithCustomTestContext{
@@ -40,7 +40,7 @@ public class Basic2WithCustomTestContext{
 		context.firefox();
 		
 		// The build step sends information to Setu and creates a unique frozen config
-		DakshaTestConfig config = context.build(); 
+		TestConfig config = context.build(); 
 
 		// Create Automator (default is Selenium) with context config
 		GuiAutomator automator = Arjuna.createGuiAutomator(config);

@@ -5,28 +5,28 @@ import java.util.Map;
 import com.testmile.arjuna.lib.enums.BrowserName;
 import com.testmile.arjuna.lib.enums.GuiAutomationContext;
 import com.testmile.arjuna.lib.enums.SetuOption;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.GuiAutomatorName;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 import com.testmile.arjuna.lib.state.ArjunaSingleton;
 import com.testmile.arjuna.lib.value.AbstractValueMap;
 import com.testmile.arjuna.lib.value.StringKeyValueMap;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.test.TestConfig;
 import com.testmile.arjuna.tpi.test.TestContext;
 
-public class DakshaTestContext implements TestContext {
+public class DefaultTestContext implements TestContext {
 	private String name;
 	private String parentConfigSetuId = null;
 	private TestSession testSession;
 	private SetuOptionContainer setuOptions = new SetuOptionContainer();
 	private StringKeyValueMap userOptions = new StringKeyValueMap();
 
-	public DakshaTestContext(TestSession session, String name) {
+	public DefaultTestContext(TestSession session, String name) {
 		this.testSession = session;
 		this.name = name;
 	}
 	
-	protected void setParentConfig(TestConfig parentConfig) {
+	protected void setParentConfig(SetuTestConfig parentConfig) {
 		this.parentConfigSetuId = parentConfig.getSetuId();
 	}
 	
@@ -125,7 +125,7 @@ public class DakshaTestContext implements TestContext {
 	 * @see com.testmile.daksha.tpi.test.TestContext#build()
 	 */
 	@Override
-	public DakshaTestConfig build() throws Exception {
+	public TestConfig build() throws Exception {
 		String configSetuId;
 		System.out.println(parentConfigSetuId);
 		if (this.parentConfigSetuId == null) {
@@ -133,7 +133,7 @@ public class DakshaTestContext implements TestContext {
 		} else {
 			configSetuId = this.testSession.registerConfig(this.parentConfigSetuId, setuOptions.strItems(), userOptions.items());
 		}
-		return new DefaultDakshaTestConfig(this.testSession, this.name, configSetuId);
+		return new DefaultTestConfig(this.testSession, this.name, configSetuId);
 	}
 }
 

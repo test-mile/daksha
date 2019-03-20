@@ -17,20 +17,21 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package com.testmile.arjuna.tpi.guiauto;
+import com.testmile.arjuna.lib.setu.requester.guiauto.gui.BaseGui;
 
-import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.TestConfig;
-
-public class Ex1LoginLogout {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
-		
-		WPLoginLogout.login(automator);
-		WPLoginLogout.logout(automator);
+public abstract class SimpleBaseGui extends BaseGui{
+	
+	public SimpleBaseGui(GuiAutomator automator, String appDefDir) throws Exception {
+		super(automator);
+		String label = this.getClass().getSimpleName();
+		this.setLabel(label);
+		this.setDefFileName(appDefDir + "/" + label + ".gns");
+		this.registerWithSetu();
 	}
-
+	
+	public SimpleBaseGui(GuiAutomator automator) throws Exception {
+		this(automator, "");
+	}
 }
+

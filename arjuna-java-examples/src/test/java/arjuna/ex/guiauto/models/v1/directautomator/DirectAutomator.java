@@ -20,16 +20,16 @@
 package arjuna.ex.guiauto.models.v1.directautomator;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.component.DropDown;
+import com.testmile.arjuna.tpi.test.TestConfig;
 
 public class DirectAutomator{
 	
 	public static void main(String[] args) throws Exception {
 		// Initialize Daksha
-		DakshaTestConfig config = Arjuna.init();
+		TestConfig config = Arjuna.init();
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Arjuna.createGuiAutomator(config);	

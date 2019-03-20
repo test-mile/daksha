@@ -20,17 +20,17 @@
 package arjuna.ex.guiauto.models.v2.simpleapp;
 
 import com.testmile.arjuna.Arjuna;
-import com.testmile.arjuna.lib.setu.requester.guiauto.gui.DefaultGui;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.Gui;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.test.DakshaTestConfig;
+import com.testmile.arjuna.tpi.guiauto.DefaultGui;
+import com.testmile.arjuna.tpi.guiauto.Gui;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.component.DropDown;
+import com.testmile.arjuna.tpi.test.TestConfig;
 
 public class SimpleApp{
 	
 	public static void main(String[] args) throws Exception {
 		// Initialize Daksha
-		DakshaTestConfig config = Arjuna.init();
+		TestConfig config = Arjuna.init();
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Arjuna.createGuiAutomator(config);

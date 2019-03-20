@@ -17,13 +17,22 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.tpi.setu.requester.guiauto.component;
+package com.testmile.arjuna.tpi.guiauto.component;
 
-import com.testmile.arjuna.tpi.setu.requester.guiauto.With;
+import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 
-public interface DomRoot extends Frame {
+public interface GuiElement extends SetuManagedObject{
 	
-	void focus() throws Exception;
-	Frame frame(With... locators) throws Exception;
+	void enterText(String text) throws Exception;
+
+	void setText(String text) throws Exception;
+
+	void click() throws Exception;
+
+	void waitUntilClickable() throws Exception;
+
+	void check() throws Exception;
+	
+	void uncheck() throws Exception;
 	
 }

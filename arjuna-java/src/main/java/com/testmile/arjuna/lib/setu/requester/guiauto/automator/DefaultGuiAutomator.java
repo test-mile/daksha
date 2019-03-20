@@ -20,22 +20,22 @@
 package com.testmile.arjuna.lib.setu.requester.guiauto.automator;
 
 import com.testmile.arjuna.lib.setu.requester.config.SetuActionType;
-import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.guiauto.GuiAutoComponentFactory;
-import com.testmile.arjuna.lib.setu.requester.guiauto.GuiDriverExtendedConfig;
-import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
 
 public class DefaultGuiAutomator extends AbstractAppAutomator implements GuiAutomator {
 	private GuiDriverExtendedConfig extendedConfig;
 	
-	public DefaultGuiAutomator(TestConfig config) throws Exception {
+	public DefaultGuiAutomator(SetuTestConfig config) throws Exception {
 		super(config);
 		this.launch();
 	}
 	
-	public DefaultGuiAutomator(TestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
+	public DefaultGuiAutomator(SetuTestConfig config, GuiDriverExtendedConfig extendedConfig) throws Exception {
 		super(config);
 		this.extendedConfig = extendedConfig;
 		this.launch();

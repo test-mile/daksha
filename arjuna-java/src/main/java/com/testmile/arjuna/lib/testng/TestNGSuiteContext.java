@@ -21,10 +21,10 @@ package com.testmile.arjuna.lib.testng;
 
 import org.testng.ITestContext;
 
-import com.testmile.arjuna.lib.config.DakshaTestContext;
+import com.testmile.arjuna.lib.config.DefaultTestContext;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 
-public class TestNGSuiteContext extends DakshaTestContext{
+public class TestNGSuiteContext extends DefaultTestContext{
 	
 	public TestNGSuiteContext(TestSession testsession, ITestContext context) throws Exception {
 		super(testsession, context.getSuite().getName());
