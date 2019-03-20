@@ -23,6 +23,7 @@ import com.testmile.arjuna.lib.enums.GuiAutomationContext;
 import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
 import com.testmile.arjuna.tpi.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.component.Alert;
 import com.testmile.arjuna.tpi.guiauto.component.Browser;
 import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
 import com.testmile.arjuna.tpi.guiauto.component.DomRoot;
@@ -32,7 +33,6 @@ import com.testmile.arjuna.tpi.guiauto.component.GuiElement;
 import com.testmile.arjuna.tpi.guiauto.component.GuiMultiElement;
 import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
 import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
-import com.testmile.arjuna.tpi.guiauto.component.WebAlert;
 
 public interface AppAutomator extends SetuManagedObject{
 	SetuTestConfig getConfig();
@@ -55,7 +55,7 @@ public interface AppAutomator extends SetuManagedObject{
 	
 	void closeAllChildWindows() throws Exception;
 
-	WebAlert webAlert() throws Exception;
+	Alert webAlert() throws Exception;
 
 	GuiAutomationContext getAutomationContext();
 

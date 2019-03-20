@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.arjuna.lib.setu.requester.guiauto;
+package com.testmile.arjuna.lib.setu.requester.guiauto.component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 import com.testmile.arjuna.tpi.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.component.Alert;
 import com.testmile.arjuna.tpi.guiauto.component.Browser;
 import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
 import com.testmile.arjuna.tpi.guiauto.component.DomRoot;
@@ -39,7 +40,6 @@ import com.testmile.arjuna.tpi.guiauto.component.GuiElement;
 import com.testmile.arjuna.tpi.guiauto.component.GuiMultiElement;
 import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
 import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
-import com.testmile.arjuna.tpi.guiauto.component.WebAlert;
 
 public class GuiAutoComponentFactory {
 
@@ -63,8 +63,8 @@ public class GuiAutoComponentFactory {
 		return new DefaultFrame(session, automator, setuId);
 	}
 
-	public static WebAlert WebAlert(TestSession session, AppAutomator automator, String setuId) {
-		return new DefaultWebAlert(session, automator, setuId);
+	public static Alert WebAlert(TestSession session, AppAutomator automator, String setuId) {
+		return new DefaultAlert(session, automator, setuId);
 	}
 
 	public static ChildWindow ChildWindow(TestSession session, AppAutomator automator, String setuId) {
@@ -261,31 +261,31 @@ class DefaultRadioGroup extends BaseElement implements RadioGroup {
 	}
 }
 
-class DefaultWebAlert extends BaseElement implements WebAlert {
+class DefaultAlert extends BaseElement implements Alert {
 
-	public DefaultWebAlert(TestSession session, AppAutomator automator, String setuId) {
+	public DefaultAlert(TestSession session, AppAutomator automator, String setuId) {
 		super(session, automator, setuId);
 	}
 
 	@Override
 	public void confirm() throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_CONFIRM);
+		this.sendRequest(SetuActionType.GUIAUTO_ALERT_CONFIRM);
 	}
 
 	@Override
 	public void dismiss() throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_DISMISS);
+		this.sendRequest(SetuActionType.GUIAUTO_ALERT_DISMISS);
 	}
 
 	@Override
 	public String getText() throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_GET_TEXT);
+		SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_ALERT_GET_TEXT);
 		return response.getValueForText();
 	}
 
 	@Override
 	public void sendText(String text) throws Exception {
-		this.sendRequest(SetuActionType.GUIAUTO_WEB_ALERT_SEND_TEXT, SetuArg.textArg(text));
+		this.sendRequest(SetuActionType.GUIAUTO_ALERT_SEND_TEXT, SetuArg.textArg(text));
 	}
 
 }

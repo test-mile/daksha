@@ -23,7 +23,7 @@ import com.testmile.arjuna.lib.setu.requester.config.SetuActionType;
 import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
-import com.testmile.arjuna.lib.setu.requester.guiauto.GuiAutoComponentFactory;
+import com.testmile.arjuna.lib.setu.requester.guiauto.component.GuiAutoComponentFactory;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
 

@@ -21,7 +21,7 @@ package arjuna.ex.selenium.using.automator;
 
 import com.testmile.arjuna.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.component.WebAlert;
+import com.testmile.arjuna.tpi.guiauto.component.Alert;
 import com.testmile.arjuna.tpi.test.TestConfig;
 
 public class Ex3Alerts {
@@ -38,7 +38,7 @@ public class Ex3Alerts {
 		automator.webAlert().dismiss();
 		
 		automator.executeJavaScript("alert('Sample')");
-		WebAlert alert = automator.webAlert();
+		Alert alert = automator.webAlert();
 		assert alert.getText() == "Sample";
 		alert.confirm();
 		

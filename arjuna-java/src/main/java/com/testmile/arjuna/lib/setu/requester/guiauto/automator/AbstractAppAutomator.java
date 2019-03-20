@@ -29,9 +29,10 @@ import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.BaseSetuObject;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
-import com.testmile.arjuna.lib.setu.requester.guiauto.GuiAutoComponentFactory;
+import com.testmile.arjuna.lib.setu.requester.guiauto.component.GuiAutoComponentFactory;
 import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
 import com.testmile.arjuna.tpi.guiauto.With;
+import com.testmile.arjuna.tpi.guiauto.component.Alert;
 import com.testmile.arjuna.tpi.guiauto.component.Browser;
 import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
 import com.testmile.arjuna.tpi.guiauto.component.DomRoot;
@@ -41,7 +42,6 @@ import com.testmile.arjuna.tpi.guiauto.component.GuiElement;
 import com.testmile.arjuna.tpi.guiauto.component.GuiMultiElement;
 import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
 import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
-import com.testmile.arjuna.tpi.guiauto.component.WebAlert;
 
 public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator {
 	private DomRoot domRoot;
@@ -110,7 +110,7 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 
 	@Override
-	public WebAlert webAlert() throws Exception {
+	public Alert webAlert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
 		return GuiAutoComponentFactory.WebAlert(this.testSession, this, elemSetuId);
 	}
