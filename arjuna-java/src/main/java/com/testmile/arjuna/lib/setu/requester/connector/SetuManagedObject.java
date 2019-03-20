@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -17,21 +17,9 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+package com.testmile.arjuna.lib.setu.requester.connector;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
-
-public class Basic1WithCentralTestContext{
+public interface SetuManagedObject {
 	
-	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
-		automator.quit();
-	}
-
+	String getSetuId();
 }

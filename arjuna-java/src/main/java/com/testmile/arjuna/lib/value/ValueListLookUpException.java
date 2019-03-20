@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -16,22 +16,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.arjuna.lib.value;
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+public class ValueListLookUpException extends Exception {
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
-
-public class Basic1WithCentralTestContext{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1328715061248005907L;
 	
-	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
-		automator.quit();
+	// Constructor that accepts a message
+	public ValueListLookUpException(int index, int maxIndex) {
+		super(String.format("Invalid index [%d] used for ValueList lookup. Use indices between 0 and %d", index, maxIndex));
 	}
-
 }

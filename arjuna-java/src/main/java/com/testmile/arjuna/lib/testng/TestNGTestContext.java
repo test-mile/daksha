@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -17,21 +17,20 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+package com.testmile.arjuna.lib.testng;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
+import org.testng.ITestContext;
 
-public class Basic1WithCentralTestContext{
+import com.testmile.arjuna.lib.config.DakshaTestContext;
+import com.testmile.arjuna.lib.setu.requester.config.TestConfig;
+import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
+
+public class TestNGTestContext extends DakshaTestContext{
 	
-	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
-		automator.quit();
+	public TestNGTestContext(TestSession testsession, TestConfig parentConfig, ITestContext context) throws Exception {
+		super(testsession, context.getName());
+		this.setParentConfig(parentConfig);
+		this.addOptions(context.getCurrentXmlTest().getAllParameters());
 	}
 
 }

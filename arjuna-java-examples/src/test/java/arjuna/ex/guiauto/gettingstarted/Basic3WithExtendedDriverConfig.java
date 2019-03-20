@@ -17,20 +17,28 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+package arjuna.ex.guiauto.gettingstarted;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
+import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.lib.setu.requester.guiauto.GuiDriverExtendedConfig;
+import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.test.DakshaTestConfig;
 
-public class Basic1WithCentralTestContext{
+public class Basic3WithExtendedDriverConfig{
 	
 	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
+		// Initialize Daksha
+		DakshaTestConfig config = Arjuna.init();
+		
+		GuiDriverExtendedConfig exConfig = new GuiDriverExtendedConfig();
+		exConfig.browserArg("--headless");
 
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
+		// Create Automator (default is Selenium) with context config
+		GuiAutomator automator = Arjuna.createGuiAutomator(config, exConfig);
+
+		// Basic flow in Firefox, as per the context config
+		automator.browser().goToUrl("https://www.google.com");
+		System.out.println(automator.mainWindow().getTitle());
 		automator.quit();
 	}
 

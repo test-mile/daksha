@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -17,21 +17,35 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+package com.testmile.arjuna.lib.setu.actor;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
+import java.io.IOException;
 
-public class Basic1WithCentralTestContext{
+import javax.servlet.http.HttpServletRequest;
+
+public class SetuRequest{
+	private String path;
+	private ActorAction action;
+	private String jsonStr;
 	
-	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
-		automator.quit();
+	public SetuRequest(HttpServletRequest request) throws IOException {
+		jsonStr = JsonUtils.asJsonString(request.getInputStream());
+		System.out.println("JsonInput:" + jsonStr);	
+		path = request.getPathInfo();
+		action = ActorAction.fromJsonStr(jsonStr);	
 	}
-
+	
+	public ActorAction getAction() {
+		return this.action;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public String getJsonBody() {
+		return jsonStr;
+	}
 }
+
+

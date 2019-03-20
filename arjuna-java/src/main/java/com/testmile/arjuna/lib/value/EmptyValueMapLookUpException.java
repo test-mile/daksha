@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -16,22 +16,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.arjuna.lib.value;
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+public class EmptyValueMapLookUpException extends Exception {
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 42902228332478132L;
 
-public class Basic1WithCentralTestContext{
-	
-	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
-		automator.quit();
+	// Constructor that accepts a message
+	public EmptyValueMapLookUpException(String key) {
+		super(String.format("Invalid key [%s] used for ValueMap lookup. It is empty.", key));
 	}
-
 }

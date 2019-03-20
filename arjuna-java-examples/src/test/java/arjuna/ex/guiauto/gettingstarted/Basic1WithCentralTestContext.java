@@ -17,20 +17,24 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+package arjuna.ex.guiauto.gettingstarted;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
+import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.setu.requester.guiauto.GuiAutomator;
+import com.testmile.arjuna.tpi.test.DakshaTestConfig;
 
 public class Basic1WithCentralTestContext{
 	
 	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
+		// Initialize Daksha
+		DakshaTestConfig config = Arjuna.init();
+		
+		// Create Automator (default is Selenium) with default options
+		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+		
+		// Basic flow in chrome
+		automator.browser().goToUrl("https://www.google.com");
+		System.out.println(automator.mainWindow().getTitle());
 		automator.quit();
 	}
 

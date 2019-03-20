@@ -16,22 +16,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+package com.testmile.arjuna.lib.exceptions;
 
-package com.testmile.setu.agent.guiauto.ex.gettingstarted;
+public class StringKeyValueContainerLookUpException extends Exception {
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
-import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
-import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
-
-public class Basic1WithCentralTestContext{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1328715061248005907L;
 	
-	public static void main (String args[]) throws Exception {
-		// Create Selenium automator with central context options
-		GuiAutomator automator = GuiAutomatorFactory.createAutomator(JsonUtils.readMavenResource("basicSetu.json"));
-
-		automator.getBrowserHandler().goTo("https://www.google.com");
-		System.out.println(automator.getWindowHandler().getTitle());
-		automator.quit();
+	// Constructor that accepts a message
+	public StringKeyValueContainerLookUpException(String key) {
+		super(String.format("Invalid Key [%s] used for string key value container lookup.", key));
 	}
-
 }
