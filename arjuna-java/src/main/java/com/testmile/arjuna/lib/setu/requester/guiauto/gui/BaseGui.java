@@ -1,14 +1,12 @@
 package com.testmile.arjuna.lib.setu.requester.guiauto.gui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.testmile.arjuna.lib.enums.GuiAutomationContext;
 import com.testmile.arjuna.lib.setu.requester.config.SetuActionType;
-import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuArg;
 import com.testmile.arjuna.lib.setu.requester.connector.SetuResponse;
 import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AbstractAppAutomator;
