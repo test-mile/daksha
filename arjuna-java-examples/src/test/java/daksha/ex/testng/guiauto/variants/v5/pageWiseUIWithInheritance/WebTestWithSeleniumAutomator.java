@@ -23,12 +23,12 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DefaultTestContext;
+import com.testmile.arjuna.lib.core.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.OSType;
-import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiMultiElement;
-import com.testmile.arjuna.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
+import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
+import com.testmile.arjuna.tpi.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{

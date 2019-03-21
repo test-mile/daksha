@@ -23,7 +23,7 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DefaultTestContext;
+import com.testmile.arjuna.lib.core.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.OSType;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 

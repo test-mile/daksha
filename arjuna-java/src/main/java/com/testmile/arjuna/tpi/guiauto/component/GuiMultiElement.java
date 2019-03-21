@@ -19,7 +19,7 @@
 
 package com.testmile.arjuna.tpi.guiauto.component;
 
-import com.testmile.arjuna.lib.setu.requester.connector.SetuManagedObject;
+import com.testmile.arjuna.lib.setu.core.requester.connector.SetuManagedObject;
 
 public interface GuiMultiElement extends SetuManagedObject{
 

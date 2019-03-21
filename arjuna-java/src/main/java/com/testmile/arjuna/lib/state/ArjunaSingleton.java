@@ -12,15 +12,15 @@ import org.apache.log4j.PatternLayout;
 import org.testng.ITestContext;
 
 import com.testmile.arjuna.lib.batteries.console.Console;
-import com.testmile.arjuna.lib.config.CLIConfiguration;
-import com.testmile.arjuna.lib.config.DefaultTestContext;
-import com.testmile.arjuna.lib.config.DefaultTestSession;
-import com.testmile.arjuna.lib.enums.SetuOption;
-import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
-import com.testmile.arjuna.lib.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.arjuna.lib.core.config.CLIConfiguration;
+import com.testmile.arjuna.lib.core.config.DefaultTestContext;
+import com.testmile.arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
+import com.testmile.arjuna.lib.setu.testsession.requester.DefaultTestSession;
+import com.testmile.arjuna.lib.setu.testsession.requester.TestSession;
 import com.testmile.arjuna.lib.testng.TestNGSuiteContext;
 import com.testmile.arjuna.lib.testng.TestNGTestContext;
 import com.testmile.arjuna.tpi.ddauto.DataSourceBuilder;
+import com.testmile.arjuna.tpi.enums.ArjunaOption;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
 import com.testmile.arjuna.tpi.test.TestConfig;
@@ -30,7 +30,7 @@ public enum ArjunaSingleton {
 	INSTANCE;
 	private String rootDir = null;
 	
-	private DefaultTestSession session;
+	private TestSession session;
 	private TestConfig centralConfig;
 	private CLIConfiguration cliConfig = null;	
 	
@@ -42,7 +42,7 @@ public enum ArjunaSingleton {
 	public TestConfig init(String rootDir) throws Exception {
 		this.rootDir = rootDir;
 		session = new DefaultTestSession();
-		centralConfig = session.initSession(rootDir);
+		centralConfig = session.init(rootDir);
 		cliConfig = new CLIConfiguration();
 		
 		// Finalize logger
@@ -82,7 +82,7 @@ public enum ArjunaSingleton {
 		return new TestNGSuiteContext(session, testngContext);
 	}
 	
-	public TestContext createTestNGTestContext(SetuTestConfig parentConfig, ITestContext testngContext) throws Exception {
+	public TestContext createTestNGTestContext(TestConfig parentConfig, ITestContext testngContext) throws Exception {
 		return new TestNGTestContext(session, parentConfig, testngContext);
 	}
 	
@@ -102,8 +102,8 @@ public enum ArjunaSingleton {
 		return option.trim().toUpperCase().replace(".", "_");
 	}
 	
-	public SetuOption normalizeSetuOption(String option) {
-		return SetuOption.valueOf(normalizeUserOption(option));
+	public ArjunaOption normalizeSetuOption(String option) {
+		return ArjunaOption.valueOf(normalizeUserOption(option));
 	}
 	
 	public DataSourceBuilder createDataSourceBuilder() throws Exception {

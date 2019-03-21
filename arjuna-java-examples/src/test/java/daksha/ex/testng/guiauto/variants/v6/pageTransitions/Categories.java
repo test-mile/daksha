@@ -1,8 +1,8 @@
 package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
-import com.testmile.arjuna.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiMultiElement;
+import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
 
 public class Categories extends BaseNestedGui{
 

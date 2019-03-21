@@ -21,7 +21,7 @@ package arjuna.ex.ddauto.basic;
 
 import java.util.Iterator;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.ddauto.MapDataRecord;
 import com.testmile.arjuna.tpi.ddauto.MapDataSource;
 

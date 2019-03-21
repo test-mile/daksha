@@ -21,8 +21,8 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
-import com.testmile.arjuna.lib.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.arjuna.lib.setu.core.requester.config.SetuTestConfig;
+import com.testmile.arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 

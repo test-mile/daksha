@@ -19,7 +19,7 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.With;
 import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
@@ -33,7 +33,7 @@ public class Ex6RadioGroup {
 		
 		WPLoginLogout.login(automator);
 		
-		automator.slowMotion(true);
+		automator.enableSlowMotion(true);
 		automator.element(With.linkText("Settings")).click();
 		RadioGroup dateFormat = automator.radioGroup(With.name("date_format"));
 		System.out.println(dateFormat.hasValueSelected("Y-m-d"));

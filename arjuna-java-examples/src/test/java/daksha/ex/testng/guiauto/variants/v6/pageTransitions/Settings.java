@@ -2,8 +2,8 @@ package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
 import static org.testng.Assert.assertTrue;
 
-import com.testmile.arjuna.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.element.SetuClientGuiElement;
+import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
 
 public class Settings extends BaseNestedGui{
 

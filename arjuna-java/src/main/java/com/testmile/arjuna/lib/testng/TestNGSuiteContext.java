@@ -21,8 +21,8 @@ package com.testmile.arjuna.lib.testng;
 
 import org.testng.ITestContext;
 
-import com.testmile.arjuna.lib.config.DefaultTestContext;
-import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
+import com.testmile.arjuna.lib.core.config.DefaultTestContext;
+import com.testmile.arjuna.lib.setu.testsession.requester.TestSession;
 
 public class TestNGSuiteContext extends DefaultTestContext{
 	

@@ -1,6 +1,6 @@
 package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
-import com.testmile.arjuna.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
 
 public abstract class BaseSimpleGui extends AbstractWordPressGui{
 	

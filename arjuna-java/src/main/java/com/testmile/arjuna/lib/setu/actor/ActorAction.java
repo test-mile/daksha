@@ -22,7 +22,7 @@ package com.testmile.arjuna.lib.setu.actor;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.testmile.arjuna.lib.value.AnyRefValue;
+import com.testmile.arjuna.lib.core.value.AnyRefValue;
 import com.testmile.arjuna.tpi.value.Value;
 
 public class ActorAction {

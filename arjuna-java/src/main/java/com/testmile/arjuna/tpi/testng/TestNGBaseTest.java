@@ -29,7 +29,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.test.TestConfig;
 import com.testmile.arjuna.tpi.test.TestContext;
 

@@ -19,12 +19,12 @@
 
 package com.testmile.arjuna.tpi.guiauto;
 
-import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
-import com.testmile.arjuna.lib.setu.requester.testsession.TestSession;
+import com.testmile.arjuna.lib.setu.guiauto.requester.automator.AppAutomator;
+import com.testmile.arjuna.lib.setu.testsession.requester.TestSession;
 
 public interface GuiAutomator extends AppAutomator{
 	void quit() throws Exception;
-	void slowMotion(boolean on) throws Exception;
+	void enableSlowMotion(boolean on) throws Exception;
 	TestSession getTestSession();
 	
 }

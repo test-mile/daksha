@@ -19,7 +19,7 @@
 
 package com.testmile.arjuna.tpi.guiauto;
 
-import com.testmile.arjuna.lib.setu.requester.guiauto.automator.AppAutomator;
+import com.testmile.arjuna.lib.setu.guiauto.requester.automator.AppAutomator;
 import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
 import com.testmile.arjuna.tpi.guiauto.component.DropDown;
 import com.testmile.arjuna.tpi.guiauto.component.Frame;

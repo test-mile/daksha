@@ -1,7 +1,7 @@
 package daksha.ex.testng.guiauto.variants.v5.pageWiseUIWithInheritance;
 
-import com.testmile.arjuna.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.gui.SetuClientDefaultGui;
+import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import com.testmile.arjuna.tpi.tpi.guiauto.gui.SetuClientDefaultGui;
 
 public class AbstractWordPressGui extends SetuClientDefaultGui{
 

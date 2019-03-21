@@ -19,7 +19,7 @@
 
 package arjuna.ex.guiauto.gettingstarted;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
 import com.testmile.arjuna.tpi.test.TestConfig;

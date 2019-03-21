@@ -23,10 +23,10 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DefaultTestContext;
+import com.testmile.arjuna.lib.core.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.GuiAutomationContext;
-import com.testmile.arjuna.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
+import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.setu.actor.guiauto.core.core.builder.AppiumBuilder;
 
 public class NativeAppAppiumAndroid extends TestNGBaseTest{

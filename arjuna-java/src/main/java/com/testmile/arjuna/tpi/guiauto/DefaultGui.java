@@ -18,7 +18,7 @@
  ******************************************************************************/
 
 package com.testmile.arjuna.tpi.guiauto;
-import com.testmile.arjuna.lib.setu.requester.guiauto.gui.BaseGui;
+import com.testmile.arjuna.lib.setu.guiauto.requester.gui.BaseGui;
 
 public class DefaultGui extends BaseGui{
 	

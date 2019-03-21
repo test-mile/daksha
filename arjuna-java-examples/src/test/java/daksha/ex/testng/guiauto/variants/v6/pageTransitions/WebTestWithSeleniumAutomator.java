@@ -21,7 +21,7 @@ package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.config.DefaultTestContext;
+import com.testmile.arjuna.lib.core.config.DefaultTestContext;
 import com.testmile.arjuna.lib.enums.OSType;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;

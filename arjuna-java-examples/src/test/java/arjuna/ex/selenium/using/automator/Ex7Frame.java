@@ -19,7 +19,7 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.With;
 import com.testmile.arjuna.tpi.guiauto.component.Frame;

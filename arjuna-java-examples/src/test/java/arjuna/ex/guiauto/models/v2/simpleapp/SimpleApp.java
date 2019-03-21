@@ -19,7 +19,7 @@
 
 package arjuna.ex.guiauto.models.v2.simpleapp;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.DefaultGui;
 import com.testmile.arjuna.tpi.guiauto.Gui;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;

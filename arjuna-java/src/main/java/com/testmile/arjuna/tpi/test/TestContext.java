@@ -2,11 +2,11 @@ package com.testmile.arjuna.tpi.test;
 
 import java.util.Map;
 
-import com.testmile.arjuna.lib.enums.SetuOption;
+import com.testmile.arjuna.tpi.enums.ArjunaOption;
 
 public interface TestContext {
 
-	void addSetuOption(SetuOption option, Object value) throws Exception;
+	void addSetuOption(ArjunaOption option, Object value) throws Exception;
 
 	void addUserOption(String option, Object obj) throws Exception;
 

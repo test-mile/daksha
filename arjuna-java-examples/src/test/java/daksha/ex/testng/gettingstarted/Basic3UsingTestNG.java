@@ -21,7 +21,7 @@ package daksha.ex.testng.gettingstarted;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.test.TestConfig;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;

@@ -21,9 +21,9 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.enums.SetuOption;
-import com.testmile.arjuna.lib.setu.requester.config.SetuTestConfig;
-import com.testmile.arjuna.lib.setu.requester.guiauto.automator.DefaultGuiAutomator;
+import com.testmile.arjuna.lib.setu.core.requester.config.SetuTestConfig;
+import com.testmile.arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
+import com.testmile.arjuna.tpi.enums.ArjunaOption;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
 
@@ -39,7 +39,7 @@ public class AppUrlBasedNavigation extends TestNGBaseTest {
 	@Test
 	public void test() throws Exception{
 		GuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goToUrl(this.getConfig().getSetuOptionValue(SetuOption.APP_URL).asString());
+		automator.goToUrl(this.getConfig().getArjunaOptionValue(ArjunaOption.APP_URL).asString());
 		System.out.println(automator.mainWindow().getTitle());
 	}
 	

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.ddauto.ListDataRecord;
 import com.testmile.arjuna.tpi.ddauto.ListDataSource;
 import com.testmile.arjuna.tpi.ddauto.MapDataRecord;

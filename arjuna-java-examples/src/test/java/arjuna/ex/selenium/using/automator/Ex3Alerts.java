@@ -19,7 +19,7 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.Arjuna;
+import com.testmile.arjuna.tpi.Arjuna;
 import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
 import com.testmile.arjuna.tpi.guiauto.component.Alert;
 import com.testmile.arjuna.tpi.test.TestConfig;
@@ -33,17 +33,17 @@ public class Ex3Alerts {
 		WPLoginLogout.login(automator);
 		
 		automator.executeJavaScript("alert('dummy')");
-		automator.webAlert().confirm();
+		automator.alert().confirm();
 		automator.executeJavaScript("alert('dummy')");
-		automator.webAlert().dismiss();
+		automator.alert().dismiss();
 		
 		automator.executeJavaScript("alert('Sample')");
-		Alert alert = automator.webAlert();
+		Alert alert = automator.alert();
 		assert alert.getText() == "Sample";
 		alert.confirm();
 		
 		automator.executeJavaScript("prompt('Are You Sure?')");
-		alert = automator.webAlert();
+		alert = automator.alert();
 		alert.sendText("Yes");	
 		alert.confirm();
 		
