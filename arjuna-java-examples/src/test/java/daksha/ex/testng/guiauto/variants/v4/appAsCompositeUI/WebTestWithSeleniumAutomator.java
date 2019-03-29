@@ -59,11 +59,11 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		app.Element("SUBMIT").click();		
 		app.waitForBody();
 		
-		app.gui("LeftNavigation").Element("POSTS").hover();
-		app.gui("LeftNavigation").Element("CATEGORIES").click();	
+		app.getChild("LeftNavigation").Element("POSTS").hover();
+		app.getChild("LeftNavigation").Element("CATEGORIES").click();	
 		app.waitForBody();
 		
-		SetuClientGuiMultiElement tags = app.gui("Categories").elements("CAT_CHECKBOXES");
+		SetuClientGuiMultiElement tags = app.getChild("Categories").elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
 		tags.IndexedElement(1).uncheck();
 			
@@ -72,17 +72,17 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 			element.uncheck();
 		}
 
-		app.gui("LeftNavigation").Element("SETTINGS").click();
+		app.getChild("LeftNavigation").Element("SETTINGS").click();
 
-		SetuClientGuiElement blogNameTextBox = app.gui("Settings").Element("BLOG_NAME");
+		SetuClientGuiElement blogNameTextBox = app.getChild("Settings").Element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		app.gui("Settings").Element("MEMBERSHIP").check();
+		app.getChild("Settings").Element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		SetuClientGuiElement roleDropDown = app.gui("Settings").Element("ROLE");
+		SetuClientGuiElement roleDropDown = app.getChild("Settings").Element("ROLE");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

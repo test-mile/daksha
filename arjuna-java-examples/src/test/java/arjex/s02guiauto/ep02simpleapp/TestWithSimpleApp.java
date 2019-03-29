@@ -17,38 +17,37 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.guiauto.models.v2.simpleapp;
+package arjex.s02guiauto.ep02simpleapp;
+
+import org.testng.annotations.Test;
 
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.DefaultGui;
 import arjuna.tpi.guiauto.Gui;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.component.DropDown;
-import arjuna.tpi.test.TestConfig;
 
-public class SimpleApp{
+public class TestWithSimpleApp{
 	
-	public static void main(String[] args) throws Exception {
-		// Initialize Daksha
-		TestConfig config = Arjuna.init();
-		
-		// Create Automator (default is Selenium) with default options
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 		
 		// Create Gui. Provide GNS file path.
-		Gui app = new DefaultGui("WordPress", automator, "simpleapp/WordPress.gns");
+		Gui app = new DefaultGui(automator, "WordPress", "simpleapp/WordPress.gns");
 
 		// Login
-		app.Browser().goToUrl("http://192.168.56.103/wp-admin");
-		app.element("login").setText("user");
-		app.element("password").setText("bitnami");
-		app.element("submit").click();
-		app.element("view-site").waitUntilClickable();
+		app.Browser().goToUrl(automator.getConfig().getUserOptionValue("wp.login.url").asString());
+		app.Element("login").setText("user");
+		app.Element("password").setText("bitnami");
+		app.Element("submit").click();
+		app.Element("view-site").waitUntilClickable();
 		
 		// Tweak Settings
-		app.element("settings").click();
+		app.Element("settings").click();
 		
-		DropDown roleSelect = app.dropdown("role");
+		DropDown roleSelect = app.DropDown("role");
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
 		System.out.println(roleSelect.hasValueSelected("subscriber"));
 		System.out.println(roleSelect.hasIndexSelected(2));
@@ -58,7 +57,7 @@ public class SimpleApp{
 		roleSelect.selectByIndex(4);
 		
 		// Logout
-		app.Browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");		
-		app.automator().quit();
+		app.Browser().goToUrl(automator.getConfig().getUserOptionValue("wp.logout.url").asString());		
+		app.getAutomator().quit();
 	}
 }

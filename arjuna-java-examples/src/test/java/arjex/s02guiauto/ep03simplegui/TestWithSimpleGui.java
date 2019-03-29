@@ -17,23 +17,23 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.gui;
+package arjex.s02guiauto.ep03simplegui;
+
+import org.testng.annotations.Test;
 
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
-import arjuna.tpi.test.TestConfig;
 
-public class Ex1LoginLogout {
-
-	public static void main(String[] args) throws Exception {
-		// Initialize Daksha
-		TestConfig config = Arjuna.init();
-		
-		// Create Automator (default is Selenium) with default options
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+public class TestWithSimpleGui {
+	
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 
 		WordPress wp = new WordPress(automator);
 		wp.login();
+		wp.tweakSettings();
 		wp.logout();
 	}
 

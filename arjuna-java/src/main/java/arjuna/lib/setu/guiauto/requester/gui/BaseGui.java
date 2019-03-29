@@ -45,7 +45,7 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 		this.setAutomatorSetuIdArg(automator.getSetuId());
 	}
 	
-	public BaseGui(Gui parent, GuiAutomator automator) throws Exception {
+	public BaseGui(GuiAutomator automator, Gui parent) throws Exception {
 		this(automator);
 		this.parent = parent;
 	}
@@ -97,21 +97,21 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 		load();
 	}
 	
-	public BaseGui(String label, GuiAutomator automator, String defFileName) throws Exception {
+	public BaseGui(GuiAutomator automator, String label, String defFileName) throws Exception {
 		this(automator);
 		this.setLabel(label);
 		this.setDefFileName(defFileName);
 		this.registerWithSetu();
 	}
 	
-	public BaseGui(Gui parent, String label, GuiAutomator automator, String defFileName) throws Exception {
-		this(parent, automator);
+	public BaseGui(GuiAutomator automator, String label, String defFileName, Gui parent) throws Exception {
+		this(automator, parent);
 		this.setLabel(label);
 		this.setDefFileName(defFileName);
 		this.registerWithSetu();
 	}
 
-	protected GuiAutomator getAutomator() {
+	public GuiAutomator getAutomator() {
 		return this.automator;
 	}
 
@@ -123,7 +123,7 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 		children.put(label.toLowerCase(), gui);
 	}
 
-	public Gui gui(String label) throws Exception {
+	public Gui getChild(String label) throws Exception {
 		if (label != null){
 			if (children.containsKey(label.toLowerCase())){
 				return children.get(label.toLowerCase());
@@ -159,32 +159,32 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 	}
 
 	@Override
-	public GuiElement element(String name) throws Exception {
+	public GuiElement Element(String name) throws Exception {
 		return this.Element(With.assignedName(name));
 	}
 
 	@Override
-	public GuiMultiElement multiElement(String name) throws Exception {
+	public GuiMultiElement MultiElement(String name) throws Exception {
 		return this.MultiElement(With.assignedName(name));
 	}
 
 	@Override
-	public DropDown dropdown(String name) throws Exception {
+	public DropDown DropDown(String name) throws Exception {
 		return this.DropDown(With.assignedName(name));
 	}
 
 	@Override
-	public RadioGroup radioGroup(String name) throws Exception {
+	public RadioGroup RadioGroup(String name) throws Exception {
 		return this.RadioGroup(With.assignedName(name));
 	}
 
 	@Override
-	public ChildWindow childWindow(String name) throws Exception {
+	public ChildWindow ChildWindow(String name) throws Exception {
 		return this.childWindow(With.assignedName(name));
 	}
 
 	@Override
-	public Frame frame(String name) throws Exception {
+	public Frame Frame(String name) throws Exception {
 		return this.Frame(With.assignedName(name));
 	}
 
@@ -198,11 +198,6 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 
 	public DomRoot DomRoot() {
 		return this.automator.DomRoot();
-	}
-
-	@Override
-	public GuiAutomator automator() {
-		return this.automator;
 	}
 
 	public boolean isGui() {

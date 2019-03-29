@@ -22,12 +22,12 @@ import arjuna.lib.setu.guiauto.requester.gui.BaseGui;
 
 public class DefaultGui extends BaseGui{
 	
-	public DefaultGui(String label, GuiAutomator automator, String defFileName) throws Exception {
-		super(label, automator, defFileName);
+	public DefaultGui(GuiAutomator automator, String label, String defFileName) throws Exception {
+		super(automator, label, defFileName);
 	}
 	
-	public DefaultGui(Gui parent, String label, GuiAutomator automator, String defFileName) throws Exception {
-		super(parent, label, automator, defFileName);
+	public DefaultGui(GuiAutomator automator, String label, String defFileName, Gui parent) throws Exception {
+		super(automator, label, defFileName, parent);
 	}
 }
 

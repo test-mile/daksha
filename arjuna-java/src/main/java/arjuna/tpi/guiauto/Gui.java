@@ -31,18 +31,18 @@ public interface Gui extends AppAutomator{
 
 	void addChild(String label, Gui gui);
 
-	GuiElement element(String name) throws Exception;
+	GuiElement Element(String name) throws Exception;
 
-	GuiMultiElement multiElement(String name) throws Exception;
+	GuiMultiElement MultiElement(String name) throws Exception;
 	
-	DropDown dropdown(String name) throws Exception;
+	DropDown DropDown(String name) throws Exception;
 
-	RadioGroup radioGroup(String name) throws Exception;
+	RadioGroup RadioGroup(String name) throws Exception;
 	
-	ChildWindow childWindow(String name) throws Exception;
+	ChildWindow ChildWindow(String name) throws Exception;
 	
-	Frame frame(String name) throws Exception;
+	Frame Frame(String name) throws Exception;
 
-	GuiAutomator automator();
+	GuiAutomator getAutomator();
 
 }
