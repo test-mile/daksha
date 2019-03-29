@@ -17,20 +17,22 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package arjex.s02guiauto.ep01selenium;
 
-import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import org.testng.annotations.Test;
+
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.With;
 import arjuna.tpi.guiauto.component.Frame;
 import arjuna.tpi.test.TestConfig;
 
-public class Ex7Frame {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+public class Ex08Frame {
+	
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 		
 		WPLoginLogout.login(automator);
 		
@@ -43,23 +45,23 @@ public class Ex7Frame {
 		With publish = With.id("publish");
 		
 		// Frame by identifier and jump to root
-		automator.frame(With.id("content_ifr")).focus();
+		automator.Frame(With.id("content_ifr")).focus();
 		automator.Element(tinymce).setText("This is a test - frame by name.");
-		automator.domRoot().focus();
+		automator.DomRoot().focus();
 		automator.Element(publish).click();
 		
 		// Frame by index
-		automator.frame(With.index(0)).focus();
+		automator.Frame(With.index(0)).focus();
 		automator.Element(tinymce).setText("This is a test - frame by index.");
 		// Focusing on root from frame itself
-		automator.domRoot().focus();
+		automator.DomRoot().focus();
 		automator.Element(publish).click();
 		
 		// jump to parent
-		Frame frame = automator.domRoot().frame(With.xpath("//iframe"));
+		Frame frame = automator.Frame(With.xpath("//iframe"));
 		frame.focus();
 		automator.Element(tinymce).setText("This is a test - jumping to parent after this.");
-		frame.parent().focus();
+		frame.ParentFrame().focus();
 		automator.Element(publish).click();
 		
 		WPLoginLogout.logout(automator);

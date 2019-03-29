@@ -25,6 +25,6 @@ import arjuna.tpi.guiauto.With;
 public interface Frame extends SetuManagedObject{
 	
 	void focus() throws Exception;
-	Frame parent() throws Exception;
-	Frame frame(With... locators) throws Exception;
+	Frame ParentFrame() throws Exception;
+	Frame Frame(With... locators) throws Exception;
 }

@@ -322,7 +322,7 @@ public class GuiAutoComponentFactory {
 		}
 		
 		@Override
-		public Frame frame(With... locators) throws Exception {
+		public Frame Frame(With... locators) throws Exception {
 			List<Map<String,Object>> arg = new ArrayList<Map<String,Object>>();
 			for(With locator: locators) {
 				arg.add(locator.asMap());
@@ -335,7 +335,7 @@ public class GuiAutoComponentFactory {
 		}
 		
 		@Override
-		public Frame parent() throws Exception {
+		public Frame ParentFrame() throws Exception {
 			SetuResponse response = this.sendRequest(SetuActionType.GUIAUTO_FRAME_GET_PARENT);
 			return new DefaultFrame(this.getTestSession(), this.getAutomator(), response.getValueForElementSetuId());
 		}
@@ -353,7 +353,7 @@ public class GuiAutoComponentFactory {
 		}
 
 		@Override
-		public DefaultFrame frame(With... locators) throws Exception {
+		public DefaultFrame Frame(With... locators) throws Exception {
 			List<Map<String,Object>> arg = new ArrayList<Map<String,Object>>();
 			for(With locator: locators) {
 				arg.add(locator.asMap());
@@ -366,7 +366,7 @@ public class GuiAutoComponentFactory {
 		}
 
 		@Override
-		public Frame parent() throws Exception {
+		public Frame ParentFrame() throws Exception {
 			throw new Exception("DOM root does not have a parent frame.");
 		}	
 	}

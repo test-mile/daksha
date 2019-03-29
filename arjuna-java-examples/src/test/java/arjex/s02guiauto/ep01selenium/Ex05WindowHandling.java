@@ -17,31 +17,34 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package arjex.s02guiauto.ep01selenium;
 
-import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import org.testng.annotations.Test;
+
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.component.ChildWindow;
 import arjuna.tpi.guiauto.component.MainWindow;
-import arjuna.tpi.test.TestConfig;
 
-public class Ex4WindowHandling {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+public class Ex05WindowHandling {
+	
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 		
 		WPLoginLogout.login(automator);
 		
 		MainWindow mainWin = automator.MainWindow();
 		mainWin.maximize();
 		System.out.println(mainWin.getTitle());
+		
 		automator.executeJavaScript("window.open('/abc')");
-		ChildWindow win = automator.latestChildWindow();
+		ChildWindow win = automator.LatestChildWindow();
 		win.focus();
 		System.out.println(win.getTitle());
 		win.close();
+		
 		automator.executeJavaScript("window.open('/def')");
 		automator.executeJavaScript("window.open('/xyz')");
 		automator.closeAllChildWindows();

@@ -103,13 +103,13 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 
 	@Override
-	public DropDown dropdown(With... locators) throws Exception {
+	public DropDown DropDown(With... locators) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_DROPDOWN, locators);
 		return GuiAutoComponentFactory.DropDown(this.testSession, this, elemSetuId);
 	}
 
 	@Override
-	public RadioGroup radioGroup(With... locators) throws Exception {
+	public RadioGroup RadioGroup(With... locators) throws Exception {
 		String elemSetuId = createGenericElement(SetuActionType.GUIAUTO_CREATE_RADIOGROUP, locators);
 		return GuiAutoComponentFactory.RadioGroup(this.testSession, this, elemSetuId);
 	}
@@ -121,8 +121,8 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 	
 	@Override
-	public Frame frame(With... locators) throws Exception {
-		return this.domRoot().frame(locators);
+	public Frame Frame(With... locators) throws Exception {
+		return this.DomRoot().Frame(locators);
 	}
 	
 	@Override
@@ -131,7 +131,7 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 	
 	@Override
-	public ChildWindow latestChildWindow() throws Exception {
+	public ChildWindow LatestChildWindow() throws Exception {
 		return this.mainWindow.latestChildWindow();
 	}
 
@@ -158,7 +158,7 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 	
 	@Override
-	public DomRoot domRoot() {
+	public DomRoot DomRoot() {
 		return domRoot;
 	}
 

@@ -170,12 +170,12 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 
 	@Override
 	public DropDown dropdown(String name) throws Exception {
-		return this.dropdown(With.assignedName(name));
+		return this.DropDown(With.assignedName(name));
 	}
 
 	@Override
 	public RadioGroup radioGroup(String name) throws Exception {
-		return this.radioGroup(With.assignedName(name));
+		return this.RadioGroup(With.assignedName(name));
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 
 	@Override
 	public Frame frame(String name) throws Exception {
-		return this.frame(With.assignedName(name));
+		return this.Frame(With.assignedName(name));
 	}
 
 	public MainWindow MainWindow() throws Exception {
@@ -196,8 +196,8 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 		return this.automator.Browser();
 	}
 
-	public DomRoot domRoot() {
-		return this.automator.domRoot();
+	public DomRoot DomRoot() {
+		return this.automator.DomRoot();
 	}
 
 	@Override

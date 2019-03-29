@@ -43,7 +43,7 @@ public class DirectAutomator{
 		
 		// Tweak Settings
 		automator.Element(With.linkText("Settings")).click();
-		DropDown roleSelect = automator.dropdown(With.id("default_role"));
+		DropDown roleSelect = automator.DropDown(With.id("default_role"));
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
 		System.out.println(roleSelect.hasValueSelected("subscriber"));
 		System.out.println(roleSelect.hasIndexSelected(2));

@@ -17,25 +17,27 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package arjex.s02guiauto.ep01selenium;
 
-import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import org.testng.annotations.Test;
+
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.With;
 import arjuna.tpi.guiauto.component.DropDown;
-import arjuna.tpi.test.TestConfig;
 
-public class Ex5DropDown {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+public class Ex06DropDown {
+	
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 		
 		WPLoginLogout.login(automator);
 
 		automator.Element(With.linkText("Settings")).click();
-		DropDown roleSelect = automator.dropdown(With.id("default_role"));
+		
+		DropDown roleSelect = automator.DropDown(With.id("default_role"));
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
 		System.out.println(roleSelect.hasValueSelected("subscriber"));
 		System.out.println(roleSelect.hasIndexSelected(2));

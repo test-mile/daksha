@@ -17,26 +17,28 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package arjex.s02guiauto.ep01selenium;
 
-import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import org.testng.annotations.Test;
+
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.With;
 import arjuna.tpi.guiauto.component.RadioGroup;
 import arjuna.tpi.test.TestConfig;
 
-public class Ex6RadioGroup {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+public class Ex07RadioGroup {
+	
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 		
 		WPLoginLogout.login(automator);
 		
-		automator.enableSlowMotion(true);
 		automator.Element(With.linkText("Settings")).click();
-		RadioGroup dateFormat = automator.radioGroup(With.name("date_format"));
+		
+		RadioGroup dateFormat = automator.RadioGroup(With.name("date_format"));
 		System.out.println(dateFormat.hasValueSelected("Y-m-d"));
 		System.out.println(dateFormat.hasIndexSelected(1));
 		System.out.println(dateFormat.getFirstSelectedOptionValue());

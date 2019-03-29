@@ -41,17 +41,17 @@ public interface AppAutomator extends SetuManagedObject{
 
 	GuiMultiElement MultiElement(With... locators) throws Exception;
 
-	DropDown dropdown(With... locators) throws Exception;
+	DropDown DropDown(With... locators) throws Exception;
 
-	RadioGroup radioGroup(With... locators) throws Exception;
+	RadioGroup RadioGroup(With... locators) throws Exception;
 	
 	ChildWindow childWindow(With... locators) throws Exception;
 	
-	Frame frame(With... locators) throws Exception;
+	Frame Frame(With... locators) throws Exception;
 
 	MainWindow MainWindow() throws Exception;
 	
-	ChildWindow latestChildWindow() throws Exception;
+	ChildWindow LatestChildWindow() throws Exception;
 	
 	void closeAllChildWindows() throws Exception;
 
@@ -59,7 +59,7 @@ public interface AppAutomator extends SetuManagedObject{
 
 	GuiAutomationContext getAutomationContext();
 
-	DomRoot domRoot();
+	DomRoot DomRoot();
 	
 	Browser Browser();
 	
