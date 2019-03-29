@@ -55,7 +55,7 @@ public interface AppAutomator extends SetuManagedObject{
 	
 	void closeAllChildWindows() throws Exception;
 
-	Alert alert() throws Exception;
+	Alert Alert() throws Exception;
 
 	GuiAutomationContext getAutomationContext();
 

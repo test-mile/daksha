@@ -17,34 +17,36 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.ex.selenium.using.automator;
+package arjex.s02guiauto.ep01selenium;
 
-import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import org.testng.annotations.Test;
+
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.component.Alert;
 import arjuna.tpi.test.TestConfig;
 
-public class Ex3Alerts {
-
-	public static void main(String[] args) throws Exception {
-		TestConfig config = Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
+public class Ex04Alerts {
+	
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
 		
 		WPLoginLogout.login(automator);
 		
 		automator.executeJavaScript("alert('dummy')");
-		automator.alert().confirm();
+		automator.Alert().confirm();
 		automator.executeJavaScript("alert('dummy')");
-		automator.alert().dismiss();
+		automator.Alert().dismiss();
 		
 		automator.executeJavaScript("alert('Sample')");
-		Alert alert = automator.alert();
-		assert alert.getText() == "Sample";
+		Alert alert = automator.Alert();
+		assert alert.getText().equals("Sample");
 		alert.confirm();
 		
 		automator.executeJavaScript("prompt('Are You Sure?')");
-		alert = automator.alert();
+		alert = automator.Alert();
 		alert.sendText("Yes");	
 		alert.confirm();
 		

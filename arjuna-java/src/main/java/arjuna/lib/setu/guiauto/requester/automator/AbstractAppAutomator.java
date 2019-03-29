@@ -115,7 +115,7 @@ public class AbstractAppAutomator extends BaseSetuObject implements AppAutomator
 	}
 
 	@Override
-	public Alert alert() throws Exception {
+	public Alert Alert() throws Exception {
 		String elemSetuId = takeElementFindingAction(SetuActionType.GUIAUTO_CREATE_ALERT);
 		return GuiAutoComponentFactory.Alert(this.testSession, this, elemSetuId);
 	}
