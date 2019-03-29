@@ -19,10 +19,10 @@
 
 package arjuna.ex.guiauto.gettingstarted;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.GuiDriverExtendedConfig;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.GuiDriverExtendedConfig;
+import arjuna.tpi.test.TestConfig;
 
 public class Basic3WithExtendedDriverConfig{
 	
@@ -37,8 +37,8 @@ public class Basic3WithExtendedDriverConfig{
 		GuiAutomator automator = Arjuna.createGuiAutomator(config, exConfig);
 
 		// Basic flow in Firefox, as per the context config
-		automator.browser().goToUrl("https://www.google.com");
-		System.out.println(automator.mainWindow().getTitle());
+		automator.Browser().goToUrl("https://www.google.com");
+		System.out.println(automator.MainWindow().getTitle());
 		automator.quit();
 	}
 

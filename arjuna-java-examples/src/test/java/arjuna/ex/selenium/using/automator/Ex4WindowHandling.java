@@ -19,11 +19,12 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.component.ChildWindow;
-import com.testmile.arjuna.tpi.guiauto.component.MainWindow;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.component.ChildWindow;
+import arjuna.tpi.guiauto.component.MainWindow;
+import arjuna.tpi.test.TestConfig;
 
 public class Ex4WindowHandling {
 
@@ -33,7 +34,7 @@ public class Ex4WindowHandling {
 		
 		WPLoginLogout.login(automator);
 		
-		MainWindow mainWin = automator.mainWindow();
+		MainWindow mainWin = automator.MainWindow();
 		mainWin.maximize();
 		System.out.println(mainWin.getTitle());
 		automator.executeJavaScript("window.open('/abc')");

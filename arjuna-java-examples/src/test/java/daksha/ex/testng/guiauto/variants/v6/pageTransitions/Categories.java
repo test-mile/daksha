@@ -1,8 +1,8 @@
 package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
-import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
+import arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
 
 public class Categories extends BaseNestedGui{
 
@@ -13,7 +13,7 @@ public class Categories extends BaseNestedGui{
 	public void playWithCats() throws Exception {
 		SetuClientGuiMultiElement tags = this.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
-		tags.getInstanceAtIndex(1).uncheck();
+		tags.IndexedElement(1).uncheck();
 			
 		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();

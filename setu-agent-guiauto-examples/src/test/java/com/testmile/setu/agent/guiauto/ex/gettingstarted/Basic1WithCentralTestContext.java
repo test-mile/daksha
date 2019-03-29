@@ -19,9 +19,10 @@
 
 package com.testmile.setu.agent.guiauto.ex.gettingstarted;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
 import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
 import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
+
+import arjuna.lib.setu.actor.JsonUtils;
 
 public class Basic1WithCentralTestContext{
 	

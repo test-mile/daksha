@@ -19,9 +19,9 @@
 
 package arjuna.ex.selenium.using.gui;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.test.TestConfig;
 
 public class Ex1LoginLogout {
 

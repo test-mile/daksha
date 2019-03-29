@@ -19,11 +19,12 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.With;
-import com.testmile.arjuna.tpi.guiauto.component.Frame;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.With;
+import arjuna.tpi.guiauto.component.Frame;
+import arjuna.tpi.test.TestConfig;
 
 public class Ex7Frame {
 
@@ -33,33 +34,33 @@ public class Ex7Frame {
 		
 		WPLoginLogout.login(automator);
 		
-		automator.element(With.linkText("Posts")).click();
-		automator.element(With.linkText("Add New")).click();
+		automator.Element(With.linkText("Posts")).click();
+		automator.Element(With.linkText("Add New")).click();
 		
-		automator.element(With.id("title")).setText("Sample");
+		automator.Element(With.id("title")).setText("Sample");
 		
 		With tinymce = With.id("tinymce");
 		With publish = With.id("publish");
 		
 		// Frame by identifier and jump to root
 		automator.frame(With.id("content_ifr")).focus();
-		automator.element(tinymce).setText("This is a test - frame by name.");
+		automator.Element(tinymce).setText("This is a test - frame by name.");
 		automator.domRoot().focus();
-		automator.element(publish).click();
+		automator.Element(publish).click();
 		
 		// Frame by index
 		automator.frame(With.index(0)).focus();
-		automator.element(tinymce).setText("This is a test - frame by index.");
+		automator.Element(tinymce).setText("This is a test - frame by index.");
 		// Focusing on root from frame itself
 		automator.domRoot().focus();
-		automator.element(publish).click();
+		automator.Element(publish).click();
 		
 		// jump to parent
 		Frame frame = automator.domRoot().frame(With.xpath("//iframe"));
 		frame.focus();
-		automator.element(tinymce).setText("This is a test - jumping to parent after this.");
+		automator.Element(tinymce).setText("This is a test - jumping to parent after this.");
 		frame.parent().focus();
-		automator.element(publish).click();
+		automator.Element(publish).click();
 		
 		WPLoginLogout.logout(automator);
 	}

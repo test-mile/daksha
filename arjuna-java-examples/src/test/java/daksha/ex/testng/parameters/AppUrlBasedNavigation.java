@@ -21,11 +21,11 @@ package daksha.ex.testng.parameters;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.setu.core.requester.config.SetuTestConfig;
-import com.testmile.arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
-import com.testmile.arjuna.tpi.enums.ArjunaOption;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.lib.setu.core.requester.config.SetuTestConfig;
+import arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
+import arjuna.tpi.enums.ArjunaOption;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.testng.TestNGBaseTest;
 
 public class AppUrlBasedNavigation extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
@@ -40,7 +40,7 @@ public class AppUrlBasedNavigation extends TestNGBaseTest {
 	public void test() throws Exception{
 		GuiAutomator automator = this.threadWiseAutomator.get();
 		automator.goToUrl(this.getConfig().getArjunaOptionValue(ArjunaOption.APP_URL).asString());
-		System.out.println(automator.mainWindow().getTitle());
+		System.out.println(automator.MainWindow().getTitle());
 	}
 	
 	public void tearDownClass(SetuTestConfig testConfig) throws Exception {

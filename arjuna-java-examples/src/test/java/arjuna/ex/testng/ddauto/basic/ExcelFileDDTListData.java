@@ -26,10 +26,10 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.ddauto.ListDataRecord;
-import com.testmile.arjuna.tpi.ddauto.ListDataSource;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.ddauto.ListDataRecord;
+import arjuna.tpi.ddauto.ListDataSource;
+import arjuna.tpi.testng.TestNGBaseTest;
 
 public class ExcelFileDDTListData extends TestNGBaseTest {
 	

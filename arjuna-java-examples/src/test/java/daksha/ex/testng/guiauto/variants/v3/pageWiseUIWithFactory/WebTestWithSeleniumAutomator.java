@@ -23,9 +23,9 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.core.config.DefaultTestContext;
-import com.testmile.arjuna.lib.enums.OSType;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.lib.core.config.DefaultTestContext;
+import arjuna.lib.enums.OSType;
+import arjuna.tpi.testng.TestNGBaseTest;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGui> threadWiseHomePage = new ThreadLocal<SetuClientGui>();
@@ -46,22 +46,22 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 
 		gui.goTo(this.getContext().getValue("wp.admin.url").asString());	
 
-		SetuClientGuiElement userTextBox = gui.element("LOGIN");
+		SetuClientGuiElement userTextBox = gui.Element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
-		gui.element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
-		gui.element("SUBMIT").click();		
+		gui.Element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
+		gui.Element("SUBMIT").click();		
 		gui.waitForBody();
 		
 		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
-		gui.element("POSTS").hover();
-		gui.element("CATEGORIES").click();	
+		gui.Element("POSTS").hover();
+		gui.Element("CATEGORIES").click();	
 		gui.waitForBody();
 		
 		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Categories.gns");
 		SetuClientGuiMultiElement tags = gui.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
-		tags.getInstanceAtIndex(1).uncheck();
+		tags.IndexedElement(1).uncheck();
 			
 		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();
@@ -69,18 +69,18 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		}
 
 		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/LeftNavigation.gns");
-		gui.element("SETTINGS").click();
+		gui.Element("SETTINGS").click();
 		
 		gui = GuiFactory.createGui(gui.getAutomator(), "wordpress/Settings.gns");
-		SetuClientGuiElement blogNameTextBox = gui.element("BLOG_NAME");
+		SetuClientGuiElement blogNameTextBox = gui.Element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		gui.element("MEMBERSHIP").check();
+		gui.Element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		SetuClientGuiElement roleDropDown = gui.element("ROLE");
+		SetuClientGuiElement roleDropDown = gui.Element("ROLE");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

@@ -19,11 +19,12 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.With;
-import com.testmile.arjuna.tpi.guiauto.component.RadioGroup;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.With;
+import arjuna.tpi.guiauto.component.RadioGroup;
+import arjuna.tpi.test.TestConfig;
 
 public class Ex6RadioGroup {
 
@@ -34,7 +35,7 @@ public class Ex6RadioGroup {
 		WPLoginLogout.login(automator);
 		
 		automator.enableSlowMotion(true);
-		automator.element(With.linkText("Settings")).click();
+		automator.Element(With.linkText("Settings")).click();
 		RadioGroup dateFormat = automator.radioGroup(With.name("date_format"));
 		System.out.println(dateFormat.hasValueSelected("Y-m-d"));
 		System.out.println(dateFormat.hasIndexSelected(1));

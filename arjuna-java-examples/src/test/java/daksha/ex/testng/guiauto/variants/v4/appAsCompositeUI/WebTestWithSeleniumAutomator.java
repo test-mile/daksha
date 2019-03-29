@@ -23,14 +23,15 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.core.config.DefaultTestContext;
-import com.testmile.arjuna.lib.enums.OSType;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
-import com.testmile.arjuna.tpi.tpi.guiauto.gui.GuiFactory;
-import com.testmile.arjuna.tpi.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
+
+import arjuna.lib.core.config.DefaultTestContext;
+import arjuna.lib.enums.OSType;
+import arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
+import arjuna.tpi.tpi.guiauto.gui.GuiFactory;
+import arjuna.tpi.tpi.guiauto.gui.SetuClientGui;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGui> threadWiseApp = new ThreadLocal<SetuClientGui>();
@@ -51,37 +52,37 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 
 		app.goTo(this.getContext().getValue("wp.admin.url").asString());	
 
-		SetuClientGuiElement userTextBox = app.element("LOGIN");
+		SetuClientGuiElement userTextBox = app.Element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
-		app.element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
-		app.element("SUBMIT").click();		
+		app.Element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
+		app.Element("SUBMIT").click();		
 		app.waitForBody();
 		
-		app.gui("LeftNavigation").element("POSTS").hover();
-		app.gui("LeftNavigation").element("CATEGORIES").click();	
+		app.gui("LeftNavigation").Element("POSTS").hover();
+		app.gui("LeftNavigation").Element("CATEGORIES").click();	
 		app.waitForBody();
 		
 		SetuClientGuiMultiElement tags = app.gui("Categories").elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
-		tags.getInstanceAtIndex(1).uncheck();
+		tags.IndexedElement(1).uncheck();
 			
 		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();
 			element.uncheck();
 		}
 
-		app.gui("LeftNavigation").element("SETTINGS").click();
+		app.gui("LeftNavigation").Element("SETTINGS").click();
 
-		SetuClientGuiElement blogNameTextBox = app.gui("Settings").element("BLOG_NAME");
+		SetuClientGuiElement blogNameTextBox = app.gui("Settings").Element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		app.gui("Settings").element("MEMBERSHIP").check();
+		app.gui("Settings").Element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		SetuClientGuiElement roleDropDown = app.gui("Settings").element("ROLE");
+		SetuClientGuiElement roleDropDown = app.gui("Settings").Element("ROLE");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

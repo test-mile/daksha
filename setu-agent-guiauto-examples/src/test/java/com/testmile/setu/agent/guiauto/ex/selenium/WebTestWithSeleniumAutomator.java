@@ -21,12 +21,13 @@ package com.testmile.setu.agent.guiauto.ex.selenium;
 
 import static org.testng.Assert.assertTrue;
 
-import com.testmile.arjuna.lib.setu.actor.JsonUtils;
 import com.testmile.setu.actor.guiauto.core.tpi.automator.GuiAutomator;
 import com.testmile.setu.actor.guiauto.core.tpi.builder.GuiAutomatorFactory;
 import com.testmile.setu.actor.guiauto.core.tpi.element.GuiElement;
 import com.testmile.setu.actor.guiauto.core.tpi.element.GuiMultiElement;
 import com.testmile.setu.actor.guiauto.core.tpi.handler.element.DropdownHandler;
+
+import arjuna.lib.setu.actor.JsonUtils;
 
 
 /*
@@ -58,8 +59,8 @@ public class WebTestWithSeleniumAutomator{
 		automator.getElementFinder().find("link_text", "Categories").getBasicActionsHandler().click();
 		
 		GuiMultiElement checkboxes = automator.getElementFinder().findAll("name", "delete_tags[]");
-		checkboxes.getInstanceAtIndex(0).getCheckBoxHandler().check();
-		checkboxes.getInstanceAtIndex(0).getCheckBoxHandler().uncheck();
+		checkboxes.IndexedElement(0).getCheckBoxHandler().check();
+		checkboxes.IndexedElement(0).getCheckBoxHandler().uncheck();
 
 		automator.getElementFinder().find("link_text", "Settings").getBasicActionsHandler().click();
 		GuiElement blogName = automator.getElementFinder().find("id", "blogname");

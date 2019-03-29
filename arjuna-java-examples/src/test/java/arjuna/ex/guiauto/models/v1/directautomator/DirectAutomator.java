@@ -19,11 +19,11 @@
 
 package arjuna.ex.guiauto.models.v1.directautomator;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.With;
-import com.testmile.arjuna.tpi.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.With;
+import arjuna.tpi.guiauto.component.DropDown;
+import arjuna.tpi.test.TestConfig;
 
 public class DirectAutomator{
 	
@@ -35,14 +35,14 @@ public class DirectAutomator{
 		GuiAutomator automator = Arjuna.createGuiAutomator(config);	
 		
 		// Login
-		automator.browser().goToUrl("http://192.168.56.103/wp-admin");
-		automator.element(With.id("user_login")).setText("user");
-		automator.element(With.id("user_pass")).setText("bitnami");
-		automator.element(With.id("wp-submit")).click();
-		automator.element(With.className("welcome-view-site")).waitUntilClickable();
+		automator.Browser().goToUrl("http://192.168.56.103/wp-admin");
+		automator.Element(With.id("user_login")).setText("user");
+		automator.Element(With.id("user_pass")).setText("bitnami");
+		automator.Element(With.id("wp-submit")).click();
+		automator.Element(With.className("welcome-view-site")).waitUntilClickable();
 		
 		// Tweak Settings
-		automator.element(With.linkText("Settings")).click();
+		automator.Element(With.linkText("Settings")).click();
 		DropDown roleSelect = automator.dropdown(With.id("default_role"));
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
 		System.out.println(roleSelect.hasValueSelected("subscriber"));
@@ -53,7 +53,7 @@ public class DirectAutomator{
 		roleSelect.selectByIndex(4);
 		
 		// Logout
-		automator.browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");
+		automator.Browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");
 		automator.quit();	
 	}
 }

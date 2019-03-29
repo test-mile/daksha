@@ -23,11 +23,12 @@ import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.core.config.DefaultTestContext;
-import com.testmile.arjuna.lib.enums.GuiAutomationContext;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
-import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
 import com.testmile.setu.actor.guiauto.core.core.builder.AppiumBuilder;
+
+import arjuna.lib.core.config.DefaultTestContext;
+import arjuna.lib.enums.GuiAutomationContext;
+import arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
 
 public class NativeAppAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();

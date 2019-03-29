@@ -2,8 +2,8 @@ package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
 import static org.testng.Assert.assertTrue;
 
-import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
 
 public class Settings extends BaseNestedGui{
 
@@ -12,15 +12,15 @@ public class Settings extends BaseNestedGui{
 	}
 	
 	public void playWithSettings() throws Exception{
-		SetuClientGuiElement blogNameTextBox = this.element("BLOG_NAME");
+		SetuClientGuiElement blogNameTextBox = this.Element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		this.element("MEMBERSHIP").check();
+		this.Element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		SetuClientGuiElement roleDropDown = this.element("ROLE");
+		SetuClientGuiElement roleDropDown = this.Element("ROLE");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

@@ -19,10 +19,11 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.component.Alert;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.component.Alert;
+import arjuna.tpi.test.TestConfig;
 
 public class Ex3Alerts {
 

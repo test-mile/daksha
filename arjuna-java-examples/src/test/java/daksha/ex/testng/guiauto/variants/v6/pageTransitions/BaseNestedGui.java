@@ -1,6 +1,6 @@
 package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
-import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
 
 public abstract class BaseNestedGui extends AbstractWordPressGui{
 	private LeftNavigation leftNav = null;
@@ -19,14 +19,14 @@ public abstract class BaseNestedGui extends AbstractWordPressGui{
 	}
 	
 	public Categories goToCategries() throws Exception {
-		leftNav.element("POSTS").hover();
-		leftNav.element("CATEGORIES").click();	
+		leftNav.Element("POSTS").hover();
+		leftNav.Element("CATEGORIES").click();	
 		leftNav.waitForBody();
 		return new Categories(this.getAutomator());
 	}
 
 	public Settings goToSettings() throws Exception {
-		leftNav.element("SETTINGS").click();
+		leftNav.Element("SETTINGS").click();
 		return new Settings(this.getAutomator());
 	}
 	

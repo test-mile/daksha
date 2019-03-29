@@ -23,13 +23,14 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.core.config.DefaultTestContext;
-import com.testmile.arjuna.lib.enums.OSType;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
-import com.testmile.arjuna.tpi.tpi.guiauto.gui.SetuClientGui;
 import com.testmile.setu.actor.guiauto.core.core.builder.SeleniumBuilder;
+
+import arjuna.lib.core.config.DefaultTestContext;
+import arjuna.lib.enums.OSType;
+import arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
+import arjuna.tpi.tpi.guiauto.gui.SetuClientGui;
 
 public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGui> threadWiseHome = new ThreadLocal<SetuClientGui>();
@@ -50,22 +51,22 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 
 		gui.goTo(this.getContext().getValue("wp.admin.url").asString());	
 
-		SetuClientGuiElement userTextBox = gui.element("LOGIN");
+		SetuClientGuiElement userTextBox = gui.Element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(this.getContext().getValue("wp.username").asString());
-		gui.element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
-		gui.element("SUBMIT").click();		
+		gui.Element("PASSWORD").enterText(this.getContext().getValue("wp.password").asString());
+		gui.Element("SUBMIT").click();		
 		gui.waitForBody();
 		
 		gui = new LeftNavigation(gui.getAutomator());
-		gui.element("POSTS").hover();
-		gui.element("CATEGORIES").click();	
+		gui.Element("POSTS").hover();
+		gui.Element("CATEGORIES").click();	
 		gui.waitForBody();
 		
 		gui = new Categories(gui.getAutomator());
 		SetuClientGuiMultiElement tags = gui.elements("CAT_CHECKBOXES");
 		tags.getInstanceAtOrdinal(2).check();
-		tags.getInstanceAtIndex(1).uncheck();
+		tags.IndexedElement(1).uncheck();
 			
 		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();
@@ -73,18 +74,18 @@ public class WebTestWithSeleniumAutomator extends TestNGBaseTest{
 		}
 
 		gui = new LeftNavigation(gui.getAutomator());
-		gui.element("SETTINGS").click();
+		gui.Element("SETTINGS").click();
 		
 		gui = new Settings(gui.getAutomator());
-		SetuClientGuiElement blogNameTextBox = gui.element("BLOG_NAME");
+		SetuClientGuiElement blogNameTextBox = gui.Element("BLOG_NAME");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.enterText("Hello");
 		blogNameTextBox.setText("Hello");
 		
-		gui.element("MEMBERSHIP").check();
+		gui.Element("MEMBERSHIP").check();
 
 		// Experiments with Select control - Selection using different attributes
-		SetuClientGuiElement roleDropDown = gui.element("ROLE");
+		SetuClientGuiElement roleDropDown = gui.Element("ROLE");
 		roleDropDown.selectText("Author");
 		assertTrue(roleDropDown.hasSelectedText("Author"), "Check Author Role Selected");
 		roleDropDown.selectAtIndex(0);

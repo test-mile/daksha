@@ -19,22 +19,22 @@
 
 package arjuna.ex.guiauto.gettingstarted;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.test.TestConfig;
 
 public class Basic1WithCentralTestContext{
 	
 	public static void main (String args[]) throws Exception {
-		// Initialize Daksha
+		// Initialize Arjuna
 		TestConfig config = Arjuna.init();
 		
 		// Create Automator (default is Selenium) with default options
 		GuiAutomator automator = Arjuna.createGuiAutomator(config);
 		
 		// Basic flow in chrome
-		automator.browser().goToUrl("https://www.google.com");
-		System.out.println(automator.mainWindow().getTitle());
+		automator.Browser().goToUrl("https://www.google.com");
+		System.out.println(automator.MainWindow().getTitle());
 		automator.quit();
 	}
 

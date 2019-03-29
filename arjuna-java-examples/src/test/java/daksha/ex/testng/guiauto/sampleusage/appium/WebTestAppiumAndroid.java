@@ -23,13 +23,14 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.lib.core.config.DefaultTestContext;
-import com.testmile.arjuna.lib.enums.GuiAutomationContext;
-import com.testmile.arjuna.tpi.testng.TestNGBaseTest;
-import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
 import com.testmile.setu.actor.guiauto.core.core.builder.AppiumBuilder;
+
+import arjuna.lib.core.config.DefaultTestContext;
+import arjuna.lib.enums.GuiAutomationContext;
+import arjuna.tpi.testng.TestNGBaseTest;
+import arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiMultiElement;
 
 public class WebTestAppiumAndroid extends TestNGBaseTest{
 	private ThreadLocal<SetuClientGuiAutomator> threadWiseAutomator = new ThreadLocal<SetuClientGuiAutomator>();
@@ -60,7 +61,7 @@ public class WebTestAppiumAndroid extends TestNGBaseTest{
 		
 		SetuClientGuiMultiElement tags = automator.elementsWithName("delete_tags[]");
 		tags.getInstanceAtOrdinal(2).check();
-		tags.getInstanceAtIndex(1).uncheck();
+		tags.IndexedElement(1).uncheck();
 		
 		for (SetuClientGuiElement element: tags.getAllInstances()){
 			element.check();

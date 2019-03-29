@@ -19,11 +19,12 @@
 
 package arjuna.ex.selenium.using.automator;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.With;
-import com.testmile.arjuna.tpi.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjex.s02guiauto.ep01selenium.WPLoginLogout;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.With;
+import arjuna.tpi.guiauto.component.DropDown;
+import arjuna.tpi.test.TestConfig;
 
 public class Ex5DropDown {
 
@@ -33,7 +34,7 @@ public class Ex5DropDown {
 		
 		WPLoginLogout.login(automator);
 
-		automator.element(With.linkText("Settings")).click();
+		automator.Element(With.linkText("Settings")).click();
 		DropDown roleSelect = automator.dropdown(With.id("default_role"));
 		System.out.println(roleSelect.hasVisibleTextSelected("Subscriber"));
 		System.out.println(roleSelect.hasValueSelected("subscriber"));

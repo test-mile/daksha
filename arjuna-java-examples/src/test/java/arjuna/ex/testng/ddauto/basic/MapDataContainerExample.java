@@ -26,9 +26,9 @@ import java.util.Iterator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.ddauto.MapDataRecord;
-import com.testmile.arjuna.tpi.ddauto.MapDataSource;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.ddauto.MapDataRecord;
+import arjuna.tpi.ddauto.MapDataSource;
 
 public class MapDataContainerExample {
 	

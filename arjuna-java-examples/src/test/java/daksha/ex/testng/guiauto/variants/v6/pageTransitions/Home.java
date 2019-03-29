@@ -1,7 +1,7 @@
 package daksha.ex.testng.guiauto.variants.v6.pageTransitions;
 
-import com.testmile.arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
-import com.testmile.arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
+import arjuna.tpi.tpi.guiauto.automator.SetuClientGuiAutomator;
+import arjuna.tpi.tpi.guiauto.element.SetuClientGuiElement;
 
 public class Home extends BaseSimpleGui{
 
@@ -14,11 +14,11 @@ public class Home extends BaseSimpleGui{
 	}
 	
 	public Dashboard login() throws Exception {
-		SetuClientGuiElement userTextBox = this.element("LOGIN");
+		SetuClientGuiElement userTextBox = this.Element("LOGIN");
 		userTextBox.waitUntilPresent();
 		userTextBox.enterText(this.getTestContext().getValue("wp.username").asString());
-		this.element("PASSWORD").enterText(this.getTestContext().getValue("wp.password").asString());
-		this.element("SUBMIT").click();		
+		this.Element("PASSWORD").enterText(this.getTestContext().getValue("wp.password").asString());
+		this.Element("SUBMIT").click();		
 		this.waitForBody();
 		return new Dashboard(this.getAutomator());
 	}

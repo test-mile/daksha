@@ -19,12 +19,12 @@
 
 package arjuna.ex.guiauto.models.v2.simpleapp;
 
-import com.testmile.arjuna.tpi.Arjuna;
-import com.testmile.arjuna.tpi.guiauto.DefaultGui;
-import com.testmile.arjuna.tpi.guiauto.Gui;
-import com.testmile.arjuna.tpi.guiauto.GuiAutomator;
-import com.testmile.arjuna.tpi.guiauto.component.DropDown;
-import com.testmile.arjuna.tpi.test.TestConfig;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.DefaultGui;
+import arjuna.tpi.guiauto.Gui;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.component.DropDown;
+import arjuna.tpi.test.TestConfig;
 
 public class SimpleApp{
 	
@@ -39,7 +39,7 @@ public class SimpleApp{
 		Gui app = new DefaultGui("WordPress", automator, "simpleapp/WordPress.gns");
 
 		// Login
-		app.browser().goToUrl("http://192.168.56.103/wp-admin");
+		app.Browser().goToUrl("http://192.168.56.103/wp-admin");
 		app.element("login").setText("user");
 		app.element("password").setText("bitnami");
 		app.element("submit").click();
@@ -58,7 +58,7 @@ public class SimpleApp{
 		roleSelect.selectByIndex(4);
 		
 		// Logout
-		app.browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");		
+		app.Browser().goToUrl("http://192.168.56.103/wp-login.php?action=logout");		
 		app.automator().quit();
 	}
 }
