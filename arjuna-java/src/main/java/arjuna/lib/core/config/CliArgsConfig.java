@@ -20,10 +20,10 @@ public class CliArgsConfig {
 		Properties props = System.getProperties();
 		Enumeration keys = props.keys();
 		
-		cliArjunaOptionMap.put(ConfigPropertyType.ACENTRAL, new HashMap<ArjunaOption,String>());
-		cliArjunaOptionMap.put(ConfigPropertyType.ACONTEXT, new HashMap<ArjunaOption,String>());
-		cliUserOptionMap.put(ConfigPropertyType.UCENTRAL, new HashMap<String,String>());
-		cliUserOptionMap.put(ConfigPropertyType.UTEST, new HashMap<String,String>());
+		cliArjunaOptionMap.put(ConfigPropertyType.ACO, new HashMap<ArjunaOption,String>());
+		cliArjunaOptionMap.put(ConfigPropertyType.ATO, new HashMap<ArjunaOption,String>());
+		cliUserOptionMap.put(ConfigPropertyType.UCO, new HashMap<String,String>());
+		cliUserOptionMap.put(ConfigPropertyType.UTO, new HashMap<String,String>());
 		
 		Matcher dMatcher = null;
 		Matcher uMatcher = null;
@@ -70,19 +70,19 @@ public class CliArgsConfig {
 	}
 	
 	public Map<ArjunaOption,String> getArjunaCentralOptions(){
-		return this.cliArjunaOptionMap.get(ConfigPropertyType.ACENTRAL);
+		return this.cliArjunaOptionMap.get(ConfigPropertyType.ACO);
 	}
 	
 	public Map<ArjunaOption,String> getArjunaTestOptions(){
-		return this.cliArjunaOptionMap.get(ConfigPropertyType.ACONTEXT);
+		return this.cliArjunaOptionMap.get(ConfigPropertyType.ATO);
 	}
 	
 	public Map<String,String> getUserCentralOptions(){
-		return this.cliUserOptionMap.get(ConfigPropertyType.UCENTRAL);
+		return this.cliUserOptionMap.get(ConfigPropertyType.UCO);
 	}
 	
 	public Map<String,String> getUserTestOptions(){
-		return this.cliUserOptionMap.get(ConfigPropertyType.UTEST);
+		return this.cliUserOptionMap.get(ConfigPropertyType.UTO);
 	}
 
 }

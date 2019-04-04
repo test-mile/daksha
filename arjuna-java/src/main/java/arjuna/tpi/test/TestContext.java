@@ -6,7 +6,7 @@ import arjuna.tpi.enums.ArjunaOption;
 
 public interface TestContext {
 
-	void addSetuOption(ArjunaOption option, Object value) throws Exception;
+	void addArjunaOption(ArjunaOption option, Object value) throws Exception;
 
 	void addUserOption(String option, Object obj) throws Exception;
 
