@@ -17,24 +17,21 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s02guiauto.ep03simplegui;
+package arjuna.tpi.guiauto;
+import arjuna.lib.setu.guiauto.requester.gui.BaseGui;
 
-import org.testng.annotations.Test;
-
-import arjuna.tpi.Arjuna;
-import arjuna.tpi.guiauto.GuiAutomator;
-
-public class TestWithSimpleGui {
+public abstract class SimpleBaseChildGui extends BaseGui{
 	
-	@Test
-	public void test() throws Exception{
-		Arjuna.init();
-		GuiAutomator automator = Arjuna.createGuiAutomator();
-
-		WordPress wp = new WordPress(automator);
-		wp.login();
-		wp.tweakSettings();
-		wp.logout();
+	public SimpleBaseChildGui(GuiAutomator automator, Gui parent, String appDefDir) throws Exception {
+		super(automator, parent);
+		String label = this.getClass().getSimpleName();
+		this.setLabel(label);
+		this.setDefFileName(appDefDir + "/" + label + ".gns");
+		this.register();
 	}
-
+	
+	public SimpleBaseChildGui(GuiAutomator automator, Gui parent) throws Exception {
+		this(automator, parent, "");
+	}
 }
+

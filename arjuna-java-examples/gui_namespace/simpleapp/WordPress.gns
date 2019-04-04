@@ -32,7 +32,7 @@ X_TEXT =Posts
 
 [SETTINGS]
 #web,android_web
-css_selector = .dashicons-admin-settings
+link_text = Settings
 
 [NAVIGATION]
 #web,android_web

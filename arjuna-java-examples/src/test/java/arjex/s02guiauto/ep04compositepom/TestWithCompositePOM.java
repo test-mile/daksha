@@ -17,21 +17,30 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.tpi.guiauto;
-import arjuna.lib.setu.guiauto.requester.gui.BaseGui;
+package arjex.s02guiauto.ep04compositepom;
 
-public abstract class SimpleBaseGui extends BaseGui{
+import org.testng.annotations.Test;
+
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+
+public class TestWithCompositePOM {
 	
-	public SimpleBaseGui(GuiAutomator automator, String appDefDir) throws Exception {
-		super(automator);
-		String label = this.getClass().getSimpleName();
-		this.setLabel(label);
-		this.setDefFileName(appDefDir + "/" + label + ".gns");
-		this.register();
+	@Test
+	public void test() throws Exception{
+		Arjuna.init();
+		GuiAutomator automator = Arjuna.createGuiAutomator();
+
+		HomePage home = new HomePage(automator);
+		home
+		.login()
+		.getLeftNav()
+		.goToSettings()
+		.tweakSettings()
+		.getTopMenu()
+		.logout();
+		
+		automator.quit();
 	}
-	
-	public SimpleBaseGui(GuiAutomator automator) throws Exception {
-		this(automator, "");
-	}
+
 }
-

@@ -65,7 +65,7 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 		this.defFileName = name;
 	}
 	
-	protected void registerWithSetu() throws Exception{
+	protected void register() throws Exception{
 		if (guiRegistered) throw new Exception("Attempt to re-register Gui with Setu.");
 		List<SetuArg> args = new ArrayList<SetuArg>();
 		args.add(SetuArg.arg("testSessionSetuId", this.testSession.getSetuId()));
@@ -101,14 +101,14 @@ public class BaseGui extends AbstractAppAutomator implements Gui{
 		this(automator);
 		this.setLabel(label);
 		this.setDefFileName(defFileName);
-		this.registerWithSetu();
+		this.register();
 	}
 	
 	public BaseGui(GuiAutomator automator, String label, String defFileName, Gui parent) throws Exception {
 		this(automator, parent);
 		this.setLabel(label);
 		this.setDefFileName(defFileName);
-		this.registerWithSetu();
+		this.register();
 	}
 
 	public GuiAutomator getAutomator() {
