@@ -21,7 +21,7 @@ public abstract class GuiAutoAction {
 	public GuiAutoAction(String jsonActionStr) {
 		JsonObject o = parser.parse(jsonActionStr).getAsJsonObject();
 		this.action = o.get("action").getAsString().toUpperCase();
-		if(o.has("args")) {
+//		if(o.has("args")) {
 			String rawArgsStr = o.get("args").toString();	
 			args = new HashMap<String, Value>();
 			Type type = new TypeToken<Map<String, String>>(){}.getType();
@@ -29,7 +29,7 @@ public abstract class GuiAutoAction {
 			for (String key: config.keySet()) {
 				args.put(key, new StringValue(config.get(key)));
 			}
-		}
+//		}
 	}
 	
 	protected String getActionTypeStr() {

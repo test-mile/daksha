@@ -1,8 +1,8 @@
 {
 
-		"ROOT_DIR" :  "/Users/rahulverma/Documents/github_tm/daksha/daksha-examples/",
-		"LOG_DIR" : "/Users/rahulverma/Documents/github_tm/daksha/daksha-examples/log/",
-		"SCREENSHOTS_DIR" : "/Users/rahulverma/Documents/github_tm/daksha/daksha-examples/screenshots/",
+		"ROOT_DIR" :  "G:\__work__\tm\cxap\2018_webauto\CSE-Foundations",
+		"LOG_DIR" : "G:\__work__\tm\cxap\2018_webauto\CSE-Foundations\log",
+		"SCREENSHOTS_DIR" : "G:\__work__\tm\cxap\2018_webauto\CSE-Foundations\screenshots",
 		
 		"TESTRUN_ENVIRONMENT" : "TEST",
 		"TESTRUN_TARGET_PLATFORM" : "windows",
@@ -30,8 +30,8 @@
 		"MOBILE_APP_FILE_PATH" : null,
 		
 		"SELENIUM_DRIVER_PROP" : "webdriver.chrome.driver",
-		"SELENIUM_DRIVERS_DIR" : "/Users/rahulverma/Documents/____drivers",	
-		"SELENIUM_DRIVER_PATH" : "/Users/rahulverma/Documents/____drivers/chromedriver",
+		"SELENIUM_DRIVERS_DIR" : "G:\__work__\tm\cxap\2018_webauto\CSE-Foundations\drivers",	
+		"SELENIUM_DRIVER_PATH" : "G:\__work__\tm\cxap\2018_webauto\CSE-Foundations\drivers\chromedriver.exe",
 		
 		"APPIUM_HUB_URL" : "http://127.0.0.1:4723/wd/hub",
 		"APPIUM_AUTO_LAUNCH" : "false",
