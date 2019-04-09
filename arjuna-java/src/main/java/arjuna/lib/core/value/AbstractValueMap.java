@@ -110,7 +110,7 @@ public abstract class AbstractValueMap<T> implements RWValueMap<T>{
 	}
 
 	@Override
-	public String string(T key) throws Exception {
+	public String strValue(T key) throws Exception {
 		validateKey(key);
 		return value(key).toString();
 	}
@@ -147,6 +147,11 @@ public abstract class AbstractValueMap<T> implements RWValueMap<T>{
 	@Override
 	public void addAll(ValueMap<T> valueMap) throws Exception {
 		this.addAll(valueMap.items());
+	}
+	
+	@Override
+	public boolean isEmpty() throws Exception {
+		return this.map.size() == 0;
 	}
 
 }

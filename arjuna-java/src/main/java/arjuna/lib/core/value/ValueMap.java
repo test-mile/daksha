@@ -15,10 +15,11 @@ public interface ValueMap<T> {
 
 	Map<String, String> strItems(List<T> filterKeys) throws Exception;
 
-	Value value(T key) throws Exception;
+	Value value(T name) throws Exception;
 
-	String string(T key) throws Exception;
+	String strValue(T key) throws Exception;
 
 	boolean hasKey(T key) throws Exception;
 
+	boolean isEmpty() throws Exception;
 }

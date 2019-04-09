@@ -122,21 +122,26 @@ public class AbstractValueList implements RWValueList{
 	}
 
 	@Override
-	public Value valueAt(int index) throws Exception {
+	public Value value(int index) throws Exception {
 		validateIndex(index);
 		return this.values.get(index);
 	}
 	
 	@Override
-	public String stringAt(int index) throws Exception {
+	public String strValue(int index) throws Exception {
 		validateIndex(index);
-		return valueAt(index).toString();
+		return value(index).toString();
 	}
 
 	@Override
-	public Object objectAt(int index) throws Exception {
+	public Object object(int index) throws Exception {
 		validateIndex(index);
-		return valueAt(index).object();
+		return value(index).object();
+	}
+	
+	@Override
+	public boolean isEmpty() throws Exception {
+		return this.values.size() == 0;
 	}
 
 }

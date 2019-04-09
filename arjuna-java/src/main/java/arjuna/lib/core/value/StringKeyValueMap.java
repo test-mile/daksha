@@ -32,4 +32,5 @@ public class StringKeyValueMap extends AbstractValueMap<String>{
 	protected String formatKeyAsStr(String key) {
 		return key;
 	}
+
 }
