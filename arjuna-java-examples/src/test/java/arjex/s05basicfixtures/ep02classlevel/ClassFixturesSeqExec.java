@@ -17,33 +17,39 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s05params.ep04methodfixture;
+package arjex.s05basicfixtures.ep02classlevel;
 
 import org.testng.annotations.Test;
 
-import arjuna.lib.setu.core.requester.config.SetuTestConfig;
-import arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
-import arjuna.tpi.enums.ArjunaOption;
+import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.testng.TestNGBaseTest;
 
-public class AppUrlBasedNavigation extends TestNGBaseTest {
-	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
+public class ClassFixturesSeqExec extends TestNGBaseTest {
+	private GuiAutomator automator = null;
 	
-	protected void setUpClass(SetuTestConfig testConfig) throws Exception {
-		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
-		threadWiseAutomator.set(automator);
-		automator.launch();
+	protected void setUpClass(TestConfig testConfig) throws Exception {
+		automator = Arjuna.createGuiAutomator();
+	}
+	
+	protected void tearDownClass(TestConfig testConfig) throws Exception {
+		automator.quit();
+		automator = null;
+	}
+	
+	private void goToUrl(String url) throws Exception {
+		automator.Browser().goToUrl(url);
+		System.out.println(automator.MainWindow().getTitle());	
 	}
 	
 	@Test
-	public void test() throws Exception{
-		GuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goToUrl(this.getConfig().getArjunaOptionValue(ArjunaOption.APP_URL).asString());
-		System.out.println(automator.MainWindow().getTitle());
+	public void test1() throws Exception{
+		goToUrl("https://www.google.com");
 	}
 	
-	public void tearDownClass(SetuTestConfig testConfig) throws Exception {
-		this.threadWiseAutomator.get().quit();
+	@Test
+	public void test2() throws Exception{
+		goToUrl("http://www.testmile.com");
 	}
 }

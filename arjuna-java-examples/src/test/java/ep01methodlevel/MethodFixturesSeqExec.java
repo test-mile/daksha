@@ -17,27 +17,29 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s05params.ep04methodfixture;
+package arjex.s05basicfixtures.ep01methodlevel;
 
 import org.testng.annotations.Test;
 
-import arjuna.lib.setu.core.requester.config.SetuTestConfig;
-import arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
+import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.testng.TestNGBaseTest;
 
-public class MethodLevelSetup extends TestNGBaseTest {
-	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
+public class MethodFixturesSeqExec extends TestNGBaseTest {
+	private GuiAutomator automator = null;
 	
-	protected void setUpMethod(SetuTestConfig testConfig) throws Exception {
-		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
-		threadWiseAutomator.set(automator);
-		automator.launch();
+	protected void setUpMethod(TestConfig testConfig) throws Exception {
+		automator = Arjuna.createGuiAutomator();
+	}
+	
+	protected void tearDownMethod(TestConfig testConfig) throws Exception {
+		automator.quit();
+		automator = null;
 	}
 	
 	private void goToUrl(String url) throws Exception {
-		GuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goToUrl(url);
+		automator.Browser().goToUrl(url);
 		System.out.println(automator.MainWindow().getTitle());	
 	}
 	
@@ -49,9 +51,5 @@ public class MethodLevelSetup extends TestNGBaseTest {
 	@Test
 	public void test2() throws Exception{
 		goToUrl("http://www.testmile.com");
-	}
-	
-	protected void tearDownMethod(SetuTestConfig testConfig) throws Exception {
-		this.threadWiseAutomator.get().quit();
 	}
 }
