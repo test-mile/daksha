@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s03ddauto.ep01programmatic;
+package arjex.s04ddauto.ep04filtering;
 
 import static org.testng.Assert.assertEquals;
 
@@ -29,18 +29,16 @@ import org.testng.annotations.Test;
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.ddauto.MapDataRecord;
 import arjuna.tpi.ddauto.MapDataSource;
+import arjuna.tpi.testng.TestNGBaseTest;
 
-public class MapDataContainerExample {
+public class Filter_ExcelFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
 		MapDataSource source = 
 				Arjuna
 				.createDataSourceBuilder()
-				.mapDataContainer("left", "right", "sum")
-				.record(1,2,3)
-				.record(4,5,9)
-				.record(7,8,12)
+				.fileMapDataSource("input_exclude_ex.xls")
 				.build();
 		return source.iterRecordsForTestNG();
 	}
@@ -52,6 +50,5 @@ public class MapDataContainerExample {
 		int expectedSum = record.value("Sum").asInt();
 		assertEquals(expectedSum, left+right);
 	}
-
 }
 

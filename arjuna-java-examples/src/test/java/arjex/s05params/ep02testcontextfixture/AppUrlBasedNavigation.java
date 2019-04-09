@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s04testng.e01params;
+package arjex.s05params.ep02testcontextfixture;
 
 import org.testng.annotations.Test;
 

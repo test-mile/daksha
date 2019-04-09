@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s03ddauto.ep03filevariants;
+package arjex.s04ddauto.ep01programmatic;
 
 import static org.testng.Assert.assertEquals;
 
@@ -27,49 +27,31 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import arjuna.tpi.Arjuna;
-import arjuna.tpi.ddauto.ListDataRecord;
-import arjuna.tpi.ddauto.ListDataSource;
 import arjuna.tpi.ddauto.MapDataRecord;
 import arjuna.tpi.ddauto.MapDataSource;
-import arjuna.tpi.testng.TestNGBaseTest;
 
-public class TabDelimFileDDT extends TestNGBaseTest {
+public class MapDataContainerExample {
 	
-	@DataProvider(name="dp1")
-	public Iterator<Object[]> linkListDataSource() throws Exception {
-		ListDataSource source = 
-				Arjuna
-				.createDataSourceBuilder()
-				.fileListDataSource("input.txt")
-				.build();
-		return source.iterRecordsForTestNG();
-	}
-	
-	@Test(dataProvider="dp1")
-	public void repeat(ListDataRecord record) throws Exception {
-		System.out.println("Executing....");
-		int left = record.value(0).asInt();
-		int right = record.value(1).asInt();
-		int expectedSum = record.value(2).asInt();
-		assertEquals(expectedSum, left+right);
-	}
-	
-	@DataProvider(name="dp2")
-	public Iterator<Object[]> linkMapDataSource() throws Exception {
+	@DataProvider(name="dp")
+	public Iterator<Object[]> linkDataSource() throws Exception {
 		MapDataSource source = 
 				Arjuna
 				.createDataSourceBuilder()
-				.fileMapDataSource("input.txt")
+				.mapDataContainer("left", "right", "sum")
+				.record(1,2,3)
+				.record(4,5,9)
+				.record(7,8,12)
 				.build();
 		return source.iterRecordsForTestNG();
 	}
 	
-	@Test(dataProvider="dp2")
+	@Test(dataProvider="dp")
 	public void repeat(MapDataRecord record) throws Exception {
 		int left = record.value("Left").asInt();
 		int right = record.value("Right").asInt();
 		int expectedSum = record.value("Sum").asInt();
 		assertEquals(expectedSum, left+right);
 	}
+
 }
 

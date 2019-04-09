@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s03ddauto.ep01programmatic;
+package arjex.s04ddauto.ep02excel;
 
 import static org.testng.Assert.assertEquals;
 
@@ -27,30 +27,29 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import arjuna.tpi.Arjuna;
-import arjuna.tpi.ddauto.ListDataRecord;
-import arjuna.tpi.ddauto.ListDataSource;
+import arjuna.tpi.ddauto.MapDataRecord;
+import arjuna.tpi.ddauto.MapDataSource;
+import arjuna.tpi.testng.TestNGBaseTest;
 
-public class ListDataContainerExample{
+public class ExcelFileDDTMapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
-		ListDataSource source = 
+		MapDataSource source = 
 				Arjuna
 				.createDataSourceBuilder()
-				.listDataContainer()
-				.record(1,2,3)
-				.record(4,5,9)
-				.record(7,8,12)
+				.fileMapDataSource("input.xls")
 				.build();
 		return source.iterRecordsForTestNG();
 	}
 	
 	@Test(dataProvider="dp")
-	public void repeat(ListDataRecord record) throws Exception {
-		int left = record.value(0).asInt();
-		int right = record.value(1).asInt();
-		int expectedSum = record.value(2).asInt();
+	public void repeat(MapDataRecord record) throws Exception {
+		int left = record.value("Left").asInt();
+		int right = record.value("Right").asInt();
+		int expectedSum = record.value("Sum").asInt();
 		assertEquals(expectedSum, left+right);
 	}
+
 }
 

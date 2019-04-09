@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s04testng.e01params;
+package arjex.s05params.ep02testcontextfixture;
 
 import org.testng.annotations.Test;
 
@@ -26,23 +26,32 @@ import arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.testng.TestNGBaseTest;
 
-public class TestMile extends TestNGBaseTest {
+public class MethodLevelSetup extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	protected void setUpClass(SetuTestConfig testConfig) throws Exception {
+	protected void setUpMethod(SetuTestConfig testConfig) throws Exception {
 		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
 		threadWiseAutomator.set(automator);
 		automator.launch();
 	}
 	
-	@Test
-	public void test() throws Exception{
+	private void goToUrl(String url) throws Exception {
 		GuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goToUrl("https://testmile.com");
-		System.out.println(automator.MainWindow().getTitle());
+		automator.goToUrl(url);
+		System.out.println(automator.MainWindow().getTitle());	
 	}
 	
-	public void tearDownClass(SetuTestConfig testConfig) throws Exception {
+	@Test
+	public void test1() throws Exception{
+		goToUrl("https://www.google.com");
+	}
+	
+	@Test
+	public void test2() throws Exception{
+		goToUrl("http://www.testmile.com");
+	}
+	
+	protected void tearDownMethod(SetuTestConfig testConfig) throws Exception {
 		this.threadWiseAutomator.get().quit();
 	}
 }

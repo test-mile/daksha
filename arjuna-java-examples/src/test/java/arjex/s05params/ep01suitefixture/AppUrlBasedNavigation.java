@@ -17,16 +17,17 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s04testng.e01params;
+package arjex.s05params.ep01suitefixture;
 
 import org.testng.annotations.Test;
 
 import arjuna.lib.setu.core.requester.config.SetuTestConfig;
 import arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
+import arjuna.tpi.enums.ArjunaOption;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.testng.TestNGBaseTest;
 
-public class Google extends TestNGBaseTest {
+public class AppUrlBasedNavigation extends TestNGBaseTest {
 	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
 	protected void setUpClass(SetuTestConfig testConfig) throws Exception {
@@ -38,7 +39,7 @@ public class Google extends TestNGBaseTest {
 	@Test
 	public void test() throws Exception{
 		GuiAutomator automator = this.threadWiseAutomator.get();
-		automator.goToUrl("https://www.google.com");
+		automator.goToUrl(this.getConfig().getArjunaOptionValue(ArjunaOption.APP_URL).asString());
 		System.out.println(automator.MainWindow().getTitle());
 	}
 	

@@ -17,7 +17,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s03ddauto.ep02excel;
+package arjex.s04ddauto.ep04filtering;
 
 import static org.testng.Assert.assertEquals;
 
@@ -31,14 +31,14 @@ import arjuna.tpi.ddauto.MapDataRecord;
 import arjuna.tpi.ddauto.MapDataSource;
 import arjuna.tpi.testng.TestNGBaseTest;
 
-public class ExcelFileDDTMapData extends TestNGBaseTest {
+public class Filter_IniFileDDT_MapData extends TestNGBaseTest {
 	
 	@DataProvider(name="dp")
 	public Iterator<Object[]> linkDataSource() throws Exception {
 		MapDataSource source = 
 				Arjuna
 				.createDataSourceBuilder()
-				.fileMapDataSource("input.xls")
+				.fileMapDataSource("input_exclude_ex.ini")
 				.build();
 		return source.iterRecordsForTestNG();
 	}

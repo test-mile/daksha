@@ -17,38 +17,32 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjex.s03ddauto.ep04filtering;
+package arjex.s05params.ep03classfixture;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.Iterator;
-
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import arjuna.tpi.Arjuna;
-import arjuna.tpi.ddauto.MapDataRecord;
-import arjuna.tpi.ddauto.MapDataSource;
+import arjuna.lib.setu.core.requester.config.SetuTestConfig;
+import arjuna.lib.setu.guiauto.requester.automator.DefaultGuiAutomator;
+import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.testng.TestNGBaseTest;
 
-public class Filter_ExcelFileDDT_MapData extends TestNGBaseTest {
+public class TestMile extends TestNGBaseTest {
+	private ThreadLocal<GuiAutomator> threadWiseAutomator = new ThreadLocal<GuiAutomator>();
 	
-	@DataProvider(name="dp")
-	public Iterator<Object[]> linkDataSource() throws Exception {
-		MapDataSource source = 
-				Arjuna
-				.createDataSourceBuilder()
-				.fileMapDataSource("input_exclude_ex.xls")
-				.build();
-		return source.iterRecordsForTestNG();
+	protected void setUpClass(SetuTestConfig testConfig) throws Exception {
+		GuiAutomator automator = new DefaultGuiAutomator(testConfig);
+		threadWiseAutomator.set(automator);
+		automator.launch();
 	}
 	
-	@Test(dataProvider="dp")
-	public void repeat(MapDataRecord record) throws Exception {
-		int left = record.value("Left").asInt();
-		int right = record.value("Right").asInt();
-		int expectedSum = record.value("Sum").asInt();
-		assertEquals(expectedSum, left+right);
+	@Test
+	public void test() throws Exception{
+		GuiAutomator automator = this.threadWiseAutomator.get();
+		automator.goToUrl("https://testmile.com");
+		System.out.println(automator.MainWindow().getTitle());
+	}
+	
+	public void tearDownClass(SetuTestConfig testConfig) throws Exception {
+		this.threadWiseAutomator.get().quit();
 	}
 }
-
