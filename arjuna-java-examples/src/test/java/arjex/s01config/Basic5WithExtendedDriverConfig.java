@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2015-19 Test Mile Software Testing Pvt Ltd
+ * Copyright 2015-18 Test Mile Software Testing Pvt Ltd
  * 
  * Website: www.TestMile.com
  * Email: support [at] testmile.com
@@ -17,20 +17,30 @@
  * limitations under the License.
  ******************************************************************************/
 
-package arjuna.lib.testng;
+package arjex.s01config;
 
-import org.testng.ITestContext;
-
-import arjuna.lib.core.config.DefaultTestContext;
-import arjuna.lib.setu.testsession.requester.TestSession;
+import arjuna.tpi.Arjuna;
+import arjuna.tpi.guiauto.GuiAutomator;
+import arjuna.tpi.guiauto.GuiDriverExtendedConfig;
 import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 
-public class TestNGTestContext extends DefaultTestContext{
+public class Basic5WithExtendedDriverConfig{
 	
-	public TestNGTestContext(TestSession testsession, TestContext parentContext, ITestContext context) throws Exception {
-		super(testsession, context.getName(), parentContext);
-		this.updateOptions(context.getCurrentXmlTest().getAllParameters());
+	public static void main (String args[]) throws Exception {
+		// Initialize Daksha
+		TestContext context = Arjuna.init();
+		
+		GuiDriverExtendedConfig exConfig = new GuiDriverExtendedConfig();
+		exConfig.browserArg("--headless");
+
+		// Create Automator (default is Selenium) with context config
+		GuiAutomator automator = Arjuna.createGuiAutomator(context.getConfig(), exConfig);
+
+		// Basic flow in Firefox, as per the context config
+		automator.Browser().goToUrl("https://www.google.com");
+		System.out.println(automator.MainWindow().getTitle());
+		automator.quit();
 	}
 
 }

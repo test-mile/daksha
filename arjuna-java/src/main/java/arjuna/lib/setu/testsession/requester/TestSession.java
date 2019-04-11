@@ -14,8 +14,8 @@ public interface TestSession extends SetuManagedObject {
 
 	TestConfig init(String rootDir) throws Exception;
 	void finish() throws Exception;
-	String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception;
-	String registerChildConfig(String parentConfigSetuId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception;
+	String registerConfig(Map<String, String> arjunaOptions, Map<String, Value> userOptions) throws Exception;
+	String registerChildConfig(String parentConfigSetuId, Map<String, String> arjunaOptions, Map<String, Value> userOptions) throws Exception;
 	String createFileDataSource(DataRecordType recordType, String fileName, List<SetuArg> argPairs) throws Exception;
 	String createGui(GuiAutomator automator, SetuArg... args) throws Exception;	
 }

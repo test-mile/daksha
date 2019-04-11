@@ -284,7 +284,7 @@ class DefaultFileMapDataSourceBuilder extends DefaultFileDataSourceBuiler<MapDat
 
 //TestNG does not provide any straight-foward support for lazy data generators.
 //Calling hasNext and then next to a remote service is not good especially in case of shared data sources.
-//So, for Daksha, which uses TestNG as its primary engine, irrespective of nature of data source,
+//So, for Arjuna, which uses TestNG as its primary engine, irrespective of nature of data source,
 //only greedy data sources are provided. Don't use for large data sets.
 
 abstract class SetuDataSource<D> extends BaseSetuObject {
@@ -335,7 +335,7 @@ abstract class SetuDataSource<D> extends BaseSetuObject {
 	}
 	
 	public void reset() throws Exception {
-		// No use in Daksha
+		// No use in Arjuna
 		// However Setu has concept of resetting of Data source. Can not be used with TestNG.
 		this.iterCreated = false;
 	}

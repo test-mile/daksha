@@ -39,13 +39,13 @@ public class CliArgsConfig {
 		    	try {
 		    		dProp = dMatcher.group(2);
 		    	} catch (Exception e) {
-		    		throw new Exception(String.format("Empty Daksha Option Key provided in CLI: %s", key));
+		    		throw new Exception(String.format("Empty Arjuna Option Key provided in CLI: %s", key));
 		    	}
 		    	
 		    	try {
-		    		dOption = ArjunaSingleton.INSTANCE.normalizeSetuOption(dMatcher.group(2));
+		    		dOption = ArjunaSingleton.INSTANCE.normalizeArjunaOption(dMatcher.group(2));
 		    	} catch (Exception e) {
-		    		throw new Exception(String.format("You have provided an invalid Daksha Option in CLI: %s", key));
+		    		throw new Exception(String.format("You have provided an invalid Arjuna Option in CLI: %s", key));
 		    	}
 		    	
 		    	cliArjunaOptionMap.get(cType).put(dOption, (String) props.getProperty(key));

@@ -24,16 +24,27 @@ import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 
-public class Basic1WithCentralTestContext{
+public class Basic4WithCustomTestContextMultiConfig{
 	
 	public static void main (String args[]) throws Exception {
-		// Initialize Arjuna
 		Arjuna.init();
+
+		String contextName = "custom";
+		TestContext context = Arjuna.createTestContext(contextName);
+
+		context
+		.ConfigBuilder()
+		.firefox()
+		.build("ff");
+
+		// Launch using the default config of custom context
+		GuiAutomator automator = Arjuna.createGuiAutomator(context.getConfig());
+		automator.Browser().goToUrl("https://www.google.com");
+		System.out.println(automator.MainWindow().getTitle());
+		automator.quit();
 		
-		// Create Automator (default is Selenium) with default options
-		GuiAutomator automator = Arjuna.createGuiAutomator(Arjuna.getCentralConfig());
-		
-		// Basic flow in chrome
+		// Launch using the newly created config
+		automator = Arjuna.createGuiAutomator(context.getConfig("ff"));
 		automator.Browser().goToUrl("https://www.google.com");
 		System.out.println(automator.MainWindow().getTitle());
 		automator.quit();

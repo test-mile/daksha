@@ -24,28 +24,28 @@ import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 
-public class Basic2WithCustomTestContext{
+public class Basic2MultiConfig{
 	
 	public static void main (String args[]) throws Exception {
-		// Initialize Daksha
-		Arjuna.init();
-		
-		// Create a custom test context. Contains all values from central config
-		// A context assists you in creating a new configuration programmatically.
-		String contextName = "custom";
-		TestContext context = Arjuna.createTestContext(contextName);
+		// Initialize Arjuna and capture the returned context
+		TestContext context = Arjuna.init();
 		
 		// Changing an option in context config as different from central option
 		// You can tweak any number of options
-		context.firefox();
-		
 		// The build step sends information to Setu and creates a unique frozen config
-		TestConfig config = context.build(); 
+		context
+		.ConfigBuilder()
+		.firefox()
+		.build("ff");
 
-		// Create Automator (default is Selenium) with context config
-		GuiAutomator automator = Arjuna.createGuiAutomator(config);
-
-		// Basic flow in Firefox, as per the context config
+		// Launch using the default config of context
+		GuiAutomator automator = Arjuna.createGuiAutomator(context.getConfig());
+		automator.Browser().goToUrl("https://www.google.com");
+		System.out.println(automator.MainWindow().getTitle());
+		automator.quit();
+		
+		// Launch using the newly created config
+		automator = Arjuna.createGuiAutomator(context.getConfig("ff"));
 		automator.Browser().goToUrl("https://www.google.com");
 		System.out.println(automator.MainWindow().getTitle());
 		automator.quit();

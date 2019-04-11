@@ -23,12 +23,13 @@ import org.testng.ITestContext;
 
 import arjuna.lib.core.config.DefaultTestContext;
 import arjuna.lib.setu.testsession.requester.TestSession;
+import arjuna.tpi.test.TestContext;
 
 public class TestNGSuiteContext extends DefaultTestContext{
 	
-	public TestNGSuiteContext(TestSession testsession, ITestContext context) throws Exception {
-		super(testsession, context.getSuite().getName());
-		this.addOptions(context.getSuite().getXmlSuite().getAllParameters());
+	public TestNGSuiteContext(TestSession testsession, TestContext parentContext, ITestContext context) throws Exception {
+		super(testsession, context.getSuite().getName(), parentContext);
+		this.updateOptions(context.getSuite().getXmlSuite().getAllParameters());
 	}
 
 }

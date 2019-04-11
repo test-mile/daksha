@@ -33,25 +33,25 @@ public class DefaultTestSession extends BaseSetuObject implements TestSession {
 		
 	}
 	
-	private String registerConfig(boolean hasParent, String parentConfigId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
+	private String registerConfig(boolean hasParent, String parentConfigId, Map<String, String> arjunaOptions, Map<String, Value> userOptions) throws Exception {
 		SetuResponse response = this.sendRequest(
 				SetuActionType.TESTSESSION_REGISTER_CONFIG, 
 				SetuArg.arg("hasParent", hasParent),
 				SetuArg.arg("parentConfigId", parentConfigId),
-				SetuArg.arg("setuOptions", setuOptions),
+				SetuArg.arg("arjunaOptions", arjunaOptions),
 				SetuArg.arg("userOptions", userOptions)
 		);
 		return response.getValueForConfigSetuId();
 	}
 	
 	@Override
-	public String registerConfig(Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
-		return registerConfig(false, null, setuOptions, userOptions);
+	public String registerConfig(Map<String, String> arjunaOptions, Map<String, Value> userOptions) throws Exception {
+		return registerConfig(false, null, arjunaOptions, userOptions);
 	}
 	
 	@Override
-	public String registerChildConfig(String parentConfigId, Map<String, String> setuOptions, Map<String, Value> userOptions) throws Exception {
-		return registerConfig(true, parentConfigId, setuOptions, userOptions);
+	public String registerChildConfig(String parentConfigId, Map<String, String> arjunaOptions, Map<String, Value> userOptions) throws Exception {
+		return registerConfig(true, parentConfigId, arjunaOptions, userOptions);
 	}
 	
 	@Override

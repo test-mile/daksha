@@ -35,9 +35,9 @@ public class SetuActorServer{
 	
 	public SetuActorServer(int port) throws Exception{
 		this.setServer(new Server(port));
-		this.rootContextPath = "/setu/connect";
+		this.rootContextPath = "/arjuna/setu/connect";
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/static/root");
+		context.setContextPath("/arjuna/static/root");
 		//context.setResourceBase(AbstractJettyServer.class.getClassLoader().getResource("com/arjunapro/pvt/resources").toExternalForm());
 		context.addServlet(DefaultServlet.class, "/");
 	}

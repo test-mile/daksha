@@ -40,7 +40,7 @@ public class DefaultTestConfig extends BaseSetuObject implements TestConfig {
 	public Value getArjunaOptionValue(String option) throws Exception{
 		return this.fetchConfOptionValue(
 				SetuActionType.CONFIGURATOR_GET_ARJUNA_OPTION_VALUE,
-				ArjunaSingleton.INSTANCE.normalizeSetuOption(option).toString()
+				ArjunaSingleton.INSTANCE.normalizeArjunaOption(option).toString()
 		);
 	}	
 	

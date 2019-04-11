@@ -28,6 +28,7 @@ import arjuna.tpi.test.TestContext;
 
 public enum ArjunaSingleton {
 	INSTANCE;
+	private final String DEFAULT_CONTEXT_NAME = "default_context";
 	private String rootDir = null;
 	
 	private TestSession session;
@@ -37,9 +38,9 @@ public enum ArjunaSingleton {
 	private Logger logger = null;
 
 	
-	private Map<String, TestConfig> testContextConfigMap = new HashMap<String, TestConfig>();
+	private Map<String, TestContext> testContextMap = new HashMap<String, TestContext>();
 
-	public TestConfig init(String rootDir) throws Exception {
+	public TestContext init(String rootDir) throws Exception {
 		this.rootDir = rootDir;
 		session = new DefaultTestSession();
 		centralConfig = session.init(rootDir);
@@ -47,47 +48,48 @@ public enum ArjunaSingleton {
 		
 		// Finalize logger
 		createLogger("arjuna", this.getCentralConfig().getLogDir() + File.separator + "arjuna-java.log");
-		logger = Logger.getLogger("daksha");
+		logger = Logger.getLogger("arjuna");
 		Console.init();
 		
-		return this.centralConfig;
+		TestContext context = this.createTestContext(DEFAULT_CONTEXT_NAME);
+		this.testContextMap.put(DEFAULT_CONTEXT_NAME, context);
+		return context;
 	}
 	
 	public TestConfig getCentralConfig() throws Exception {
 		return centralConfig;
 	}
 	
-	public void registerTestContextConfig(TestConfig config) throws Exception {
-		this.testContextConfigMap.put(config.getName().toLowerCase(), config);
+	public void registerTestContext(TestContext context) throws Exception {
+		this.testContextMap.put(context.getName().toLowerCase(), context);
 	}
 	
-	public TestConfig getTestContextConfig(String name) throws Exception {
+	public TestContext getTestContext(String name) throws Exception {
 		if (name == null) {
-			throw new Exception("Config name was passed as null.");
+			throw new Exception("Context name was passed as null.");
 		} else {
 			try {
-				return this.testContextConfigMap.get(name.toLowerCase());
+				return this.testContextMap.get(name.toLowerCase());
 			} catch (Exception e) {
-				throw new Exception("No context config found with name: " + name);
+				throw new Exception("No context found with name: " + name);
 			}
 		}
-		
 	}
 	
 	public TestContext createTestContext(String name) throws Exception {
 		return new DefaultTestContext(session, name);
 	}
 	
-	public TestContext createTestNGSuiteContext(ITestContext testngContext) throws Exception {
-		return new TestNGSuiteContext(session, testngContext);
+	public TestContext createTestNGSuiteContext(TestContext parentContext, ITestContext testngContext) throws Exception {
+		TestContext context = new TestNGSuiteContext(session, parentContext, testngContext);
+		registerTestContext(context);
+		return context;
 	}
 	
-	public TestContext createTestNGTestContext(TestConfig parentConfig, ITestContext testngContext) throws Exception {
-		return new TestNGTestContext(session, parentConfig, testngContext);
-	}
-	
-	public TestConfig getTestConfig(ITestContext context) throws Exception {
-		return getTestContextConfig(context.getName());
+	public TestContext createTestNGTestContext(TestContext parentContext, ITestContext testngContext) throws Exception {
+		TestContext context =  new TestNGTestContext(session, parentContext, testngContext);
+		registerTestContext(context);
+		return context;
 	}
 	
 	public String getRootDir() {
@@ -102,7 +104,7 @@ public enum ArjunaSingleton {
 		return option.trim().toUpperCase().replace(".", "_");
 	}
 	
-	public ArjunaOption normalizeSetuOption(String option) {
+	public ArjunaOption normalizeArjunaOption(String option) {
 		return ArjunaOption.valueOf(normalizeUserOption(option));
 	}
 	
@@ -151,4 +153,5 @@ public enum ArjunaSingleton {
 		}
 		return logger;
 	}
+
 }

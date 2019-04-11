@@ -13,11 +13,11 @@ import arjuna.tpi.test.TestContext;
 public class Arjuna {
 	private static ArjunaSingleton internal = ArjunaSingleton.INSTANCE;
 	
-	public static TestConfig init(String rootDir) throws Exception{
+	public static TestContext init(String rootDir) throws Exception{
 		return internal.init(rootDir);
 	}
 	
-	public static TestConfig init() throws Exception {
+	public static TestContext init() throws Exception {
 		return init(System.getProperty("user.dir"));
 	}
 	
@@ -25,28 +25,24 @@ public class Arjuna {
 		return internal.getCentralConfig();
 	}
 	
-	public static void registerTestContextConfig(TestConfig config) throws Exception {
-		internal.registerTestContextConfig(config);
+	public static TestContext getTestContext(String name) throws Exception{
+		return internal.getTestContext(name);
 	}
 	
-	public static TestConfig getTestContextConfig(String name) throws Exception {
-		return internal.getTestContextConfig(name);		
+	public static void registerTestContext(TestContext context) throws Exception {
+		internal.registerTestContext(context);
 	}
 	
 	public static TestContext createTestContext(String name) throws Exception {
 		return internal.createTestContext(name);
 	}
 	
-	public static TestContext createTestNGSuiteContext(ITestContext testngContext) throws Exception {
-		return internal.createTestNGSuiteContext(testngContext);
+	public static TestContext createTestNGSuiteContext(TestContext parentContext, ITestContext testngContext) throws Exception {
+		return internal.createTestNGSuiteContext(parentContext, testngContext);
 	}
 	
-	public static TestContext createTestNGTestContext(TestConfig parentConfig, ITestContext testngContext) throws Exception {
-		return internal.createTestNGTestContext(parentConfig, testngContext);
-	}
-	
-	public static TestConfig getTestConfig(ITestContext context) throws Exception {
-		return internal.getTestConfig(context);
+	public static TestContext createTestNGTestContext(TestContext parentContext, ITestContext testngContext) throws Exception {
+		return internal.createTestNGTestContext(parentContext, testngContext);
 	}
 	
 	public String getRootDir() {

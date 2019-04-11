@@ -1,7 +1,7 @@
 package arjuna.tpi.enums;
 
 public enum ArjunaOption {
-	// Daksha Directories
+	// Arjuna Directories
 	ROOT_DIR,
 	LOG_DIR,
 	TOOLS_DIR,

@@ -12,7 +12,7 @@ public class Console {
 	public synchronized static void init() {
 		if (done)
 			return;
-		//logger = Daksha.getLogger();
+		//logger = Arjuna.getLogger();
 		separator = System.getProperty("line.separator");
 		done = true;
 	}
