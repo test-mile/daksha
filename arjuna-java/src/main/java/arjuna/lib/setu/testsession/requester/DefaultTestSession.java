@@ -10,6 +10,7 @@ import arjuna.lib.setu.core.requester.connector.BaseSetuObject;
 import arjuna.lib.setu.core.requester.connector.SetuArg;
 import arjuna.lib.setu.core.requester.connector.SetuResponse;
 import arjuna.lib.setu.databroker.requester.DataRecordType;
+import arjuna.lib.state.ArjunaSingleton;
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.test.TestConfig;
@@ -20,7 +21,11 @@ public class DefaultTestSession extends BaseSetuObject implements TestSession {
 
 	@Override
 	public TestConfig init(String rootDir) throws Exception {
-		SetuResponse response = this.sendRequest(SetuActionType.TESTSESSION_INIT, SetuArg.arg("projectRootDir", rootDir));
+		SetuResponse response = this.sendRequest(
+				SetuActionType.TESTSESSION_INIT, 
+				SetuArg.arg("projectRootDir", rootDir),
+				SetuArg.arg("cliConfig", ArjunaSingleton.INSTANCE.getCliArgsConfig().asMap())
+				);
 		this.setSetuId(response.getValueForTestSessionSetuId());
 		this.setSelfSetuIdArg("testSessionSetuId");
 		TestConfig config = new DefaultTestConfig(this, DEF_CONF_NAME, response.getValueForConfigSetuId());

@@ -13,15 +13,15 @@ import arjuna.tpi.enums.ArjunaOption;
 public class CliArgsConfig {
 	Pattern dPattern = Pattern.compile("(?i)(aco|ato)\\s*:\\s*(\\S+)\\s*");
 	Pattern uPattern = Pattern.compile("(?i)(uco|uto)\\s*:\\s*(\\S+)\\s*");
-	Map<ConfigPropertyType, Map<ArjunaOption,String>> cliArjunaOptionMap = new HashMap<>();
+	Map<ConfigPropertyType, Map<String,String>> cliArjunaOptionMap = new HashMap<>();
 	Map<ConfigPropertyType, Map<String,String>> cliUserOptionMap = new HashMap<>();
 	
 	public CliArgsConfig() throws Exception {
 		Properties props = System.getProperties();
 		Enumeration keys = props.keys();
 		
-		cliArjunaOptionMap.put(ConfigPropertyType.ACO, new HashMap<ArjunaOption,String>());
-		cliArjunaOptionMap.put(ConfigPropertyType.ATO, new HashMap<ArjunaOption,String>());
+		cliArjunaOptionMap.put(ConfigPropertyType.ACO, new HashMap<String,String>());
+		cliArjunaOptionMap.put(ConfigPropertyType.ATO, new HashMap<String,String>());
 		cliUserOptionMap.put(ConfigPropertyType.UCO, new HashMap<String,String>());
 		cliUserOptionMap.put(ConfigPropertyType.UTO, new HashMap<String,String>());
 		
@@ -48,7 +48,7 @@ public class CliArgsConfig {
 		    		throw new Exception(String.format("You have provided an invalid Arjuna Option in CLI: %s", key));
 		    	}
 		    	
-		    	cliArjunaOptionMap.get(cType).put(dOption, (String) props.getProperty(key));
+		    	cliArjunaOptionMap.get(cType).put(dOption.toString(), (String) props.getProperty(key));
 		    	continue;
 		    }
 		    
@@ -69,19 +69,28 @@ public class CliArgsConfig {
 		}
 	}
 	
-	public Map<ArjunaOption,String> getArjunaCentralOptions(){
+	public Map<String,Map<String,String>> asMap(){
+		Map<String,Map<String,String>> outMap = new HashMap<String,Map<String,String>>();
+		outMap.put("arjunaCentralOptions", getArjunaCentralOptions());
+		outMap.put("arjunaTestOptions", getArjunaTestOptions());
+		outMap.put("userCentralOptions", getUserCentralOptions());
+		outMap.put("userTestOptions", getUserTestOptions());
+		return outMap;
+	}
+	
+	private Map<String,String> getArjunaCentralOptions(){
 		return this.cliArjunaOptionMap.get(ConfigPropertyType.ACO);
 	}
 	
-	public Map<ArjunaOption,String> getArjunaTestOptions(){
+	private Map<String,String> getArjunaTestOptions(){
 		return this.cliArjunaOptionMap.get(ConfigPropertyType.ATO);
 	}
 	
-	public Map<String,String> getUserCentralOptions(){
+	private Map<String,String> getUserCentralOptions(){
 		return this.cliUserOptionMap.get(ConfigPropertyType.UCO);
 	}
 	
-	public Map<String,String> getUserTestOptions(){
+	private Map<String,String> getUserTestOptions(){
 		return this.cliUserOptionMap.get(ConfigPropertyType.UTO);
 	}
 

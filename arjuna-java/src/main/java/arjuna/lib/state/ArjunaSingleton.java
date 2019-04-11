@@ -42,9 +42,9 @@ public enum ArjunaSingleton {
 
 	public TestContext init(String rootDir) throws Exception {
 		this.rootDir = rootDir;
+		cliConfig = new CliArgsConfig();
 		session = new DefaultTestSession();
 		centralConfig = session.init(rootDir);
-		cliConfig = new CliArgsConfig();
 		
 		// Finalize logger
 		createLogger("arjuna", this.getCentralConfig().getLogDir() + File.separator + "arjuna-java.log");
@@ -54,6 +54,10 @@ public enum ArjunaSingleton {
 		TestContext context = this.createTestContext(DEFAULT_CONTEXT_NAME);
 		this.testContextMap.put(DEFAULT_CONTEXT_NAME, context);
 		return context;
+	}
+	
+	public CliArgsConfig getCliArgsConfig() {
+		return this.cliConfig;
 	}
 	
 	public TestConfig getCentralConfig() throws Exception {
