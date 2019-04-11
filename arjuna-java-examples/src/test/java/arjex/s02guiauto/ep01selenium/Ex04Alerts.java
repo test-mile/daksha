@@ -24,7 +24,6 @@ import org.testng.annotations.Test;
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.component.Alert;
-import arjuna.tpi.test.TestConfig;
 
 public class Ex04Alerts {
 	

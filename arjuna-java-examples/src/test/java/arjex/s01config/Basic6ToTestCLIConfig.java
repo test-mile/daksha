@@ -21,8 +21,6 @@ package arjex.s01config;
 
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.enums.ArjunaOption;
-import arjuna.tpi.guiauto.GuiAutomator;
-import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 
 public class Basic6ToTestCLIConfig{

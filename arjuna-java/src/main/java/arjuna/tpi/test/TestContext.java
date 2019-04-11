@@ -2,7 +2,6 @@ package arjuna.tpi.test;
 
 import java.util.Map;
 
-import arjuna.tpi.enums.ArjunaOption;
 import arjuna.lib.core.config.ConfigBuilder;
 
 public interface TestContext {

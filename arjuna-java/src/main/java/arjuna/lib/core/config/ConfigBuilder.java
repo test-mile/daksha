@@ -3,7 +3,6 @@ package arjuna.lib.core.config;
 import java.util.Map;
 
 import arjuna.lib.core.value.AbstractValueMap;
-import arjuna.lib.core.value.StringKeyValueMap;
 import arjuna.lib.enums.BrowserName;
 import arjuna.lib.enums.GuiAutomationContext;
 import arjuna.lib.setu.core.requester.config.DefaultTestConfig;

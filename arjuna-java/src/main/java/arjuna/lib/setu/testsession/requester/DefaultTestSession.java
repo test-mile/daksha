@@ -11,7 +11,6 @@ import arjuna.lib.setu.core.requester.connector.SetuArg;
 import arjuna.lib.setu.core.requester.connector.SetuResponse;
 import arjuna.lib.setu.databroker.requester.DataRecordType;
 import arjuna.lib.state.ArjunaSingleton;
-import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.value.Value;

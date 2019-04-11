@@ -3,18 +3,8 @@ package arjuna.lib.core.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.tools.ant.util.SymbolicLinkUtils;
-
-import arjuna.lib.core.value.AbstractValueMap;
-import arjuna.lib.core.value.StringKeyValueMap;
-import arjuna.lib.enums.BrowserName;
-import arjuna.lib.enums.GuiAutomationContext;
-import arjuna.lib.setu.core.requester.config.DefaultTestConfig;
-import arjuna.lib.setu.guiauto.requester.automator.GuiAutomatorName;
 import arjuna.lib.setu.testsession.requester.TestSession;
-import arjuna.lib.state.ArjunaSingleton;
 import arjuna.tpi.Arjuna;
-import arjuna.tpi.enums.ArjunaOption;
 import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 

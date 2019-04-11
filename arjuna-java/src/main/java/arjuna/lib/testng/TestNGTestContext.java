@@ -23,7 +23,6 @@ import org.testng.ITestContext;
 
 import arjuna.lib.core.config.DefaultTestContext;
 import arjuna.lib.setu.testsession.requester.TestSession;
-import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 
 public class TestNGTestContext extends DefaultTestContext{

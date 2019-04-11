@@ -21,7 +21,6 @@ package arjex.s02guiauto.ep01selenium;
 
 import org.testng.annotations.Test;
 
-import arjex.s02guiauto.ep01selenium.WPLoginLogout;
 import arjuna.tpi.Arjuna;
 import arjuna.tpi.guiauto.GuiAutomator;
 import arjuna.tpi.guiauto.With;

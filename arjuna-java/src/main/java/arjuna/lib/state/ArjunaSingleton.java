@@ -37,19 +37,19 @@ public enum ArjunaSingleton {
 	
 	private Logger logger = null;
 
-	
 	private Map<String, TestContext> testContextMap = new HashMap<String, TestContext>();
 
 	public TestContext init(String rootDir) throws Exception {
 		this.rootDir = rootDir;
 		cliConfig = new CliArgsConfig();
-		session = new DefaultTestSession();
-		centralConfig = session.init(rootDir);
 		
 		// Finalize logger
-		createLogger("arjuna", this.getCentralConfig().getLogDir() + File.separator + "arjuna-java.log");
+		createLogger("arjuna", rootDir + File.separator + "log" + File.separator + "arjuna-java.log");
 		logger = Logger.getLogger("arjuna");
 		Console.init();
+		
+		session = new DefaultTestSession();
+		centralConfig = session.init(rootDir);
 		
 		TestContext context = this.createTestContext(DEFAULT_CONTEXT_NAME);
 		this.testContextMap.put(DEFAULT_CONTEXT_NAME, context);
@@ -151,10 +151,10 @@ public enum ArjunaSingleton {
 	}
 
 	public Logger getLogger() {
-		if (logger == null) {
-			createLogger("trishanku", "trishanku.log");
-			logger = Logger.getLogger("trishanku");
-		}
+//		if (logger == null) {
+//			createLogger("trishanku", "trishanku.log");
+//			logger = Logger.getLogger("trishanku");
+//		}
 		return logger;
 	}
 

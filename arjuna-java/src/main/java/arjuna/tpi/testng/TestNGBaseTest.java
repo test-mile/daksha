@@ -30,7 +30,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import arjuna.tpi.Arjuna;
-import arjuna.tpi.test.TestConfig;
 import arjuna.tpi.test.TestContext;
 
 public class TestNGBaseTest {
