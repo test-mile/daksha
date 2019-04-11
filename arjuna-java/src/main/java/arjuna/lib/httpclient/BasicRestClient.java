@@ -13,6 +13,8 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import arjuna.tpi.Arjuna;
+
 public class BasicRestClient {
 	private String baseUrl = null;
 	private HttpHost proxy = null;
@@ -40,9 +42,9 @@ public class BasicRestClient {
 	
 	public String get(String uri) throws Exception {
         HttpGet httpget = new HttpGet(this.baseUrl +  uri);
-        System.out.println("Executing request " + httpget.getRequestLine());
+        Arjuna.getLogger().debug("Executing GET request " + httpget.getRequestLine());
         String responseBody = handleResponse(httpclient.execute(httpget));
-        System.out.println("----------------------------------------");
+        Arjuna.getLogger().debug("----------------------------------------");
         return responseBody;
 	}
 	
@@ -53,10 +55,12 @@ public class BasicRestClient {
 		se.setContentType("application/json");
 		se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "UTF-8"));
 		httppost.setEntity(se);
-        System.out.println("Executing request " + httppost.getRequestLine());
+		Arjuna.getLogger().debug("Executing POST request " + httppost.getRequestLine());
+		Arjuna.getLogger().debug(content);
 		String response = handleResponse(httpclient.execute(httppost));
-		System.out.println(response);
-        System.out.println("----------------------------------------");
+		Arjuna.getLogger().debug("----------Setu Response ----------------");
+		Arjuna.getLogger().debug(response);
+		Arjuna.getLogger().debug("----------------------------------------");
         return response;
 	}
 }

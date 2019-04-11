@@ -93,7 +93,6 @@ public class ConfigBuilder {
 
 	public void build(String configName) throws Exception {
 		String configSetuId;
-		System.out.println(sourceConfigSetuId);
 		if (this.sourceConfigSetuId == null) {
 			configSetuId = this.testSession.registerConfig(
 					this.configContainer.getArjunaOptions().strItems(), 

@@ -23,11 +23,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import arjuna.lib.core.value.AnyRefValue;
 import arjuna.lib.httpclient.BasicRestClient;
 import arjuna.lib.httpclient.SetuHttpException;
 import arjuna.lib.setu.core.requester.config.SetuActionType;
+import arjuna.tpi.Arjuna;
 import arjuna.tpi.value.Value;
 
 public class BaseSetuObject implements SetuManagedObject {
@@ -119,23 +121,22 @@ class DefaultSetuRequester implements SetuRequester {
 
 	@Override
 	public SetuResponse post(SetuRequest action) throws Exception {
-		System.out.println(this.setuUrl);
-		System.out.println(action.asJsonString());
 		SetuResponse setuResponse = null;
 		String response = null;
 		try {
 			response = this.restClient.post(baseUri, action.asJsonString());
-			return setuResponse = DefaultSetuResponse.fromJsonStr(response);
+			setuResponse = DefaultSetuResponse.fromJsonStr(response);
 		} catch (SetuHttpException e) {
-			System.err.println("---------- Setu Error Response ----------------------");
-			System.err.println("Got Http Error: " + e.getStatusCode());
+			Arjuna.getLogger().error("---------- Setu Error Response ----------------------");
+			Arjuna.getLogger().error("Got Http Error: " + e.getStatusCode());
 			setuResponse = DefaultSetuResponse.fromJsonStr(e.getResponse());
-			System.err.println("Error: " +  setuResponse.getMessage());
-			System.err.println("---------- Setu Error Trace -------------------------");
-			System.err.println(setuResponse.getTrace());
-			System.err.println("-----------------------------------------------------");
+			Arjuna.getLogger().error("Error: " +  setuResponse.getMessage());
+			Arjuna.getLogger().error("---------- Setu Error Trace -------------------------");
+			Arjuna.getLogger().error(setuResponse.getTrace());
+			Arjuna.getLogger().error("-----------------------------------------------------");
 			throw e;
 		}
+		return setuResponse;
 	}
 }
 
@@ -146,7 +147,7 @@ interface SetuRequest {
 
 class DefaultSetuRequest implements SetuRequest {
 	
-	private static Gson gson = new Gson();
+	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private RequestBody actionRequest;
 	
 	public DefaultSetuRequest(SetuActionType actionType) {

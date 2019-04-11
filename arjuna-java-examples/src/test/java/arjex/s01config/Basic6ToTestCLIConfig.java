@@ -32,8 +32,8 @@ public class Basic6ToTestCLIConfig{
 
 		String contextName = "custom";
 		TestContext context = Arjuna.createTestContext(contextName);
-		System.out.println("central" + context.getConfig().getArjunaOptionValue(ArjunaOption.GUIAUTO_MAX_WAIT));
-		System.out.println("central" + context.getConfig().getUserOptionValue("a.b.c"));
+		System.out.println("central: max wait = " + context.getConfig().getArjunaOptionValue(ArjunaOption.GUIAUTO_MAX_WAIT));
+		System.out.println("central: a.b.c = " + context.getConfig().getUserOptionValue("a.b.c"));
 
 		context
 		.ConfigBuilder()
@@ -41,8 +41,9 @@ public class Basic6ToTestCLIConfig{
 		.guiAutoMaxWaitTime(30)
 		.build("ff");
 		
-		System.out.println("ff" + context.getConfig("ff").getArjunaOptionValue(ArjunaOption.GUIAUTO_MAX_WAIT));
-		System.out.println("ff" + context.getConfig("ff").getUserOptionValue("a.b.c"));
+		System.out.println("ff: max wait = " + context.getConfig("ff").getArjunaOptionValue(ArjunaOption.GUIAUTO_MAX_WAIT));
+		System.out.println("ff: a.b.c = " + context.getConfig("ff").getUserOptionValue("a.b.c"));
+		Arjuna.getLogger().debug("hello");
 	}
 
 }

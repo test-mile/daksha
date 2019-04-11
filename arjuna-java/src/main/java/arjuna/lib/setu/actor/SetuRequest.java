@@ -30,7 +30,6 @@ public class SetuRequest{
 	
 	public SetuRequest(HttpServletRequest request) throws IOException {
 		jsonStr = JsonUtils.asJsonString(request.getInputStream());
-		System.out.println("JsonInput:" + jsonStr);	
 		path = request.getPathInfo();
 		action = ActorAction.fromJsonStr(jsonStr);	
 	}

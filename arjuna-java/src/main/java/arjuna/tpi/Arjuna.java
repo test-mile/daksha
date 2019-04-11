@@ -49,7 +49,7 @@ public class Arjuna {
 		return internal.getRootDir();
 	}
 	
-	public Logger getLogger() { 
+	public static Logger getLogger() { 
 		return internal.getLogger();
 	}
 	

@@ -79,7 +79,6 @@ public class ServerResponse {
 		ServerResponse res = new ServerResponse();
 		res.setResult(ResponseCode.SUCCESS);
 		res.addDataItem(name, value);
-		System.out.println(res.getData());
 		return gson.toJson(res, ServerResponse.class);
 	}
 

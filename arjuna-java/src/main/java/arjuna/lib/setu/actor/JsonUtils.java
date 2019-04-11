@@ -53,7 +53,6 @@ public class JsonUtils {
     	StringWriter writer = new StringWriter();
     	IOUtils.copy(stream, writer, "UTF-8");
     	String theString = writer.toString();
-    	System.out.println(theString);
     	return parser.parse(theString).getAsJsonObject();
     }
     

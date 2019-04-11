@@ -28,7 +28,6 @@ public class ConfigContainer {
 	
 	public void setOption(String option, Object obj) throws Exception {
 		String normalizedOption = ArjunaSingleton.INSTANCE.normalizeUserOption(option);
-		System.out.println(normalizedOption);
 		try {
 			ArjunaOption sOption = ArjunaOption.valueOf(normalizedOption);
 			this.arjunaOptions.addObject(sOption, obj);
