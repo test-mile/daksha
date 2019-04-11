@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.testmile</groupId>
-  <artifactId>daksha-examples</artifactId>
+  <artifactId>arjex</artifactId>
   <version>1.0.0-alpha</version>
   <packaging>jar</packaging>
 
-  <name>daksha-examples</name>
+  <name>arjuna-java-examples</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -29,6 +29,12 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.testmile</groupId>
+			<artifactId>arjuna</artifactId>
+			<version>0.7.0-alpha-SNAPSHOT</version>
 		</dependency>
   </dependencies>
 </project>
