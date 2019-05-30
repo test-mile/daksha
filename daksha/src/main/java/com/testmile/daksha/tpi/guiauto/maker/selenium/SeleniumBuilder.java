@@ -90,7 +90,7 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private void setChromeCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.CHROME_WINDOWNAME).asString();
 		browserCaps = getChromeCapabilitiesSkeleton();
-		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
+//		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
 	}
 
 	private void setSafariCaps() throws Exception {

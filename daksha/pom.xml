@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>3.14.0</version>
+			<version>3.141.59</version>
 			<scope>compile</scope>
 		</dependency>
 

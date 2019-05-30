@@ -38,7 +38,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.safari.SafariDriver;
@@ -120,9 +119,6 @@ public abstract class BaseSeleniumWebGuiDriver<D,E> extends AbstractGuiAutomator
 			sOptions.merge(capabilities);
 			driver = new EventFiringWebDriver(new SafariDriver(sOptions));
 			break;
-		case HTML_UNIT:
-			driver = new EventFiringWebDriver(new HtmlUnitDriver(capabilities));
-			break; 
 		}
 		driver.register(new SeleniumListener());
 		
