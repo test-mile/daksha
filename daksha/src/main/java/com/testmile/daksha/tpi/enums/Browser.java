@@ -19,5 +19,5 @@
 package com.testmile.daksha.tpi.enums;
 
 public enum Browser {
-	CHROME, FIREFOX, SAFARI, HTML_UNIT;
+	CHROME, FIREFOX, SAFARI;
 }
