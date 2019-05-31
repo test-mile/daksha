@@ -45,9 +45,6 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 			break;
 		case SAFARI:
 			setSafariCaps();
-			break;	
-		case HTML_UNIT:
-			setHtmlUnitCaps();
 			break;
 		}
 
@@ -90,17 +87,12 @@ public class SeleniumBuilder extends GuiAutomatorBuilder{
 	private void setChromeCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.CHROME_WINDOWNAME).asString();
 		browserCaps = getChromeCapabilitiesSkeleton();
-		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
+//		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
 	}
 
 	private void setSafariCaps() throws Exception {
 		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.SAFARI_WINDOWNAME).asString();
 		browserCaps = getSafariCapabilitiesSkeleton();
 		browserCaps.setCapability(CapabilityType.BROWSER_VERSION, this.getTestContext().getBrowerVersion());
-	}
-
-	private void setHtmlUnitCaps() throws Exception {
-		this.appTitle = this.getTestContext().getConfig().value(DakshaOption.SAFARI_WINDOWNAME).asString();
-		browserCaps = DesiredCapabilities.htmlUnit();
 	}
 }
